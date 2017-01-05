@@ -1,0 +1,8 @@
+pairs:
+  # <initials>: <Firstname> <Lastname>[; <email-id>]
+  ej: Eddie Jeon; hyoungbae.jeon
+email:
+  prefix: pair
+  domain: gmail.com
+  no_solo_prefix: true
+global: true  # Set to true for git-pair to change git configuration for all your projects
