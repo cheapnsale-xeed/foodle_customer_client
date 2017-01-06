@@ -1,0 +1,11 @@
+general:
+  artifacts:
+    - "app/build/outputs/apk"
+test:
+  override:
+    - ./gradlew assembleDebug
+deployment:
+  prod:
+    branch: master
+    commands:
+      - aws s3 sync app/build/outputs/apk s3://cheapnsale-apk-download/apk --delete --region ap-northeast-2
