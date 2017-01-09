@@ -3,4 +3,6 @@
     <string name="search_contentDescription">Search</string>
     <string name="map_contentDescription">Map</string>
     <string name="filter_contentDescription">Filter</string>
+    <string name="show_all">전체보기</string>
+    <string name="my_order">내 주문(0)</string>
 </resources>

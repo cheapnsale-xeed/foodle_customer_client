@@ -12,7 +12,10 @@
 
     <style name="AppToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
+    </style>
 
+    <style name="MainTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>
