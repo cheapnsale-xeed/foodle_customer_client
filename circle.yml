@@ -6,6 +6,6 @@ test:
     - ./gradlew assembleDebug
 deployment:
   prod:
-    branch: master
+    branch: development
     commands:
       - aws s3 sync app/build/outputs/apk s3://cheapnsale-apk-download/apk --delete --region ap-northeast-2
