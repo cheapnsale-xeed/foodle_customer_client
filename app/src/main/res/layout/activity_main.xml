@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/mainToolbarFilterButton"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf="@+id/mainToolbarFilterButton"
                 android:background="@android:color/white"
@@ -81,19 +82,19 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/white"
-        app:tabTextColor="@android:color/black"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="#305ae2"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="#111cc4"
         app:tabTextAppearance="@style/MainTabTextAppearance"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        app:tabTextColor="@android:color/black" />
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:background="@android:color/white" />
 
 
 </LinearLayout>
