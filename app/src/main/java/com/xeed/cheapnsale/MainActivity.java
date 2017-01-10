@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         menuTemp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.activity_list_selected_temp);
+                Intent intent = new Intent(MainActivity.this, ListSelectedTempActivity.class);
+                startActivity(intent);
             }
         });
 

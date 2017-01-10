@@ -17,8 +17,4 @@ public class ListSelectedTempActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        finishActivity(0);
-    }
 }
