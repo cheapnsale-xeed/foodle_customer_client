@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
@@ -43,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //todo : 임시 생성. 탭 붙으면 삭제
+        ImageButton menuTemp = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
+        menuTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_list_selected_temp);
+            }
+        });
+
     }
 
 }
