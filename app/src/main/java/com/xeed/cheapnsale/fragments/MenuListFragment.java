@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 
 import java.util.ArrayList;
@@ -29,10 +30,7 @@ public class MenuListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_fragment, container, false);
 
-        list = new ArrayList<>();
-        for (int i = 0; i < 20; i ++) {
-            list.add("Item = " + i);
-        }
+        ((Application)getActivity().getApplication()).getApplicationComponent().inject(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new MenuListAdapter(list));

@@ -31,7 +31,7 @@ public class MenuListFragmentTest {
     public void whenFragmentIsLoaded_thenShowMenuListItems() throws Exception {
 //        assertThat(((ImageView)menuListFragment.getView().findViewById(R.id.menu_item_image)).getimage )
 
-        assertThat(menuListFragment.recyclerView.getAdapter().getItemCount()).isEqualTo(20);
+        assertThat(menuListFragment.recyclerView.getAdapter().getItemCount()).isEqualTo(3);
 
         assertThat(((TextView)menuListFragment.getView().findViewById(R.id.menu_item_name)).getText()).isEqualTo("Item = 0");
         assertThat(((TextView)menuListFragment.getView().findViewById(R.id.menu_item_price)).getText()).isEqualTo("22,000원");
