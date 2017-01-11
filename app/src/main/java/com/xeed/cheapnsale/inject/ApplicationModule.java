@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.inject;
 
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.vo.MenuItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,12 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    List<String> providesList() {
-        List<String> list = new ArrayList<>();
+    List<MenuItems> providesList() {
+        List<MenuItems> list = new ArrayList<>();
+        MenuItems item;
         for (int i = 0; i < 10; i ++) {
-            list.add("Item = " + i);
+            item = new MenuItems(0, "Item = " + i, "22,000원", "");
+            list.add(item);
         }
 
         return list;
