@@ -1,6 +1,11 @@
 package com.xeed.cheapnsale.inject;
 
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.service.CheapnsaleApi;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+
+import javax.inject.Singleton;
 import com.xeed.cheapnsale.vo.MenuItems;
 
 import java.util.ArrayList;
@@ -14,10 +19,10 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
-    private Application mApplication;
+    private Application application;
 
     public ApplicationModule(Application application) {
-        mApplication = application;
+        this.application = application;
     }
 
     @Provides
@@ -32,4 +37,16 @@ public class ApplicationModule {
 
         return list;
     }
+    @Provides
+    @Singleton
+    CheapnsaleService providesCheapnsaleService() {
+        return new CheapnsaleService(application);
+    }
+
+    @Provides
+    @Singleton
+    CheapnsaleApi providesCheapnsaleApi() {
+        return new ApiClientFactory().build(CheapnsaleApi.class);
+    }
+
 }

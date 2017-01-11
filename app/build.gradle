@@ -30,6 +30,13 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 
+    //AWS
+    compile 'com.amazonaws:aws-android-sdk-core:2.3.8'
+    compile('com.amazonaws:aws-android-sdk-cognito:2.3.8')
+    compile('com.amazonaws:aws-android-sdk-s3:2.3.8')
+    compile('com.amazonaws:aws-android-sdk-apigateway-core:2.3.8')
+    compile 'com.google.code.gson:gson:2.7'
+
     //for dependency injection
     // apt command comes from the android-apt plugin
     apt 'com.google.dagger:dagger-compiler:2.8'
