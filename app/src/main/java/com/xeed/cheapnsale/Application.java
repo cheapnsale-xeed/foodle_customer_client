@@ -1,5 +1,7 @@
 package com.xeed.cheapnsale;
 
+import android.support.annotation.VisibleForTesting;
+
 import com.xeed.cheapnsale.inject.ApplicationComponent;
 import com.xeed.cheapnsale.inject.ApplicationModule;
 import com.xeed.cheapnsale.inject.DaggerApplicationComponent;
@@ -15,15 +17,18 @@ public class Application extends android.app.Application {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
 
-//        initializeApplication();
+
     }
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-//    private void initializeApplication() {
-//        AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
-//    }
+    @VisibleForTesting
+    public void setApplicationComponent(ApplicationComponent applicationComponent) {
+        this.applicationComponent = applicationComponent;
+    }
+
+
 
 }

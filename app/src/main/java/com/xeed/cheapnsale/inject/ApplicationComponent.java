@@ -1,5 +1,7 @@
 package com.xeed.cheapnsale.inject;
 
+import com.xeed.cheapnsale.fragments.MenuListFragment;
+
 import com.xeed.cheapnsale.fragments.StoreListFragment;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 
@@ -10,6 +12,7 @@ import dagger.Component;
 @Singleton
 @Component(modules={ApplicationModule.class})
 public interface ApplicationComponent {
+    void inject(MenuListFragment menuListFragment);
     void inject(CheapnsaleService cheapnsaleService);
     void inject(StoreListFragment storeListFragment);
 }

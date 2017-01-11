@@ -7,6 +7,11 @@ import com.xeed.cheapnsale.service.CheapnsaleService;
 
 import javax.inject.Singleton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,6 +24,16 @@ public class ApplicationModule {
         this.application = application;
     }
 
+    @Provides
+    @Singleton
+    List<String> providesList() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i ++) {
+            list.add("Item = " + i);
+        }
+
+        return list;
+    }
     @Provides
     @Singleton
     CheapnsaleService providesCheapnsaleService() {
