@@ -1,6 +1,8 @@
 package com.xeed.cheapnsale;
 
 import com.xeed.cheapnsale.inject.ApplicationComponent;
+import com.xeed.cheapnsale.inject.ApplicationModule;
+import com.xeed.cheapnsale.inject.DaggerApplicationComponent;
 
 public class Application extends android.app.Application {
 
@@ -10,13 +12,18 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        // setApplicationComponent’
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this)).build();
+
+//        initializeApplication();
     }
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-
+//    private void initializeApplication() {
+//        AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
+//    }
 
 }

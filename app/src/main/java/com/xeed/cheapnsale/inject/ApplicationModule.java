@@ -1,20 +1,34 @@
 package com.xeed.cheapnsale.inject;
 
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.service.CheapnsaleApi;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
+import dagger.Provides;
 
 @Module
 public class ApplicationModule {
 
-    private Application mApplication;
+    private Application application;
 
     public ApplicationModule(Application application) {
-        mApplication = application;
+        this.application = application;
     }
 
-//    @Provides
-//    @Singleton
-//    RecyclerView providesMenuListAdapter() {
-//    }
+    @Provides
+    @Singleton
+    CheapnsaleService providesCheapnsaleService() {
+        return new CheapnsaleService(application);
+    }
+
+    @Provides
+    @Singleton
+    CheapnsaleApi providesCheapnsaleApi() {
+        return new ApiClientFactory().build(CheapnsaleApi.class);
+    }
+
 }
