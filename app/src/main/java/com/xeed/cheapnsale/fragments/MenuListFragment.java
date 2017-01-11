@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
