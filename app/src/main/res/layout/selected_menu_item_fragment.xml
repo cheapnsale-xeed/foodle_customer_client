@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selected_menu_item"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:background="#f8f8f8">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c8c8c8" />
+
+    <RelativeLayout
+        android:layout_width="138.8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32.8dp"
+        android:layout_marginTop="21dp">
+
+        <TextView
+            android:id="@+id/item_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="1"
+            android:textSize="15dp"
+            android:textColor="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/item_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ico_plus"
+            android:background="#f8f8f8"
+            android:padding="0dp"
+            />
+
+        <ImageButton
+            android:id="@+id/item_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ico_minus"
+            android:background="#f8f8f8"
+            android:padding="0dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="36.5dp"
+        android:layout_marginTop="18.5dp"
+        android:text="22,000원"
+        android:textColor="#bb0551"
+        android:textSize="15dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/wish_list_button_shape"
+        android:text="담기"
+        android:textColor="#151515"
+        android:textSize="15dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/direct_order_button_shape"
+        android:text="바로주문"
+        android:textColor="#111cc4"
+        android:textSize="15dp" />
+
+</RelativeLayout>

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/menu_list_fragment"
-        android:name="com.xeed.cheapnsale.fragments.MenuListFragment"
+        android:name="com.xeed.cheapnsale.fragments.ExpandableMenuListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

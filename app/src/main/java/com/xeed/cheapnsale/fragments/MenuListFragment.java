@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
@@ -25,7 +29,7 @@ public class MenuListFragment extends Fragment {
     RecyclerView recyclerView;
 
     // todo : 추후 dynamoDB 데이터 가져오는 부분을 inject 하여 테스트시 mock 으로 바꿔줘야 한다
-    @Inject
+//    @Inject
     List<String> list;
 
     @Override
@@ -37,6 +41,51 @@ public class MenuListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new MenuListAdapter(list));
         recyclerView.addItemDecoration(new MenuListDecorator());
+
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                View childView = rv.findChildViewUnder(e.getX(), e.getY());
+
+                if (childView != null && gestureDetector.onTouchEvent(e)) {
+                    System.out.println(rv.getChildViewHolder(childView));
+                    TextView menuName = (TextView) rv.getChildViewHolder(childView).itemView.findViewById(R.id.menu_item_name);
+                    Toast.makeText(getContext(), menuName.getText(), Toast.LENGTH_SHORT).show();
+
+                    RelativeLayout menuItemLayout = (RelativeLayout) rv.findViewById(R.id.menu_item_layout);
+
+                    menuItemLayout.addView(new SelectedMenuItemFragment().getView());
+//                    SelectedMenuItemFragment selectedMenuItemFragment = new SelectedMenuItemFragment();
+//
+//                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//                    fragmentTransaction.add(R.id.menu_list_fragment, selectedMenuItemFragment);
+//                    fragmentTransaction.replace(R.id.menu_list_fragment, selectedMenuItemFragment);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
+
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         return recyclerView;
     }
@@ -77,6 +126,7 @@ public class MenuListFragment extends Fragment {
             super(root);
             ButterKnife.bind(this, root);
         }
+
     }
 
 
