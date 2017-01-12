@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,7 +31,7 @@ public class MenuListFragment extends Fragment {
 
     // todo : 추후 dynamoDB 데이터 가져오는 부분을 inject 하여 테스트시 mock 으로 바꿔줘야 한다
 //    @Inject
-    List<String> list;
+    List<String> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
