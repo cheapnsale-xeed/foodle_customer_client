@@ -6,27 +6,37 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageButton;
 
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
+<<<<<<< HEAD
 public class MainActivity extends AppCompatActivity implements ImageButton.OnClickListener{
+=======
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    public ViewPager viewPager;
-    public MainTabPagerAdapter adapter;
+public class MainActivity extends AppCompatActivity {
+>>>>>>> 5e36c357e215f23b3af8faba3458186c4611b22f
+
+    @BindView(R.id.pager)
+    ViewPager viewPager;
+
+    @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
+
+    private MainTabPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.show_all));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.my_order));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new MainTabPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ImageButton.OnCli
 
             }
         });
+<<<<<<< HEAD
 
         ImageButton searchButton = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
         searchButton.setOnClickListener(this);
@@ -56,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements ImageButton.OnCli
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(MainActivity.this, StoreDetailActivity.class);
+=======
+    }
+
+    //todo : 임시 생성. 탭 붙으면 삭제
+    @OnClick(R.id.mainToolbarSearchButton)
+    public void menuTempClicked() {
+        Intent intent = new Intent(MainActivity.this, ListSelectedTempActivity.class);
+>>>>>>> 5e36c357e215f23b3af8faba3458186c4611b22f
         startActivity(intent);
     }
 }
