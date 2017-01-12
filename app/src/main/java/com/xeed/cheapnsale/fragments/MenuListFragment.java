@@ -17,6 +17,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MenuListFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -65,12 +68,14 @@ public class MenuListFragment extends Fragment {
         }
     }
 
-    private class MenuListHolder extends RecyclerView.ViewHolder {
+    class MenuListHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.menu_item_name)
         public TextView titleView;
+
         public MenuListHolder(View root) {
             super(root);
-            titleView = (TextView) root.findViewById(R.id.menu_item_name);
+            ButterKnife.bind(this, root);
         }
     }
 
