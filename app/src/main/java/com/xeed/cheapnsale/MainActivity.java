@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageButton.OnClickListener{
 
     @BindView(R.id.pager)
     ViewPager viewPager;
@@ -52,12 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        ImageButton searchButton = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
+        searchButton.setOnClickListener(this);
+
     }
 
-    //todo : 임시 생성. 탭 붙으면 삭제
-    @OnClick(R.id.mainToolbarSearchButton)
-    public void menuTempClicked() {
-        Intent intent = new Intent(MainActivity.this, ListSelectedTempActivity.class);
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, StoreDetailActivity.class);
         startActivity(intent);
     }
 }
