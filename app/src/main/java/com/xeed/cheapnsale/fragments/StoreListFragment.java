@@ -37,7 +37,7 @@ public class StoreListFragment extends Fragment {
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_store_list_fragment, container, false);
 
-        storeListAdapter = new StoreListAdapter(new ArrayList<Store>());
+        storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(storeListAdapter);
 

@@ -27,6 +27,10 @@ public class Store {
     private String regNum = null;
     @SerializedName("NAME")
     private String name = null;
+    @SerializedName("PAYMENT_TYPE")
+    private String paymentType;
+    @SerializedName("AVG_PREP_TIME")
+    private String avgPrepTime;
 
     public String getId() {
         return id;
@@ -58,5 +62,21 @@ public class Store {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public String getAvgPrepTime() {
+        return avgPrepTime;
+    }
+
+    public void setAvgPrepTime(String avgPrepTime) {
+        this.avgPrepTime = avgPrepTime;
     }
 }
