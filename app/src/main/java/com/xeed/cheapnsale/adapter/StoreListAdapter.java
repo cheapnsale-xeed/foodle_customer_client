@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,12 @@ import java.util.ArrayList;
 
 public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.StoreListHolder> {
 
+    private Context context;
     private ArrayList<Store> stores;
 
-    public StoreListAdapter(ArrayList<Store> list) {
+    public StoreListAdapter(Context context, ArrayList<Store> list) {
         this.stores = list;
+        this.context = context;
     }
 
     @Override
@@ -29,6 +32,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
     @Override
     public void onBindViewHolder(StoreListHolder holder, int position) {
         holder.nameView.setText(stores.get(position).getName());
+        holder.paymentTextView.setText(stores.get(position).getPaymentType());
+        holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
     }
 
     @Override
@@ -44,10 +49,15 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
 
     public class StoreListHolder extends RecyclerView.ViewHolder {
         public TextView nameView;
+        public TextView paymentTextView;
+        public TextView avgPrepTimeTextView;
 
         public StoreListHolder(View itemView) {
             super(itemView);
+
             nameView = (TextView) itemView.findViewById(R.id.store_name_view);
+            paymentTextView = (TextView) itemView.findViewById(R.id.payment_type_view);
+            avgPrepTimeTextView = (TextView) itemView.findViewById(R.id.avg_prep_time_view);
         }
     }
 }

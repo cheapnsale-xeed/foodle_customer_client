@@ -2,6 +2,7 @@ package com.xeed.cheapnsale.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,13 +32,16 @@ public class StoreListFragment extends Fragment {
     public CheapnsaleService cheapnsaleService;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_store_list_fragment, container, false);
 
-        storeListAdapter = new StoreListAdapter(new ArrayList<Store>());
+        storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(storeListAdapter);
 

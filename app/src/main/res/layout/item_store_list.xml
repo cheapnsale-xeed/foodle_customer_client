@@ -1,68 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="231.5dp"
-    android:layout_centerHorizontal="true">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4.5dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="5.5dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        android:id="@+id/store_image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_store" />
 
-        <ImageView
-            android:id="@+id/store_image_view"
-            android:layout_width="330dp"
-            android:layout_height="160dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5.5dp"
-            android:src="@drawable/img_store" />
+    <TextView
+        android:id="@+id/avg_prep_time_view"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/store_image_view"
+        android:layout_alignEnd="@+id/store_image_view"
+        android:background="#4d58f2"
+        android:gravity="center_vertical"
+        android:hint="즉시픽업!"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="13dp" />
 
-        <TextView
-            android:id="@+id/store_prepTime_view"
-            android:layout_width="75dp"
-            android:layout_height="25dp"
-            android:layout_alignBottom="@+id/store_image_view"
-            android:layout_alignRight="@+id/store_image_view"
-            android:background="#4d58f2"
-            android:gravity="center_vertical"
-            android:text="즉시픽업!"
-            android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:textSize="13dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_image_view"
+        android:layout_marginTop="12.8dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/store_name_view"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/store_image_view"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="177.5dp"
-            android:gravity="center_vertical"
-            android:text="미소야"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="18dp" />
+            android:orientation="horizontal"
+            android:paddingEnd="2dp"
+            android:paddingStart="2dp">
 
-        <TextView
-            android:id="@+id/store_distance_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@id/store_image_view"
-            android:layout_alignTop="@id/store_name_view"
-            android:layout_marginRight="2dp"
-            android:gravity="center_vertical"
-            android:text="0.4km"
-            android:textAlignment="center"
-            android:textColor="#323232"
-            android:textSize="15dp" />
+            <TextView
+                android:id="@+id/store_name_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="미소야"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
 
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="12dp"
-            android:layout_alignBottom="@id/store_distance_view"
-            android:layout_alignStart="@id/store_distance_view"
-            android:layout_marginBottom="3dp"
-            android:layout_marginStart="-6.5dp"
-            android:background="#c7c7c7" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ico_walking" />
 
-    </RelativeLayout>
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3분"
+                android:textColor="#c8000000"
+                android:textSize="15dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="6.5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:background="#c7c7c7" />
+
+            <TextView
+                android:id="@+id/store_distance_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.4km"
+                android:textAlignment="center"
+                android:textColor="#c8000000"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="9dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                android:src="@drawable/star" />
+
+            <TextView
+                android:id="@+id/payment_type_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="바로결제"
+                android:textColor="#c8000000"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#d3d3d3" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,45 +1,43 @@
-package com.xeed.cheapnsale.fragments;
+package com.xeed.cheapnsale.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 
 import com.xeed.cheapnsale.BuildConfig;
-import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class StoreListFragmentTest {
+public class StoreListAdapterTest {
 
-    StoreListFragment storeListFragment;
+    StoreListAdapter storeListAdapter;
 
     @Before
     public void setUp() throws Exception {
-        storeListFragment = new StoreListFragment();
-        SupportFragmentTestUtil.startFragment(storeListFragment);
+        storeListAdapter = new StoreListAdapter(RuntimeEnvironment.application, makeMockList());
     }
 
     @Test
-    public void whenFragmentOnResume_thenShowStoreCountIsCorrectly() throws Exception {
-        when(storeListFragment.cheapnsaleService.getStoreList()).thenReturn(makeMockStores());
+    public void whenAdapterIsCreated_thenHolderInformationIsCorrectly() throws Exception {
+        StoreListAdapter.StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        storeListAdapter.onBindViewHolder(holder,0);
 
-        storeListFragment.onResume();
-        RecyclerView recyclerView = (RecyclerView) storeListFragment.getView().findViewById(R.id.store_list_recycler_view);
-        assertThat(recyclerView.getAdapter().getItemCount()).isEqualTo(1);
+        assertThat(holder.nameView.getText()).isEqualTo("mock store");
+        assertThat(holder.paymentTextView.getText()).isEqualTo("바로결제");
+        assertThat(holder.avgPrepTimeTextView.getText()).isEqualTo("20분");
     }
 
-    private ArrayList<Store> makeMockStores() {
+    private ArrayList<Store> makeMockList(){
         ArrayList<Store> stores = new ArrayList<>();
 
         Store store = new Store();
