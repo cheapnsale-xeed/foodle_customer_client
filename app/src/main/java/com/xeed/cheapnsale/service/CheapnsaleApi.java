@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 @Service(endpoint = "https://cv47nyx5yl.execute-api.ap-northeast-1.amazonaws.com/prod")
 public interface CheapnsaleApi {
 
-    @Operation(path = "/store")
+    @Operation(path = "/store", method = "GET")
     JsonElement getStores();
 
 }
