@@ -101,8 +101,7 @@
                         app:tabIndicatorHeight="1dp"
                         app:tabMode="fixed"
                         app:tabSelectedTextColor="@android:color/black"
-                        app:tabTextAppearance="@style/StoreDetailTabTextAppearance"
-                        app:tabTextColor="@android:color/black" />
+                        app:tabTextAppearance="@style/StoreDetailTabTextAppearance" />
                 </LinearLayout>
 
 
@@ -124,8 +123,8 @@
                             android:layout_marginStart="10dp"
                             android:background="@android:color/transparent"
                             android:contentDescription="@string/search_contentDescription"
-                            app:layout_collapseMode="pin"
-                            android:src="@drawable/ico_back" />
+                            android:src="@drawable/ico_back"
+                            app:layout_collapseMode="pin" />
 
                         <TextView
                             android:id="@+id/mainToolBarTitle"
@@ -135,8 +134,8 @@
                             android:layout_gravity="center"
                             android:text="@string/app_name"
                             android:textColor="@android:color/black"
-                            app:layout_collapseMode="pin"
-                            android:textSize="17dp" />
+                            android:textSize="17dp"
+                            app:layout_collapseMode="pin" />
 
 
                     </RelativeLayout>

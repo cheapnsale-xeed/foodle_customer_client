@@ -3,9 +3,6 @@ package com.xeed.cheapnsale;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,16 +10,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.xeed.cheapnsale.adapter.StoreMenuTabPagerAdapter;
 
 public class StoreDetailActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ViewPager viewPager;
     private Toolbar toolbar;
     private TabLayout tabLayout;
+
+    private StoreMenuTabPagerAdapter storeMenuTabPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,44 +30,19 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
+        tabLayout.addTab(tabLayout.newTab().setText("가게정보"));
+        tabLayout.addTab(tabLayout.newTab().setText("리뷰(21)"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(storeMenuTabPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(this);
+
         setTabTextStyle(0, Typeface.BOLD);
-    }
-
-    class MyPagerAdapter extends FragmentStatePagerAdapter {
-        List<Fragment> fragments = new ArrayList<>();
-
-        String titles[] = new String[]{"메뉴", "가게정보", "리뷰"};
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-
-            fragments.add(new ExpandableMenuListFragment());
-            fragments.add(new ExpandableMenuListFragment());
-            fragments.add(new ExpandableMenuListFragment());
-
-            TabLayout tabLayout=(TabLayout) findViewById(R.id.tabs);
-            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
     }
 
     private void setTabTextStyle(int position, int typeface) {
@@ -87,7 +58,6 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         //유저에 의해 tab button 눌린 순간 viewpager 화면 조정..
         viewPager.setCurrentItem(tab.getPosition());
         setTabTextStyle(tab.getPosition(), Typeface.BOLD);
-
     }
 
     @Override
