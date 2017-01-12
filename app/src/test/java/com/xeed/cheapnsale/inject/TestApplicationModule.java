@@ -2,10 +2,13 @@ package com.xeed.cheapnsale.inject;
 
 
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.vo.MenuItems;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 public class TestApplicationModule extends ApplicationModule{
 
@@ -22,5 +25,10 @@ public class TestApplicationModule extends ApplicationModule{
         }
 
         return list;
+    }
+
+    @Override
+    CheapnsaleService providesCheapnsaleService() {
+        return mock(CheapnsaleService.class);
     }
 }
