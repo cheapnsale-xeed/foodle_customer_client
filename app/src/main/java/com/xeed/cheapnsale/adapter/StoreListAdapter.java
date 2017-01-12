@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
@@ -37,6 +39,15 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
         Picasso.with(context).load(stores.get(position).getMainImg()).into(holder.mainImgView);
         holder.paymentTextView.setText(stores.get(position).getPaymentType());
         holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
+
+        final StoreListHolder itemController = holder;
+        itemController.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(itemController.itemView.getContext(), StoreDetailActivity.class);
+                itemController.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
