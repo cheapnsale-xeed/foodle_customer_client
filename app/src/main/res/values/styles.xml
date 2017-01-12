@@ -18,4 +18,16 @@
         <item name="android:textSize">15dp</item>
     </style>
 
+    <style name="StoreDetailTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17dp</item>
+    </style>
+
+    <style name="StoreDetailActionbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
 </resources>

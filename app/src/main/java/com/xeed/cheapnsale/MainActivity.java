@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,7 +11,7 @@ import android.widget.ImageButton;
 
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageButton.OnClickListener{
 
     public ViewPager viewPager;
     public MainTabPagerAdapter adapter;
@@ -47,16 +48,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //todo : 임시 생성. 탭 붙으면 삭제
-        ImageButton menuTemp = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
-        menuTemp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ListSelectedTempActivity.class);
-                startActivity(intent);
-            }
-        });
+        ImageButton searchButton = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
+        searchButton.setOnClickListener(this);
 
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, StoreDetailActivity.class);
+        startActivity(intent);
+    }
 }
