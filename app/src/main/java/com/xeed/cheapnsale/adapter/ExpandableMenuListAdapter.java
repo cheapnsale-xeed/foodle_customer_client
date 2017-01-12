@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
@@ -71,14 +74,16 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<ExpandableMe
                         list.remove(childPos);
                     }
 
-                    if (position < childPos || childPos == -1) {
-                        childPos = position + 1;
-                    } else {
-                        childPos = position;
-                    }
+                    if (position != childPos-1) {
+                        if (position < childPos || childPos == -1) {
+                            childPos = position + 1;
+                        } else {
+                            childPos = position;
+                        }
 
-                    MenuItems newItem = new MenuItems(CHILD);
-                    list.add(childPos, newItem);
+                        MenuItems newItem = new MenuItems(CHILD);
+                        list.add(childPos, newItem);
+                    }
 
                     notifyDataSetChanged();
                 }
