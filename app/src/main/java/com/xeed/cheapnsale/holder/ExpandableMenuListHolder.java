@@ -1,7 +1,9 @@
 package com.xeed.cheapnsale.holder;
 
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,17 +16,5 @@ public class ExpandableMenuListHolder extends RecyclerView.ViewHolder{
         super(view);
         itemName = (TextView) view.findViewById(R.id.menu_item_name);
 
-        view.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                if (itemName != null) {
-//                    Toast.makeText(view.getContext(), itemName.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
     }
-
-
 }

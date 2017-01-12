@@ -104,43 +104,66 @@
                         app:tabTextAppearance="@style/StoreDetailTabTextAppearance" />
                 </LinearLayout>
 
-
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="47dp"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin">
 
                     <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <ImageButton
-                            android:id="@+id/mainToolbarSearchButton"
+                            android:id="@+id/toolbar_back_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:background="@android:color/transparent"
+                            android:background="#ccffffff"
                             android:contentDescription="@string/search_contentDescription"
                             android:src="@drawable/ico_back"
                             app:layout_collapseMode="pin" />
 
                         <TextView
-                            android:id="@+id/mainToolBarTitle"
+                            android:id="@+id/toolbar_order_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:text="@string/app_name"
-                            android:textColor="@android:color/black"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="7dp"
+                            android:layout_toRightOf="@+id/toolbar_back_button"
+                            android:text="주문하기"
+                            android:textColor="#CC000000"
                             android:textSize="17dp"
                             app:layout_collapseMode="pin" />
+
+                        <TextView
+                            android:id="@+id/toolbar_call_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="22dp"
+                            android:text="전화"
+                            android:textColor="#111cc4"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/toolbar_map_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="20.5dp"
+                            android:layout_toLeftOf="@+id/toolbar_call_link"
+                            android:text="지도"
+                            android:textColor="#111cc4"
+                            android:textSize="14dp" />
 
 
                     </RelativeLayout>
                 </android.support.v7.widget.Toolbar>
-
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
