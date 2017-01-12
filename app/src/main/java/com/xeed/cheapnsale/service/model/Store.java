@@ -31,6 +31,16 @@ public class Store {
     private String paymentType;
     @SerializedName("AVG_PREP_TIME")
     private String avgPrepTime;
+    @SerializedName("MAIN_IMG")
+    private String mainImg = null;
+
+    public String getMainImg() {
+        return mainImg;
+    }
+
+    public void setMainImg(String mainImg) {
+        this.mainImg = mainImg;
+    }
 
     public String getId() {
         return id;

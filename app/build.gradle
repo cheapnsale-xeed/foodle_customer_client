@@ -38,6 +38,9 @@ dependencies {
     compile('com.amazonaws:aws-android-sdk-apigateway-core:2.3.8')
     compile 'com.google.code.gson:gson:2.7'
 
+    // image load
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     //for dependency injection
     // apt command comes from the android-apt plugin
     apt 'com.google.dagger:dagger-compiler:2.8'

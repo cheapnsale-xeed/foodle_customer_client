@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.model.Store;
 
@@ -32,6 +34,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
     @Override
     public void onBindViewHolder(StoreListHolder holder, int position) {
         holder.nameView.setText(stores.get(position).getName());
+        Picasso.with(context).load(stores.get(position).getMainImg()).into(holder.mainImgView);
         holder.paymentTextView.setText(stores.get(position).getPaymentType());
         holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
     }
@@ -49,6 +52,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
 
     public class StoreListHolder extends RecyclerView.ViewHolder {
         public TextView nameView;
+        public ImageView mainImgView;
         public TextView paymentTextView;
         public TextView avgPrepTimeTextView;
 
@@ -56,6 +60,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
             super(itemView);
 
             nameView = (TextView) itemView.findViewById(R.id.store_name_view);
+            mainImgView = (ImageView) itemView.findViewById(R.id.store_image_view);
             paymentTextView = (TextView) itemView.findViewById(R.id.payment_type_view);
             avgPrepTimeTextView = (TextView) itemView.findViewById(R.id.avg_prep_time_view);
         }
