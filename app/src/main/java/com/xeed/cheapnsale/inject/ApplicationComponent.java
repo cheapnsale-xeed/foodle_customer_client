@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.inject;
 
+import com.xeed.cheapnsale.adapter.StoreListAdapter;
 import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
 
 import com.xeed.cheapnsale.fragments.StoreListFragment;
@@ -14,4 +15,5 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(CheapnsaleService cheapnsaleService);
     void inject(StoreListFragment storeListFragment);
+    void inject(StoreListAdapter.StoreListHolder storeListHolder);
 }
