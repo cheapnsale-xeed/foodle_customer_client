@@ -12,7 +12,6 @@ import dagger.Component;
 @Singleton
 @Component(modules={ApplicationModule.class})
 public interface ApplicationComponent {
-    void inject(ExpandableMenuListFragment expandableMenuListFragment);
     void inject(CheapnsaleService cheapnsaleService);
     void inject(StoreListFragment storeListFragment);
 }

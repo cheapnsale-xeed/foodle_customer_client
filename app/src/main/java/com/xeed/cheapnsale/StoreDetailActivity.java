@@ -44,7 +44,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         //actionbar에 들어갈 내용을 우리의 view인 toolbar에 적용..
         setSupportActionBar(toolbar);
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.store_detail_app_bar);
         backButton = (ImageButton) findViewById(R.id.toolbar_back_button);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -89,7 +89,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
     }
@@ -119,4 +119,9 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

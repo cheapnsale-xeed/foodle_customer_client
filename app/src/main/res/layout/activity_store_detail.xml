@@ -15,7 +15,7 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+            android:id="@+id/store_detail_app_bar"
             android:layout_width="match_parent"
             android:layout_height="293dp"
             android:fitsSystemWindows="true">
@@ -137,6 +137,7 @@
                             android:text="주문하기"
                             android:textColor="#CC000000"
                             android:textSize="17dp"
+                            android:visibility="gone"
                             app:layout_collapseMode="pin" />
 
                         <TextView
@@ -148,7 +149,8 @@
                             android:layout_marginEnd="22dp"
                             android:text="전화"
                             android:textColor="#111cc4"
-                            android:textSize="14dp" />
+                            android:textSize="14dp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/toolbar_map_link"
@@ -159,7 +161,8 @@
                             android:layout_toLeftOf="@+id/toolbar_call_link"
                             android:text="지도"
                             android:textColor="#111cc4"
-                            android:textSize="14dp" />
+                            android:textSize="14dp"
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>

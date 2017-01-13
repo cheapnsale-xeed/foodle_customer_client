@@ -4,14 +4,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.vo.MenuItems;
 
 import java.util.List;
 
-public class ExpandableMenuListAdapter extends RecyclerView.Adapter<ExpandableMenuListHolder> {
+public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int HEADER = 0;
     public static final int CHILD = 1;
@@ -23,10 +25,8 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<ExpandableMe
     }
 
     @Override
-    public ExpandableMenuListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-
-        view = LayoutInflater.from(parent.getContext())
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_item_menu_list_child, parent, false);
 
         switch (viewType) {
@@ -37,54 +37,47 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<ExpandableMe
             case CHILD:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.view_selected_menu_item_child, parent, false);
-                return new ExpandableMenuListHolder(view);
+                return new ExpandableMenuChildHolder(view);
             default:
                 return new ExpandableMenuListHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(final ExpandableMenuListHolder holder, final int position) {
-        switch (holder.getItemViewType()){
-            case HEADER:
-                String txt = list.get(position).getItemName();
-                holder.itemName.setText(txt);
-                break;
-            case CHILD:
-                break;
-            default:
-                break;
-        }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final ExpandableMenuListHolder itemController = holder;
-        itemController.itemView.setOnClickListener(new View.OnClickListener(){
+        if(getItemViewType(position) == HEADER){
+            String txt = list.get(position).getItemName();
 
-            @Override
-            public void onClick(View view) {
-                if (itemController.itemName != null) {
-                    System.out.println("position : " + position);
+            final ExpandableMenuListHolder expandableMenuListHolder = (ExpandableMenuListHolder) holder;
+            expandableMenuListHolder.itemName.setText(txt);
+            expandableMenuListHolder.itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    if (expandableMenuListHolder.itemName != null) {
+                        int childPos = getChildPos();
 
-                    int childPos = getChildPos();
-
-                    if (childPos != -1) {
-                        list.remove(childPos);
-                    }
-
-                    if (position != childPos-1) {
-                        if (position < childPos || childPos == -1) {
-                            childPos = position + 1;
-                        } else {
-                            childPos = position;
+                        if (childPos != -1) {
+                            list.remove(childPos);
                         }
 
-                        MenuItems newItem = new MenuItems(CHILD);
-                        list.add(childPos, newItem);
-                    }
+                        if (position != childPos-1) {
+                            if (position < childPos || childPos == -1) {
+                                childPos = position + 1;
+                            } else {
+                                childPos = position;
+                            }
 
-                    notifyDataSetChanged();
+                            MenuItems newItem = new MenuItems(CHILD);
+                            list.add(childPos, newItem);
+                        }
+
+                        notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
+
+        }
     }
 
     @Override
