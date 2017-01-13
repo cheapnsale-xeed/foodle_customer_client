@@ -1,7 +1,11 @@
 package com.xeed.cheapnsale.fragments;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.model.Store;
@@ -9,6 +13,8 @@ import com.xeed.cheapnsale.service.model.Store;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
@@ -24,10 +30,17 @@ public class StoreListFragmentTest {
 
     StoreListFragment storeListFragment;
 
+
+
+    @Mock
+    RequestCreator requestCreator;
+
     @Before
     public void setUp() throws Exception {
         storeListFragment = new StoreListFragment();
         SupportFragmentTestUtil.startFragment(storeListFragment);
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

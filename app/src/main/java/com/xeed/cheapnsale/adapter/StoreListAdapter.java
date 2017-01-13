@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.StoreListHolder> {
 
@@ -36,7 +39,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
     @Override
     public void onBindViewHolder(StoreListHolder holder, int position) {
         holder.nameView.setText(stores.get(position).getName());
-        Picasso.with(context).load(stores.get(position).getMainImg()).into(holder.mainImgView);
+        holder.picasso.load(stores.get(position).getMainImg()).into(holder.mainImgView);
         holder.paymentTextView.setText(stores.get(position).getPaymentType());
         holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
 
@@ -67,8 +70,13 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
         public TextView paymentTextView;
         public TextView avgPrepTimeTextView;
 
+        @Inject
+        Picasso picasso;
+
         public StoreListHolder(View itemView) {
             super(itemView);
+
+            ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);
 
             nameView = (TextView) itemView.findViewById(R.id.store_name_view);
             mainImgView = (ImageView) itemView.findViewById(R.id.store_image_view);

@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.inject;
 
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
+import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.CheapnsaleApi;
 import com.xeed.cheapnsale.service.CheapnsaleService;
@@ -47,6 +48,12 @@ public class ApplicationModule {
     @Singleton
     CheapnsaleApi providesCheapnsaleApi() {
         return new ApiClientFactory().build(CheapnsaleApi.class);
+    }
+
+    @Provides
+    @Singleton
+    Picasso providesPicasso(){
+        return Picasso.with(application);
     }
 
 }
