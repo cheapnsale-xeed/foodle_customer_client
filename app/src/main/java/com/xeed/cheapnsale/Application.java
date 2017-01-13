@@ -5,10 +5,12 @@ import android.support.annotation.VisibleForTesting;
 import com.xeed.cheapnsale.inject.ApplicationComponent;
 import com.xeed.cheapnsale.inject.ApplicationModule;
 import com.xeed.cheapnsale.inject.DaggerApplicationComponent;
+import com.xeed.cheapnsale.vo.Cart;
 
 public class Application extends android.app.Application {
 
     private ApplicationComponent applicationComponent;
+    private Cart cart;
 
     @Override
     public void onCreate() {
@@ -17,6 +19,9 @@ public class Application extends android.app.Application {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
 
+        if (cart == null) {
+            cart = new Cart();
+        }
 
     }
 
