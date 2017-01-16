@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.xeed.cheapnsale.activity.MapActivity;
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
 import butterknife.BindView;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements ImageButton.OnCli
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+
+    @BindView(R.id.main_map_button)
+    ImageButton mapLinkButton;
 
     private MainTabPagerAdapter adapter;
 
@@ -56,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements ImageButton.OnCli
 
         ImageButton searchButton = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
         searchButton.setOnClickListener(this);
+
+        mapLinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

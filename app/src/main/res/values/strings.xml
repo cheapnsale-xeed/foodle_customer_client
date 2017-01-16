@@ -12,4 +12,5 @@
     <string name="order">주문하기</string>
     <string name="phone">전화</string>
     <string name="map">지도</string>
+    <string name="str_done">완료</string>
 </resources>
