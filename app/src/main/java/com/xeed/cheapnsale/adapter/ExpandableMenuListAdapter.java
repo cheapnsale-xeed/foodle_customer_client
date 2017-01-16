@@ -122,19 +122,20 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
             childHolder.itemAddCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Application app = ((Application) childHolder.storeDetailActivity.getApplicationContext());
-                    if (app.getCart().getTotalCount() == 0) {
-                        CartItem cartItem = new CartItem();
-                        cartItem.setMenuId("111");
-                        cartItem.setMenuName("만두");
-                        cartItem.setPrice(5000);
+                    // TODO: 다름 유저스토리에서 활용 가능
+//                    Application app = ((Application) childHolder.storeDetailActivity.getApplicationContext());
+//                    if (app.getCart().getTotalCount() == 0) {
+//                        CartItem cartItem = new CartItem();
+//                        cartItem.setMenuId("111");
+//                        cartItem.setMenuName("만두");
+//                        cartItem.setPrice(5000);
+//
+//                        app.getCart().setStoreId("store_1");
+//                        app.getCart().addCartItem(cartItem);
+//
+//                    }
 
-                        app.getCart().setStoreId("store_1");
-                        app.getCart().addCartItem(cartItem);
-
-                        initCartFooterLayout(childHolder);
-                    }
-
+                    initCartFooterLayout(childHolder);
                     showCartCheckSec(childHolder);
                 }
             });
