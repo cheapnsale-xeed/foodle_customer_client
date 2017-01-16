@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xeed.cheapnsale.StoreDetailActivity">
-
-    <!--android:fitsSystemWindows="true"-->
+    tools:context="com.xeed.cheapnsale.StoreDetailActivity"
+    android:id="@+id/store_detail_layout">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
@@ -166,7 +165,6 @@
                             android:textSize="14dp"
                             android:visibility="gone" />
 
-
                     </RelativeLayout>
                 </android.support.v7.widget.Toolbar>
 
@@ -179,8 +177,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
     </android.support.design.widget.CoordinatorLayout>
-
 
 </RelativeLayout>

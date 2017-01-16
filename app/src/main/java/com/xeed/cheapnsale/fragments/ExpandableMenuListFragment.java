@@ -32,7 +32,7 @@ public class ExpandableMenuListFragment extends Fragment {
     private List<MenuItems> makeDummyData(){
         List<MenuItems> list = new ArrayList<>();
         MenuItems item;
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             item = new MenuItems(0, "Item = " + i, 22000, "");
             list.add(item);
         }

@@ -10,7 +10,12 @@ import com.xeed.cheapnsale.vo.Cart;
 public class Application extends android.app.Application {
 
     private ApplicationComponent applicationComponent;
+
     private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
 
     @Override
     public void onCreate() {
