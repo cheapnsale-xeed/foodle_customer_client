@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,18 +134,34 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
                         initCartFooterLayout(childHolder);
                     }
+
+                    showCartCheckSec(childHolder);
                 }
             });
         }
     }
 
-    private void initCartFooterLayout(ExpandableMenuChildHolder expandableMenuChildHolder) {
+    private void showCartCheckSec(final ExpandableMenuChildHolder childHolder) {
+        final View cartCheck = LayoutInflater.from(childHolder.storeDetailActivity)
+                .inflate(R.layout.cart_check, childHolder.storeDetailLayout, false);
+        childHolder.storeDetailLayout.addView(cartCheck);
 
-        View cartFooter = LayoutInflater.from(expandableMenuChildHolder.storeDetailActivity)
-                .inflate(R.layout.cart_footer, expandableMenuChildHolder.storeDetailLayout, false);
-        expandableMenuChildHolder.storeDetailLayout.addView(cartFooter);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                childHolder.storeDetailLayout.removeView(cartCheck);
+            }
+        }, 1000);
+    }
 
-        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) expandableMenuChildHolder.storeCoordinatorLayout.getLayoutParams();
+    private void initCartFooterLayout(ExpandableMenuChildHolder childHolder) {
+
+        View cartFooter = LayoutInflater.from(childHolder.storeDetailActivity)
+                .inflate(R.layout.cart_footer, childHolder.storeDetailLayout, false);
+        childHolder.storeDetailLayout.addView(cartFooter);
+
+        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) childHolder.storeCoordinatorLayout.getLayoutParams();
         coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
     }
 
