@@ -30,7 +30,7 @@ public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
         itemPlus = (ImageButton)view.findViewById(R.id.item_plus);
         itemCountText = (TextView) view.findViewById(R.id.item_count_text);
         itemTotalPriceText = (TextView) view.findViewById(R.id.selected_item_total_price);
-        itemAddCart = (Button) view.findViewById(R.id.item_add_cart);
+        itemAddCart = (Button) view.findViewById(R.id.menu_item_add_cart);
 
         storeDetailActivity = (StoreDetailActivity) view.getContext();
         storeDetailLayout = (RelativeLayout) ((StoreDetailActivity) view.getContext()).findViewById(R.id.store_detail_layout);
