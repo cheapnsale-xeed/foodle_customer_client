@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.adapter;
 
+import android.content.Intent;
 import android.widget.LinearLayout;
 
 import com.squareup.picasso.RequestCreator;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -43,6 +45,22 @@ public class StoreListAdapterTest {
         assertThat(holder.avgPrepTimeTextView.getText()).isEqualTo("20분");
     }
 
+    @Test
+    public void whenClickItemView_thenStartActivityIsStoreDetailActivity() throws Exception {
+        StoreListAdapter.StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        when(holder.picasso.load(anyString())).thenReturn(mock(RequestCreator.class));
+
+        storeListAdapter.onBindViewHolder(holder,0);
+
+        holder.itemView.performClick();
+
+        Intent actualIntent = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Store actualStore = (Store) actualIntent.getSerializableExtra("store");
+
+        assertThat(actualStore.getName()).isEqualTo("mock store");
+        assertThat(actualStore.getPaymentType()).isEqualTo("바로결제");
+    }
+
     private ArrayList<Store> makeMockList(){
         ArrayList<Store> stores = new ArrayList<>();
 
@@ -53,7 +71,7 @@ public class StoreListAdapterTest {
         store.setRegNum("02-1234-1234");
         store.setPaymentType("바로결제");
         store.setAvgPrepTime("20");
-        store.setMainImg("http://www.mock.com/mock.img");
+        store.setMainImageUrl("http://www.mock.com/mock.img");
 
         stores.add(store);
         return stores;

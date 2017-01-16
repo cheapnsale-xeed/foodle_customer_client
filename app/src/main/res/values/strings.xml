@@ -9,4 +9,7 @@
     <string name="price_type">원</string>
     <string name="put_in">담기</string>
     <string name="direct_order">바로주문</string>
+    <string name="order">주문하기</string>
+    <string name="phone">전화</string>
+    <string name="map">지도</string>
 </resources>
