@@ -12,6 +12,7 @@ public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
     public ImageButton itemMinus;
     public ImageButton itemPlus;
     public TextView itemCountText;
+    public TextView itemTotalPriceText;
 
     public ExpandableMenuChildHolder(View view) {
         super(view);
@@ -19,6 +20,7 @@ public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
         itemMinus = (ImageButton) view.findViewById(R.id.item_minus);
         itemPlus = (ImageButton)view.findViewById(R.id.item_plus);
         itemCountText = (TextView) view.findViewById(R.id.item_count_text);
+        itemTotalPriceText = (TextView) view.findViewById(R.id.selected_item_total_price);
 
     }
 }

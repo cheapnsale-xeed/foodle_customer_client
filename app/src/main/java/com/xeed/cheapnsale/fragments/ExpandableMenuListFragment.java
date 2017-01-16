@@ -24,7 +24,7 @@ public class ExpandableMenuListFragment extends Fragment {
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new ExpandableMenuListAdapter(makeDummyData()));
+        recyclerView.setAdapter(new ExpandableMenuListAdapter(getContext(), makeDummyData()));
 
         return recyclerView;
     }
@@ -33,7 +33,7 @@ public class ExpandableMenuListFragment extends Fragment {
         List<MenuItems> list = new ArrayList<>();
         MenuItems item;
         for (int i = 0; i < 10; i ++) {
-            item = new MenuItems(0, "Item = " + i, "22,000원", "");
+            item = new MenuItems(0, "Item = " + i, 22000, "");
             list.add(item);
         }
 

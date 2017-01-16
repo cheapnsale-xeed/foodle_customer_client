@@ -29,7 +29,7 @@ public class ExpandableMenuListAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        expandableMenuListAdapter = new ExpandableMenuListAdapter(makeMockList());
+        expandableMenuListAdapter = new ExpandableMenuListAdapter(RuntimeEnvironment.application, makeMockList());
         headerHolder = (ExpandableMenuListHolder) expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
     }
 
@@ -38,6 +38,7 @@ public class ExpandableMenuListAdapterTest {
         expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
 
         assertThat(headerHolder.itemName.getText()).isEqualTo("Item = 0");
+        assertThat(headerHolder.itemPrice.getText()).isEqualTo("22,000원");
     }
 
     @Test
@@ -51,12 +52,37 @@ public class ExpandableMenuListAdapterTest {
         expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
 
         assertThat(childHolder.itemMinus.getVisibility()).isEqualTo(View.VISIBLE);
+        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+    }
+
+    @Test
+    public void whenChildHolderPlusAndMinusButtonClicked_thenItemCountIsChange() throws Exception {
+        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        headerHolder.itemView.performClick();
+
+        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(4);
+
+        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+
+        childHolder.itemPlus.performClick();
+        assertThat(childHolder.itemCountText.getText()).isEqualTo("2");
+        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("44,000원");
+
+        childHolder.itemMinus.performClick();
+        assertThat(childHolder.itemCountText.getText()).isEqualTo("1");
+        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+
+        childHolder.itemMinus.performClick();
+        assertThat(childHolder.itemCountText.getText()).isEqualTo("1");
+        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+
     }
 
     private List<MenuItems> makeMockList() {
         List<MenuItems> list = new ArrayList<>();
         for (int i = 0; i < 3; i ++) {
-            MenuItems item = new MenuItems(0, "Item = " + i, "22,000원", "");
+            MenuItems item = new MenuItems(0, "Item = " + i, 22000, "");
             list.add(item);
         }
 
