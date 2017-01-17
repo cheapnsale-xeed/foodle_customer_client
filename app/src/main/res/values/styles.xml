@@ -31,4 +31,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="NumberPicker.Theme" parent="Theme.Design.Light">
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">#CC000000</item>
+    </style>
+
 </resources>

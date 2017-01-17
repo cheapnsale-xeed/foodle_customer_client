@@ -26,6 +26,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/StoreDetailActionbar" />
 
+        <activity
+            android:name=".OrderActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

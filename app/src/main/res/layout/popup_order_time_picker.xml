@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/order_time_picker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <NumberPicker
+            android:id="@+id/order_time_picker"
+            android:layout_width="175dp"
+            android:layout_height="200dp"
+            android:theme="@style/NumberPicker.Theme" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/action_button"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/order_time_picker_layout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/order_time_picker_cancel"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:background="#14121212"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/order_time_picker_accept"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:background="#0D121212"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/done"
+            android:textColor="#111CC4"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>
