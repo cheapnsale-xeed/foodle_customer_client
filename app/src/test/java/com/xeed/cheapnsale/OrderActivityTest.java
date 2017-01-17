@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale;
 
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -56,6 +57,13 @@ public class OrderActivityTest {
 
         RadioButton orderNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_now_radio_button);
         assertThat(orderNowRadioButton.isChecked()).isFalse();
+    }
+
+    @Test
+    public void whenClickBackToOrderButton_thenBackToOrderActivity() throws Exception {
+        ImageButton backToOrderImgButton = (ImageButton)orderActivity.findViewById(R.id.main_toolbar_back_button);
+        backToOrderImgButton.performClick();
+        assertThat(orderActivity.isFinishing()).isTrue();
     }
 
     private Store makeMockData() {

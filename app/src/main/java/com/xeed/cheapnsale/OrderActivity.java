@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -99,6 +100,14 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
                 //TODO : UI 추가! 시간을 선택한 뒤에 텍스트(00분 후 픽업)& 재설정 버튼 활성화
                 Toast.makeText(OrderActivity.this, "" + selectedNumberIndex, Toast.LENGTH_LONG).show();
                 pickerDialog.dismiss();
+            }
+        });
+
+        ImageButton backButton = (ImageButton) findViewById(R.id.main_toolbar_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
