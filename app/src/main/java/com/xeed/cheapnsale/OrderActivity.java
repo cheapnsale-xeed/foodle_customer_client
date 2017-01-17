@@ -55,7 +55,7 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
     );
     private MaterialDialog pickerDialog;
     private Store store;
-    private String storeId="";
+    private String storeId = "1";
 
     public TextView orderPickUpTimeTextView;
 

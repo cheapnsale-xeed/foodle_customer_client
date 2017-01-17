@@ -16,6 +16,7 @@
 package com.xeed.cheapnsale.service;
 
 import com.amazonaws.mobileconnectors.apigateway.annotation.Operation;
+import com.amazonaws.mobileconnectors.apigateway.annotation.Parameter;
 import com.amazonaws.mobileconnectors.apigateway.annotation.Service;
 import com.google.gson.JsonElement;
 import com.xeed.cheapnsale.service.model.Store;
@@ -27,8 +28,8 @@ public interface CheapnsaleApi {
     @Operation(path = "/stores", method = "GET")
     JsonElement getStores();
 
-    @Operation(path = "/store", method = "GET")
-    Store getStore(String storeId);
+    @Operation(path = "/store/{storeId}", method = "GET")
+    Store getStore(@Parameter(name = "storeId", location = "path") String storeId);
 
 }
 
