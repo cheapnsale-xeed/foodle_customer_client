@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.OrderActivity;
@@ -29,6 +32,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<MenuItems> menuItemList;
     private Context context;
+    private Toast toast;
 
     public ExpandableMenuListAdapter(Context context, List<MenuItems> menuItemList) {
         this.context = context;
@@ -172,15 +176,18 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     private void showCartCheckSec() {
-        final View cartCheck = LayoutInflater.from(context)
-                .inflate(R.layout.cart_check, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
-        ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartCheck);
+
+        LinearLayout cartCheck=(LinearLayout)View.inflate(context,R.layout.cart_check,null);
+        toast=new Toast(context);
+        toast.setView(cartCheck);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartCheck);
+                toast.cancel();
             }
         }, 1000);
     }
