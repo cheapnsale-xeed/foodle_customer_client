@@ -149,6 +149,24 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                 }
             });
 
+            childHolder.itemOrderNowButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    Application app = ((Application) context.getApplicationContext());
+                    for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
+                        CartItem cartItem = new CartItem();
+                        cartItem.setMenuId("111");
+                        cartItem.setMenuName(menuItemList.get(getChildPos()).getItemName());
+                        cartItem.setPrice(menuItemList.get(getChildPos()).getItemPrice());
+
+                        app.getCart().setStoreId("store_1");
+                        app.getCart().addCartItem(cartItem);
+                    }
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
             setChildLayoutChange(childHolder, ((Application) context.getApplicationContext()).getCart().getTotalCount());
         }
     }
