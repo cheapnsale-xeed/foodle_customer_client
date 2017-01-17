@@ -137,6 +137,12 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
                     initCartFooterLayout(childHolder);
                     showCartCheckSec(childHolder);
+
+                    int childPos = getChildPos();
+                    if (childPos != -1) {
+                        menuItemList.remove(childPos);
+                    }
+                    notifyDataSetChanged();
                 }
             });
         }
