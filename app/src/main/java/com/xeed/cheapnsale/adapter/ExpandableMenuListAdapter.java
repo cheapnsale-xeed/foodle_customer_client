@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.OrderActivity;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.vo.CartItem;
@@ -122,56 +123,54 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                             +context.getResources().getString(R.string.price_type));
                 }
             });
-            childHolder.itemAddCart.setOnClickListener(new View.OnClickListener() {
+            childHolder.itemAddCartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: 다름 유저스토리에서 활용 가능
-//                    Application app = ((Application) childHolder.storeDetailActivity.getApplicationContext());
-//                    if (app.getCart().getTotalCount() == 0) {
-//                        CartItem cartItem = new CartItem();
-//                        cartItem.setMenuId("111");
-//                        cartItem.setMenuName("만두");
-//                        cartItem.setPrice(5000);
-//
-//                        app.getCart().setStoreId("store_1");
-//                        app.getCart().addCartItem(cartItem);
-//
-//                    }
+                    Application app = ((Application) view.getContext().getApplicationContext());
 
-                    initCartFooterLayout(childHolder);
-                    showCartCheckSec(childHolder);
+                    CartItem cartItem = new CartItem();
+                    cartItem.setMenuId("111");
+                    cartItem.setMenuName("만두");
+                    cartItem.setPrice(5000);
 
-                    int childPos = getChildPos();
-                    if (childPos != -1) {
-                        menuItemList.remove(childPos);
-                    }
+                    app.getCart().setStoreId("store_1");
+                    app.getCart().addCartItem(cartItem);
+
+                    initCartFooterLayout();
+                    showCartCheckSec();
+
+                    setChildLayoutChange(childHolder, app.getCart().getTotalCount());
+                    menuItemList.remove(getChildPos());
+
                     notifyDataSetChanged();
                 }
             });
+
+            setChildLayoutChange(childHolder, ((Application) context.getApplicationContext()).getCart().getTotalCount());
         }
     }
 
-    private void showCartCheckSec(final ExpandableMenuChildHolder childHolder) {
-        final View cartCheck = LayoutInflater.from(childHolder.storeDetailActivity)
-                .inflate(R.layout.cart_check, childHolder.storeDetailLayout, false);
-        childHolder.storeDetailLayout.addView(cartCheck);
+    private void showCartCheckSec() {
+        final View cartCheck = LayoutInflater.from(context)
+                .inflate(R.layout.cart_check, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+        ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartCheck);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                childHolder.storeDetailLayout.removeView(cartCheck);
+                ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartCheck);
             }
         }, 1000);
     }
 
-    private void initCartFooterLayout(final ExpandableMenuChildHolder childHolder) {
+    private void initCartFooterLayout() {
 
-        View cartFooter = LayoutInflater.from(childHolder.storeDetailActivity)
-                .inflate(R.layout.cart_footer, childHolder.storeDetailLayout, false);
-        childHolder.storeDetailLayout.addView(cartFooter);
+        View cartFooter = LayoutInflater.from(context)
+                .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+        ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
 
-        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) childHolder.storeCoordinatorLayout.getLayoutParams();
+        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
         coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
 
         TextView orderButton =(TextView) cartFooter.findViewById(R.id.cart_footer_order);
@@ -179,8 +178,8 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(childHolder.storeDetailActivity, OrderActivity.class);
-                childHolder.storeDetailActivity.startActivity(intent);
+                Intent intent = new Intent(context, OrderActivity.class);
+                context.startActivity(intent);
             }
         });
 
@@ -204,5 +203,13 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         }
 
         return -1;
+    }
+
+    private void setChildLayoutChange(ExpandableMenuChildHolder childHolder, int totalCount) {
+        if (totalCount == 0) {
+            childHolder.itemOrderNowButton.setVisibility(View.VISIBLE);
+        } else {
+            childHolder.itemOrderNowButton.setVisibility(View.GONE);
+        }
     }
 }

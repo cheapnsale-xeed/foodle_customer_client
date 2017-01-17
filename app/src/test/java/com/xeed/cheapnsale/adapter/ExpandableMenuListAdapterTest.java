@@ -3,9 +3,12 @@ package com.xeed.cheapnsale.adapter;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
+import com.xeed.cheapnsale.vo.CartItem;
 import com.xeed.cheapnsale.vo.MenuItems;
 
 import org.junit.Before;
@@ -77,6 +80,27 @@ public class ExpandableMenuListAdapterTest {
         assertThat(childHolder.itemCountText.getText()).isEqualTo("1");
         assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
 
+    }
+
+    @Test
+    public void whenHeaderHolderClicked_thenCheckAddCartButton() throws Exception {
+        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+
+        CartItem cartItem = new CartItem();
+        cartItem.setMenuId("111");
+        cartItem.setMenuName("만두");
+        cartItem.setPrice(5000);
+
+        Application app = ((Application)childHolder.itemView.getContext().getApplicationContext());
+
+        app.getCart().setStoreId("store_1");
+        app.getCart().addCartItem(cartItem);
+
+        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        headerHolder.itemView.performClick();
+        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+
+        assertThat(childHolder.itemOrderNowButton.getVisibility()).isEqualTo(View.GONE);
     }
 
     private List<MenuItems> makeMockList() {

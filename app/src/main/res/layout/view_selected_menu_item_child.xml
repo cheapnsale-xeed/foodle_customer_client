@@ -61,36 +61,37 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_order_and_add_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginTop="21dp">
 
         <Button
             android:id="@+id/menu_item_add_cart"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/wish_list_button_shape"
             android:text="@string/put_in"
             android:textColor="#151515"
-            android:textSize="15dp"
-            style="?android:attr/borderlessButtonStyle" />
+            android:textSize="15dp" />
 
         <Button
+            android:id="@+id/menu_item_order_now"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_weight="1"
+            android:layout_marginStart="10dp"
             android:background="@drawable/direct_order_button_shape"
             android:text="@string/direct_order"
             android:textColor="#111cc4"
-            android:textSize="15dp"
-            style="?android:attr/borderlessButtonStyle" />
+            android:textSize="15dp" />
 
     </LinearLayout>
-
 
 </LinearLayout>

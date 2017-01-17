@@ -27,7 +27,6 @@ public class Application extends android.app.Application {
         if (cart == null) {
             cart = new Cart();
         }
-
     }
 
     public ApplicationComponent getApplicationComponent() {
@@ -38,7 +37,4 @@ public class Application extends android.app.Application {
     public void setApplicationComponent(ApplicationComponent applicationComponent) {
         this.applicationComponent = applicationComponent;
     }
-
-
-
 }

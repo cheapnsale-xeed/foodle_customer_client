@@ -25,7 +25,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/mainToolbarSearchButton"
+                android:id="@+id/main_tool_bar_search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -35,7 +35,7 @@
                 android:src="@drawable/ico_search" />
 
             <TextView
-                android:id="@+id/mainToolBarTitle"
+                android:id="@+id/main_tool_bar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -45,7 +45,7 @@
                 android:textSize="17dp" />
 
             <ImageButton
-                android:id="@+id/mainToolbarFilterButton"
+                android:id="@+id/main_toolbar_filter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -59,10 +59,10 @@
                 android:id="@+id/main_map_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/mainToolbarFilterButton"
+                android:layout_alignTop="@+id/main_toolbar_filter_button"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/mainToolbarFilterButton"
+                android:layout_toStartOf="@+id/main_toolbar_filter_button"
                 android:background="@android:color/white"
                 android:contentDescription="@string/map_contentDescription"
                 android:src="@drawable/ico_map" />

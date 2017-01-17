@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements ImageButton.OnCli
             }
         });
 
-        ImageButton searchButton = (ImageButton) findViewById(R.id.mainToolbarSearchButton);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.main_tool_bar_search_button);
         searchButton.setOnClickListener(this);
 
         mapLinkButton.setOnClickListener(new View.OnClickListener() {
