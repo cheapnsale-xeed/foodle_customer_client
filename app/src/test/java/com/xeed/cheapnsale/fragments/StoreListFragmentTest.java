@@ -1,10 +1,7 @@
 package com.xeed.cheapnsale.fragments;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
@@ -29,8 +26,6 @@ import static org.mockito.Mockito.when;
 public class StoreListFragmentTest {
 
     StoreListFragment storeListFragment;
-
-
 
     @Mock
     RequestCreator requestCreator;

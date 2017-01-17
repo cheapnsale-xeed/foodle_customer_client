@@ -41,5 +41,13 @@ public class CheapnsaleService {
         return new Gson().fromJson(stores, new TypeToken<ArrayList<Store>>() {}.getType());
     }
 
+    public Store getStore(String storeId) {
+        return cheapnsaleApi.getStore(storeId);
+        /*
+        Store store = new Store();
+        store.setAvgPrepTime("10");
+        return store;
+        */
+    }
 }
 

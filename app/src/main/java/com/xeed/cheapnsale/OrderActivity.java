@@ -3,6 +3,7 @@ package com.xeed.cheapnsale;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,8 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.Store;
+
+import javax.inject.Inject;
 
 public class OrderActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, NumberPicker.OnValueChangeListener {
+
+    @Inject
+    public CheapnsaleService cheapnsaleService;
 
     RadioGroup radioGroup;
     RadioButton radioButton1;
@@ -28,7 +36,6 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
     TextView pickerAcceptButton;
 
     int selectedNumberIndex = 0;
-
 
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
@@ -47,15 +54,21 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
             }
     );
     private MaterialDialog pickerDialog;
+    private Store store;
+    private String storeId="";
+
+    public TextView orderPickUpTimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        ((Application) getApplication()).getApplicationComponent().inject(this);
+
         radioGroup = (RadioGroup) findViewById(R.id.order_time_rg);
-        radioButton1 = (RadioButton) findViewById(R.id.order_time_rb_1);
-        radioButton2 = (RadioButton) findViewById(R.id.order_time_rb_2);
+        radioButton1 = (RadioButton) findViewById(R.id.order_time_now_radio_button);
+        radioButton2 = (RadioButton) findViewById(R.id.order_time_today_radio_button);
 
         radioGroup.setOnCheckedChangeListener(this);
         radioButton1.setChecked(true);
@@ -67,6 +80,8 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
 
         pickerCancelButton = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_cancel);
         pickerAcceptButton = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_accept);
+
+        orderPickUpTimeTextView = (TextView) findViewById(R.id.order_pick_up_time);
 
         //TODO : 바탕영역 눌러서 dismiss 될때 지금 주문 버튼이 선택되도록!
 
@@ -89,6 +104,24 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                store = cheapnsaleService.getStore(storeId);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                orderPickUpTimeTextView.setText(store.getAvgPrepTime()+getString(R.string.minute));
+            }
+        }.execute();
+
+    }
 
     private void show() {
 

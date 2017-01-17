@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.inject;
 
+import com.xeed.cheapnsale.OrderActivity;
 import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.adapter.StoreListAdapter;
 
@@ -17,4 +18,5 @@ public interface ApplicationComponent {
     void inject(StoreListFragment storeListFragment);
     void inject(StoreListAdapter.StoreListHolder storeListHolder);
     void inject(StoreDetailActivity storeDetailActivity);
+    void inject(OrderActivity orderActivity);
 }

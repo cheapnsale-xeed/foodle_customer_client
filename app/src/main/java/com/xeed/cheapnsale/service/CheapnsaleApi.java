@@ -18,13 +18,17 @@ package com.xeed.cheapnsale.service;
 import com.amazonaws.mobileconnectors.apigateway.annotation.Operation;
 import com.amazonaws.mobileconnectors.apigateway.annotation.Service;
 import com.google.gson.JsonElement;
+import com.xeed.cheapnsale.service.model.Store;
 
 
 @Service(endpoint = "https://cv47nyx5yl.execute-api.ap-northeast-1.amazonaws.com/prod")
 public interface CheapnsaleApi {
 
-    @Operation(path = "/store", method = "GET")
+    @Operation(path = "/stores", method = "GET")
     JsonElement getStores();
+
+    @Operation(path = "/store", method = "GET")
+    Store getStore(String storeId);
 
 }
 
