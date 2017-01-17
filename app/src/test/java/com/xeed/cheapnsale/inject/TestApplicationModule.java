@@ -1,14 +1,14 @@
 package com.xeed.cheapnsale.inject;
 
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.CheapnsaleService;
-import com.xeed.cheapnsale.vo.MenuItems;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestApplicationModule extends ApplicationModule{
 
@@ -17,18 +17,14 @@ public class TestApplicationModule extends ApplicationModule{
     }
 
     @Override
-    List<MenuItems> providesList() {
-        List<MenuItems> list = new ArrayList<>();
-        for (int i = 0; i < 3; i ++) {
-            MenuItems item = new MenuItems(0, "Item = " + i, "22,000원", "");
-            list.add(item);
-        }
-
-        return list;
+    CheapnsaleService providesCheapnsaleService() {
+        return mock(CheapnsaleService.class);
     }
 
     @Override
-    CheapnsaleService providesCheapnsaleService() {
-        return mock(CheapnsaleService.class);
+    Picasso providesPicasso() {
+        Picasso mockPicasso = mock(Picasso.class);
+        when(mockPicasso.load(anyString())).thenReturn(mock(RequestCreator.class));
+        return mockPicasso;
     }
 }

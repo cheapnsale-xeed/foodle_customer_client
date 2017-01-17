@@ -6,6 +6,13 @@
     <string name="show_all">전체보기</string>
     <string name="my_order">내 주문(0)</string>
     <string name="minute">분</string>
+    <string name="price_type">원</string>
+    <string name="put_in">담기</string>
+    <string name="direct_order">바로주문</string>
+    <string name="order">주문하기</string>
+    <string name="phone">전화</string>
+    <string name="map">지도</string>
+    <string name="str_done">완료</string>
     <string name="pickup_time">픽업시간</string>
     <string name="expect_cooking_time">예상 조리 시간</string>
     <string name="order_now">지금 주문</string>

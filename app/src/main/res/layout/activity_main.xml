@@ -56,7 +56,7 @@
                 android:src="@drawable/ico_filter" />
 
             <ImageButton
-                android:id="@+id/mainMapButton"
+                android:id="@+id/main_map_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/mainToolbarFilterButton"

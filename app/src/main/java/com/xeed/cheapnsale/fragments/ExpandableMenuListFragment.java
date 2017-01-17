@@ -8,32 +8,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.ExpandableMenuListAdapter;
 import com.xeed.cheapnsale.vo.MenuItems;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class ExpandableMenuListFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    @Inject
-    List<MenuItems> list;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
-
-        ((Application)getActivity().getApplication()).getApplicationComponent().inject(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new ExpandableMenuListAdapter(list));
+        recyclerView.setAdapter(new ExpandableMenuListAdapter(getContext(), makeDummyData()));
 
         return recyclerView;
     }
+
+    private List<MenuItems> makeDummyData(){
+        List<MenuItems> list = new ArrayList<>();
+        MenuItems item;
+        for (int i = 0; i < 10; i++) {
+            item = new MenuItems(0, "Item = " + i, 22000, "");
+            list.add(item);
+        }
+
+        return list;
+    }
+
+
 }

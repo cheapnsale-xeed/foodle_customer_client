@@ -18,7 +18,10 @@ package com.xeed.cheapnsale.service.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable {
+
     @SerializedName("ID")
     private String id = null;
     @SerializedName("CATEGORY")
@@ -32,14 +35,14 @@ public class Store {
     @SerializedName("AVG_PREP_TIME")
     private String avgPrepTime;
     @SerializedName("MAIN_IMG")
-    private String mainImg = null;
+    private String mainImageUrl = null;
 
-    public String getMainImg() {
-        return mainImg;
+    public String getMainImageUrl() {
+        return mainImageUrl;
     }
 
-    public void setMainImg(String mainImg) {
-        this.mainImg = mainImg;
+    public void setMainImageUrl(String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
     }
 
     public String getId() {
@@ -89,4 +92,5 @@ public class Store {
     public void setAvgPrepTime(String avgPrepTime) {
         this.avgPrepTime = avgPrepTime;
     }
+
 }
