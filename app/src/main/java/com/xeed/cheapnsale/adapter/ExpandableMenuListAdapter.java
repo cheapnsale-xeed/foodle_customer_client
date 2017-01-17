@@ -1,14 +1,17 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.OrderActivity;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
@@ -162,7 +165,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         }, 1000);
     }
 
-    private void initCartFooterLayout(ExpandableMenuChildHolder childHolder) {
+    private void initCartFooterLayout(final ExpandableMenuChildHolder childHolder) {
 
         View cartFooter = LayoutInflater.from(childHolder.storeDetailActivity)
                 .inflate(R.layout.cart_footer, childHolder.storeDetailLayout, false);
@@ -170,6 +173,17 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
         RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) childHolder.storeCoordinatorLayout.getLayoutParams();
         coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
+
+        TextView orderButton =(TextView) cartFooter.findViewById(R.id.cart_footer_order);
+        orderButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(childHolder.storeDetailActivity, OrderActivity.class);
+                childHolder.storeDetailActivity.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
