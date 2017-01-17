@@ -17,18 +17,28 @@
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/cart_footer_order_info_count"
+        android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginStart="5dp"
         android:gravity="center_vertical"
         android:textColor="@color/colorWhite"
         android:textSize="18dp"
-        android:text="(1)    22,000원"
-        />
-    
+        android:text="(6)"/>
+
     <TextView
-        android:id="@+id/cart_footer_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cart_footer_order_info_price"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:textColor="@color/colorWhite"
+        android:textSize="18dp"
+        android:text="22,000원"/>
+
+    <TextView
+        android:id="@+id/cart_footer_order_button"
         android:layout_width="120dp"
         android:layout_height="match_parent"
         android:gravity="center"

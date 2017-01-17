@@ -32,10 +32,22 @@ public class ExpandableMenuListFragment extends Fragment {
     private List<MenuItems> makeDummyData(){
         List<MenuItems> list = new ArrayList<>();
         MenuItems item;
-        for (int i = 0; i < 10; i++) {
-            item = new MenuItems(0, "Item = " + i, 22000, "");
-            list.add(item);
-        }
+
+        list.add(new MenuItems(0, "보쌈 소", 20000, ""));
+        list.add(new MenuItems(0, "보쌈 중", 25000, ""));
+        list.add(new MenuItems(0, "보쌈 대", 30000, ""));
+        list.add(new MenuItems(0, "족발 소", 20000, ""));
+        list.add(new MenuItems(0, "족발 중", 25000, ""));
+        list.add(new MenuItems(0, "족발 대", 30000, ""));
+        list.add(new MenuItems(0, "막국수", 10000, ""));
+        list.add(new MenuItems(0, "쟁반국수", 9000, ""));
+        list.add(new MenuItems(0, "계란찜", 5000, ""));
+
+
+//        for (int i = 0; i < 10; i++) {
+//            item = new MenuItems(0, "Item = " + i, 22000, "");
+//            list.add(item);
+//        }
 
         return list;
     }

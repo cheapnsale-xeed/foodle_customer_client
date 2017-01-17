@@ -126,15 +126,18 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
             childHolder.itemAddCartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Application app = ((Application) view.getContext().getApplicationContext());
+                    // TODO: 다름 유저스토리에서 활용 가능
+                    Application app = ((Application) context.getApplicationContext());
 
-                    CartItem cartItem = new CartItem();
-                    cartItem.setMenuId("111");
-                    cartItem.setMenuName("만두");
-                    cartItem.setPrice(5000);
+                    for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
+                        CartItem cartItem = new CartItem();
+                        cartItem.setMenuId("111");
+                        cartItem.setMenuName(menuItemList.get(getChildPos()).getItemName());
+                        cartItem.setPrice(menuItemList.get(getChildPos()).getItemPrice());
 
-                    app.getCart().setStoreId("store_1");
-                    app.getCart().addCartItem(cartItem);
+                        app.getCart().setStoreId("store_1");
+                        app.getCart().addCartItem(cartItem);
+                    }
 
                     initCartFooterLayout();
                     showCartCheckSec();
@@ -170,10 +173,18 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                 .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
         ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
 
+        Application app = ((Application) context.getApplicationContext());
+        final DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+
         RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
         coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
 
-        TextView orderButton =(TextView) cartFooter.findViewById(R.id.cart_footer_order);
+        TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
+        orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
+        TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
+        orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
+        TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
         orderButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
