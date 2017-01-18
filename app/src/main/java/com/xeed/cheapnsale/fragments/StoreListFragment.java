@@ -64,6 +64,8 @@ public class StoreListFragment extends Fragment {
                 storeListAdapter.updateData(stores);
             }
         }.execute();
+
+        ((Application) getActivity().getApplication()).getCart().clearCartItems();
     }
 }
 
