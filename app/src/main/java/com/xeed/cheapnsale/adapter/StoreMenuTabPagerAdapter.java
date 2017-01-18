@@ -6,15 +6,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
+import com.xeed.cheapnsale.fragments.MyOrderFragment;
+import com.xeed.cheapnsale.service.model.Store;
 
 public class StoreMenuTabPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabCount;
+    private Store store;
 
-    public StoreMenuTabPagerAdapter(FragmentManager fm, int count) {
+    public StoreMenuTabPagerAdapter(Store store, FragmentManager fm, int count) {
         super(fm);
         this.tabCount = count;
-
+        this.store = store;
     }
 
     @Override
@@ -26,11 +29,13 @@ public class StoreMenuTabPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new ExpandableMenuListFragment();
+                ExpandableMenuListFragment expandableMenuListFragment = new ExpandableMenuListFragment();
+                expandableMenuListFragment.store = store;
+                return expandableMenuListFragment;
             case 1:
-                return new ExpandableMenuListFragment();
+                return new MyOrderFragment();
             case 2:
-                return new ExpandableMenuListFragment();
+                return new MyOrderFragment();
             default:
                 return null;
         }

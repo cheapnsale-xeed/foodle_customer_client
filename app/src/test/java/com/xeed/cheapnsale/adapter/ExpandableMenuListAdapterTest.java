@@ -5,11 +5,10 @@ import android.widget.LinearLayout;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
-import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.vo.CartItem;
-import com.xeed.cheapnsale.vo.MenuItems;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -103,10 +101,10 @@ public class ExpandableMenuListAdapterTest {
         assertThat(childHolder.itemOrderNowButton.getVisibility()).isEqualTo(View.GONE);
     }
 
-    private List<MenuItems> makeMockList() {
-        List<MenuItems> list = new ArrayList<>();
+    private ArrayList<Menu> makeMockList() {
+        ArrayList<Menu> list = new ArrayList<>();
         for (int i = 0; i < 3; i ++) {
-            MenuItems item = new MenuItems(0, "Item = " + i, 22000, "");
+            Menu item = new Menu(0, "Item = " + i, 22000, "");
             list.add(item);
         }
 

@@ -19,24 +19,24 @@ import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.vo.CartItem;
-import com.xeed.cheapnsale.vo.MenuItems;
 
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int HEADER = 0;
     private static final int CHILD = 1;
 
-    private List<MenuItems> menuItemList;
+    private ArrayList<Menu> menus;
     private Context context;
     private Toast toast;
 
-    public ExpandableMenuListAdapter(Context context, List<MenuItems> menuItemList) {
+    public ExpandableMenuListAdapter(Context context, ArrayList<Menu> menus) {
         this.context = context;
-        this.menuItemList = menuItemList;
+        this.menus = menus;
     }
 
     @Override
@@ -66,8 +66,9 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         if (getItemViewType(position) == HEADER){
             final ExpandableMenuListHolder expandableMenuListHolder = (ExpandableMenuListHolder) holder;
 
-            expandableMenuListHolder.itemName.setText(menuItemList.get(position).getItemName());
-            expandableMenuListHolder.itemPrice.setText(formatter.format(menuItemList.get(position).getItemPrice())
+            expandableMenuListHolder.picasso.load(menus.get(position).getMenuImg()).into(expandableMenuListHolder.itemImage);
+            expandableMenuListHolder.itemName.setText(menus.get(position).getMenuName());
+            expandableMenuListHolder.itemPrice.setText(formatter.format(menus.get(position).getMenuPrice())
                     +context.getResources().getString(R.string.price_type));
             expandableMenuListHolder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -76,7 +77,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                         int childPos = getChildPos();
 
                         if (childPos != -1) {
-                            menuItemList.remove(childPos);
+                            menus.remove(childPos);
                         }
 
                         if (position != childPos-1) {
@@ -86,11 +87,12 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                                 childPos = position;
                             }
 
-                            MenuItems newItem = new MenuItems(CHILD, menuItemList.get(position).getItemName(),
-                                    menuItemList.get(position).getItemPrice(), menuItemList.get(position).getImageSrc());
-                            newItem.setItemCount(1);
-                            newItem.setItemTotalPrice(1 * newItem.getItemPrice());
-                            menuItemList.add(childPos, newItem);
+
+                            Menu childItem = new Menu(CHILD, menus.get(position).getMenuName(),
+                                    menus.get(position).getMenuPrice(), menus.get(position).getMenuImg());
+                            childItem.setMenuItemCount(1);
+                            childItem.setMenuItemTotalPrice(1 * childItem.getMenuPrice());
+                            menus.add(childPos, childItem);
                         }
 
                         notifyDataSetChanged();
@@ -101,16 +103,16 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         else if (getItemViewType(position) == CHILD){
             final ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder) holder;
 
-            childHolder.itemTotalPriceText.setText(formatter.format(menuItemList.get(position).getItemTotalPrice())
+            childHolder.itemTotalPriceText.setText(formatter.format(menus.get(position).getMenuItemTotalPrice())
                     +context.getResources().getString(R.string.price_type));
-            childHolder.itemCountText.setText(""+menuItemList.get(position).getItemCount());
+            childHolder.itemCountText.setText(""+ menus.get(position).getMenuItemCount());
             childHolder.itemPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int itemCount = Integer.parseInt(childHolder.itemCountText.getText().toString());
                     childHolder.itemCountText.setText(String.valueOf(++itemCount));
 
-                    int totalItemPrice = itemCount * menuItemList.get(position).getItemPrice();
+                    int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
                     childHolder.itemTotalPriceText.setText(formatter.format(totalItemPrice)
                             +context.getResources().getString(R.string.price_type));
                 }
@@ -122,7 +124,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     if (itemCount < 2) return;
                     else childHolder.itemCountText.setText(String.valueOf(--itemCount));
 
-                    int totalItemPrice = itemCount * menuItemList.get(position).getItemPrice();
+                    int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
                     childHolder.itemTotalPriceText.setText(formatter.format(totalItemPrice)
                             +context.getResources().getString(R.string.price_type));
                 }
@@ -136,8 +138,8 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
                         CartItem cartItem = new CartItem();
                         cartItem.setMenuId("111");
-                        cartItem.setMenuName(menuItemList.get(getChildPos()).getItemName());
-                        cartItem.setPrice(menuItemList.get(getChildPos()).getItemPrice());
+                        cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
+                        cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
 
                         app.getCart().setStoreId("store_1");
                         app.getCart().addCartItem(cartItem);
@@ -147,7 +149,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     showCartCheckSec();
 
                     setChildLayoutChange(childHolder, app.getCart().getTotalCount());
-                    menuItemList.remove(getChildPos());
+                    menus.remove(getChildPos());
 
                     notifyDataSetChanged();
                 }
@@ -160,8 +162,8 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
                         CartItem cartItem = new CartItem();
                         cartItem.setMenuId("111");
-                        cartItem.setMenuName(menuItemList.get(getChildPos()).getItemName());
-                        cartItem.setPrice(menuItemList.get(getChildPos()).getItemPrice());
+                        cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
+                        cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
 
                         app.getCart().setStoreId("store_1");
                         app.getCart().addCartItem(cartItem);
@@ -223,17 +225,17 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return menuItemList.size();
+        return menus.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return menuItemList.get(position).getType();
+        return menus.get(position).getMenuType();
     }
 
-    public int getChildPos(){
+    private int getChildPos(){
         for (int i = 0; i < getItemCount(); i ++) {
-            if (menuItemList.get(i).getType() == CHILD) {
+            if (menus.get(i).getMenuType() == CHILD) {
                 return i;
             }
         }
@@ -247,5 +249,10 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         } else {
             childHolder.itemOrderNowButton.setVisibility(View.GONE);
         }
+    }
+
+    public void updateData(ArrayList<Menu> menus) {
+        this.menus = menus;
+        notifyDataSetChanged();        
     }
 }

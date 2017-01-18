@@ -34,7 +34,7 @@ public class StoreMenuTabPagerAdapterTest {
                 .withIntent(intent).create().get();
 
         supportFragmentManager = storeDetailActivity.getSupportFragmentManager();
-        storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(supportFragmentManager, 3);
+        storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(makeMockData(), supportFragmentManager, 3);
     }
 
     @Test

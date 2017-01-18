@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/store_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:scaleType="fitXY" />
 

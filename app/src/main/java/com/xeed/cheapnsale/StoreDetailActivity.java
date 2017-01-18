@@ -82,7 +82,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         tabLayout.addTab(tabLayout.newTab().setText("리뷰(21)"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(store, getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(storeMenuTabPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(this);

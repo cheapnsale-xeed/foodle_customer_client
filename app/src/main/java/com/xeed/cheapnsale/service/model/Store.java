@@ -19,6 +19,7 @@ package com.xeed.cheapnsale.service.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Store implements Serializable {
 
@@ -36,6 +37,8 @@ public class Store implements Serializable {
     private String avgPrepTime;
     @SerializedName("MAIN_IMG")
     private String mainImageUrl = null;
+    @SerializedName("MENUS")
+    private ArrayList<Menu> menus = new ArrayList<>();
 
     public String getMainImageUrl() {
         return mainImageUrl;
@@ -93,4 +96,11 @@ public class Store implements Serializable {
         this.avgPrepTime = avgPrepTime;
     }
 
+    public ArrayList<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(ArrayList<Menu> menus) {
+        this.menus = menus;
+    }
 }
