@@ -19,5 +19,7 @@
     <string name="expect_today_order">당일 예약 주문</string>
     <string name="cancel">취소</string>
     <string name="done">완료</string>
-    <string name="after_minute">%1$d 분 후</string>
+    <string name="after_minute">%1$d분 후</string>
+    <string name="pick_time_reset">재설정</string>
+    <string name="pickup_after_time">분 후 픽업!</string>
 </resources>
