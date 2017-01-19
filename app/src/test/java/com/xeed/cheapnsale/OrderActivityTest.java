@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -32,6 +33,8 @@ public class OrderActivityTest {
     private TextView orderPickUpTime;
     private RadioButton orderPaymentCreditRadioButton;
     private RadioButton orderPaymentKakaopayRadioButton;
+    private EditText orderUserName;
+    private EditText orderUserTel;
 
     @Before
     public void setUp() throws Exception {
@@ -42,6 +45,9 @@ public class OrderActivityTest {
         orderPaymentCreditRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_credit);
         orderPaymentKakaopayRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_kakaopay);
         orderPickUpTime = (TextView) orderActivity.findViewById(R.id.order_pick_up_time);
+
+        orderUserName = (EditText) orderActivity.findViewById(R.id.order_user_info_name);
+        orderUserTel = (EditText) orderActivity.findViewById(R.id.order_user_info_tel);
     }
 
     @Test
@@ -149,6 +155,12 @@ public class OrderActivityTest {
 
         assertThat(orderPaymentCreditRadioButton.isChecked()).isFalse();
         assertThat(orderPaymentKakaopayRadioButton.isChecked()).isTrue();
+    }
+
+    @Test
+    public void whenOrderUserInfoShow_thenNameIsCorrect() throws Exception {
+        assertThat(orderUserName.getText().toString()).isEqualTo("이서진");
+        assertThat(orderUserTel.getText().toString().equals("01012345678")).isTrue();
     }
 
     private Store makeMockData() {

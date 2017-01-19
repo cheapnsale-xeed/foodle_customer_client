@@ -26,4 +26,6 @@
     <string name="payment_credit">신용카드</string>
     <string name="payment_kakaopay">카카오페이</string>
     <string name="payment_mobile_phone">휴대폰</string>
+    <string name="order_user_info">주문자 정보</string>
+    <string name="order_user_info_change">변경하기</string>
 </resources>
