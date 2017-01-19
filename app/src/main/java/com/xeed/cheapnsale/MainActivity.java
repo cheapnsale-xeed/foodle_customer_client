@@ -14,7 +14,7 @@ import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ImageButton.OnClickListener{
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.pager)
     ViewPager viewPager;

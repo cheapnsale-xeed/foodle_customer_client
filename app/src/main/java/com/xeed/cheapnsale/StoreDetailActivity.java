@@ -49,6 +49,9 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     private TextView storePaymentType;
     private ImageView storeMainImage;
     private FloatingActionButton phoneButton;
+    private TextView phoneLinkText;
+
+    Store store;
 
     @Inject
     public Picasso picasso;
@@ -62,7 +65,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
         setContentView(R.layout.activity_store_detail);
 
-        final Store store = (Store) getIntent().getSerializableExtra("store");
+        store = (Store) getIntent().getSerializableExtra("store");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         //actionbar에 들어갈 내용을 우리의 view인 toolbar에 적용..
@@ -81,6 +84,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         storePaymentType = (TextView) findViewById(R.id.store_payment_type);
         storeMainImage = (ImageView) findViewById(R.id.store_main_img);
         phoneButton = (FloatingActionButton) findViewById(R.id.store_detail_button_call);
+        phoneLinkText = (TextView) findViewById(R.id.toolbar_call_link);
 
         tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
         tabLayout.addTab(tabLayout.newTab().setText("가게정보"));
@@ -147,18 +151,26 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + store.getPhoneNumber()));
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                }
+                makePhoneCall();
             }
         });
 
-
+        phoneLinkText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePhoneCall();
+            }
+        });
     }
 
+    private void makePhoneCall() {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + store.getPhoneNumber()));
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+        }
+    }
 
     private void setTabTextStyle(int position, int typeface) {
 
