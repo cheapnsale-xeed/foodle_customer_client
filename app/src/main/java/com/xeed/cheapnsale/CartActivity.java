@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
 import com.xeed.cheapnsale.adapter.StoreListAdapter;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.vo.Cart;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -72,6 +73,11 @@ public class CartActivity extends AppCompatActivity {
     public void updateCartFooterData(){
 
         Application app = (Application) getApplicationContext();
+        Cart cart = app.getCart();
+        if(cart.getTotalCount() == 0) {
+            ((ViewGroup) findViewById(R.id.activity_cart)).removeView(cartFooter);
+        }
+
         final DecimalFormat formatter = new DecimalFormat("#,###,###");
         TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
         orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");

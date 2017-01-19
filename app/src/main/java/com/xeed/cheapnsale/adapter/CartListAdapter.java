@@ -43,8 +43,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
 
         holder.itemName.setText(cartItems.get(position).getMenuName());
         holder.itemCountText.setText(Integer.toString(cartItems.get(position).getCount()));
-        holder.itemTotalPriceText.setText(formatter.format(cartItems.get(position).getPrice())
+        holder.itemTotalPriceText.setText(formatter.format(cartItems.get(position).getPrice() * cartItems.get(position).getCount())
                 +context.getResources().getString(R.string.price_type));
+
 //      TODO  holder.itemImage
         if (cart.getCartItems().get(position).getCount() > 1) {
             holder.itemMinus.setImageResource(R.drawable.ico_minus);
