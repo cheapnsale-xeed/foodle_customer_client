@@ -3,11 +3,13 @@ package com.xeed.cheapnsale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.service.model.Menu;
+import com.xeed.cheapnsale.vo.Cart;
 import com.xeed.cheapnsale.vo.CartItem;
 
 import java.text.DecimalFormat;
@@ -34,6 +37,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
     private ArrayList<Menu> menus;
     private Context context;
     private Toast toast;
+    private View cartFooter;
 
     public ExpandableMenuListAdapter(Context context, ArrayList<Menu> menus) {
         this.context = context;
@@ -111,7 +115,12 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onClick(View view) {
                     int itemCount = Integer.parseInt(childHolder.itemCountText.getText().toString());
+
                     childHolder.itemCountText.setText(String.valueOf(++itemCount));
+
+                    if (itemCount > 1) {
+                        childHolder.itemMinus.setImageResource(R.drawable.ico_minus);
+                    }
 
                     int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
                     childHolder.itemTotalPriceText.setText(formatter.format(totalItemPrice)
@@ -124,6 +133,8 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     int itemCount = Integer.parseInt(childHolder.itemCountText.getText().toString());
                     if (itemCount < 2) return;
                     else childHolder.itemCountText.setText(String.valueOf(--itemCount));
+
+                    if (itemCount < 2) childHolder.itemMinus.setImageResource(R.drawable.ico_minus_dim);
 
                     int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
                     childHolder.itemTotalPriceText.setText(formatter.format(totalItemPrice)
@@ -197,16 +208,24 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
     public void initCartFooterLayout() {
 
-        View cartFooter = LayoutInflater.from(context)
-                .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+        Application app = (Application) context.getApplicationContext();
+        Cart cart = app.getCart();
+
+        if (cartFooter == null) {
+            cartFooter = LayoutInflater.from(context)
+                    .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+        } else {
+            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartFooter);
+        }
+
+        if (cart.getTotalCount() == 0) return;
+
         ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
-
-        Application app = ((Application) context.getApplicationContext());
-        final DecimalFormat formatter = new DecimalFormat("#,###,###");
-
 
         RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
         coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
+
+        final DecimalFormat formatter = new DecimalFormat("#,###,###");
 
         TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
         orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");

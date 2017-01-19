@@ -69,7 +69,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:background="@color/colorWhite"
-                        android:src="@drawable/ico_minus" />
+                        android:src="@drawable/ico_minus_dim" />
 
                     <TextView
                         android:id="@+id/cart_item_count_text"

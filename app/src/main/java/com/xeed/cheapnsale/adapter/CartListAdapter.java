@@ -45,7 +45,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
         holder.itemCountText.setText(Integer.toString(cartItems.get(position).getCount()));
         holder.itemTotalPriceText.setText(formatter.format(cartItems.get(position).getPrice())
                 +context.getResources().getString(R.string.price_type));
-//        holder.itemImage
+//      TODO  holder.itemImage
+        if (cart.getCartItems().get(position).getCount() > 1) {
+            holder.itemMinus.setImageResource(R.drawable.ico_minus);
+        }
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +63,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             @Override
             public void onClick(View view) {
                 cart.plusCartItem(cartItems.get(position).getMenuId());
+                if (cart.getCartItems().get(position).getCount() > 1) {
+                    holder.itemMinus.setImageResource(R.drawable.ico_minus);
+                }
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
 
@@ -70,6 +76,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             @Override
             public void onClick(View view) {
                 cart.minusCartItem(cartItems.get(position).getMenuId());
+                if (cart.getCartItems().get(position).getCount() < 2) {
+                    holder.itemMinus.setImageResource(R.drawable.ico_minus_dim);
+                }
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
 
