@@ -41,6 +41,26 @@ public class Store implements Serializable {
     private ArrayList<Menu> menus = new ArrayList<>();
     @SerializedName("PHONE")
     private String phoneNumber = null;
+    @SerializedName("GPS_COORDINATES_LAT")
+    private Double gpsCoordinatesLat = 0d;
+    @SerializedName("GPS_COORDINATES_LONG")
+    private Double gpsCoordinatesLong = 0d;
+
+    public Double getGpsCoordinatesLat() {
+        return gpsCoordinatesLat;
+    }
+
+    public void setGpsCoordinatesLat(Double gpsCoordinatesLat) {
+        this.gpsCoordinatesLat = gpsCoordinatesLat;
+    }
+
+    public Double getGpsCoordinatesLong() {
+        return gpsCoordinatesLong;
+    }
+
+    public void setGpsCoordinatesLong(Double gpsCoordinatesLong) {
+        this.gpsCoordinatesLong = gpsCoordinatesLong;
+    }
 
     public String getMainImageUrl() {
         return mainImageUrl;
@@ -82,12 +102,12 @@ public class Store implements Serializable {
         this.name = name;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
     public String getPaymentType() {
         return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     public String getAvgPrepTime() {

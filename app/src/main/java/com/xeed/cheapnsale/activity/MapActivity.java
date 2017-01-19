@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -17,10 +18,20 @@ import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
+import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.map.NMapPOIflagType;
 import com.xeed.cheapnsale.map.NMapViewerResourceProvider;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.Store;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class MapActivity extends NMapActivity {
 
@@ -34,10 +45,18 @@ public class MapActivity extends NMapActivity {
     private NMapController mMapController;
     private NMapOverlayManager mOverlayManager;
 
+    @Inject
+    public CheapnsaleService cheapnsaleService;
+
+    ArrayList<Store> stores;
+    private NMapViewerResourceProvider mMapViewerResourceProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        ((Application) getApplication()).getApplicationComponent().inject(this);
 
         ImageView backListButton = (ImageView) findViewById(R.id.map_toolbar_list_button);
         backListButton.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +80,7 @@ public class MapActivity extends NMapActivity {
         mMapController = mMapView.getMapController();
 
         // create resource provider
-        NMapViewerResourceProvider mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
+        mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
 
         // create overlay manager
         mOverlayManager = new NMapOverlayManager(this, mMapView, mMapViewerResourceProvider);
@@ -77,6 +96,34 @@ public class MapActivity extends NMapActivity {
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 
         startMyLocation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                stores = cheapnsaleService.getStoreList();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                // set POI data
+                NMapPOIdata poiData = new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
+                poiData.beginPOIdata(stores.size());
+                for (int i = 0; i < stores.size(); ++i) {
+                    poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()), stores.get(i).getName(), NMapPOIflagType.SPOT, null);
+                }
+
+                poiData.endPOIdata();
+
+                // create POI data overlay
+                NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+            }
+        }.execute();
     }
 
     @Override
