@@ -16,7 +16,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import java.util.ArrayList;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 

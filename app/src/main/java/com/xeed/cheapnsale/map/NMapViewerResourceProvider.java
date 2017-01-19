@@ -24,6 +24,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -250,9 +251,8 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 	@Override
 	public Drawable[] getLocationDot() {
 		Drawable[] drawable = new Drawable[2];
-
-		drawable[0] = mContext.getResources().getDrawable(R.drawable.pubtrans_ic_mylocation_off);
-		drawable[1] = mContext.getResources().getDrawable(R.drawable.pubtrans_ic_mylocation_on);
+		drawable[0] = ContextCompat.getDrawable(mContext, R.drawable.pubtrans_ic_mylocation_off);
+		drawable[1] = ContextCompat.getDrawable(mContext, R.drawable.pubtrans_ic_mylocation_on);
 
 		for (int i = 0; i < drawable.length; i++) {
 			int w = drawable[i].getIntrinsicWidth() / 2;

@@ -1,8 +1,12 @@
 package com.xeed.cheapnsale;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.xeed.cheapnsale.activity.MapActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +17,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -54,5 +59,16 @@ public class MainActivityTest {
         mainActivity.viewPager.setCurrentItem(0);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(0);
         assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("전체보기");
+    }
+
+    @Test
+    public void whenMapButtonTab_thenGoMapActivity() throws Exception {
+        ImageButton mapButton = (ImageButton) mainActivity.findViewById(R.id.main_map_button);
+        mapButton.performClick();
+
+        Intent expectedIntent = new Intent(mainActivity, MapActivity.class);
+        Intent actualIntent = shadowOf(mainActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 }

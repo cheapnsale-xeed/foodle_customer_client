@@ -22,4 +22,5 @@
     <string name="after_minute">%1$d분 후</string>
     <string name="pick_time_reset">재설정</string>
     <string name="pickup_after_time">분 후 픽업!</string>
+    <string name="list_contentDescription">Back to List</string>
 </resources>
