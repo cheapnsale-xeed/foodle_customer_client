@@ -39,6 +39,8 @@ public class Store implements Serializable {
     private String mainImageUrl = null;
     @SerializedName("MENUS")
     private ArrayList<Menu> menus = new ArrayList<>();
+    @SerializedName("PHONE")
+    private String phoneNumber = null;
 
     public String getMainImageUrl() {
         return mainImageUrl;
@@ -102,5 +104,13 @@ public class Store implements Serializable {
 
     public void setMenus(ArrayList<Menu> menus) {
         this.menus = menus;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
