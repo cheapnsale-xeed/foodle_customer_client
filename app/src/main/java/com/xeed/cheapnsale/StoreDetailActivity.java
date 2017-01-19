@@ -1,11 +1,14 @@
 package com.xeed.cheapnsale;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +48,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     private TextView storeTitle;
     private TextView storePaymentType;
     private ImageView storeMainImage;
+    private FloatingActionButton phoneButton;
 
     @Inject
     public Picasso picasso;
@@ -58,7 +62,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
         setContentView(R.layout.activity_store_detail);
 
-        Store store = (Store) getIntent().getSerializableExtra("store");
+        final Store store = (Store) getIntent().getSerializableExtra("store");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         //actionbar에 들어갈 내용을 우리의 view인 toolbar에 적용..
@@ -76,6 +80,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         storeTitle = (TextView) findViewById(R.id.store_title);
         storePaymentType = (TextView) findViewById(R.id.store_payment_type);
         storeMainImage = (ImageView) findViewById(R.id.store_main_img);
+        phoneButton = (FloatingActionButton) findViewById(R.id.store_detail_button_call);
 
         tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
         tabLayout.addTab(tabLayout.newTab().setText("가게정보"));
@@ -90,7 +95,6 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         //store 정보 세팅 시작
         storeTitle.setText(store.getName());
         storePaymentType.setText(store.getPaymentType());
-
 
         imageCallback = new Target() {
             @Override
@@ -128,7 +132,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
                     callLink.setVisibility(View.VISIBLE);
                     mapLink.setVisibility(View.VISIBLE);
 
-                    toolbar.setBackgroundColor(Color.rgb(255,255,255));
+                    toolbar.setBackgroundColor(Color.rgb(255, 255, 255));
                 }
             }
         });
@@ -139,8 +143,21 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
                 onBackPressed();
             }
         });
-    }
 
+        phoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + store.getPhoneNumber()));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                }
+            }
+        });
+
+
+    }
 
 
     private void setTabTextStyle(int position, int typeface) {
