@@ -14,7 +14,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 
 @RunWith(RobolectricTestRunner.class)

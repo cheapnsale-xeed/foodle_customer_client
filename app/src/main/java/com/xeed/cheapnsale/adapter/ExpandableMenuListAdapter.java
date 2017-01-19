@@ -207,50 +207,50 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     public void initCartFooterLayout() {
+        if(context instanceof StoreDetailActivity){
+            Application app = (Application) context.getApplicationContext();
+            Cart cart = app.getCart();
 
-        Application app = (Application) context.getApplicationContext();
-        Cart cart = app.getCart();
+            if (cartFooter == null) {
+                cartFooter = LayoutInflater.from(context)
+                        .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+            } else {
+                ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartFooter);
+            }
 
-        if (cartFooter == null) {
-            cartFooter = LayoutInflater.from(context)
-                    .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
-        } else {
-            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartFooter);
+            if (cart.getTotalCount() == 0) return;
+
+            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
+
+            RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
+            coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
+
+            final DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+            TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
+            orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
+            TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
+            orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
+
+            TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
+            orderButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
+            View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
+            callCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CartActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
-
-        if (cart.getTotalCount() == 0) return;
-
-        ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
-
-        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
-        coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
-
-        final DecimalFormat formatter = new DecimalFormat("#,###,###");
-
-        TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
-        orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
-        TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
-        orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
-
-        TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
-        orderButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, OrderActivity.class);
-                context.startActivity(intent);
-            }
-        });
-
-        View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
-        callCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CartActivity.class);
-                context.startActivity(intent);
-            }
-        });
-
     }
 
     @Override

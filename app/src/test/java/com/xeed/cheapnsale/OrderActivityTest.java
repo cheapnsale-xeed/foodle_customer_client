@@ -19,7 +19,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -112,16 +112,15 @@ public class OrderActivityTest {
     }
 
     @Test
-    public void whenPickerPopup_thenFirstPickerValueCheck() throws Exception {
+    public void whenPickerPopupIsOpened_thenFirstPickerValueCheck() throws Exception {
 
         when(orderActivity.cheapnsaleService.getStore(anyString())).thenReturn(makeMockData());
         orderActivity.onResume();
         orderTimeTodayRadioButton.performClick();
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
 
-        NumberPicker numberPicker = (NumberPicker) pickerDialog.findViewById(R.id.order_time_picker);
-        assertThat(orderPickUpTime.getText().equals(numberPicker.getDisplayedValues()[0].replaceAll(" 후", ""))).isTrue();
-
+        NumberPicker numberPicker = (NumberPicker) pickerDialog.getView().findViewById(R.id.order_time_picker);
+        assertThat(numberPicker.getDisplayedValues()[0]).isEqualTo("20 분 후");
     }
 
     @Test

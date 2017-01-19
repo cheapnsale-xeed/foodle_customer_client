@@ -1,6 +1,5 @@
 package com.xeed.cheapnsale.adapter;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -9,21 +8,18 @@ import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.service.model.Menu;
-import com.xeed.cheapnsale.StoreDetailActivity;
-import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.vo.CartItem;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -91,6 +87,7 @@ public class ExpandableMenuListAdapterTest {
         CartItem cartItem = new CartItem();
         cartItem.setMenuName("만두");
         cartItem.setPrice(5000);
+        cartItem.setCount(1);
 
         Application app = ((Application)childHolder.itemView.getContext().getApplicationContext());
 
@@ -107,43 +104,11 @@ public class ExpandableMenuListAdapterTest {
     private ArrayList<Menu> makeMockList() {
         ArrayList<Menu> list = new ArrayList<>();
         for (int i = 0; i < 3; i ++) {
-            Menu item = new Menu(0, "Item = " + i, 22000, "");
+            Menu item = new Menu(0, ""+i,  "Item = " + i, 22000, "");
             list.add(item);
         }
 
         return list;
     }
-
-    @Test
-    public void whenCartAreaClickedOnFooter_thenLaunchCartActivity() throws Exception {
-        Store store = new Store();
-        store.setName("name");
-        store.setPaymentType("paymentType");
-        store.setMainImageUrl("mainImageUrl");
-
-
-        Intent intent = new Intent(headerHolder.itemView.getContext(), StoreDetailActivity.class);
-        intent.putExtra("store", store);
-
-        StoreDetailActivity storeDetailActivity = Robolectric.buildActivity(StoreDetailActivity.class).withIntent(intent).create().get();
-
-
-        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
-        headerHolder.itemView.performClick();
-
-        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(4);
-
-        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(storeDetailActivity), 1);
-        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
-
-        childHolder.itemAddCartButton.performClick();
-
-        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(3);
-
-
-
-
-    }
-
 
 }
