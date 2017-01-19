@@ -22,7 +22,7 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_order_list_in_cart, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_detail_child_view, parent, false);
 
         return new OrderCartItemListHolder(view);
     }
