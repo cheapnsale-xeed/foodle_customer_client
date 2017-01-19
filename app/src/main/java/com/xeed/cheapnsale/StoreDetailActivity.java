@@ -147,7 +147,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + store.getPhoneNumber()));
                 try {
                     startActivity(intent);
