@@ -6,9 +6,15 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,8 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Store;
+
+import java.text.DecimalFormat;
 
 import javax.inject.Inject;
 
@@ -138,6 +147,42 @@ public class OrderActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        final LinearLayout orderDetailTitleLayout = (LinearLayout) findViewById(R.id.order_detail_title);
+        final ImageButton orderListfoldingButton = (ImageButton) findViewById(R.id.order_detail_list_button);
+        orderDetailTitleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View orderCartBar = findViewById(R.id.order_cart_bar);
+                RecyclerView orderCartListView = (RecyclerView) findViewById(R.id.order_cart_item_list_recycler_view);
+
+                if (orderCartBar.getVisibility() == View.GONE) {
+                    orderListfoldingButton.setImageResource(R.drawable.ico_close);
+
+                    orderCartBar.setVisibility(View.VISIBLE);
+                    orderCartListView.setVisibility(View.VISIBLE);
+
+                } else {
+                    orderListfoldingButton.setImageResource(R.drawable.ico_open);
+
+                    orderCartBar.setVisibility(View.GONE);
+                    orderCartListView.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        final DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+        TextView orderDetailTotalPrice = (TextView) findViewById(R.id.order_detail_total_price);
+        orderDetailTotalPrice.setText(""+formatter.format(((Application) getApplication()).getCart().getTotalPrice()));
+
+        // Order list Adapter
+        OrderCartItemListAdapter orderCartItemListAdapter =
+                new OrderCartItemListAdapter(((Application) getApplication()).getCart().getCartItems());
+
+        RecyclerView orderCartItemListView = (RecyclerView) findViewById(R.id.order_cart_item_list_recycler_view);
+        orderCartItemListView.setLayoutManager(new LinearLayoutManager(getApplication()));
+        orderCartItemListView.setAdapter(orderCartItemListAdapter);
 
     }
 
