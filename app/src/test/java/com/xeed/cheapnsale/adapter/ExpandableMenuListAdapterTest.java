@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.adapter;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -8,11 +9,14 @@ import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.service.model.Menu;
+import com.xeed.cheapnsale.StoreDetailActivity;
+import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.vo.CartItem;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -85,7 +89,6 @@ public class ExpandableMenuListAdapterTest {
         ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
 
         CartItem cartItem = new CartItem();
-        cartItem.setMenuId("111");
         cartItem.setMenuName("만두");
         cartItem.setPrice(5000);
 
@@ -110,4 +113,37 @@ public class ExpandableMenuListAdapterTest {
 
         return list;
     }
+
+    @Test
+    public void whenCartAreaClickedOnFooter_thenLaunchCartActivity() throws Exception {
+        Store store = new Store();
+        store.setName("name");
+        store.setPaymentType("paymentType");
+        store.setMainImageUrl("mainImageUrl");
+
+
+        Intent intent = new Intent(headerHolder.itemView.getContext(), StoreDetailActivity.class);
+        intent.putExtra("store", store);
+
+        StoreDetailActivity storeDetailActivity = Robolectric.buildActivity(StoreDetailActivity.class).withIntent(intent).create().get();
+
+
+        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        headerHolder.itemView.performClick();
+
+        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(4);
+
+        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(storeDetailActivity), 1);
+        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+
+        childHolder.itemAddCartButton.performClick();
+
+        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(3);
+
+
+
+
+    }
+
+
 }

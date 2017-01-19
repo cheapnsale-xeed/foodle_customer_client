@@ -2,17 +2,9 @@ package com.xeed.cheapnsale.vo;
 
 public class CartItem {
 
-    private String menuId;
     private String menuName;
     private int price;
-
-    public String getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(String menuId) {
-        this.menuId = menuId;
-    }
+    private int count;
 
     public String getMenuName() {
         return menuName;
@@ -28,6 +20,14 @@ public class CartItem {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
 }

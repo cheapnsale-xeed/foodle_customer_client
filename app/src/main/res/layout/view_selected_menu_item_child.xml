@@ -54,7 +54,7 @@
             android:layout_marginEnd="11.5dp"
             android:layout_weight="1"
             android:textAlignment="textEnd"
-            android:textColor="#bb0551"
+            android:textColor="@color/colorPointRed"
             android:textSize="15dp"
             tools:text="22,000원" />
 

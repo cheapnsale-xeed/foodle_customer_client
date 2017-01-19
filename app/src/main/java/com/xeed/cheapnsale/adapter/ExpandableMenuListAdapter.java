@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.CartActivity;
 import com.xeed.cheapnsale.OrderActivity;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.StoreDetailActivity;
@@ -135,15 +136,13 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     // TODO: 다름 유저스토리에서 활용 가능
                     Application app = ((Application) context.getApplicationContext());
 
-                    for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
-                        CartItem cartItem = new CartItem();
-                        cartItem.setMenuId("111");
-                        cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
-                        cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
+                    CartItem cartItem = new CartItem();
+                    cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
+                    cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
+                    cartItem.setCount(Integer.parseInt(childHolder.itemCountText.getText().toString()));
 
-                        app.getCart().setStoreId("store_1");
-                        app.getCart().addCartItem(cartItem);
-                    }
+                    app.getCart().setStoreId("store_1");
+                    app.getCart().addCartItem(cartItem);
 
                     initCartFooterLayout();
                     showCartCheckSec();
@@ -161,7 +160,6 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     Application app = ((Application) context.getApplicationContext());
                     for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
                         CartItem cartItem = new CartItem();
-                        cartItem.setMenuId("111");
                         cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
                         cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
 
@@ -194,7 +192,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         }, 1000);
     }
 
-    private void initCartFooterLayout() {
+    public void initCartFooterLayout() {
 
         View cartFooter = LayoutInflater.from(context)
                 .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
@@ -211,12 +209,22 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
         TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
         orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
+
         TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
         orderButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, OrderActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
+        callCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CartActivity.class);
                 context.startActivity(intent);
             }
         });
