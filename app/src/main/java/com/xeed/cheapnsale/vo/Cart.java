@@ -58,6 +58,7 @@ public class Cart {
     public void minusCartItem(String menuId) {
         for (int i = 0; i < cartItems.size(); ++i) {
             if (cartItems.get(i).getMenuId().equals(menuId)) {
+                if (cartItems.get(i).getCount() < 2) break;
                 cartItems.get(i).setCount(cartItems.get(i).getCount() - 1);
                 break;
             }
