@@ -197,40 +197,42 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
     public void initCartFooterLayout() {
 
-        View cartFooter = LayoutInflater.from(context)
-                .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
-        ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
+        if(context instanceof StoreDetailActivity){
+            View cartFooter = LayoutInflater.from(context)
+                    .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
 
-        Application app = ((Application) context.getApplicationContext());
-        final DecimalFormat formatter = new DecimalFormat("#,###,###");
+            Application app = ((Application) context.getApplicationContext());
+            final DecimalFormat formatter = new DecimalFormat("#,###,###");
 
 
-        RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
-        coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
+            RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
+            coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
 
-        TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
-        orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
-        TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
-        orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
+            TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
+            orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
+            TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
+            orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
 
-        TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
-        orderButton.setOnClickListener(new View.OnClickListener() {
+            TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
+            orderButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, OrderActivity.class);
-                context.startActivity(intent);
-            }
-        });
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    context.startActivity(intent);
+                }
+            });
 
-        View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
-        callCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, CartActivity.class);
-                context.startActivity(intent);
-            }
-        });
+            View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
+            callCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CartActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
 
     }
 
