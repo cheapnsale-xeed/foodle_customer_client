@@ -38,6 +38,7 @@ public class ExpandableMenuListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         expandableMenuListAdapter = new ExpandableMenuListAdapter(getContext(), new ArrayList<Menu>());
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
@@ -50,6 +51,8 @@ public class ExpandableMenuListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        expandableMenuListAdapter.initCartFooterLayout();
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -65,5 +68,7 @@ public class ExpandableMenuListFragment extends Fragment {
                 }
             }
         }.execute();
+
+
     }
 }

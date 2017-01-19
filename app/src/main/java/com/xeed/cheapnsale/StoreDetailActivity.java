@@ -117,8 +117,6 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
-                Log.d("verticalOffset", verticalOffset+"");
-
                 if (verticalOffset > COLLAPS_LIMIT) {
                     title.setVisibility(View.GONE);
                     callLink.setVisibility(View.GONE);

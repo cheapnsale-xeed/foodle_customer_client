@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xeed.cheapnsale.CartActivity">
+
+    <RelativeLayout
+        android:id="@+id/cart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/cart_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_margin="0dp"
+            android:background="@android:color/white"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            android:padding="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true">
+
+                    <ImageButton
+                        android:id="@+id/main_toolbar_back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/white"
+                        android:contentDescription="@string/search_contentDescription"
+                        android:src="@drawable/ico_back" />
+
+                    <TextView
+                        android:id="@+id/mainToolBarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="7dp"
+                        android:text="@string/cart"
+                        android:textColor="@android:color/black"
+                        android:textSize="17dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#d3d3d3" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cart_list_recycler_view"
+            android:layout_below="@+id/cart_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80d8d8d8"/>
+    </RelativeLayout>
+
+</RelativeLayout>

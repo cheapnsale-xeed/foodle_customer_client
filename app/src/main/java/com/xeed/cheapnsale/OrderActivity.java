@@ -21,14 +21,14 @@ import com.xeed.cheapnsale.service.model.Store;
 
 import javax.inject.Inject;
 
-public class OrderActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class OrderActivity extends AppCompatActivity {
 
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    RadioGroup radioGroup;
-    RadioButton radioButton1;
-    RadioButton radioButton2;
+    RadioGroup radioPickupTimeGroup;
+    RadioButton radioPickupTimeNow;
+    RadioButton radioPickupTimeToday;
 
     //Dialog pickerDialog;
     NumberPicker numberPicker;
@@ -62,6 +62,11 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
     private TextView timeToPickupValue;
     private RelativeLayout todayOrderLayout;
 
+    private RadioGroup radioPaymentGroup;
+    private RadioButton radioPaymentCredit;
+    private RadioButton radioPaymentKakaopay;
+    private RadioButton radioPaymentMobile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +74,30 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
 
-        radioGroup = (RadioGroup) findViewById(R.id.order_time_rg);
-        radioButton1 = (RadioButton) findViewById(R.id.order_time_now_radio_button);
-        radioButton2 = (RadioButton) findViewById(R.id.order_time_today_radio_button);
+        radioPickupTimeGroup = (RadioGroup) findViewById(R.id.order_time_rg);
+        radioPickupTimeNow = (RadioButton) findViewById(R.id.order_time_now_radio_button);
+        radioPickupTimeToday = (RadioButton) findViewById(R.id.order_time_today_radio_button);
 
-        radioGroup.setOnCheckedChangeListener(this);
-        radioButton1.setChecked(true);
+        radioPickupTimeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                displayPickupTimeRadioGroup(checkedId);
+            }
+        });
+        radioPickupTimeNow.setChecked(true);
+
+        radioPaymentGroup = (RadioGroup) findViewById(R.id.order_payment_group);
+        radioPaymentCredit = (RadioButton) findViewById(R.id.order_payment_credit);
+        radioPaymentKakaopay = (RadioButton) findViewById(R.id.order_payment_kakaopay);
+        radioPaymentMobile = (RadioButton) findViewById(R.id.order_payment_mobile_phone);
+
+        radioPaymentGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                displayPaymentRadioGroup(checkedId);
+            }
+        });
+        radioPaymentCredit.setChecked(true);
 
         pickerDialog = new MaterialDialog.Builder(this)
                 .customView(R.layout.popup_order_time_picker, false).build();
@@ -93,7 +116,7 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
         pickerCancelButton.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
-                radioGroup.check(radioButton1.getId());
+                radioPickupTimeGroup.check(radioPickupTimeNow.getId());
                 pickerDialog.dismiss();
             }
         });
@@ -162,23 +185,17 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
         pickerDialog.show();
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-        displayRadioGroup(checkedId);
-    }
-
-    private void displayRadioGroup(int checkedId) {
+    private void displayPickupTimeRadioGroup(int checkedId) {
 
         todayOrderLayout = (RelativeLayout) findViewById(R.id.today_order_layout);
 
-        if (checkedId == radioButton1.getId()) {
-            radioButton1.setTextColor(Color.parseColor("#111cc4"));
-            radioButton2.setTextColor(Color.parseColor("#C8000000"));
-            radioButton1.setTypeface(null, Typeface.BOLD);
-            radioButton2.setTypeface(null, Typeface.NORMAL);
-            radioButton1.setButtonTintList(colorStateList_select);
-            radioButton2.setButtonTintList(colorStateList_unselect);
+        if (checkedId == radioPickupTimeNow.getId()) {
+            radioPickupTimeNow.setTextColor(Color.parseColor("#111cc4"));
+            radioPickupTimeToday.setTextColor(Color.parseColor("#C8000000"));
+            radioPickupTimeNow.setTypeface(null, Typeface.BOLD);
+            radioPickupTimeToday.setTypeface(null, Typeface.NORMAL);
+            radioPickupTimeNow.setButtonTintList(colorStateList_select);
+            radioPickupTimeToday.setButtonTintList(colorStateList_unselect);
             todayOrderLayout.setVisibility(RelativeLayout.INVISIBLE);
             if(numberPicker != null){
                 numberPicker.setValue(0);
@@ -186,14 +203,59 @@ public class OrderActivity extends AppCompatActivity implements RadioGroup.OnChe
             selectedNumberIndex = 0;
         }
 
-        if (checkedId == radioButton2.getId()) {
-            radioButton1.setTextColor(Color.parseColor("#C8000000"));
-            radioButton2.setTextColor(Color.parseColor("#111cc4"));
-            radioButton1.setTypeface(null, Typeface.NORMAL);
-            radioButton2.setTypeface(null, Typeface.BOLD);
-            radioButton2.setButtonTintList(colorStateList_select);
-            radioButton1.setButtonTintList(colorStateList_unselect);
+        if (checkedId == radioPickupTimeToday.getId()) {
+            radioPickupTimeNow.setTextColor(Color.parseColor("#C8000000"));
+            radioPickupTimeToday.setTextColor(Color.parseColor("#111cc4"));
+            radioPickupTimeNow.setTypeface(null, Typeface.NORMAL);
+            radioPickupTimeToday.setTypeface(null, Typeface.BOLD);
+            radioPickupTimeToday.setButtonTintList(colorStateList_select);
+            radioPickupTimeNow.setButtonTintList(colorStateList_unselect);
             show();
+        }
+    }
+
+    private void displayPaymentRadioGroup(int checkedId) {
+
+        if (checkedId == radioPaymentCredit.getId()) {
+            radioPaymentCredit.setTextColor(Color.parseColor("#111cc4"));
+            radioPaymentKakaopay.setTextColor(Color.parseColor("#C8000000"));
+            radioPaymentMobile.setTextColor(Color.parseColor("#C8000000"));
+
+            radioPaymentCredit.setTypeface(null, Typeface.BOLD);
+            radioPaymentKakaopay.setTypeface(null, Typeface.NORMAL);
+            radioPaymentMobile.setTypeface(null, Typeface.NORMAL);
+
+            radioPaymentCredit.setButtonTintList(colorStateList_select);
+            radioPaymentKakaopay.setButtonTintList(colorStateList_unselect);
+            radioPaymentMobile.setButtonTintList(colorStateList_unselect);
+        }
+
+        if (checkedId == radioPaymentKakaopay.getId()) {
+            radioPaymentKakaopay.setTextColor(Color.parseColor("#111cc4"));
+            radioPaymentCredit.setTextColor(Color.parseColor("#C8000000"));
+            radioPaymentMobile.setTextColor(Color.parseColor("#C8000000"));
+
+            radioPaymentKakaopay.setTypeface(null, Typeface.BOLD);
+            radioPaymentCredit.setTypeface(null, Typeface.NORMAL);
+            radioPaymentMobile.setTypeface(null, Typeface.NORMAL);
+
+            radioPaymentKakaopay.setButtonTintList(colorStateList_select);
+            radioPaymentCredit.setButtonTintList(colorStateList_unselect);
+            radioPaymentMobile.setButtonTintList(colorStateList_unselect);
+        }
+
+        if (checkedId == radioPaymentMobile.getId()) {
+            radioPaymentMobile.setTextColor(Color.parseColor("#111cc4"));
+            radioPaymentKakaopay.setTextColor(Color.parseColor("#C8000000"));
+            radioPaymentCredit.setTextColor(Color.parseColor("#C8000000"));
+
+            radioPaymentMobile.setTypeface(null, Typeface.BOLD);
+            radioPaymentKakaopay.setTypeface(null, Typeface.NORMAL);
+            radioPaymentCredit.setTypeface(null, Typeface.NORMAL);
+
+            radioPaymentMobile.setButtonTintList(colorStateList_select);
+            radioPaymentKakaopay.setButtonTintList(colorStateList_unselect);
+            radioPaymentCredit.setButtonTintList(colorStateList_unselect);
         }
     }
 }

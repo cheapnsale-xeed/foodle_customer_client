@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -30,6 +31,10 @@ public class OrderActivityTest {
     private RadioButton orderTimeNowRadioButton;
     private RadioButton orderTimeTodayRadioButton;
     private TextView orderPickUpTime;
+    private RadioButton orderPaymentCreditRadioButton;
+    private RadioButton orderPaymentKakaopayRadioButton;
+    private EditText orderUserName;
+    private EditText orderUserTel;
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +42,12 @@ public class OrderActivityTest {
 
         orderTimeNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_now_radio_button);
         orderTimeTodayRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_today_radio_button);
+        orderPaymentCreditRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_credit);
+        orderPaymentKakaopayRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_kakaopay);
         orderPickUpTime = (TextView) orderActivity.findViewById(R.id.order_pick_up_time);
+
+        orderUserName = (EditText) orderActivity.findViewById(R.id.order_user_info_name);
+        orderUserTel = (EditText) orderActivity.findViewById(R.id.order_user_info_tel);
     }
 
     @Test
@@ -135,6 +145,22 @@ public class OrderActivityTest {
         assertThat(timeToPickupMin.getText()).isEqualTo("30");
 
         assertThat(todayOrderLayout.getVisibility()).isEqualTo(View.VISIBLE);
+    }
+
+    @Test
+    public void whenPaymentTypeShow_thenCreditChecked() throws Exception {
+        assertThat(orderPaymentCreditRadioButton.isChecked()).isTrue();
+
+        orderPaymentKakaopayRadioButton.performClick();
+
+        assertThat(orderPaymentCreditRadioButton.isChecked()).isFalse();
+        assertThat(orderPaymentKakaopayRadioButton.isChecked()).isTrue();
+    }
+
+    @Test
+    public void whenOrderUserInfoShow_thenNameIsCorrect() throws Exception {
+        assertThat(orderUserName.getText().toString()).isEqualTo("이서진");
+        assertThat(orderUserTel.getText().toString().equals("01012345678")).isTrue();
     }
 
     private Store makeMockData() {
