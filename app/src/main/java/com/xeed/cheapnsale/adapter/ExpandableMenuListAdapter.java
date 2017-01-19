@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.CartActivity;
 import com.xeed.cheapnsale.OrderActivity;
@@ -28,6 +30,8 @@ import com.xeed.cheapnsale.vo.CartItem;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -71,7 +75,9 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         if (getItemViewType(position) == HEADER){
             final ExpandableMenuListHolder expandableMenuListHolder = (ExpandableMenuListHolder) holder;
 
-            expandableMenuListHolder.picasso.load(menus.get(position).getMenuImg()).into(expandableMenuListHolder.itemImage);
+            //expandableMenuListHolder.picasso.load(menus.get(position).getMenuImg()).into(expandableMenuListHolder.itemImage);
+            expandableMenuListHolder.picasso.with(context).load(menus.get(position).getMenuImg())
+                    .transform(new CropCircleTransformation()).into(expandableMenuListHolder.itemImage);
             expandableMenuListHolder.itemName.setText(menus.get(position).getMenuName());
             expandableMenuListHolder.itemPrice.setText(formatter.format(menus.get(position).getMenuPrice())
                     +context.getResources().getString(R.string.price_type));

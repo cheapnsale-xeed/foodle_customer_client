@@ -40,6 +40,8 @@ dependencies {
 
     // image load
     compile 'com.squareup.picasso:picasso:2.5.2'
+    // make image circle
+    compile 'jp.wasabeef:picasso-transformations:2.1.0'
 
     //for dependency injection
     // apt command comes from the android-apt plugin
