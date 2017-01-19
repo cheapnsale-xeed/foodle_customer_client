@@ -89,7 +89,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                             }
 
 
-                            Menu childItem = new Menu(CHILD, menus.get(position).getMenuName(),
+                            Menu childItem = new Menu(CHILD, menus.get(position).getMenuId(), menus.get(position).getMenuName(),
                                     menus.get(position).getMenuPrice(), menus.get(position).getMenuImg());
                             childItem.setMenuItemCount(1);
                             childItem.setMenuItemTotalPrice(1 * childItem.getMenuPrice());
@@ -137,6 +137,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     Application app = ((Application) context.getApplicationContext());
 
                     CartItem cartItem = new CartItem();
+                    cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                     cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
                     cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
                     cartItem.setCount(Integer.parseInt(childHolder.itemCountText.getText().toString()));
@@ -160,8 +161,10 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     Application app = ((Application) context.getApplicationContext());
                     for (int i = 0; i < Integer.parseInt(childHolder.itemCountText.getText().toString()); i++) {
                         CartItem cartItem = new CartItem();
+                        cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                         cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
                         cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
+                        cartItem.setCount(Integer.parseInt(childHolder.itemCountText.getText().toString()));
 
                         app.getCart().setStoreId("store_1");
                         app.getCart().addCartItem(cartItem);

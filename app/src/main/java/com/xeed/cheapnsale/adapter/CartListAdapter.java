@@ -50,7 +50,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cart.deleteCartItem(cart.getCartItems().get(position).getMenuName());
+                cart.deleteCartItem(cart.getCartItems().get(position).getMenuId());
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
             }
@@ -59,7 +59,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
         holder.itemPlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                cart.plusCartItem(cartItems.get(position).getMenuName());
+                cart.plusCartItem(cartItems.get(position).getMenuId());
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
 
@@ -69,7 +69,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
         holder.itemMinus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                cart.minusCartItem(cartItems.get(position).getMenuName());
+                cart.minusCartItem(cartItems.get(position).getMenuId());
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
 

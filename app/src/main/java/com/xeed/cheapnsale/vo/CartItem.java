@@ -2,6 +2,7 @@ package com.xeed.cheapnsale.vo;
 
 public class CartItem {
 
+    private String menuId;
     private String menuName;
     private int price;
     private int count;
@@ -28,6 +29,15 @@ public class CartItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
     }
 
 }

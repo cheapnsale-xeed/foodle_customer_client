@@ -45,9 +45,9 @@ public class Cart {
     }
 
     // 장바구니화면에서 + 버튼을 눌러서 수량을 조정 할 경우 사용
-    public void plusCartItem(String menuName) {
+    public void plusCartItem(String menuId) {
         for (int i = 0; i < cartItems.size(); ++i) {
-            if (cartItems.get(i).getMenuName().equals(menuName)) {
+            if (cartItems.get(i).getMenuId().equals(menuId)) {
                 cartItems.get(i).setCount(cartItems.get(i).getCount() + 1);
                 break;
             }
@@ -55,9 +55,9 @@ public class Cart {
     }
 
     // 장바구니화면에서 - 버튼을 눌러서 수량을 조정 할 경우 사용
-    public void minusCartItem(String menuName) {
+    public void minusCartItem(String menuId) {
         for (int i = 0; i < cartItems.size(); ++i) {
-            if (cartItems.get(i).getMenuName().equals(menuName)) {
+            if (cartItems.get(i).getMenuId().equals(menuId)) {
                 cartItems.get(i).setCount(cartItems.get(i).getCount() - 1);
                 break;
             }
@@ -68,7 +68,7 @@ public class Cart {
     public void addCartItem(CartItem cartItem) {
         boolean added = false;
         for (int i = 0; i < cartItems.size(); ++i) {
-            if (cartItems.get(i).getMenuName().equals(cartItem.getMenuName())) {
+            if (cartItems.get(i).getMenuId().equals(cartItem.getMenuId())) {
                 cartItems.get(i).setCount(cartItems.get(i).getCount() + cartItem.getCount());
                 added = true;
                 break;
@@ -80,9 +80,9 @@ public class Cart {
         }
     }
 
-    public void deleteCartItem(String menuName) {
+    public void deleteCartItem(String menuId) {
         for (int i = 0; i < cartItems.size(); ++i) {
-            if (cartItems.get(i).getMenuName().equals(menuName)) {
+            if (cartItems.get(i).getMenuId().equals(menuId)) {
                 cartItems.remove(i);
             }
         }
