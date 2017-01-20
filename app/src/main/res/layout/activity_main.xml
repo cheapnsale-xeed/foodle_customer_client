@@ -45,27 +45,28 @@
                 android:textSize="17dp" />
 
             <ImageButton
-                android:id="@+id/main_toolbar_filter_button"
+                android:id="@+id/main_map_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:background="@android:color/white"
-                android:contentDescription="@string/filter_contentDescription"
-                android:src="@drawable/ico_filter" />
+                android:contentDescription="@string/map_contentDescription"
+                android:src="@drawable/ico_map"
+                 />
 
             <ImageButton
-                android:id="@+id/main_map_button"
+                android:id="@+id/main_toolbar_filter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/main_toolbar_filter_button"
+                android:layout_alignTop="@+id/main_map_button"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/main_toolbar_filter_button"
+                android:layout_toStartOf="@+id/main_map_button"
                 android:background="@android:color/white"
-                android:contentDescription="@string/map_contentDescription"
-                android:src="@drawable/ico_map" />
+                android:contentDescription="@string/filter_contentDescription"
+                android:src="@drawable/ico_filter"/>
 
             <View
                 android:layout_width="match_parent"
