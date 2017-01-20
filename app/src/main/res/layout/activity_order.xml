@@ -366,7 +366,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/order_detail_list_button"
                     android:layout_width="39dp"
                     android:layout_height="39dp"

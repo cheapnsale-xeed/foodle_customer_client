@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -146,12 +147,13 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         final LinearLayout orderDetailTitleLayout = (LinearLayout) findViewById(R.id.order_detail_title);
-        final ImageButton orderListfoldingButton = (ImageButton) findViewById(R.id.order_detail_list_button);
+
         orderDetailTitleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View orderCartBar = findViewById(R.id.order_cart_bar);
                 RecyclerView orderCartListView = (RecyclerView) findViewById(R.id.order_cart_item_list_recycler_view);
+                ImageView orderListfoldingButton = (ImageView) findViewById(R.id.order_detail_list_button);
 
                 if (orderCartBar.getVisibility() == View.GONE) {
                     orderListfoldingButton.setImageResource(R.drawable.ico_close);
