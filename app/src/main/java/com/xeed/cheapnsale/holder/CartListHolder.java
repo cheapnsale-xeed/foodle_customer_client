@@ -6,8 +6,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+
+import javax.inject.Inject;
 
 public class CartListHolder extends RecyclerView.ViewHolder{
     public ImageButton deleteButton;
@@ -18,6 +21,8 @@ public class CartListHolder extends RecyclerView.ViewHolder{
     public TextView itemCountText;
     public TextView itemTotalPriceText;
 
+    @Inject
+    public Picasso picasso;
 
     public CartListHolder(View view) {
         super(view);

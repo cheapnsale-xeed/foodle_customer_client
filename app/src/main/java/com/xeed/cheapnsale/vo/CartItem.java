@@ -6,6 +6,7 @@ public class CartItem {
     private String menuName;
     private int price;
     private int count;
+    private String menuImage;
 
     public String getMenuName() {
         return menuName;
@@ -38,6 +39,14 @@ public class CartItem {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public String getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(String menuImage) {
+        this.menuImage = menuImage;
     }
 
 }

@@ -16,6 +16,8 @@ import com.xeed.cheapnsale.vo.CartItem;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
 public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
 
     private Context context;
@@ -45,6 +47,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
         holder.itemCountText.setText(Integer.toString(cartItems.get(position).getCount()));
         holder.itemTotalPriceText.setText(formatter.format(cartItems.get(position).getPrice() * cartItems.get(position).getCount())
                 +context.getResources().getString(R.string.price_type));
+        holder.picasso.with(context).load(cartItems.get(position).getMenuImage())
+                .transform(new CropCircleTransformation()).into(holder.itemImage);
 
 //      TODO  holder.itemImage
         if (cart.getCartItems().get(position).getCount() > 1) {

@@ -157,6 +157,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                     cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
                     cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
+                    cartItem.setMenuImage(menus.get(getChildPos()).getMenuImg());
                     cartItem.setCount(Integer.parseInt(childHolder.itemCountText.getText().toString()));
 
                     app.getCart().setStoreId("store_1");
@@ -181,6 +182,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                     cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                     cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
                     cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
+                    cartItem.setMenuImage(menus.get(getChildPos()).getMenuImg());
                     cartItem.setCount(Integer.parseInt(childHolder.itemCountText.getText().toString()));
 
                     app.getCart().setStoreId("store_1");
