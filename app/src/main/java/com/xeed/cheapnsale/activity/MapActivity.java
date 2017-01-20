@@ -115,7 +115,8 @@ public class MapActivity extends NMapActivity {
                 NMapPOIdata poiData = new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
                 poiData.beginPOIdata(stores.size());
                 for (int i = 0; i < stores.size(); ++i) {
-                    poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()), stores.get(i).getName(), NMapPOIflagType.SPOT, null);
+                    poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
+                            stores.get(i).getName(), NMapPOIflagType.SPOT, null);
                 }
 
                 poiData.endPOIdata();
