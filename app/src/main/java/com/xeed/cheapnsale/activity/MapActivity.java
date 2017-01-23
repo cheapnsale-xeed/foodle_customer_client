@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +26,8 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.adapter.CartListAdapter;
+import com.xeed.cheapnsale.adapter.MapStoreListAdapter;
 import com.xeed.cheapnsale.map.NMapPOIflagType;
 import com.xeed.cheapnsale.map.NMapViewerResourceProvider;
 import com.xeed.cheapnsale.service.CheapnsaleService;
@@ -50,6 +54,8 @@ public class MapActivity extends NMapActivity {
 
     ArrayList<Store> stores;
     private NMapViewerResourceProvider mMapViewerResourceProvider;
+    private MapStoreListAdapter mapStoreListAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +102,10 @@ public class MapActivity extends NMapActivity {
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 
         startMyLocation();
+
+        recyclerView = (RecyclerView) findViewById(R.id.map_store_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+
     }
 
     @Override
@@ -123,6 +133,12 @@ public class MapActivity extends NMapActivity {
 
                 // create POI data overlay
                 NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+
+                poiDataOverlay.selectPOIitem(0, false);
+
+                mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
+                recyclerView.setAdapter(mapStoreListAdapter);
+                mapStoreListAdapter.notifyDataSetChanged();
             }
         }.execute();
     }
