@@ -30,6 +30,12 @@ public class CartActivity extends AppCompatActivity {
     @BindView(R.id.cart_footer_order_button)
     public TextView orderButton;
 
+    @BindView(R.id.cart_footer_order_info_count)
+    public TextView orderSummaryInfoCount;
+
+    @BindView(R.id.cart_footer_order_info_price)
+    public TextView orderSummaryInfoPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +68,7 @@ public class CartActivity extends AppCompatActivity {
         Application app = (Application) getApplicationContext();
 
         final DecimalFormat formatter = new DecimalFormat("#,###,###");
-        TextView orderSummaryInfoCount = (TextView) findViewById(R.id.cart_footer_order_info_count);
         orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
-        TextView orderSummaryInfoPrice = (TextView) findViewById(R.id.cart_footer_order_info_price);
         orderSummaryInfoPrice.setText(formatter.format(app.getCart().getTotalPrice()) + getResources().getString(R.string.price_type));
     }
 
