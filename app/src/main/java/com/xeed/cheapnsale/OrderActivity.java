@@ -28,13 +28,19 @@ import java.text.DecimalFormat;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class OrderActivity extends AppCompatActivity {
 
     @Inject
     public CheapnsaleService cheapnsaleService;
 
+    @BindView(R.id.order_time_rg)
     RadioGroup radioPickupTimeGroup;
+    @BindView(R.id.order_time_now_radio_button)
     RadioButton radioPickupTimeNow;
+    @BindView(R.id.order_time_today_radio_button)
     RadioButton radioPickupTimeToday;
 
     //Dialog pickerDialog;
@@ -79,11 +85,9 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        ((Application) getApplication()).getApplicationComponent().inject(this);
+        ButterKnife.bind(this);
 
-        radioPickupTimeGroup = (RadioGroup) findViewById(R.id.order_time_rg);
-        radioPickupTimeNow = (RadioButton) findViewById(R.id.order_time_now_radio_button);
-        radioPickupTimeToday = (RadioButton) findViewById(R.id.order_time_today_radio_button);
+        ((Application) getApplication()).getApplicationComponent().inject(this);
 
         radioPickupTimeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
