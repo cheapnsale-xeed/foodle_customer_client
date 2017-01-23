@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.MainActivity;
-import com.xeed.cheapnsale.R;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +41,7 @@ public class MainTabPagerAdapterTest {
         startFragment(fragment);
 
         //assertThat(fragment.getView().findViewById(R.id.store_list_title)).isNotNull();
-        assertThat(fragment.getView().findViewById(R.id.my_order_title)).isNull();
+//        assertThat(fragment.getView().findViewById(R.id.my_order_title)).isNull();
     }
 
 
