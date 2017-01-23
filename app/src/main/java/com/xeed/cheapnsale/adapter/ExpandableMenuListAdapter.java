@@ -75,8 +75,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         if (getItemViewType(position) == HEADER) {
             final ExpandableMenuListHolder expandableMenuListHolder = (ExpandableMenuListHolder) holder;
 
-            //expandableMenuListHolder.picasso.load(menus.get(position).getMenuImg()).into(expandableMenuListHolder.itemImage);
-            expandableMenuListHolder.picasso.with(context).load(menus.get(position).getMenuImg())
+            expandableMenuListHolder.picasso.load(menus.get(position).getMenuImg())
                     .transform(new CropCircleTransformation()).into(expandableMenuListHolder.itemImage);
             expandableMenuListHolder.itemName.setText(menus.get(position).getMenuName());
             expandableMenuListHolder.itemPrice.setText(formatter.format(menus.get(position).getMenuPrice())
