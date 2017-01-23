@@ -11,6 +11,8 @@ import com.xeed.cheapnsale.fragments.MyOrderFragment;
 import com.xeed.cheapnsale.fragments.StoreListFragment;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.holder.MapStoreListHolder;
+import com.xeed.cheapnsale.holder.StoreListHolder;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 
 import javax.inject.Singleton;
@@ -22,8 +24,8 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(CheapnsaleService cheapnsaleService);
     void inject(StoreListFragment storeListFragment);
+    void inject(StoreListHolder storeListHolder);
     void inject(MyOrderFragment myOrderFragment);
-    void inject(StoreListAdapter.StoreListHolder storeListHolder);
     void inject(MyOrderCurrentAdapter.MyOrderCurrentHolder myOrderCurrentHolder);
     void inject(CartListHolder cartListHolder);
     void inject(StoreDetailActivity storeDetailActivity);
@@ -31,4 +33,6 @@ public interface ApplicationComponent {
     void inject(ExpandableMenuListFragment expandableMenuListFragment);
     void inject(ExpandableMenuListHolder expandableMenuListHolder);
     void inject(MapActivity mapActivity);
+    void inject(MapStoreListHolder mapStoreListHolder);
+
 }

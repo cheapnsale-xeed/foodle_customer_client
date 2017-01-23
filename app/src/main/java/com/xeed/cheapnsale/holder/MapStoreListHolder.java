@@ -14,24 +14,24 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExpandableMenuListHolder extends RecyclerView.ViewHolder{
+public class MapStoreListHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.menu_item_price)
-    public TextView itemPrice;
+    @BindView(R.id.map_store_img)
+    public ImageView itemImage;
 
-    @BindView(R.id.menu_item_name)
+    @BindView(R.id.map_store_name)
     public TextView itemName;
 
-    @BindView(R.id.menu_item_image)
-    public ImageView itemImage;
+    @BindView(R.id.map_store_avg_prep_time)
+    public TextView itemAvgPrepTime;
 
     @Inject
     public Picasso picasso;
 
-    public ExpandableMenuListHolder(View view) {
+    public MapStoreListHolder(View view) {
         super(view);
 
-        ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);
+        ((Application) view.getContext().getApplicationContext()).getApplicationComponent().inject(this);
         ButterKnife.bind(this, view);
     }
 }
