@@ -9,6 +9,7 @@ import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
 import com.xeed.cheapnsale.fragments.StoreListFragment;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.holder.MapStoreListHolder;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 
 import javax.inject.Singleton;
@@ -27,4 +28,5 @@ public interface ApplicationComponent {
     void inject(ExpandableMenuListFragment expandableMenuListFragment);
     void inject(ExpandableMenuListHolder expandableMenuListHolder);
     void inject(MapActivity mapActivity);
+    void inject(MapStoreListHolder mapStoreListHolder);
 }
