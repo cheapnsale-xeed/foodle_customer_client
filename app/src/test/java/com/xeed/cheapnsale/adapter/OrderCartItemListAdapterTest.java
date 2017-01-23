@@ -3,6 +3,7 @@ package com.xeed.cheapnsale.adapter;
 import android.widget.LinearLayout;
 
 import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.holder.OrderCartItemListHolder;
 import com.xeed.cheapnsale.vo.CartItem;
 
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class OrderCartItemListAdapterTest {
 
     private ArrayList<CartItem> mockCart = new ArrayList<>();
     private OrderCartItemListAdapter orderCartItemListAdapter;
-    private OrderCartItemListAdapter.OrderCartItemListHolder holder;
+    private OrderCartItemListHolder holder;
 
     @Before
     public void setUp() throws Exception {

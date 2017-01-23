@@ -37,42 +37,52 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MapActivity extends NMapActivity {
 
     private static final String LOG_TAG = "MapActivity";
-
-    private NMapView mMapView;// 지도 화면 View
     private final String CLIENT_ID = "06NkaJ4SLa6IICRbLzeO";// 애플리케이션 클라이언트 아이디 값
+
+    @Inject
+    public CheapnsaleService cheapnsaleService;
+
+    @BindView(R.id.map_view)
+    public NMapView mMapView;// 지도 화면 View
+
+    @BindView(R.id.map_toolbar_list_button)
+    public ImageView backListButton;
+
+    @BindView(R.id.map_store_recycler_view)
+    public RecyclerView recyclerView;
+
+    @BindView(R.id.map_tool_bar_title)
+    public TextView toolbarTitle;
+
     private NMapMyLocationOverlay mMyLocationOverlay;
     private NMapLocationManager mMapLocationManager;
     private NMapCompassManager mMapCompassManager;
     private NMapController mMapController;
     private NMapOverlayManager mOverlayManager;
-
-    @Inject
-    public CheapnsaleService cheapnsaleService;
-
     ArrayList<Store> stores;
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private MapStoreListAdapter mapStoreListAdapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        ButterKnife.bind(this);
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
 
-        ImageView backListButton = (ImageView) findViewById(R.id.map_toolbar_list_button);
         backListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-
-        mMapView = (NMapView) findViewById(R.id.map_view);
 
         mMapView.setScalingFactor(4f,true);
         mMapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
@@ -103,9 +113,7 @@ public class MapActivity extends NMapActivity {
 
         startMyLocation();
 
-        recyclerView = (RecyclerView) findViewById(R.id.map_store_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-
     }
 
     @Override
@@ -157,8 +165,6 @@ public class MapActivity extends NMapActivity {
                 MapActivity.super.setMapDataProviderListener(null);
                 return;
             }
-
-            TextView toolbarTitle = (TextView) findViewById(R.id.map_tool_bar_title);
             toolbarTitle.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
         }

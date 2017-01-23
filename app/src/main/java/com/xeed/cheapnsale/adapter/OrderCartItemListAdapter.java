@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.holder.OrderCartItemListHolder;
 import com.xeed.cheapnsale.vo.CartItem;
 
 import java.text.DecimalFormat;
@@ -43,17 +43,4 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
         return cartItemList.size();
     }
 
-    public class OrderCartItemListHolder extends RecyclerView.ViewHolder {
-        public TextView orderCartItemName;
-        public TextView orderCartItemCount;
-        public TextView orderCartItemPrice;
-
-        public OrderCartItemListHolder(View itemView) {
-            super(itemView);
-
-            orderCartItemName = (TextView) itemView.findViewById(R.id.order_cart_item_name);
-            orderCartItemCount = (TextView) itemView.findViewById(R.id.order_cart_item_count);
-            orderCartItemPrice = (TextView) itemView.findViewById(R.id.order_cart_item_price);
-        }
-    }
 }

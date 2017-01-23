@@ -33,23 +33,56 @@ import butterknife.ButterKnife;
 
 public class OrderActivity extends AppCompatActivity {
 
+    int selectedNumberIndex = 0;
+
     @Inject
     public CheapnsaleService cheapnsaleService;
 
     @BindView(R.id.order_time_rg)
-    RadioGroup radioPickupTimeGroup;
+    public RadioGroup radioPickupTimeGroup;
+
     @BindView(R.id.order_time_now_radio_button)
-    RadioButton radioPickupTimeNow;
+    public RadioButton radioPickupTimeNow;
+
     @BindView(R.id.order_time_today_radio_button)
-    RadioButton radioPickupTimeToday;
+    public RadioButton radioPickupTimeToday;
 
-    //Dialog pickerDialog;
+    @BindView(R.id.order_payment_group)
+    public RadioGroup radioPaymentGroup;
+
+    @BindView(R.id.order_payment_credit)
+    public RadioButton radioPaymentCredit;
+
+    @BindView(R.id.order_payment_kakaopay)
+    public RadioButton radioPaymentKakaopay;
+
+    @BindView(R.id.order_payment_mobile_phone)
+    public RadioButton radioPaymentMobile;
+
+    @BindView(R.id.order_pick_up_time)
+    public TextView orderPickUpTimeTextView;
+
+    @BindView(R.id.time_to_pickup_value)
+    public TextView timeToPickupValue;
+
+    @BindView(R.id.today_order_layout)
+    public RelativeLayout todayOrderLayout;
+
+    @BindView(R.id.main_toolbar_back_button)
+    public ImageButton backButton;
+
+    @BindView(R.id.order_detail_title)
+    public LinearLayout orderDetailTitleLayout;
+
+    @BindView(R.id.order_detail_total_price)
+    public TextView orderDetailTotalPrice;
+
+    @BindView(R.id.order_cart_item_list_recycler_view)
+    public RecyclerView orderCartItemListView;
+
     NumberPicker numberPicker;
-
     TextView pickerCancelButton;
     TextView pickerAcceptButton;
-
-    int selectedNumberIndex = 0;
 
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
@@ -69,25 +102,16 @@ public class OrderActivity extends AppCompatActivity {
     );
     public MaterialDialog pickerDialog;
     private Store store;
+
     private String storeId = "1";
-
-    public TextView orderPickUpTimeTextView;
-    private TextView timeToPickupValue;
-    private RelativeLayout todayOrderLayout;
-
-    private RadioGroup radioPaymentGroup;
-    private RadioButton radioPaymentCredit;
-    private RadioButton radioPaymentKakaopay;
-    private RadioButton radioPaymentMobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        ButterKnife.bind(this);
-
         ((Application) getApplication()).getApplicationComponent().inject(this);
+        ButterKnife.bind(this);
 
         radioPickupTimeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -96,11 +120,6 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
         radioPickupTimeNow.setChecked(true);
-
-        radioPaymentGroup = (RadioGroup) findViewById(R.id.order_payment_group);
-        radioPaymentCredit = (RadioButton) findViewById(R.id.order_payment_credit);
-        radioPaymentKakaopay = (RadioButton) findViewById(R.id.order_payment_kakaopay);
-        radioPaymentMobile = (RadioButton) findViewById(R.id.order_payment_mobile_phone);
 
         radioPaymentGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -114,15 +133,8 @@ public class OrderActivity extends AppCompatActivity {
                 .customView(R.layout.popup_order_time_picker, false).build();
 
         numberPicker = (NumberPicker) pickerDialog.getView().findViewById(R.id.order_time_picker);
-
         pickerCancelButton = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_cancel);
         pickerAcceptButton = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_accept);
-
-        orderPickUpTimeTextView = (TextView) findViewById(R.id.order_pick_up_time);
-
-        timeToPickupValue = (TextView) findViewById(R.id.time_to_pickup_value);
-
-        //TODO : 바탕영역 눌러서 dismiss 될때 지금 주문 버튼이 선택되도록!
 
         pickerCancelButton.setOnClickListener(new TextView.OnClickListener() {
             @Override
@@ -142,7 +154,6 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton backButton = (ImageButton) findViewById(R.id.main_toolbar_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,23 +161,21 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        final LinearLayout orderDetailTitleLayout = (LinearLayout) findViewById(R.id.order_detail_title);
-
         orderDetailTitleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 View orderCartBar = findViewById(R.id.order_cart_bar);
                 RecyclerView orderCartListView = (RecyclerView) findViewById(R.id.order_cart_item_list_recycler_view);
-                ImageView orderListfoldingButton = (ImageView) findViewById(R.id.order_detail_list_button);
+                ImageView orderListFoldingButton = (ImageView) findViewById(R.id.order_detail_list_button);
 
                 if (orderCartBar.getVisibility() == View.GONE) {
-                    orderListfoldingButton.setImageResource(R.drawable.ico_close);
+                    orderListFoldingButton.setImageResource(R.drawable.ico_close);
 
                     orderCartBar.setVisibility(View.VISIBLE);
                     orderCartListView.setVisibility(View.VISIBLE);
 
                 } else {
-                    orderListfoldingButton.setImageResource(R.drawable.ico_open);
+                    orderListFoldingButton.setImageResource(R.drawable.ico_open);
 
                     orderCartBar.setVisibility(View.GONE);
                     orderCartListView.setVisibility(View.GONE);
@@ -176,17 +185,14 @@ public class OrderActivity extends AppCompatActivity {
 
         final DecimalFormat formatter = new DecimalFormat("#,###,###");
 
-        TextView orderDetailTotalPrice = (TextView) findViewById(R.id.order_detail_total_price);
         orderDetailTotalPrice.setText(""+formatter.format(((Application) getApplication()).getCart().getTotalPrice()));
 
         // Order list Adapter
         OrderCartItemListAdapter orderCartItemListAdapter =
                 new OrderCartItemListAdapter(((Application) getApplication()).getCart().getCartItems());
 
-        RecyclerView orderCartItemListView = (RecyclerView) findViewById(R.id.order_cart_item_list_recycler_view);
         orderCartItemListView.setLayoutManager(new LinearLayoutManager(getApplication()));
         orderCartItemListView.setAdapter(orderCartItemListAdapter);
-
     }
 
     @Override
@@ -234,8 +240,6 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void displayPickupTimeRadioGroup(int checkedId) {
-
-        todayOrderLayout = (RelativeLayout) findViewById(R.id.today_order_layout);
 
         if (checkedId == radioPickupTimeNow.getId()) {
             radioPickupTimeNow.setTextColor(Color.parseColor("#111cc4"));
