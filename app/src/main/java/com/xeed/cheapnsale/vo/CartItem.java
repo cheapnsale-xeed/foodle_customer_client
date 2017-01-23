@@ -8,6 +8,18 @@ public class CartItem {
     private int count;
     private String menuImage;
 
+    public CartItem() {
+
+    }
+
+    public CartItem(String menuId, String menuName, int price, int count, String menuImage) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.price = price;
+        this.count = count;
+        this.menuImage = menuImage;
+    }
+
     public String getMenuName() {
         return menuName;
     }

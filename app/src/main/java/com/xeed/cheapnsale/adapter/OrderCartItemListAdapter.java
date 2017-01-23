@@ -21,7 +21,7 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OrderCartItemListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_detail_child_view, parent, false);
 
         return new OrderCartItemListHolder(view);
@@ -43,7 +43,7 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
         return cartItemList.size();
     }
 
-    private class OrderCartItemListHolder extends RecyclerView.ViewHolder {
+    public class OrderCartItemListHolder extends RecyclerView.ViewHolder {
         public TextView orderCartItemName;
         public TextView orderCartItemCount;
         public TextView orderCartItemPrice;
