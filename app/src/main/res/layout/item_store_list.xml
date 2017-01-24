@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4.5dp"
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="미소야"
+                tools:text="미소야"
                 android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
@@ -57,6 +58,7 @@
                 android:src="@drawable/ico_walking" />
 
             <TextView
+                android:id="@+id/text_arrival_time_in_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3분"
@@ -64,6 +66,7 @@
                 android:textSize="15dp" />
 
             <View
+                android:id="@+id/view_divide_bar_in_store"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="2dp"
@@ -73,7 +76,7 @@
                 android:background="#c7c7c7" />
 
             <TextView
-                android:id="@+id/store_distance_view"
+                android:id="@+id/text_distance_to_store_in_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.4km"

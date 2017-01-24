@@ -28,8 +28,6 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
     public MapStoreListAdapter(Context context, ArrayList<Store> stores) {
         this.context = context;
         this.stores = stores;
-
-        Application app = ((Application) context.getApplicationContext());
     }
 
     @Override
@@ -47,6 +45,23 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
                 .transform(new CropCircleTransformation()).into(holder.itemImage);
         holder.itemAvgPrepTime.setText(stores.get(position).getAvgPrepTime() + context.getResources().getString(R.string.minute));
 
+        int distance = stores.get(position).getDistanceToStore();
+        int arrivalTime = distance / 60;
+
+        if (distance > 1000) {
+            holder.textDistanceToStore.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
+        } else {
+            holder.textDistanceToStore.setText(stores.get(position).getDistanceToStore() + "m");
+        }
+        if (distance > 1500) {
+            holder.textArrivalTime.setVisibility(View.GONE);
+            holder.viewDivideBarInMapActivity.setVisibility(View.GONE);
+        } else {
+            holder.textArrivalTime.setVisibility(View.VISIBLE);
+            holder.viewDivideBarInMapActivity.setVisibility(View.VISIBLE);
+            holder.textArrivalTime.setText("도보 " + arrivalTime + "분");
+
+        }
     }
 
     @Override

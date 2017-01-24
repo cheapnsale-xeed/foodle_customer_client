@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.RequestCreator;
 import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.holder.StoreListHolder;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class StoreListAdapterTest {
 
     @Test
     public void whenAdapterIsCreated_thenHolderInformationIsCorrectly() throws Exception {
-        StoreListAdapter.StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
         when(holder.picasso.load(anyString())).thenReturn(mock(RequestCreator.class));
 
         storeListAdapter.onBindViewHolder(holder,0);
@@ -47,7 +48,7 @@ public class StoreListAdapterTest {
 
     @Test
     public void whenClickItemView_thenStartActivityIsStoreDetailActivity() throws Exception {
-        StoreListAdapter.StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
         when(holder.picasso.load(anyString())).thenReturn(mock(RequestCreator.class));
 
         storeListAdapter.onBindViewHolder(holder,0);

@@ -13,6 +13,7 @@ import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,14 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        mapLinkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-
+    @OnClick(R.id.main_map_button)
+    public void onClickMapLinkButton(View view) {
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(intent);
     }
 }

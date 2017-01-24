@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.nhn.android.maps.NMapLocationManager;
+import com.nhn.android.maps.maplib.NGeoPoint;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.StoreListAdapter;
@@ -23,13 +26,15 @@ import javax.inject.Inject;
 
 public class StoreListFragment extends Fragment {
 
-    RecyclerView recyclerView;
-
-    ArrayList<Store> stores;
-    StoreListAdapter storeListAdapter;
-
     @Inject
     public CheapnsaleService cheapnsaleService;
+
+    RecyclerView recyclerView;
+    ArrayList<Store> stores;
+
+    StoreListAdapter storeListAdapter;
+
+    private NMapLocationManager mMapLocationManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +49,9 @@ public class StoreListFragment extends Fragment {
         storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(storeListAdapter);
+
+        mMapLocationManager = new NMapLocationManager(container.getContext());
+        mMapLocationManager.setOnLocationChangeListener(onMyLocationChangeListener);
 
         return recyclerView;
     }
@@ -67,5 +75,32 @@ public class StoreListFragment extends Fragment {
 
         ((Application) getActivity().getApplication()).getCart().clearCartItems();
     }
+
+    private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
+
+        @Override
+        public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
+
+            for (int i = 0; i < stores.size(); ++i) {
+                if (mMapLocationManager.getMyLocation() != null) {
+                    stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                }
+            }
+            storeListAdapter.notifyDataSetChanged();
+
+            return true;
+        }
+
+        @Override
+        public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
+            Toast.makeText(recyclerView.getContext(), "Your current location is temporarily unavailable.", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
+            Toast.makeText(recyclerView.getContext(), "Your current location is unavailable area.", Toast.LENGTH_LONG).show();
+        }
+
+    };
 }
 

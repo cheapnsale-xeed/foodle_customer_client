@@ -26,7 +26,6 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.adapter.CartListAdapter;
 import com.xeed.cheapnsale.adapter.MapStoreListAdapter;
 import com.xeed.cheapnsale.map.NMapPOIflagType;
 import com.xeed.cheapnsale.map.NMapViewerResourceProvider;
@@ -37,25 +36,33 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MapActivity extends NMapActivity {
 
+    @Inject
+    public CheapnsaleService cheapnsaleService;
+
+    @BindView(R.id.map_toolbar_list_button)
+    public ImageView backListButton;
+
     private static final String LOG_TAG = "MapActivity";
+    private final String CLIENT_ID = "06NkaJ4SLa6IICRbLzeO";// 애플리케이션 클라이언트 아이디 값
 
     private NMapView mMapView;// 지도 화면 View
-    private final String CLIENT_ID = "06NkaJ4SLa6IICRbLzeO";// 애플리케이션 클라이언트 아이디 값
     private NMapMyLocationOverlay mMyLocationOverlay;
     private NMapLocationManager mMapLocationManager;
     private NMapCompassManager mMapCompassManager;
     private NMapController mMapController;
     private NMapOverlayManager mOverlayManager;
 
-    @Inject
-    public CheapnsaleService cheapnsaleService;
-
-    ArrayList<Store> stores;
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private MapStoreListAdapter mapStoreListAdapter;
+
     private RecyclerView recyclerView;
+    ArrayList<Store> stores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +70,7 @@ public class MapActivity extends NMapActivity {
         setContentView(R.layout.activity_map);
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
-
-        ImageView backListButton = (ImageView) findViewById(R.id.map_toolbar_list_button);
-        backListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        ButterKnife.bind(this);
 
         mMapView = (NMapView) findViewById(R.id.map_view);
 
@@ -121,6 +121,7 @@ public class MapActivity extends NMapActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
+
                 // set POI data
                 NMapPOIdata poiData = new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
                 poiData.beginPOIdata(stores.size());
@@ -139,6 +140,8 @@ public class MapActivity extends NMapActivity {
                 mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
                 recyclerView.setAdapter(mapStoreListAdapter);
                 mapStoreListAdapter.notifyDataSetChanged();
+
+
             }
         }.execute();
     }
@@ -147,6 +150,11 @@ public class MapActivity extends NMapActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @OnClick(R.id.map_toolbar_list_button)
+    public void onClickBackButton(View view) {
+        onBackPressed();
     }
 
     private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
@@ -174,6 +182,13 @@ public class MapActivity extends NMapActivity {
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
+
+            for (int i = 0; i < stores.size(); ++i) {
+                if (mMapLocationManager.getMyLocation() != null) {
+                    stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                }
+            }
+            mapStoreListAdapter.notifyDataSetChanged();
 
             return true;
         }

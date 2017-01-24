@@ -46,6 +46,16 @@ public class Store implements Serializable {
     @SerializedName("GPS_COORDINATES_LONG")
     private Double gpsCoordinatesLong = 0d;
 
+    private int distanceToStore = 0;
+
+    public int getDistanceToStore() {
+        return distanceToStore;
+    }
+
+    public void setDistanceToStore(int distanceToStore) {
+        this.distanceToStore = distanceToStore;
+    }
+
     public Double getGpsCoordinatesLat() {
         return gpsCoordinatesLat;
     }
