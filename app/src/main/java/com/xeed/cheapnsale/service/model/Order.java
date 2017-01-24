@@ -6,12 +6,16 @@ import java.util.ArrayList;
 
 public class Order {
 
+    @SerializedName("EMAIL")
+    private String email;
     @SerializedName("MENUS")
     private ArrayList<OrderMenu> menus;
     @SerializedName("ORDER_ID")
     private String orderId;
     @SerializedName("STORE_ID")
     private String storeId;
+    @SerializedName("ORDER_AT")
+    private String orderAt;
     @SerializedName("STORE_NAME")
     private String storeName;
     @SerializedName("STATUS")
@@ -19,10 +23,21 @@ public class Order {
     @SerializedName("PICKUP_TIME")
     private String pickupTime;
 
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getStoreName() {
         return storeName;
     }
-
+    public String getOrderAt() {
+        return orderAt;
+    }
+    public void setOrderAt(String orderAt) {
+        this.orderAt = orderAt;
+    }
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }

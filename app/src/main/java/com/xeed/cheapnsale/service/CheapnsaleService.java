@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.xeed.cheapnsale.Application;
-import com.xeed.cheapnsale.service.model.MyOrder;
+import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
@@ -33,21 +33,24 @@ public class CheapnsaleService {
     @Inject
     CheapnsaleApi cheapnsaleApi;
 
+    private Gson gson = new Gson();
+
     public CheapnsaleService(Context context) {
         ((Application) context).getApplicationComponent().inject(this);
     }
 
     public ArrayList<Store> getStoreList() {
         JsonElement stores = cheapnsaleApi.getStores();
-        return new Gson().fromJson(stores, new TypeToken<ArrayList<Store>>() {}.getType());
+        return gson.fromJson(stores, new TypeToken<ArrayList<Store>>() {}.getType());
     }
 
     public Store getStore(String storeId) {
         return cheapnsaleApi.getStore(storeId);
     }
 
-    public MyOrder getMyOrder(String email) {
-        return cheapnsaleApi.getMyOrder(email);
+    public ArrayList<Order> getMyOrder(String email) {
+        JsonElement orders = cheapnsaleApi.getMyOrder(email);
+        return gson.fromJson(orders, new TypeToken<ArrayList<Order>>(){}.getType());
     }
 }
 

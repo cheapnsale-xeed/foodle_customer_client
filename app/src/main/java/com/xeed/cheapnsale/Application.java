@@ -17,7 +17,7 @@ public class Application extends android.app.Application {
         return cart;
     }
 
-    private String userEmail = "cheapnsale.xeed";
+    private String userEmail = "cheapnsale.xeed@gmail.com";
 
     public String getUserEmail() {
         return userEmail;

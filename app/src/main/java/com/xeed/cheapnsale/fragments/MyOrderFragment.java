@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +30,8 @@ public class MyOrderFragment extends Fragment {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    MyOrder myOrder;
     MyOrderCurrentAdapter myOrderCurrentAdapter;
+    ArrayList<Order> myOrder = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,8 +44,6 @@ public class MyOrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.tab_my_order_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.my_order_ready_recycler_view);
 
-        myOrder = new MyOrder();
-        myOrder.setOrders(new ArrayList<Order>());
         myOrderCurrentAdapter = new MyOrderCurrentAdapter(getContext(), myOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myOrderCurrentAdapter);
@@ -51,7 +51,6 @@ public class MyOrderFragment extends Fragment {
         return view;
     }
 
-    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -69,5 +68,4 @@ public class MyOrderFragment extends Fragment {
             }
         }.execute();
     }
-    */
 }

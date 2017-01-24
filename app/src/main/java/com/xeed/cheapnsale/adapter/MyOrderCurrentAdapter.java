@@ -11,19 +11,22 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.service.model.MyOrder;
 import com.xeed.cheapnsale.service.model.Order;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAdapter.MyOrderCurrentHolder> {
 
     private Context context;
-    private MyOrder myOrder;
+    private ArrayList<Order> myOrder;
 
-    public MyOrderCurrentAdapter(Context context, MyOrder myOrder) {
+    public MyOrderCurrentAdapter(Context context, ArrayList<Order> myOrder) {
         this.context = context;
         this.myOrder = myOrder;
     }
@@ -37,8 +40,10 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
 
     @Override
     public void onBindViewHolder(MyOrderCurrentHolder holder, int position) {
-        Order order = myOrder.getOrders().get(position);
-        holder.picasso.load(order.getMenus().get(position).getMenuImg())
+        Order order = myOrder.get(position);
+
+        //TODO : 확인 필요
+        holder.picasso.load(order.getMenus().get(0).getMenuImg())
                 .transform(new CropCircleTransformation())
                 .into(holder.imgView);
         if (order.getStatus().equals("DONE")) {
@@ -53,19 +58,23 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
 
     @Override
     public int getItemCount() {
-        return myOrder.getOrders().size();
+        return myOrder.size();
     }
 
-    public void updateData(MyOrder myOrder) {
-        this.myOrder.setOrders(myOrder.getOrders());
+    public void updateData(ArrayList<Order> myOrder) {
+        this.myOrder = myOrder;
         this.notifyDataSetChanged();
     }
 
     public class MyOrderCurrentHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.menu_item_image)
         ImageView imgView;
+        @BindView(R.id.menu_item_status)
         TextView itemStatus;
+        @BindView(R.id.my_order_item_name)
         TextView itemName;
+        @BindView(R.id.my_order_store_name)
         TextView storeName;
 
         @Inject
@@ -74,11 +83,7 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         public MyOrderCurrentHolder(View itemView) {
             super(itemView);
             ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);
-
-            imgView = (ImageView) itemView.findViewById(R.id.menu_item_image);
-            itemStatus = (TextView) itemView.findViewById(R.id.menu_item_status);
-            itemName = (TextView) itemView.findViewById(R.id.my_order_item_name);
-            storeName = (TextView) itemView.findViewById(R.id.my_order_store_name);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
