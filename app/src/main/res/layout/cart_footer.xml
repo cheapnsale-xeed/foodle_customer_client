@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cart_footer"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
     android:background="@color/colorFooter"
     android:orientation="horizontal"
-    android:visibility="visible"
-    android:layout_alignParentBottom="true">
+    android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/cart_footer_call_cart_button"
@@ -25,20 +26,19 @@
             android:layout_height="match_parent"
             android:layout_marginStart="6dp"
             android:gravity="center_vertical"
-            android:text="(1)"
             android:textColor="@color/colorWhite"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            tools:hint="(1)" />
 
         <TextView
             android:id="@+id/cart_footer_order_info_price"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:layout_marginStart="25dp"
+            android:gravity="center_vertical"
             android:textColor="@color/colorWhite"
             android:textSize="18dp"
-            android:text="22,000원"
-            />
+            tools:hint="22,000원" />
 
     </LinearLayout>
 
@@ -47,10 +47,10 @@
         android:id="@+id/cart_footer_order_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorFooterDark"
         android:gravity="center"
         android:text="@string/order"
-        android:textSize="18dp"
         android:textColor="@color/colorWhite"
-        android:background="@color/colorFooterDark"/>
+        android:textSize="18dp" />
 
 </LinearLayout>

@@ -11,9 +11,18 @@ import com.xeed.cheapnsale.R;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ExpandableMenuListHolder extends RecyclerView.ViewHolder{
+
+    @BindView(R.id.menu_item_price)
     public TextView itemPrice;
+
+    @BindView(R.id.menu_item_name)
     public TextView itemName;
+
+    @BindView(R.id.menu_item_image)
     public ImageView itemImage;
 
     @Inject
@@ -23,9 +32,6 @@ public class ExpandableMenuListHolder extends RecyclerView.ViewHolder{
         super(view);
 
         ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);
-
-        itemName = (TextView) view.findViewById(R.id.menu_item_name);
-        itemImage = (ImageView)view.findViewById(R.id.menu_item_image);
-        itemPrice = (TextView) view.findViewById(R.id.menu_item_price);
+        ButterKnife.bind(this, view);
     }
 }

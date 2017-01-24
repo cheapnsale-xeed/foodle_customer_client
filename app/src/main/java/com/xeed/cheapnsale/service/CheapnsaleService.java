@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.service.model.MyOrder;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
@@ -43,6 +44,10 @@ public class CheapnsaleService {
 
     public Store getStore(String storeId) {
         return cheapnsaleApi.getStore(storeId);
+    }
+
+    public MyOrder getMyOrder(String email) {
+        return cheapnsaleApi.getMyOrder(email);
     }
 }
 

@@ -3,9 +3,11 @@ package com.xeed.cheapnsale.inject;
 import com.xeed.cheapnsale.OrderActivity;
 import com.xeed.cheapnsale.StoreDetailActivity;
 import com.xeed.cheapnsale.activity.MapActivity;
+import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.StoreListAdapter;
 
 import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
+import com.xeed.cheapnsale.fragments.MyOrderFragment;
 import com.xeed.cheapnsale.fragments.StoreListFragment;
 import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
 import com.xeed.cheapnsale.holder.CartListHolder;
@@ -23,6 +25,8 @@ public interface ApplicationComponent {
     void inject(CheapnsaleService cheapnsaleService);
     void inject(StoreListFragment storeListFragment);
     void inject(StoreListHolder storeListHolder);
+    void inject(MyOrderFragment myOrderFragment);
+    void inject(MyOrderCurrentAdapter.MyOrderCurrentHolder myOrderCurrentHolder);
     void inject(CartListHolder cartListHolder);
     void inject(StoreDetailActivity storeDetailActivity);
     void inject(OrderActivity orderActivity);
@@ -30,4 +34,5 @@ public interface ApplicationComponent {
     void inject(ExpandableMenuListHolder expandableMenuListHolder);
     void inject(MapActivity mapActivity);
     void inject(MapStoreListHolder mapStoreListHolder);
+
 }

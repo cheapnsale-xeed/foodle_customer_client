@@ -13,7 +13,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -28,28 +27,51 @@ import com.xeed.cheapnsale.service.model.Store;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class StoreDetailActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private final static int COLLAPS_LIMIT = -666;
 
-    private ViewPager viewPager;
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-
     private StoreMenuTabPagerAdapter storeMenuTabPagerAdapter;
 
-    private AppBarLayout appBarLayout;
-    private ImageButton backButton;
+    @BindView(R.id.store_detail_app_bar)
+    public AppBarLayout appBarLayout;
 
-    private TextView title;
-    private TextView callLink;
-    private TextView mapLink;
-    private TextView storeTitle;
-    private TextView storePaymentType;
-    private ImageView storeMainImage;
-    private FloatingActionButton phoneButton;
-    private TextView phoneLinkText;
+    @BindView(R.id.view_pager)
+    public ViewPager viewPager;
+
+    @BindView(R.id.tabs)
+    public TabLayout tabLayout;
+
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
+
+    @BindView(R.id.toolbar_back_button)
+    public ImageButton backButton;
+
+    @BindView(R.id.toolbar_order_text)
+    public TextView title;
+
+    @BindView(R.id.toolbar_call_link)
+    public TextView callLink;
+
+    @BindView(R.id.toolbar_map_link)
+    public TextView mapLink;
+
+    @BindView(R.id.store_title)
+    public TextView storeTitle;
+
+    @BindView(R.id.store_payment_type)
+    public TextView storePaymentType;
+
+    @BindView(R.id.store_main_img)
+    public ImageView storeMainImage;
+
+    @BindView(R.id.store_detail_button_call)
+    public FloatingActionButton phoneButton;
 
     Store store;
 
@@ -62,29 +84,13 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         super.onCreate(savedInstanceState);
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
-
         setContentView(R.layout.activity_store_detail);
+        ButterKnife.bind(this);
 
         store = (Store) getIntent().getSerializableExtra("store");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         //actionbar에 들어갈 내용을 우리의 view인 toolbar에 적용..
         setSupportActionBar(toolbar);
-
-        appBarLayout = (AppBarLayout) findViewById(R.id.store_detail_app_bar);
-        backButton = (ImageButton) findViewById(R.id.toolbar_back_button);
-
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        title = (TextView) findViewById(R.id.toolbar_order_text);
-        callLink = (TextView) findViewById(R.id.toolbar_call_link);
-        mapLink = (TextView) findViewById(R.id.toolbar_map_link);
-        storeTitle = (TextView) findViewById(R.id.store_title);
-        storePaymentType = (TextView) findViewById(R.id.store_payment_type);
-        storeMainImage = (ImageView) findViewById(R.id.store_main_img);
-        phoneButton = (FloatingActionButton) findViewById(R.id.store_detail_button_call);
-        phoneLinkText = (TextView) findViewById(R.id.toolbar_call_link);
 
         tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
         tabLayout.addTab(tabLayout.newTab().setText("가게정보"));
@@ -155,7 +161,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
             }
         });
 
-        phoneLinkText.setOnClickListener(new View.OnClickListener() {
+        callLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 makePhoneCall();

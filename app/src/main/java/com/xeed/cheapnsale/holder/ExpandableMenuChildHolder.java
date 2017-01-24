@@ -8,23 +8,31 @@ import android.widget.TextView;
 
 import com.xeed.cheapnsale.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
 
+    @BindView(R.id.item_minus)
     public ImageButton itemMinus;
+
+    @BindView(R.id.item_plus)
     public ImageButton itemPlus;
+
+    @BindView(R.id.item_count_text)
     public TextView itemCountText;
+
+    @BindView(R.id.selected_item_total_price)
     public TextView itemTotalPriceText;
+
+    @BindView(R.id.menu_item_add_cart)
     public Button itemAddCartButton;
+
+    @BindView(R.id.menu_item_order_now)
     public Button itemOrderNowButton;
 
     public ExpandableMenuChildHolder(View view) {
         super(view);
-
-        itemMinus = (ImageButton) view.findViewById(R.id.item_minus);
-        itemPlus = (ImageButton)view.findViewById(R.id.item_plus);
-        itemCountText = (TextView) view.findViewById(R.id.item_count_text);
-        itemTotalPriceText = (TextView) view.findViewById(R.id.selected_item_total_price);
-        itemAddCartButton = (Button) view.findViewById(R.id.menu_item_add_cart);
-        itemOrderNowButton = (Button) view.findViewById(R.id.menu_item_order_now);
+        ButterKnife.bind(this, view);
     }
 }

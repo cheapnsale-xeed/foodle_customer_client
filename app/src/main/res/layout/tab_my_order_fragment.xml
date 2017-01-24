@@ -3,9 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/my_order_title"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_order_ready_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My Order"/>
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#99d8d8d8" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+
 </LinearLayout>

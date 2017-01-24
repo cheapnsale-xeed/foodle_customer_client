@@ -30,5 +30,7 @@
     <string name="order_user_info_change">변경하기</string>
     <string name="cart">장바구니</string>
     <string name="list_contentDescription">Back to List</string>
+    <string name="ready_to_receipt">접수\n대기</string>
+    <string name="ready_to_pickup">접수\n완료</string>
     <string name="order_detail_list">주문 내역</string>
 </resources>

@@ -32,18 +32,19 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
     }
 
     @Override
-    public void onBindViewHolder(StoreListHolder holder, final int position) {
+    public void onBindViewHolder(StoreListHolder holder, int position) {
         holder.nameView.setText(stores.get(position).getName());
         holder.picasso.load(stores.get(position).getMainImageUrl()).into(holder.mainImgView);
         holder.paymentTextView.setText(stores.get(position).getPaymentType());
         holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
 
+        final int storePosition = position;
         final StoreListHolder storeListHolder = holder;
         storeListHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(storeListHolder.itemView.getContext(), StoreDetailActivity.class);
-                intent.putExtra("store", stores.get(position));
+                intent.putExtra("store", stores.get(storePosition));
                 storeListHolder.itemView.getContext().startActivity(intent);
             }
         });

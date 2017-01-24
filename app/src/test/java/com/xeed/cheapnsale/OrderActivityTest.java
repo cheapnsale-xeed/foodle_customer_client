@@ -1,8 +1,10 @@
 package com.xeed.cheapnsale;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -10,12 +12,15 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.vo.Cart;
+import com.xeed.cheapnsale.vo.CartItem;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 
@@ -38,6 +43,13 @@ public class OrderActivityTest {
 
     @Before
     public void setUp() throws Exception {
+        Cart mockCart = ((TestApplication) RuntimeEnvironment.application).getCart();
+
+        mockCart.addCartItem(new CartItem("mock-1", "mockItem-1", 22000, 3, "mockSrc-1"));
+        mockCart.addCartItem(new CartItem("mock-2", "mockItem-2", 12000, 2, "mockSrc-2"));
+        mockCart.addCartItem(new CartItem("mock-3", "mockItem-3", 6000, 1, "mockSrc-3"));
+        mockCart.addCartItem(new CartItem("mock-4", "mockItem-4", 8800, 5, "mockSrc-4"));
+
         orderActivity = Robolectric.buildActivity(OrderActivity.class).create().get();
 
         orderTimeNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_now_radio_button);
@@ -160,6 +172,35 @@ public class OrderActivityTest {
     public void whenOrderUserInfoShow_thenNameIsCorrect() throws Exception {
         assertThat(orderUserName.getText().toString()).isEqualTo("이서진");
         assertThat(orderUserTel.getText().toString().equals("01012345678")).isTrue();
+    }
+
+    @Test
+    public void whenOrderActivityOpen_thenTotalPriceAndOrderDetailGone() throws Exception {
+        TextView totalPrice = (TextView) orderActivity.findViewById(R.id.order_detail_total_price);
+        View barView = orderActivity.findViewById(R.id.order_cart_bar);
+        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.order_cart_item_list_recycler_view);
+
+        assertThat(totalPrice.getText().toString()).isEqualTo("140,000");
+
+        assertThat(barView.getVisibility()).isEqualTo(View.GONE);
+        assertThat(orderDetailView.getVisibility()).isEqualTo(View.GONE);
+    }
+
+    @Test
+    public void whenOrderDetailClicked_thenDetailCartShow() throws Exception {
+        LinearLayout detailCartView = (LinearLayout) orderActivity.findViewById(R.id.order_detail_title);
+        View barView = orderActivity.findViewById(R.id.order_cart_bar);
+        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.order_cart_item_list_recycler_view);
+
+        detailCartView.performClick();
+
+        assertThat(barView.getVisibility()).isEqualTo(View.VISIBLE);
+        assertThat(orderDetailView.getVisibility()).isEqualTo(View.VISIBLE);
+
+        detailCartView.performClick();
+
+        assertThat(barView.getVisibility()).isEqualTo(View.GONE);
+        assertThat(orderDetailView.getVisibility()).isEqualTo(View.GONE);
     }
 
     private Store makeMockData() {
