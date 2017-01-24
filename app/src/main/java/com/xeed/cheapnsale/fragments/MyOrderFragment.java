@@ -51,6 +51,7 @@ public class MyOrderFragment extends Fragment {
         return view;
     }
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -67,7 +68,6 @@ public class MyOrderFragment extends Fragment {
                 myOrderCurrentAdapter.updateData(myOrder);
             }
         }.execute();
-
-
     }
+    */
 }
