@@ -16,6 +16,9 @@ import butterknife.ButterKnife;
 
 public class StoreListHolder extends RecyclerView.ViewHolder {
 
+    @Inject
+    public Picasso picasso;
+
     @BindView(R.id.store_name_view)
     public TextView nameView;
 
@@ -28,8 +31,15 @@ public class StoreListHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.avg_prep_time_view)
     public TextView avgPrepTimeTextView;
 
-    @Inject
-    public Picasso picasso;
+    @BindView(R.id.text_arrival_time_in_store)
+    public TextView textArrivalTimeInStore;
+
+    @BindView(R.id.view_divide_bar_in_store)
+    public View viewDivideBarInStore;
+
+    @BindView(R.id.text_distance_to_store_in_store)
+    public TextView textDistanceToStoreInStore;
+
 
     public StoreListHolder(View itemView) {
         super(itemView);

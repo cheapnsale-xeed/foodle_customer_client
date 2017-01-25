@@ -16,14 +16,23 @@ import butterknife.ButterKnife;
 
 public class MapStoreListHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.map_store_img)
-    public ImageView itemImage;
+    @BindView(R.id.image_store_src_map)
+    public ImageView imageStoreSrcMap;
 
-    @BindView(R.id.map_store_name)
-    public TextView itemName;
+    @BindView(R.id.text_store_name_map)
+    public TextView textStoreNameMap;
 
-    @BindView(R.id.map_store_avg_prep_time)
-    public TextView itemAvgPrepTime;
+    @BindView(R.id.text_avg_prep_time_map)
+    public TextView textAvgPrepTimeMap;
+
+    @BindView(R.id.text_distance_map)
+    public TextView textDistanceMap;
+
+    @BindView(R.id.text_arrival_time_map)
+    public TextView textArrivalTimeMap;
+
+    @BindView(R.id.view_vertical_bar_map)
+    public View viewVerticalBarMap;
 
     @Inject
     public Picasso picasso;

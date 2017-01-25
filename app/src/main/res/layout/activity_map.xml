@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/map_toolbar"
+        android:id="@+id/toolbar_map"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:layout_margin="0dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/map_tool_bar_search_button"
+                android:id="@+id/image_search_button_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -37,7 +37,7 @@
                 android:src="@drawable/ico_search" />
 
             <TextView
-                android:id="@+id/map_tool_bar_title"
+                android:id="@+id/text_title_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -47,18 +47,18 @@
                 tools:hint="잠실 6동" />
 
             <ImageView
-                android:id="@+id/map_toolbar_filter_button"
+                android:id="@+id/image_filter_button_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/map_toolbar_list_button"
+                android:layout_alignTop="@+id/image_list_button_map"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/map_toolbar_list_button"
+                android:layout_toStartOf="@+id/image_list_button_map"
                 android:contentDescription="@string/filter_contentDescription"
                 android:src="@drawable/ico_filter" />
 
             <ImageView
-                android:id="@+id/map_toolbar_list_button"
+                android:id="@+id/image_list_button_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -78,7 +78,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/map_store_recycler_view"
+        android:id="@+id/recycler_store_map"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"

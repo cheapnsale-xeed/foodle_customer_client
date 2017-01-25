@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
-import com.xeed.cheapnsale.holder.ExpandableMenuListHolder;
+import com.xeed.cheapnsale.holder.ExpandableMenuHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.vo.CartItem;
 
@@ -26,20 +26,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ExpandableMenuListAdapterTest {
 
     private ExpandableMenuListAdapter expandableMenuListAdapter;
-    private ExpandableMenuListHolder headerHolder;
+    private ExpandableMenuHeadHolder headerHolder;
 
     @Before
     public void setUp() throws Exception {
         expandableMenuListAdapter = new ExpandableMenuListAdapter(RuntimeEnvironment.application, makeMockList());
-        headerHolder = (ExpandableMenuListHolder) expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        headerHolder = (ExpandableMenuHeadHolder) expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
     }
 
     @Test
     public void whenAdapterStarts_thenHolderHaveRightItems() throws Exception {
         expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
 
-        assertThat(headerHolder.itemName.getText()).isEqualTo("Item = 0");
-        assertThat(headerHolder.itemPrice.getText()).isEqualTo("22,000원");
+        assertThat(headerHolder.textItemNameMenu.getText()).isEqualTo("Item = 0");
+        assertThat(headerHolder.textItemPriceMenu.getText()).isEqualTo("22,000원");
     }
 
     @Test
@@ -52,8 +52,8 @@ public class ExpandableMenuListAdapterTest {
         ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
         expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
 
-        assertThat(childHolder.itemMinus.getVisibility()).isEqualTo(View.VISIBLE);
-        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+        assertThat(childHolder.imageMinusButtonMenu.getVisibility()).isEqualTo(View.VISIBLE);
+        assertThat(childHolder.textTotalPriceMenu.getText()).isEqualTo("22,000원");
     }
 
     @Test
@@ -66,17 +66,17 @@ public class ExpandableMenuListAdapterTest {
         ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
         expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
 
-        childHolder.itemPlus.performClick();
-        assertThat(childHolder.itemCountText.getText()).isEqualTo("2");
-        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("44,000원");
+        childHolder.imagePlusButtonMenu.performClick();
+        assertThat(childHolder.textItemCountMenu.getText()).isEqualTo("2");
+        assertThat(childHolder.textTotalPriceMenu.getText()).isEqualTo("44,000원");
 
-        childHolder.itemMinus.performClick();
-        assertThat(childHolder.itemCountText.getText()).isEqualTo("1");
-        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+        childHolder.imageMinusButtonMenu.performClick();
+        assertThat(childHolder.textItemCountMenu.getText()).isEqualTo("1");
+        assertThat(childHolder.textTotalPriceMenu.getText()).isEqualTo("22,000원");
 
-        childHolder.itemMinus.performClick();
-        assertThat(childHolder.itemCountText.getText()).isEqualTo("1");
-        assertThat(childHolder.itemTotalPriceText.getText()).isEqualTo("22,000원");
+        childHolder.imageMinusButtonMenu.performClick();
+        assertThat(childHolder.textItemCountMenu.getText()).isEqualTo("1");
+        assertThat(childHolder.textTotalPriceMenu.getText()).isEqualTo("22,000원");
 
     }
 
@@ -98,7 +98,7 @@ public class ExpandableMenuListAdapterTest {
         headerHolder.itemView.performClick();
         expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
 
-        assertThat(childHolder.itemOrderNowButton.getVisibility()).isEqualTo(View.GONE);
+        assertThat(childHolder.buttonOrderNowMenu.getVisibility()).isEqualTo(View.GONE);
     }
 
     private ArrayList<Menu> makeMockList() {

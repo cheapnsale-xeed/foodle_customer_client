@@ -48,6 +48,24 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
                 storeListHolder.itemView.getContext().startActivity(intent);
             }
         });
+
+        int distance = stores.get(position).getDistanceToStore();
+        int arrivalTime = distance / 60;
+
+        if (distance > 1000) {
+            holder.textDistanceToStoreInStore.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
+        } else {
+            holder.textDistanceToStoreInStore.setText(stores.get(position).getDistanceToStore() + "m");
+        }
+        if (distance > 1500) {
+            holder.textArrivalTimeInStore.setVisibility(View.GONE);
+            holder.viewDivideBarInStore.setVisibility(View.GONE);
+        } else {
+            holder.textArrivalTimeInStore.setVisibility(View.VISIBLE);
+            holder.viewDivideBarInStore.setVisibility(View.VISIBLE);
+            holder.textArrivalTimeInStore.setText(arrivalTime + "분");
+
+        }
     }
 
     @Override

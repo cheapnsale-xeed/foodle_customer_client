@@ -31,5 +31,7 @@ public interface CheapnsaleApi {
     @Operation(path = "/store/{storeId}", method = "GET")
     Store getStore(@Parameter(name = "storeId", location = "path") String storeId);
 
+    @Operation(path = "/orders/{email}", method = "GET")
+    JsonElement getMyOrder(@Parameter(name = "email", location = "path") String email);
 }
 
