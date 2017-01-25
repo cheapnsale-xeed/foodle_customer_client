@@ -49,23 +49,22 @@ public class MapActivity extends NMapActivity {
     public CheapnsaleService cheapnsaleService;
 
     @BindView(R.id.map_view)
-    public NMapView mMapView;// 지도 화면 View
+    public NMapView mapView;// 지도 화면 View
 
-    @BindView(R.id.map_toolbar_list_button)
-    public ImageView backListButton;
+    @BindView(R.id.image_list_button_map)
+    public ImageView imageListButtonMap;
 
-    @BindView(R.id.map_store_recycler_view)
-    public RecyclerView recyclerView;
+    @BindView(R.id.recycler_store_map)
+    public RecyclerView recyclerStoreMap;
 
-    @BindView(R.id.map_tool_bar_title)
-    public TextView toolbarTitle;
+    @BindView(R.id.text_title_map)
+    public TextView textTitleMap;
 
     private NMapMyLocationOverlay mMyLocationOverlay;
     private NMapLocationManager mMapLocationManager;
     private NMapCompassManager mMapCompassManager;
     private NMapController mMapController;
     private NMapOverlayManager mOverlayManager;
-
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private MapStoreListAdapter mapStoreListAdapter;
 
@@ -79,22 +78,22 @@ public class MapActivity extends NMapActivity {
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
 
-        mMapView.setScalingFactor(4f,true);
-        mMapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
-        mMapView.setClickable(true);
-        mMapView.setEnabled(true);
-        mMapView.setFocusable(true);
-        mMapView.setFocusableInTouchMode(true);
-        mMapView.requestFocus();
+        mapView.setScalingFactor(4f,true);
+        mapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
+        mapView.setClickable(true);
+        mapView.setEnabled(true);
+        mapView.setFocusable(true);
+        mapView.setFocusableInTouchMode(true);
+        mapView.requestFocus();
 
         // use map controller to zoom in/out, pan and set map center, zoom level etc.
-        mMapController = mMapView.getMapController();
+        mMapController = mapView.getMapController();
 
         // create resource provider
         mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
 
         // create overlay manager
-        mOverlayManager = new NMapOverlayManager(this, mMapView, mMapViewerResourceProvider);
+        mOverlayManager = new NMapOverlayManager(this, mapView, mMapViewerResourceProvider);
 
         // location manager
         mMapLocationManager = new NMapLocationManager(this);
@@ -108,7 +107,7 @@ public class MapActivity extends NMapActivity {
 
         startMyLocation();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerStoreMap.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override
@@ -141,7 +140,7 @@ public class MapActivity extends NMapActivity {
                 poiDataOverlay.selectPOIitem(0, false);
 
                 mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
-                recyclerView.setAdapter(mapStoreListAdapter);
+                recyclerStoreMap.setAdapter(mapStoreListAdapter);
                 mapStoreListAdapter.notifyDataSetChanged();
 
 
@@ -155,7 +154,7 @@ public class MapActivity extends NMapActivity {
         finish();
     }
 
-    @OnClick(R.id.map_toolbar_list_button)
+    @OnClick(R.id.image_list_button_map)
     public void onClickBackButton(View view) {
         onBackPressed();
     }
@@ -168,7 +167,7 @@ public class MapActivity extends NMapActivity {
                 MapActivity.super.setMapDataProviderListener(null);
                 return;
             }
-            toolbarTitle.setText(placeMark.dongName);
+            textTitleMap.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
         }
     };
@@ -215,14 +214,14 @@ public class MapActivity extends NMapActivity {
             }
 
             if (mMapLocationManager.isMyLocationEnabled()) {
-                if (!mMapView.isAutoRotateEnabled()) {
+                if (!mapView.isAutoRotateEnabled()) {
                     mMyLocationOverlay.setCompassHeadingVisible(true);
                     mMapCompassManager.enableCompass();
-                    mMapView.setAutoRotateEnabled(true, false);
+                    mapView.setAutoRotateEnabled(true, false);
                 } else {
                     stopMyLocation();
                 }
-                mMapView.postInvalidate();
+                mapView.postInvalidate();
             } else {
                 boolean isMyLocationEnabled = mMapLocationManager.enableMyLocation(true);
                 if (!isMyLocationEnabled) {
@@ -240,10 +239,10 @@ public class MapActivity extends NMapActivity {
         if (mMyLocationOverlay != null) {
             mMapLocationManager.disableMyLocation();
 
-            if (mMapView.isAutoRotateEnabled()) {
+            if (mapView.isAutoRotateEnabled()) {
                 mMyLocationOverlay.setCompassHeadingVisible(false);
                 mMapCompassManager.disableCompass();
-                mMapView.setAutoRotateEnabled(false, false);
+                mapView.setAutoRotateEnabled(false, false);
             }
         }
     }

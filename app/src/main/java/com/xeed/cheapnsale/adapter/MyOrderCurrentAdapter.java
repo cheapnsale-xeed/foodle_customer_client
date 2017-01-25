@@ -68,7 +68,7 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
 
     public class MyOrderCurrentHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.menu_item_image)
+        @BindView(R.id.image_item_src_menu)
         ImageView imgView;
         @BindView(R.id.menu_item_status)
         TextView itemStatus;
