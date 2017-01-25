@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.util.DateUtil;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,6 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
     public void onBindViewHolder(MyOrderCurrentHolder holder, int position) {
         Order order = myOrder.get(position);
 
-        //TODO : 확인 필요
         holder.picasso.load(order.getMenus().get(0).getMenuImg())
                 .transform(new CropCircleTransformation())
                 .into(holder.imgView);
@@ -54,6 +54,7 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         }
         holder.itemName.setText(order.getMenus().get(0).getMenuName());
         holder.storeName.setText(order.getStoreName());
+        holder.pickUpTime.setText(DateUtil.myOrderPickUpTime(order.getPickupTime()));
     }
 
     @Override
@@ -76,6 +77,8 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         TextView itemName;
         @BindView(R.id.my_order_store_name)
         TextView storeName;
+        @BindView(R.id.text_pickup_ready_time)
+        TextView pickUpTime;
 
         @Inject
         Picasso picasso;

@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_order_ready_layout"
     android:layout_width="match_parent"
-    android:layout_height="115dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c8c8c8" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="115dp"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -80,10 +85,11 @@
                     android:layout_marginBottom="23.8dp"
                     android:layout_marginTop="2.2dp"
                     android:textColor="#99000000"
-                    android:text="픽업시간 :"
+                    android:text="@string/pickup_time_colon"
                     android:textSize="13dp" />
 
                 <TextView
+                    android:id="@+id/text_pickup_ready_time"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginBottom="23.8dp"
@@ -100,8 +106,5 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#c8c8c8" />
+
 </LinearLayout>

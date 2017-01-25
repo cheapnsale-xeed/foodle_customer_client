@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
-import com.xeed.cheapnsale.service.model.MyOrder;
 import com.xeed.cheapnsale.service.model.Order;
 
 import java.util.ArrayList;
