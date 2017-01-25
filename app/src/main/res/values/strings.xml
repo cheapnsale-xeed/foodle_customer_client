@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">푸들</string>
+    <string name="app_name">Foodle</string>
     <string name="search_contentDescription">Search</string>
     <string name="map_contentDescription">Map</string>
     <string name="filter_contentDescription">Filter</string>
@@ -34,4 +34,5 @@
     <string name="ready_to_pickup">접수\n완료</string>
     <string name="order_detail_list">주문 내역</string>
     <string name="word_pickup_time">픽업시간 :</string>
+    <string name="msg_agree_payment">동의하고 결제하기</string>
 </resources>

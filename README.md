@@ -592,11 +592,11 @@ String names start with a prefix that identifies the section they belong to. For
 
 | Prefix             | Description                           |
 | -----------------  | --------------------------------------|
-| `error_`             | An error message                      |
-| `msg_`               | A regular information message         |
+| `error_`             | 에러메시지 |
+| `msg_`               | 문장 |
 | `title_`             | A title, i.e. a dialog title          |
 | `action_`            | An action such as "Save" or "Create"  |
-
+| `word_`            | 단어 위주로 |
 
 
 #### 2.3.2.3 Styles and Themes
