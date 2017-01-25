@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.xeed.cheapnsale.activity.PaymentActivity;
 import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Store;
@@ -79,6 +81,9 @@ public class OrderActivity extends AppCompatActivity {
 
     @BindView(R.id.order_cart_item_list_recycler_view)
     public RecyclerView orderCartItemListView;
+
+    @BindView(R.id.layout_agree_payment)
+    public LinearLayout agreePaymentLayout;
 
     NumberPicker numberPicker;
     TextView pickerCancelButton;
@@ -193,6 +198,14 @@ public class OrderActivity extends AppCompatActivity {
 
         orderCartItemListView.setLayoutManager(new LinearLayoutManager(getApplication()));
         orderCartItemListView.setAdapter(orderCartItemListAdapter);
+
+        agreePaymentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
