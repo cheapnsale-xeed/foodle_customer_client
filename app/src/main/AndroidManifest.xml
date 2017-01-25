@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,16 +26,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StoreDetailActivity"
+            android:name=".activity.StoreDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StoreDetailActionbar" />
         <activity
             android:name=".activity.MapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".activity.OrderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".activity.CartActivity"></activity>
     </application>
 
 </manifest>

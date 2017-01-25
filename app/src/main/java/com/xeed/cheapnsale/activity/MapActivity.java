@@ -68,7 +68,7 @@ public class MapActivity extends NMapActivity {
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private MapStoreListAdapter mapStoreListAdapter;
 
-    ArrayList<Store> stores;
+    private ArrayList<Store> stores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

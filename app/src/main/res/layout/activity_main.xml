@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xeed.cheapnsale.MainActivity">
+    tools:context="com.xeed.cheapnsale.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/mainToolBar"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:layout_margin="0dp"
@@ -24,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/main_tool_bar_search_button"
+            <ImageView
+                android:id="@+id/image_search_button_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -35,7 +34,7 @@
                 android:src="@drawable/ico_search" />
 
             <TextView
-                android:id="@+id/main_tool_bar_title"
+                android:id="@+id/text_title_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -44,8 +43,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="17dp" />
 
-            <ImageButton
-                android:id="@+id/main_map_button"
+            <ImageView
+                android:id="@+id/image_map_button_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -56,14 +55,14 @@
                 android:src="@drawable/ico_map"
                  />
 
-            <ImageButton
-                android:id="@+id/main_toolbar_filter_button"
+            <ImageView
+                android:id="@+id/image_filter_button_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/main_map_button"
+                android:layout_alignTop="@+id/image_map_button_map"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/main_map_button"
+                android:layout_toStartOf="@+id/image_map_button_map"
                 android:background="@android:color/white"
                 android:contentDescription="@string/filter_contentDescription"
                 android:src="@drawable/ico_filter"/>
@@ -79,7 +78,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/tab_main"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/white"
@@ -92,9 +91,9 @@
 
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:id="@+id/pager_main"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:background="@android:color/white" />
 
 

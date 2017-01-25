@@ -40,14 +40,14 @@ public class OrderCartItemListAdapterTest {
     public void whenAdapterIsCreated_thenCartItemInfoIsCorrect() throws Exception {
         orderCartItemListAdapter.onBindViewHolder(holder,0);
 
-        assertThat(holder.orderCartItemName.getText().toString()).isEqualTo("mockItem-1");
-        assertThat(holder.orderCartItemPrice.getText().toString()).isEqualTo("22,000");
-        assertThat(holder.orderCartItemCount.getText().toString()).isEqualTo("3");
+        assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-1");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("22,000");
+        assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("3");
 
         orderCartItemListAdapter.onBindViewHolder(holder,1);
 
-        assertThat(holder.orderCartItemName.getText().toString()).isEqualTo("mockItem-2");
-        assertThat(holder.orderCartItemPrice.getText().toString()).isEqualTo("12,000");
-        assertThat(holder.orderCartItemCount.getText().toString()).isEqualTo("2");
+        assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-2");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("12,000");
+        assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("2");
     }
 }

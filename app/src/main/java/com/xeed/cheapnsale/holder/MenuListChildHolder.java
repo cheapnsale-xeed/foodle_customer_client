@@ -11,7 +11,7 @@ import com.xeed.cheapnsale.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
+public class MenuListChildHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.image_minus_button_menu)
     public ImageView imageMinusButtonMenu;
@@ -31,7 +31,7 @@ public class ExpandableMenuChildHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.button_order_now_menu)
     public Button buttonOrderNowMenu;
 
-    public ExpandableMenuChildHolder(View view) {
+    public MenuListChildHolder(View view) {
         super(view);
         ButterKnife.bind(this, view);
     }

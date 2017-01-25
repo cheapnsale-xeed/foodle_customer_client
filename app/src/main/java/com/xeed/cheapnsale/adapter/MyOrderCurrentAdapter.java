@@ -33,7 +33,7 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
 
     @Override
     public MyOrderCurrentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_my_order_ready_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ready_my_order, parent, false);
 
         return new MyOrderCurrentAdapter.MyOrderCurrentHolder(view);
     }
@@ -45,15 +45,15 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         //TODO : 확인 필요
         holder.picasso.load(order.getMenus().get(0).getMenuImg())
                 .transform(new CropCircleTransformation())
-                .into(holder.imgView);
+                .into(holder.imageItemSrcMyOrder);
         if (order.getStatus().equals("DONE")) {
-            holder.itemStatus.setText(R.string.ready_to_pickup);
+            holder.textStatusMyOrder.setText(R.string.ready_to_pickup);
         }
         else if (order.getStatus().equals("READY")) {
-            holder.itemStatus.setText(R.string.ready_to_receipt);
+            holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
         }
-        holder.itemName.setText(order.getMenus().get(0).getMenuName());
-        holder.storeName.setText(order.getStoreName());
+        holder.textItemNameMyOrder.setText(order.getMenus().get(0).getMenuName());
+        holder.textStoreNameMyOrder.setText(order.getStoreName());
     }
 
     @Override
@@ -68,14 +68,14 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
 
     public class MyOrderCurrentHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image_item_src_menu)
-        ImageView imgView;
-        @BindView(R.id.menu_item_status)
-        TextView itemStatus;
-        @BindView(R.id.my_order_item_name)
-        TextView itemName;
-        @BindView(R.id.my_order_store_name)
-        TextView storeName;
+        @BindView(R.id.image_item_src_my_order)
+        ImageView imageItemSrcMyOrder;
+        @BindView(R.id.text_status_my_order)
+        TextView textStatusMyOrder;
+        @BindView(R.id.text_item_name_my_order)
+        TextView textItemNameMyOrder;
+        @BindView(R.id.text_store_name_my_order)
+        TextView textStoreNameMyOrder;
 
         @Inject
         Picasso picasso;

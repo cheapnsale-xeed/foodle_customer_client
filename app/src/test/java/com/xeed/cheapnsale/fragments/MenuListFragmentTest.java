@@ -22,25 +22,25 @@ import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ExpandableMenuListFragmentTest {
+public class MenuListFragmentTest {
 
-    private ExpandableMenuListFragment expandableMenuListFragment;
+    private MenuListFragment menuListFragment;
 
     @Before
     public void setUp() throws Exception {
-        expandableMenuListFragment = new ExpandableMenuListFragment();
-        expandableMenuListFragment.store = makeMockStore();
+        menuListFragment = new MenuListFragment();
+        menuListFragment.store = makeMockStore();
 
-        SupportFragmentTestUtil.startFragment(expandableMenuListFragment);
+        SupportFragmentTestUtil.startFragment(menuListFragment);
     }
 
     @Test
     public void whenFragmentOnResume_theShowStoreMenuCountIsCorrectly() throws Exception {
-        when(expandableMenuListFragment.cheapnsaleService.getStore(anyString())).thenReturn(makeMockStore());
-        expandableMenuListFragment.store = makeMockStore();
+        when(menuListFragment.cheapnsaleService.getStore(anyString())).thenReturn(makeMockStore());
+        menuListFragment.store = makeMockStore();
 
-        expandableMenuListFragment.onResume();
-        RecyclerView recyclerView = (RecyclerView) expandableMenuListFragment.getView().findViewById(R.id.menu_list_recycler_view);
+        menuListFragment.onResume();
+        RecyclerView recyclerView = (RecyclerView) menuListFragment.getView().findViewById(R.id.recycler_menu_list);
         assertThat(recyclerView.getAdapter().getItemCount()).isEqualTo(2);
     }
 

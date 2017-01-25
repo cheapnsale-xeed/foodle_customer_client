@@ -1,10 +1,14 @@
-package com.xeed.cheapnsale;
+package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.xeed.cheapnsale.activity.MapActivity;
+import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.TestApplication;
+import com.xeed.cheapnsale.activity.CartActivity;
+import com.xeed.cheapnsale.activity.OrderActivity;
 import com.xeed.cheapnsale.vo.Cart;
 import com.xeed.cheapnsale.vo.CartItem;
 
@@ -39,7 +43,7 @@ public class CartActivityTest {
 
     @Test
     public void whenOnClickBackButton_thenActivityIsFinish() throws Exception {
-        ImageButton backButton = (ImageButton) cartActivity.findViewById(R.id.main_toolbar_back_button);
+        ImageButton backButton = (ImageButton) cartActivity.findViewById(R.id.image_back_button_order);
         backButton.performClick();
 
         assertThat(cartActivity.isFinishing()).isTrue();
@@ -47,7 +51,7 @@ public class CartActivityTest {
 
     @Test
     public void whenClickFooterOrderButton_thenStartOrderActivity() throws Exception {
-        cartActivity.findViewById(R.id.cart_footer_order_button).performClick();
+        cartActivity.findViewById(R.id.text_order_button_footer).performClick();
 
         Intent expectedIntent = new Intent(cartActivity, OrderActivity.class);
         Intent actualIntent = shadowOf(cartActivity).getNextStartedActivity();
@@ -57,7 +61,7 @@ public class CartActivityTest {
 
     @Test
     public void whenActivityIsStart_thenCartTotalPriceAndTotalCountIsCorrect() throws Exception {
-        assertThat(((TextView)cartActivity.findViewById(R.id.cart_footer_order_info_count)).getText()).isEqualTo("(11)");
-        assertThat(((TextView)cartActivity.findViewById(R.id.cart_footer_order_info_price)).getText()).isEqualTo("140,000원");
+        assertThat(((TextView)cartActivity.findViewById(R.id.text_item_count_footer)).getText()).isEqualTo("(11)");
+        assertThat(((TextView)cartActivity.findViewById(R.id.text_total_price_footer)).getText()).isEqualTo("140,000원");
     }
 }

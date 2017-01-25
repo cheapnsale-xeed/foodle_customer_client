@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.StoreDetailActivity;
+import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.StoreListHolder;
 import com.xeed.cheapnsale.service.model.Store;
 
@@ -33,10 +33,10 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
 
     @Override
     public void onBindViewHolder(StoreListHolder holder, int position) {
-        holder.nameView.setText(stores.get(position).getName());
-        holder.picasso.load(stores.get(position).getMainImageUrl()).into(holder.mainImgView);
-        holder.paymentTextView.setText(stores.get(position).getPaymentType());
-        holder.avgPrepTimeTextView.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
+        holder.picasso.load(stores.get(position).getMainImageUrl()).into(holder.imageSrcStore);
+        holder.textNameStore.setText(stores.get(position).getName());
+        holder.textPaymentTypeStore.setText(stores.get(position).getPaymentType());
+        holder.textPrepTimeStore.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
 
         final int storePosition = position;
         final StoreListHolder storeListHolder = holder;
@@ -53,17 +53,17 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
         int arrivalTime = distance / 60;
 
         if (distance > 1000) {
-            holder.textDistanceToStoreInStore.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
+            holder.textDistanceStore.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
         } else {
-            holder.textDistanceToStoreInStore.setText(stores.get(position).getDistanceToStore() + "m");
+            holder.textDistanceStore.setText(stores.get(position).getDistanceToStore() + "m");
         }
         if (distance > 1500) {
-            holder.textArrivalTimeInStore.setVisibility(View.GONE);
-            holder.viewDivideBarInStore.setVisibility(View.GONE);
+            holder.textArrivalTimeStore.setVisibility(View.GONE);
+            holder.viewVerticalBarStore.setVisibility(View.GONE);
         } else {
-            holder.textArrivalTimeInStore.setVisibility(View.VISIBLE);
-            holder.viewDivideBarInStore.setVisibility(View.VISIBLE);
-            holder.textArrivalTimeInStore.setText(arrivalTime + "분");
+            holder.textArrivalTimeStore.setVisibility(View.VISIBLE);
+            holder.viewVerticalBarStore.setVisibility(View.VISIBLE);
+            holder.textArrivalTimeStore.setText(arrivalTime + "분");
 
         }
     }

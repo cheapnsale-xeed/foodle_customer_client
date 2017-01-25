@@ -77,7 +77,7 @@
                     android:id="@+id/text_arrival_time_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#99000000"
+                    android:textColor="@color/colorGrayMapStore"
                     tools:text="도보 5분" />
 
                 <View
@@ -88,13 +88,13 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="2dp"
-                    android:background="@color/colorBarGray" />
+                    android:background="@color/colorGrayBar" />
 
                 <TextView
                     android:id="@+id/text_distance_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#99000000"
+                    android:textColor="@color/colorGrayMapStore"
                     tools:text="100m" />
 
             </LinearLayout>

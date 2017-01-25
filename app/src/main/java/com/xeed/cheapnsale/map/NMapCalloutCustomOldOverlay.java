@@ -220,7 +220,7 @@ public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
 
 		float left, top;
 
-		// draw title
+		// draw imageTitleOrderDetail
 		mOffsetX = mTempPoint.x - mTempRect.width() / 2;
 		mOffsetX -= mPaddingOffset;
 		mOffsetY = mTempRectF.top + mPaddingY + mTextPaint.getTextSize() + mTitleOffsetY;

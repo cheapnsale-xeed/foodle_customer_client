@@ -5,8 +5,8 @@ import android.widget.LinearLayout;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
-import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
-import com.xeed.cheapnsale.holder.ExpandableMenuHeadHolder;
+import com.xeed.cheapnsale.holder.MenuListChildHolder;
+import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.vo.CartItem;
 
@@ -23,20 +23,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ExpandableMenuListAdapterTest {
+public class MenuListAdapterTest {
 
-    private ExpandableMenuListAdapter expandableMenuListAdapter;
-    private ExpandableMenuHeadHolder headerHolder;
+    private MenuListAdapter menuListAdapter;
+    private MenuListHeadHolder headerHolder;
 
     @Before
     public void setUp() throws Exception {
-        expandableMenuListAdapter = new ExpandableMenuListAdapter(RuntimeEnvironment.application, makeMockList());
-        headerHolder = (ExpandableMenuHeadHolder) expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        menuListAdapter = new MenuListAdapter(RuntimeEnvironment.application, makeMockList());
+        headerHolder = (MenuListHeadHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
     }
 
     @Test
     public void whenAdapterStarts_thenHolderHaveRightItems() throws Exception {
-        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        menuListAdapter.onBindViewHolder(headerHolder, 0);
 
         assertThat(headerHolder.textItemNameMenu.getText()).isEqualTo("Item = 0");
         assertThat(headerHolder.textItemPriceMenu.getText()).isEqualTo("22,000원");
@@ -44,13 +44,13 @@ public class ExpandableMenuListAdapterTest {
 
     @Test
     public void whenHeaderHolderClicked_thenShowChildHolderBelowHeadHolder() throws Exception {
-        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        menuListAdapter.onBindViewHolder(headerHolder, 0);
         headerHolder.itemView.performClick();
 
-        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(4);
+        assertThat(menuListAdapter.getItemCount()).isEqualTo(4);
 
-        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
-        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+        MenuListChildHolder childHolder = (MenuListChildHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+        menuListAdapter.onBindViewHolder(childHolder, 1);
 
         assertThat(childHolder.imageMinusButtonMenu.getVisibility()).isEqualTo(View.VISIBLE);
         assertThat(childHolder.textTotalPriceMenu.getText()).isEqualTo("22,000원");
@@ -58,13 +58,13 @@ public class ExpandableMenuListAdapterTest {
 
     @Test
     public void whenChildHolderPlusAndMinusButtonClicked_thenItemCountIsChange() throws Exception {
-        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        menuListAdapter.onBindViewHolder(headerHolder, 0);
         headerHolder.itemView.performClick();
 
-        assertThat(expandableMenuListAdapter.getItemCount()).isEqualTo(4);
+        assertThat(menuListAdapter.getItemCount()).isEqualTo(4);
 
-        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
-        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+        MenuListChildHolder childHolder = (MenuListChildHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+        menuListAdapter.onBindViewHolder(childHolder, 1);
 
         childHolder.imagePlusButtonMenu.performClick();
         assertThat(childHolder.textItemCountMenu.getText()).isEqualTo("2");
@@ -82,7 +82,7 @@ public class ExpandableMenuListAdapterTest {
 
     @Test
     public void whenHeaderHolderClicked_thenCheckAddCartButton() throws Exception {
-        ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder)expandableMenuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+        MenuListChildHolder childHolder = (MenuListChildHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
 
         CartItem cartItem = new CartItem();
         cartItem.setMenuName("만두");
@@ -94,9 +94,9 @@ public class ExpandableMenuListAdapterTest {
         app.getCart().setStoreId("store_1");
         app.getCart().addCartItem(cartItem);
 
-        expandableMenuListAdapter.onBindViewHolder(headerHolder, 0);
+        menuListAdapter.onBindViewHolder(headerHolder, 0);
         headerHolder.itemView.performClick();
-        expandableMenuListAdapter.onBindViewHolder(childHolder, 1);
+        menuListAdapter.onBindViewHolder(childHolder, 1);
 
         assertThat(childHolder.buttonOrderNowMenu.getVisibility()).isEqualTo(View.GONE);
     }

@@ -14,12 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
-import com.xeed.cheapnsale.CartActivity;
-import com.xeed.cheapnsale.OrderActivity;
+import com.xeed.cheapnsale.activity.CartActivity;
+import com.xeed.cheapnsale.activity.OrderActivity;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.StoreDetailActivity;
-import com.xeed.cheapnsale.holder.ExpandableMenuChildHolder;
-import com.xeed.cheapnsale.holder.ExpandableMenuHeadHolder;
+import com.xeed.cheapnsale.activity.StoreDetailActivity;
+import com.xeed.cheapnsale.holder.MenuListChildHolder;
+import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.cheapnsaleUtils;
 import com.xeed.cheapnsale.vo.Cart;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int HEADER = 0;
     private static final int CHILD = 1;
@@ -39,7 +39,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
     private Toast toast;
     private View cartFooter;
 
-    public ExpandableMenuListAdapter(Context context, ArrayList<Menu> menus) {
+    public MenuListAdapter(Context context, ArrayList<Menu> menus) {
         this.context = context;
         this.menus = menus;
     }
@@ -53,13 +53,13 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
             case HEADER:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_menu_head, parent, false);
-                return new ExpandableMenuHeadHolder(view);
+                return new MenuListHeadHolder(view);
             case CHILD:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_menu_child, parent, false);
-                return new ExpandableMenuChildHolder(view);
+                return new MenuListChildHolder(view);
             default:
-                return new ExpandableMenuHeadHolder(view);
+                return new MenuListHeadHolder(view);
         }
     }
 
@@ -67,17 +67,17 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if (getItemViewType(position) == HEADER) {
-            final ExpandableMenuHeadHolder expandableMenuHeadHolder = (ExpandableMenuHeadHolder) holder;
+            final MenuListHeadHolder menuListHeadHolder = (MenuListHeadHolder) holder;
 
-            expandableMenuHeadHolder.picasso.load(menus.get(position).getMenuImg())
-                    .transform(new CropCircleTransformation()).into(expandableMenuHeadHolder.imageItemSrcMenu);
-            expandableMenuHeadHolder.textItemNameMenu.setText(menus.get(position).getMenuName());
-            expandableMenuHeadHolder.textItemPriceMenu.setText(cheapnsaleUtils.format(menus.get(position).getMenuPrice())
+            menuListHeadHolder.picasso.load(menus.get(position).getMenuImg())
+                    .transform(new CropCircleTransformation()).into(menuListHeadHolder.imageItemSrcMenu);
+            menuListHeadHolder.textItemNameMenu.setText(menus.get(position).getMenuName());
+            menuListHeadHolder.textItemPriceMenu.setText(cheapnsaleUtils.format(menus.get(position).getMenuPrice())
                     + context.getResources().getString(R.string.price_type));
-            expandableMenuHeadHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            menuListHeadHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (expandableMenuHeadHolder.textItemNameMenu != null) {
+                    if (menuListHeadHolder.textItemNameMenu != null) {
                         int childPos = getChildPos();
 
                         if (childPos != -1) {
@@ -104,7 +104,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                 }
             });
         } else if (getItemViewType(position) == CHILD) {
-            final ExpandableMenuChildHolder childHolder = (ExpandableMenuChildHolder) holder;
+            final MenuListChildHolder childHolder = (MenuListChildHolder) holder;
 
             childHolder.textTotalPriceMenu.setText(cheapnsaleUtils.format(menus.get(position).getMenuItemTotalPrice())
                     + context.getResources().getString(R.string.price_type));
@@ -214,24 +214,24 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
 
             if (cartFooter == null) {
                 cartFooter = LayoutInflater.from(context)
-                        .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout), false);
+                        .inflate(R.layout.cart_footer, (ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.relative_store_detail), false);
             } else {
-                ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).removeView(cartFooter);
+                ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.relative_store_detail)).removeView(cartFooter);
             }
 
             if (cart.getTotalCount() == 0) return;
 
-            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.store_detail_layout)).addView(cartFooter);
+            ((ViewGroup) ((StoreDetailActivity) context).findViewById(R.id.relative_store_detail)).addView(cartFooter);
 
-            RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator)).getLayoutParams();
+            RelativeLayout.LayoutParams coordinatorLayoutParams = (RelativeLayout.LayoutParams) (((StoreDetailActivity) context).findViewById(R.id.coordinator_store_detail)).getLayoutParams();
             coordinatorLayoutParams.addRule(RelativeLayout.ABOVE, cartFooter.getId());
 
-            TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_count);
+            TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.text_item_count_footer);
             orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
-            TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.cart_footer_order_info_price);
+            TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.text_total_price_footer);
             orderSummaryInfoPrice.setText(cheapnsaleUtils.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
 
-            TextView orderButton = (TextView) cartFooter.findViewById(R.id.cart_footer_order_button);
+            TextView orderButton = (TextView) cartFooter.findViewById(R.id.text_order_button_footer);
             orderButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -241,7 +241,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
                 }
             });
 
-            View callCartButton = cartFooter.findViewById(R.id.cart_footer_call_cart_button);
+            View callCartButton = cartFooter.findViewById(R.id.linear_cart_button_footer);
             callCartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -272,7 +272,7 @@ public class ExpandableMenuListAdapter extends RecyclerView.Adapter<RecyclerView
         return -1;
     }
 
-    private void setChildLayoutChange(ExpandableMenuChildHolder childHolder, int totalCount) {
+    private void setChildLayoutChange(MenuListChildHolder childHolder, int totalCount) {
         if (totalCount == 0) {
             childHolder.buttonOrderNowMenu.setVisibility(View.VISIBLE);
         } else {

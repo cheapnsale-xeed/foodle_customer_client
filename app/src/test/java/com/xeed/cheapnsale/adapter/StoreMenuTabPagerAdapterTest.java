@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 
 import com.xeed.cheapnsale.BuildConfig;
-import com.xeed.cheapnsale.StoreDetailActivity;
-import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
+import com.xeed.cheapnsale.activity.StoreDetailActivity;
+import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class StoreMenuTabPagerAdapterTest {
 
     @Test
     public void whenAdapterGetItems_thenReturnFragmentsAreCorrect() throws Exception {
-        assertThat(storeMenuTabPagerAdapter.getItem(0).getClass()).isEqualTo(ExpandableMenuListFragment.class);
+        assertThat(storeMenuTabPagerAdapter.getItem(0).getClass()).isEqualTo(MenuListFragment.class);
     }
 
     private Store makeMockData(){

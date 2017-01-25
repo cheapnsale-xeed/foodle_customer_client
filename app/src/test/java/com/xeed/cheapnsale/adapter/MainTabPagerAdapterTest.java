@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.xeed.cheapnsale.BuildConfig;
-import com.xeed.cheapnsale.MainActivity;
+import com.xeed.cheapnsale.activity.MainActivity;
 
 import org.junit.Before;
 import org.junit.Test;

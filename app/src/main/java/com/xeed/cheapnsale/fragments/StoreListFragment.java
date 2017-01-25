@@ -29,12 +29,11 @@ public class StoreListFragment extends Fragment {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    RecyclerView recyclerView;
-    ArrayList<Store> stores;
-
-    StoreListAdapter storeListAdapter;
-
     private NMapLocationManager mMapLocationManager;
+    private StoreListAdapter storeListAdapter;
+    private RecyclerView recyclerView;
+
+    ArrayList<Store> stores;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

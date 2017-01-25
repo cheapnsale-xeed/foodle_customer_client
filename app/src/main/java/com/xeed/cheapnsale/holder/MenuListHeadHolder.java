@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExpandableMenuHeadHolder extends RecyclerView.ViewHolder{
+public class MenuListHeadHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.text_item_price_menu)
     public TextView textItemPriceMenu;
@@ -28,7 +28,7 @@ public class ExpandableMenuHeadHolder extends RecyclerView.ViewHolder{
     @Inject
     public Picasso picasso;
 
-    public ExpandableMenuHeadHolder(View view) {
+    public MenuListHeadHolder(View view) {
         super(view);
 
         ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);

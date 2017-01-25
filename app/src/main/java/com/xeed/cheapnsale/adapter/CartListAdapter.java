@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.Application;
-import com.xeed.cheapnsale.CartActivity;
+import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.CartListHolder;
 import com.xeed.cheapnsale.util.cheapnsaleUtils;

@@ -33,4 +33,5 @@
     <string name="ready_to_receipt">접수\n대기</string>
     <string name="ready_to_pickup">접수\n완료</string>
     <string name="order_detail_list">주문 내역</string>
+    <string name="word_pickup_time">픽업시간 :</string>
 </resources>
