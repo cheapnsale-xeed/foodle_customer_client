@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.Application;
-import com.xeed.cheapnsale.CartActivity;
+import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.util.cheapnsaleUtils;
 import com.xeed.cheapnsale.vo.Cart;
 import com.xeed.cheapnsale.vo.CartItem;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -34,28 +34,26 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
 
     @Override
     public CartListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_cart_card, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart, null);
 
         return new CartListHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final CartListHolder holder, final int position) {
-        final DecimalFormat formatter = new DecimalFormat("#,###,###");
 
-        holder.itemName.setText(cartItems.get(position).getMenuName());
-        holder.itemCountText.setText(Integer.toString(cartItems.get(position).getCount()));
-        holder.itemTotalPriceText.setText(formatter.format(cartItems.get(position).getPrice() * cartItems.get(position).getCount())
+        holder.textItemNameCart.setText(cartItems.get(position).getMenuName());
+        holder.textItemCountCart.setText(Integer.toString(cartItems.get(position).getCount()));
+        holder.textItemPriceCart.setText(cheapnsaleUtils.format(cartItems.get(position).getPrice() * cartItems.get(position).getCount())
                 +context.getResources().getString(R.string.price_type));
-        holder.picasso.with(context).load(cartItems.get(position).getMenuImage())
-                .transform(new CropCircleTransformation()).into(holder.itemImage);
+        holder.picasso.load(cartItems.get(position).getMenuImage())
+                .transform(new CropCircleTransformation()).into(holder.imageItemSrcCart);
 
-//      TODO  holder.itemImage
         if (cart.getCartItems().get(position).getCount() > 1) {
-            holder.itemMinus.setImageResource(R.drawable.ico_minus);
+            holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus);
         }
 
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        holder.imageDeleteButtonCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cart.deleteCartItem(cart.getCartItems().get(position).getMenuId());
@@ -64,12 +62,12 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             }
         });
 
-        holder.itemPlus.setOnClickListener(new View.OnClickListener(){
+        holder.imagePlusButtonCart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 cart.plusCartItem(cartItems.get(position).getMenuId());
                 if (cart.getCartItems().get(position).getCount() > 1) {
-                    holder.itemMinus.setImageResource(R.drawable.ico_minus);
+                    holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus);
                 }
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
@@ -77,12 +75,12 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             }
         });
 
-        holder.itemMinus.setOnClickListener(new View.OnClickListener(){
+        holder.imageMinusButtonCart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 cart.minusCartItem(cartItems.get(position).getMenuId());
                 if (cart.getCartItems().get(position).getCount() < 2) {
-                    holder.itemMinus.setImageResource(R.drawable.ico_minus_dim);
+                    holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus_dim);
                 }
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();

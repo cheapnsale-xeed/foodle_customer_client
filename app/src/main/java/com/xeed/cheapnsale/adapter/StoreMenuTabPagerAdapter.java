@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.xeed.cheapnsale.fragments.ExpandableMenuListFragment;
+import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.fragments.MyOrderFragment;
 import com.xeed.cheapnsale.service.model.Store;
 
@@ -29,9 +29,9 @@ public class StoreMenuTabPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                ExpandableMenuListFragment expandableMenuListFragment = new ExpandableMenuListFragment();
-                expandableMenuListFragment.store = store;
-                return expandableMenuListFragment;
+                MenuListFragment menuListFragment = new MenuListFragment();
+                menuListFragment.store = store;
+                return menuListFragment;
             case 1:
                 return new MyOrderFragment();
             case 2:

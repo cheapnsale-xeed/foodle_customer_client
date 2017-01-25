@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.adapter.ExpandableMenuListAdapter;
+import com.xeed.cheapnsale.adapter.MenuListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.service.model.Store;
@@ -21,14 +21,14 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class ExpandableMenuListFragment extends Fragment {
-
-    RecyclerView recyclerView;
+public class MenuListFragment extends Fragment {
 
     @Inject
     public CheapnsaleService cheapnsaleService;
+
     public Store store;
-    private ExpandableMenuListAdapter expandableMenuListAdapter;
+    private MenuListAdapter menuListAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,11 +39,11 @@ public class ExpandableMenuListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        expandableMenuListAdapter = new ExpandableMenuListAdapter(getContext(), new ArrayList<Menu>());
+        menuListAdapter = new MenuListAdapter(getContext(), new ArrayList<Menu>());
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(expandableMenuListAdapter);
+        recyclerView.setAdapter(menuListAdapter);
 
         return recyclerView;
     }
@@ -52,7 +52,7 @@ public class ExpandableMenuListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        expandableMenuListAdapter.initCartFooterLayout();
+        menuListAdapter.initCartFooterLayout();
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -64,7 +64,7 @@ public class ExpandableMenuListFragment extends Fragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 if(store != null){
-                    expandableMenuListAdapter.updateData(store.getMenus());
+                    menuListAdapter.updateData(store.getMenus());
                 }
             }
         }.execute();

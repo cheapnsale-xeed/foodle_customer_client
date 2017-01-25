@@ -1,4 +1,4 @@
-package com.xeed.cheapnsale;
+package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
@@ -26,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StoreDetailActivityTest {
 
     private StoreDetailActivity storeDetailActivity;
-    private ImageButton backButton;
+    private ImageView backButton;
     private TextView callLink;
     private TextView mapLink;
     private TextView title;
@@ -41,13 +44,13 @@ public class StoreDetailActivityTest {
 
         storeDetailActivity = Robolectric.buildActivity(StoreDetailActivity.class).withIntent(intent).create().get();
 
-        backButton = (ImageButton) storeDetailActivity.findViewById(R.id.toolbar_back_button);
-        callLink = (TextView) storeDetailActivity.findViewById(R.id.toolbar_call_link);
-        mapLink = (TextView) storeDetailActivity.findViewById(R.id.toolbar_map_link);
-        title = (TextView) storeDetailActivity.findViewById(R.id.toolbar_order_text);
-        storeTitle = (TextView) storeDetailActivity.findViewById(R.id.store_title);
-        storePaymentType = (TextView) storeDetailActivity.findViewById(R.id.store_payment_type);
-        storeMainImg = (ImageView) storeDetailActivity.findViewById(R.id.store_main_img);
+        backButton = (ImageView) storeDetailActivity.findViewById(R.id.image_back_button_store_detail);
+        callLink = (TextView) storeDetailActivity.findViewById(R.id.text_call_button_store_detail);
+        mapLink = (TextView) storeDetailActivity.findViewById(R.id.text_map_button_store_detail);
+        title = (TextView) storeDetailActivity.findViewById(R.id.image_title_order_detail);
+        storeTitle = (TextView) storeDetailActivity.findViewById(R.id.text_name_store_detail);
+        storePaymentType = (TextView) storeDetailActivity.findViewById(R.id.text_payment_type_store_detail);
+        storeMainImg = (ImageView) storeDetailActivity.findViewById(R.id.image_top_src_store_detail);
     }
 
     @Test

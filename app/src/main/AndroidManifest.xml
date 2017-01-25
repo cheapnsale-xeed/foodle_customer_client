@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 위치정보활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".Application"
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,16 +26,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StoreDetailActivity"
+            android:name=".activity.StoreDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StoreDetailActionbar" />
         <activity
             android:name=".activity.MapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".activity.OrderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CartActivity"></activity>
+        <activity
+            android:name=".activity.CartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PaymentActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

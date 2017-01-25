@@ -11,14 +11,14 @@ import butterknife.ButterKnife;
 
 public class OrderCartItemListHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.order_cart_item_name)
-    public TextView orderCartItemName;
+    @BindView(R.id.text_item_name_order)
+    public TextView textItemNameOrder;
 
-    @BindView(R.id.order_cart_item_count)
-    public TextView orderCartItemCount;
+    @BindView(R.id.text_item_count_order)
+    public TextView textItemCountOrder;
 
-    @BindView(R.id.order_cart_item_price)
-    public TextView orderCartItemPrice;
+    @BindView(R.id.text_item_price_order)
+    public TextView textItemPriceOrder;
 
     public OrderCartItemListHolder(View itemView) {
         super(itemView);

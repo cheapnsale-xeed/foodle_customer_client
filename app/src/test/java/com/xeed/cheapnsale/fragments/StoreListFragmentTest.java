@@ -43,7 +43,7 @@ public class StoreListFragmentTest {
         when(storeListFragment.cheapnsaleService.getStoreList()).thenReturn(makeMockStores());
 
         storeListFragment.onResume();
-        RecyclerView recyclerView = (RecyclerView) storeListFragment.getView().findViewById(R.id.store_list_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) storeListFragment.getView().findViewById(R.id.recycler_store_list);
         assertThat(recyclerView.getAdapter().getItemCount()).isEqualTo(1);
     }
 

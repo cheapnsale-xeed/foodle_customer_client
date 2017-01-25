@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view_horizon_bar"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#c8c8c8" />
@@ -22,8 +22,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/item_minus"
+        <ImageView
+            android:id="@+id/image_minus_button_menu"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="#f8f8f8"
@@ -31,7 +31,7 @@
             android:src="@drawable/ico_minus_dim" />
 
         <TextView
-            android:id="@+id/item_count_text"
+            android:id="@+id/text_item_count_menu"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:text="1"
@@ -39,8 +39,8 @@
             android:textColor="@android:color/black"
             android:textSize="15dp" />
 
-        <ImageButton
-            android:id="@+id/item_plus"
+        <ImageView
+            android:id="@+id/image_plus_button_menu"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="#f8f8f8"
@@ -48,7 +48,7 @@
             android:src="@drawable/ico_plus" />
 
         <TextView
-            android:id="@+id/selected_item_total_price"
+            android:id="@+id/text_total_price_menu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="11.5dp"
@@ -61,35 +61,34 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_order_and_add_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
-        android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="21dp">
 
         <Button
-            android:id="@+id/menu_item_add_cart"
+            android:id="@+id/button_add_cart_menu"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_weight="1"
-            android:background="@drawable/wish_list_button_shape"
+            android:background="@drawable/shape_wish_list_button"
             android:text="@string/put_in"
-            android:textColor="#151515"
+            android:textColor="@color/colorPointBlack"
             android:textSize="15dp" />
 
         <Button
-            android:id="@+id/menu_item_order_now"
+            android:id="@+id/button_order_now_menu"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_weight="1"
             android:layout_marginStart="10dp"
-            android:background="@drawable/direct_order_button_shape"
+            android:layout_weight="1"
+            android:background="@drawable/shape_direct_order_button"
             android:text="@string/direct_order"
-            android:textColor="#111cc4"
+            android:textColor="@color/colorFocusedText"
             android:textSize="15dp" />
 
     </LinearLayout>

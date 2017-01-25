@@ -19,26 +19,26 @@ public class StoreListHolder extends RecyclerView.ViewHolder {
     @Inject
     public Picasso picasso;
 
-    @BindView(R.id.store_name_view)
-    public TextView nameView;
+    @BindView(R.id.text_name_store)
+    public TextView textNameStore;
 
-    @BindView(R.id.store_image_view)
-    public ImageView mainImgView;
+    @BindView(R.id.image_src_store)
+    public ImageView imageSrcStore;
 
-    @BindView(R.id.payment_type_view)
-    public TextView paymentTextView;
+    @BindView(R.id.text_payment_type_store)
+    public TextView textPaymentTypeStore;
 
-    @BindView(R.id.avg_prep_time_view)
-    public TextView avgPrepTimeTextView;
+    @BindView(R.id.text_prep_time_store)
+    public TextView textPrepTimeStore;
 
-    @BindView(R.id.text_arrival_time_in_store)
-    public TextView textArrivalTimeInStore;
+    @BindView(R.id.text_arrival_time_store)
+    public TextView textArrivalTimeStore;
 
-    @BindView(R.id.view_divide_bar_in_store)
-    public View viewDivideBarInStore;
+    @BindView(R.id.view_vertical_bar_store)
+    public View viewVerticalBarStore;
 
-    @BindView(R.id.text_distance_to_store_in_store)
-    public TextView textDistanceToStoreInStore;
+    @BindView(R.id.text_distance_store)
+    public TextView textDistanceStore;
 
 
     public StoreListHolder(View itemView) {

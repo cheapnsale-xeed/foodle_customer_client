@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/menu_item_image"
+        android:id="@+id/image_item_src_menu"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="15dp"
@@ -16,25 +16,25 @@
         tools:src="@drawable/ico_map" />
 
     <TextView
-        android:id="@+id/menu_item_name"
+        android:id="@+id/text_item_name_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="28dp"
-        android:layout_toEndOf="@+id/menu_item_image"
+        android:layout_toEndOf="@+id/image_item_src_menu"
         android:textColor="@android:color/black"
         android:textSize="16dp"
         tools:text="놀부 왕족발 세트" />
 
     <TextView
-        android:id="@+id/menu_item_price"
+        android:id="@+id/text_item_price_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/menu_item_image"
+        android:layout_alignBottom="@+id/image_item_src_menu"
         android:layout_marginBottom="13dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/menu_item_image"
+        android:layout_toEndOf="@+id/image_item_src_menu"
         android:textColor="@android:color/black"
         android:textSize="18dp"
         tools:text="22,000원" />

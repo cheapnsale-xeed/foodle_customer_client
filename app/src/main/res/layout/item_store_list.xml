@@ -9,18 +9,18 @@
     android:layout_marginTop="5.5dp">
 
     <ImageView
-        android:id="@+id/store_image_view"
+        android:id="@+id/image_src_store"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:scaleType="fitXY" />
 
     <TextView
-        android:id="@+id/avg_prep_time_view"
+        android:id="@+id/text_prep_time_store"
         android:layout_width="75dp"
         android:layout_height="25dp"
-        android:layout_alignBottom="@+id/store_image_view"
-        android:layout_alignEnd="@+id/store_image_view"
+        android:layout_alignBottom="@+id/image_src_store"
+        android:layout_alignEnd="@+id/image_src_store"
         android:background="#4d58f2"
         android:gravity="center_vertical"
         android:hint="즉시픽업!"
@@ -31,7 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/store_image_view"
+        android:layout_below="@+id/image_src_store"
         android:layout_marginTop="12.8dp"
         android:orientation="vertical">
 
@@ -43,7 +43,7 @@
             android:paddingStart="2dp">
 
             <TextView
-                android:id="@+id/store_name_view"
+                android:id="@+id/text_name_store"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -58,7 +58,7 @@
                 android:src="@drawable/ico_walking" />
 
             <TextView
-                android:id="@+id/text_arrival_time_in_store"
+                android:id="@+id/text_arrival_time_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3분"
@@ -66,7 +66,7 @@
                 android:textSize="15dp" />
 
             <View
-                android:id="@+id/view_divide_bar_in_store"
+                android:id="@+id/view_vertical_bar_store"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="2dp"
@@ -76,7 +76,7 @@
                 android:background="#c7c7c7" />
 
             <TextView
-                android:id="@+id/text_distance_to_store_in_store"
+                android:id="@+id/text_distance_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.4km"
@@ -89,7 +89,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="9dp">
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -100,7 +101,7 @@
                 android:src="@drawable/star" />
 
             <TextView
-                android:id="@+id/payment_type_view"
+                android:id="@+id/text_payment_type_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="바로결제"

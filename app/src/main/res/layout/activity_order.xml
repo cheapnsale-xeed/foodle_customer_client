@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.xeed.cheapnsale.OrderActivity">
+    tools:context="com.xeed.cheapnsale.activity.OrderActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/mainToolBar"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:layout_margin="0dp"
@@ -29,10 +27,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:layout_centerInParent="true">
 
-                <ImageButton
-                    android:id="@+id/main_toolbar_back_button"
+                <ImageView
+                    android:id="@+id/image_back_button_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -42,7 +41,7 @@
                     android:src="@drawable/ico_back" />
 
                 <TextView
-                    android:id="@+id/mainToolBarTitle"
+                    android:id="@+id/text_title_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -65,11 +64,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -85,7 +84,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -104,7 +102,7 @@
                         android:textSize="13dp" />
 
                     <TextView
-                        android:id="@+id/order_pick_up_time"
+                        android:id="@+id/text_pickup_time_order"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="3dp"
@@ -122,7 +120,7 @@
                     android:orientation="horizontal">
 
                     <RadioGroup
-                        android:id="@+id/order_time_rg"
+                        android:id="@+id/radio_group_pickup_time_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -130,14 +128,14 @@
                         android:paddingTop="-2dp">
 
                         <RadioButton
-                            android:id="@+id/order_time_now_radio_button"
+                            android:id="@+id/radio_now_button_order"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:text="@string/order_now"
-                            android:textSize="16dp" />
+                            android:textSize="16dp"/>
 
                         <RadioButton
-                            android:id="@+id/order_time_today_radio_button"
+                            android:id="@+id/radio_today_button_order"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:layout_marginTop="6dp"
@@ -147,48 +145,48 @@
                     </RadioGroup>
 
                     <RelativeLayout
-                        android:id="@+id/today_order_layout"
+                        android:id="@+id/relative_today_detail_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="7dp">
 
                         <View
-                            android:id="@+id/order_bar"
+                            android:id="@+id/view_vertical_bar_order"
                             android:layout_width="1dp"
                             android:layout_height="13dp"
                             android:layout_centerVertical="true"
                             android:background="#c7c7c7" />
 
                         <TextView
-                            android:id="@+id/time_to_pickup_value"
+                            android:id="@+id/text_dialog_picked_time_order"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginStart="7dp"
-                            android:layout_toEndOf="@id/order_bar"
+                            android:layout_toEndOf="@id/view_vertical_bar_order"
                             android:text="5"
                             android:textSize="16.5dp"
                             tools:hint="5" />
 
                         <TextView
-                            android:id="@+id/time_to_pickup_string"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginStart="1dp"
-                            android:layout_toEndOf="@id/time_to_pickup_value"
+                            android:layout_toEndOf="@id/text_dialog_picked_time_order"
                             android:text="@string/pickup_after_time"
                             android:textSize="16.5dp"
                             tools:hint="분 후 픽업!" />
 
                         <Button
+                            android:id="@+id/button_reselect_time_order"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="66dp"
                             android:layout_height="25.5dp"
                             android:layout_alignParentEnd="true"
                             android:layout_centerInParent="true"
                             android:layout_marginEnd="17dp"
-                            android:background="@drawable/direct_order_button_shape"
+                            android:background="@drawable/shape_direct_order_button"
                             android:text="@string/pick_time_reset"
                             android:textColor="#111cc4"
                             android:textSize="13dp" />
@@ -221,7 +219,7 @@
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/order_payment_group"
+                    android:id="@+id/radio_group_payment_way_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="19.2dp"
@@ -230,7 +228,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/order_payment_credit"
+                        android:id="@+id/radio_credit_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_weight="1"
@@ -238,7 +236,7 @@
                         android:textSize="16dp" />
 
                     <RadioButton
-                        android:id="@+id/order_payment_kakaopay"
+                        android:id="@+id/radio_kakaopay_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_weight="1"
@@ -246,7 +244,7 @@
                         android:textSize="16dp" />
 
                     <RadioButton
-                        android:id="@+id/order_payment_mobile_phone"
+                        android:id="@+id/radio_mobile_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="@string/payment_mobile_phone"
@@ -284,7 +282,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/order_user_info"
+                        android:id="@+id/text_user_info_change_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="3dp"
@@ -304,20 +302,20 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/order_user_info_name"
+                        android:id="@+id/edit_user_info_name_order"
                         android:layout_width="114dp"
                         android:layout_height="42dp"
-                        android:background="@drawable/order_edittext_shape"
+                        android:background="@drawable/shape_order_edittext"
                         android:inputType="text"
                         android:paddingStart="10dp"
                         android:text="이서진" />
 
                     <EditText
-                        android:id="@+id/order_user_info_tel"
+                        android:id="@+id/edit_user_info_tel_order"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
                         android:layout_marginStart="11.5dp"
-                        android:background="@drawable/order_edittext_shape"
+                        android:background="@drawable/shape_order_edittext"
                         android:inputType="phone"
                         android:paddingStart="10dp"
                         android:text="01012345678" />
@@ -330,7 +328,7 @@
                 android:background="#99d8d8d8" />
 
             <LinearLayout
-                android:id="@+id/order_detail_title"
+                android:id="@+id/linear_detail_order"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:layout_marginStart="17dp"
@@ -348,7 +346,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/order_detail_total_price"
+                    android:id="@+id/text_total_price_order"
                     tools:text="31,850"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -367,7 +365,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/order_detail_list_button"
+                    android:id="@+id/image_detail_status_order"
                     android:layout_width="39dp"
                     android:layout_height="39dp"
                     android:layout_gravity="center_vertical"
@@ -377,7 +375,7 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/order_cart_bar"
+                android:id="@+id/view_detail_horizon_bar_order"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginStart="17dp"
@@ -386,7 +384,7 @@
                 android:visibility="gone"/>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/order_cart_item_list_recycler_view"
+                android:id="@+id/recycler_detail_list_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
@@ -419,6 +417,22 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_agree_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/msg_agree_payment"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorFooter"/>
 
             </LinearLayout>
 

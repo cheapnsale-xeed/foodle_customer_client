@@ -2,7 +2,6 @@ package com.xeed.cheapnsale.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,26 +16,26 @@ import butterknife.ButterKnife;
 
 public class CartListHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.cart_item_delete)
-    public ImageButton deleteButton;
+    @BindView(R.id.image_delete_button_cart)
+    public ImageView imageDeleteButtonCart;
 
-    @BindView(R.id.cart_item_img)
-    public ImageView itemImage;
+    @BindView(R.id.image_item_src_cart)
+    public ImageView imageItemSrcCart;
 
-    @BindView(R.id.cart_item_name)
-    public TextView itemName;
+    @BindView(R.id.text_item_name_cart)
+    public TextView textItemNameCart;
 
-    @BindView(R.id.cart_item_minus)
-    public ImageButton itemMinus;
+    @BindView(R.id.image_minus_button_cart)
+    public ImageView imageMinusButtonCart;
 
-    @BindView(R.id.cart_item_plus)
-    public ImageButton itemPlus;
+    @BindView(R.id.image_plus_button_cart)
+    public ImageView imagePlusButtonCart;
 
-    @BindView(R.id.cart_item_count_text)
-    public TextView itemCountText;
+    @BindView(R.id.text_item_count_cart)
+    public TextView textItemCountCart;
 
-    @BindView(R.id.cart_item_price)
-    public TextView itemTotalPriceText;
+    @BindView(R.id.text_item_price_cart)
+    public TextView textItemPriceCart;
 
     @Inject
     public Picasso picasso;

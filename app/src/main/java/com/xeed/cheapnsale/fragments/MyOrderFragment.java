@@ -39,7 +39,7 @@ public class MyOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_my_order_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.my_order_ready_recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_ready_my_order);
 
         myOrderCurrentAdapter = new MyOrderCurrentAdapter(getContext(), myOrder);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -1,9 +1,9 @@
-package com.xeed.cheapnsale;
+package com.xeed.cheapnsale.activity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -11,6 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.xeed.cheapnsale.BuildConfig;
+import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.TestApplication;
+import com.xeed.cheapnsale.activity.OrderActivity;
 import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.vo.Cart;
 import com.xeed.cheapnsale.vo.CartItem;
@@ -52,14 +56,14 @@ public class OrderActivityTest {
 
         orderActivity = Robolectric.buildActivity(OrderActivity.class).create().get();
 
-        orderTimeNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_now_radio_button);
-        orderTimeTodayRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_time_today_radio_button);
-        orderPaymentCreditRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_credit);
-        orderPaymentKakaopayRadioButton = (RadioButton) orderActivity.findViewById(R.id.order_payment_kakaopay);
-        orderPickUpTime = (TextView) orderActivity.findViewById(R.id.order_pick_up_time);
+        orderTimeNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_now_button_order);
+        orderTimeTodayRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_today_button_order);
+        orderPaymentCreditRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_credit_button_order);
+        orderPaymentKakaopayRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_kakaopay_button_order);
+        orderPickUpTime = (TextView) orderActivity.findViewById(R.id.text_pickup_time_order);
 
-        orderUserName = (EditText) orderActivity.findViewById(R.id.order_user_info_name);
-        orderUserTel = (EditText) orderActivity.findViewById(R.id.order_user_info_tel);
+        orderUserName = (EditText) orderActivity.findViewById(R.id.edit_user_info_name_order);
+        orderUserTel = (EditText) orderActivity.findViewById(R.id.edit_user_info_tel_order);
     }
 
     @Test
@@ -88,7 +92,7 @@ public class OrderActivityTest {
 
     @Test
     public void whenClickBackToOrderButton_thenBackToOrderActivity() throws Exception {
-        ImageButton backToOrderImgButton = (ImageButton)orderActivity.findViewById(R.id.main_toolbar_back_button);
+        ImageView backToOrderImgButton = (ImageView)orderActivity.findViewById(R.id.image_back_button_order);
         backToOrderImgButton.performClick();
         assertThat(orderActivity.isFinishing()).isTrue();
     }
@@ -116,7 +120,7 @@ public class OrderActivityTest {
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
         assertThat(pickerDialog.isShowing()).isTrue();
 
-        TextView cancelTextView = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_cancel);
+        TextView cancelTextView = (TextView) pickerDialog.getView().findViewById(R.id.text_cancel_button_picker);
         cancelTextView.performClick();
 
         assertThat(pickerDialog.isShowing()).isFalse();
@@ -131,13 +135,13 @@ public class OrderActivityTest {
         orderTimeTodayRadioButton.performClick();
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
 
-        NumberPicker numberPicker = (NumberPicker) pickerDialog.getView().findViewById(R.id.order_time_picker);
+        NumberPicker numberPicker = (NumberPicker) pickerDialog.getView().findViewById(R.id.number_picker_order);
         assertThat(numberPicker.getDisplayedValues()[0]).isEqualTo("20 분 후");
     }
 
     @Test
     public void whenPickTimeAndComplete_thenPickupTimeSet() throws Exception {
-        RelativeLayout todayOrderLayout = (RelativeLayout) orderActivity.findViewById(R.id.today_order_layout);
+        RelativeLayout todayOrderLayout = (RelativeLayout) orderActivity.findViewById(R.id.relative_today_detail_order);
 
         when(orderActivity.cheapnsaleService.getStore(anyString())).thenReturn(makeMockData());
         orderActivity.onResume();
@@ -149,10 +153,10 @@ public class OrderActivityTest {
         //30분선택.
         orderActivity.selectedNumberIndex = 2;
 
-        TextView acceptButton = (TextView) pickerDialog.getView().findViewById(R.id.order_time_picker_accept);
+        TextView acceptButton = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
         acceptButton.performClick();
 
-        TextView timeToPickupMin = (TextView) orderActivity.findViewById(R.id.time_to_pickup_value);
+        TextView timeToPickupMin = (TextView) orderActivity.findViewById(R.id.text_dialog_picked_time_order);
         assertThat(timeToPickupMin.getText()).isEqualTo("30");
 
         assertThat(todayOrderLayout.getVisibility()).isEqualTo(View.VISIBLE);
@@ -176,9 +180,9 @@ public class OrderActivityTest {
 
     @Test
     public void whenOrderActivityOpen_thenTotalPriceAndOrderDetailGone() throws Exception {
-        TextView totalPrice = (TextView) orderActivity.findViewById(R.id.order_detail_total_price);
-        View barView = orderActivity.findViewById(R.id.order_cart_bar);
-        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.order_cart_item_list_recycler_view);
+        TextView totalPrice = (TextView) orderActivity.findViewById(R.id.text_total_price_order);
+        View barView = orderActivity.findViewById(R.id.view_detail_horizon_bar_order);
+        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.recycler_detail_list_order);
 
         assertThat(totalPrice.getText().toString()).isEqualTo("140,000");
 
@@ -188,9 +192,9 @@ public class OrderActivityTest {
 
     @Test
     public void whenOrderDetailClicked_thenDetailCartShow() throws Exception {
-        LinearLayout detailCartView = (LinearLayout) orderActivity.findViewById(R.id.order_detail_title);
-        View barView = orderActivity.findViewById(R.id.order_cart_bar);
-        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.order_cart_item_list_recycler_view);
+        LinearLayout detailCartView = (LinearLayout) orderActivity.findViewById(R.id.linear_detail_order);
+        View barView = orderActivity.findViewById(R.id.view_detail_horizon_bar_order);
+        RecyclerView orderDetailView = (RecyclerView) orderActivity.findViewById(R.id.recycler_detail_list_order);
 
         detailCartView.performClick();
 

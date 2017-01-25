@@ -41,9 +41,9 @@ public class StoreListAdapterTest {
 
         storeListAdapter.onBindViewHolder(holder,0);
 
-        assertThat(holder.nameView.getText()).isEqualTo("mock store");
-        assertThat(holder.paymentTextView.getText()).isEqualTo("바로결제");
-        assertThat(holder.avgPrepTimeTextView.getText()).isEqualTo("20분");
+        assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
+        assertThat(holder.textPaymentTypeStore.getText()).isEqualTo("바로결제");
+        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분");
     }
 
     @Test
