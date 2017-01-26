@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
+import com.xeed.cheapnsale.util.NumbersUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +73,7 @@ public class CartActivity extends AppCompatActivity {
         Application app = (Application) getApplicationContext();
 
         textItemCountFooter.setText("(" + app.getCart().getTotalCount() + ")");
-        textTotalPriceFooter.setText(cheapnsaleUtils.format(app.getCart().getTotalPrice()) + getResources().getString(R.string.price_type));
+        textTotalPriceFooter.setText(NumbersUtil.format(app.getCart().getTotalPrice()) + getResources().getString(R.string.price_type));
     }
 
     @Override

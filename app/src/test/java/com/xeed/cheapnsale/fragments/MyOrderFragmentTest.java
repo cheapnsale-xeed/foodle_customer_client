@@ -35,7 +35,7 @@ public class MyOrderFragmentTest {
     @Test
     public void whenTabMyOrderTab_thenShowMyNowOrderedList() throws Exception {
 
-        RecyclerView myNowOrderList = (RecyclerView) myOrderFragment.getView().findViewById(R.id.my_order_ready_recycler_view);
+        RecyclerView myNowOrderList = (RecyclerView) myOrderFragment.getView().findViewById(R.id.recycler_ready_my_order);
         assertThat(myNowOrderList.getVisibility()).isEqualTo(View.VISIBLE);
 
         when(myOrderFragment.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockOrders());

@@ -24,7 +24,7 @@ import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Store;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
+import com.xeed.cheapnsale.util.NumbersUtil;
 
 import javax.inject.Inject;
 
@@ -155,7 +155,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        textTotalPriceOrder.setText(""+ cheapnsaleUtils.format(((Application) getApplication()).getCart().getTotalPrice()));
+        textTotalPriceOrder.setText(""+ NumbersUtil.format(((Application) getApplication()).getCart().getTotalPrice()));
 
         // Order list Adapter
         OrderCartItemListAdapter orderCartItemListAdapter =

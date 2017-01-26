@@ -3,6 +3,7 @@ package com.xeed.cheapnsale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,10 +19,11 @@ import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.activity.OrderActivity;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
+import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.holder.MenuListChildHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
+import com.xeed.cheapnsale.util.NumbersUtil;
 import com.xeed.cheapnsale.vo.Cart;
 import com.xeed.cheapnsale.vo.CartItem;
 
@@ -38,9 +40,11 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private Toast toast;
     private View cartFooter;
+    private LinearLayoutManager linearLayoutManager;
 
-    public MenuListAdapter(Context context, ArrayList<Menu> menus) {
+    public MenuListAdapter(Context context, LinearLayoutManager linearLayoutManager, ArrayList<Menu> menus) {
         this.context = context;
+        this.linearLayoutManager = linearLayoutManager;
         this.menus = menus;
     }
 
@@ -64,7 +68,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         if (getItemViewType(position) == HEADER) {
             final MenuListHeadHolder menuListHeadHolder = (MenuListHeadHolder) holder;
@@ -72,7 +76,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             menuListHeadHolder.picasso.load(menus.get(position).getMenuImg())
                     .transform(new CropCircleTransformation()).into(menuListHeadHolder.imageItemSrcMenu);
             menuListHeadHolder.textItemNameMenu.setText(menus.get(position).getMenuName());
-            menuListHeadHolder.textItemPriceMenu.setText(cheapnsaleUtils.format(menus.get(position).getMenuPrice())
+            menuListHeadHolder.textItemPriceMenu.setText(NumbersUtil.format(menus.get(position).getMenuPrice())
                     + context.getResources().getString(R.string.price_type));
             menuListHeadHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,6 +103,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             menus.add(childPos, childItem);
                         }
 
+                        linearLayoutManager.scrollToPosition(childPos);
                         notifyDataSetChanged();
                     }
                 }
@@ -106,7 +111,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (getItemViewType(position) == CHILD) {
             final MenuListChildHolder childHolder = (MenuListChildHolder) holder;
 
-            childHolder.textTotalPriceMenu.setText(cheapnsaleUtils.format(menus.get(position).getMenuItemTotalPrice())
+            childHolder.textTotalPriceMenu.setText(NumbersUtil.format(menus.get(position).getMenuItemTotalPrice())
                     + context.getResources().getString(R.string.price_type));
             childHolder.textItemCountMenu.setText("" + menus.get(position).getMenuItemCount());
             childHolder.imagePlusButtonMenu.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +126,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
 
                     int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
-                    childHolder.textTotalPriceMenu.setText(cheapnsaleUtils.format(totalItemPrice)
+                    childHolder.textTotalPriceMenu.setText(NumbersUtil.format(totalItemPrice)
                             + context.getResources().getString(R.string.price_type));
                 }
             });
@@ -136,7 +141,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         childHolder.imageMinusButtonMenu.setImageResource(R.drawable.ico_minus_dim);
 
                     int totalItemPrice = itemCount * menus.get(position).getMenuPrice();
-                    childHolder.textTotalPriceMenu.setText(cheapnsaleUtils.format(totalItemPrice)
+                    childHolder.textTotalPriceMenu.setText(NumbersUtil.format(totalItemPrice)
                             + context.getResources().getString(R.string.price_type));
                 }
             });
@@ -190,6 +195,16 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    @Override
+    public int getItemCount() {
+        return menus.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return menus.get(position).getMenuType();
+    }
+
     private void showCartCheckSec() {
 
         LinearLayout cartCheck = (LinearLayout) View.inflate(context, R.layout.cart_check, null);
@@ -229,7 +244,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TextView orderSummaryInfoCount = (TextView) cartFooter.findViewById(R.id.text_item_count_footer);
             orderSummaryInfoCount.setText("(" + app.getCart().getTotalCount() + ")");
             TextView orderSummaryInfoPrice = (TextView) cartFooter.findViewById(R.id.text_total_price_footer);
-            orderSummaryInfoPrice.setText(cheapnsaleUtils.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
+            orderSummaryInfoPrice.setText(NumbersUtil.format(app.getCart().getTotalPrice()) + context.getResources().getString(R.string.price_type));
 
             TextView orderButton = (TextView) cartFooter.findViewById(R.id.text_order_button_footer);
             orderButton.setOnClickListener(new View.OnClickListener() {
@@ -250,16 +265,6 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return menus.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return menus.get(position).getMenuType();
     }
 
     private int getChildPos() {
