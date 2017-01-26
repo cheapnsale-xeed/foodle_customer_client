@@ -42,6 +42,7 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
     @Override
     public void onBindViewHolder(MyOrderCurrentHolder holder, int position) {
         Order order = myOrder.get(position);
+        String menuContent;
 
         holder.picasso.load(order.getMenus().get(0).getMenuImg())
                 .transform(new CropCircleTransformation())
@@ -52,7 +53,13 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         else if (order.getStatus().equals("READY")) {
             holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
         }
-        holder.textItemNameMyOrder.setText(order.getMenus().get(0).getMenuName());
+
+        if (order.getMenus().size() > 1) {
+            menuContent = order.getMenus().get(0).getMenuName() + " 외 " + String.valueOf(order.getMenus().size()-1) + "개";
+        } else {
+            menuContent = order.getMenus().get(0).getMenuName();
+        }
+        holder.textItemNameMyOrder.setText(menuContent);
         holder.textStoreNameMyOrder.setText(order.getStoreName());
         holder.textPickupTimeMyOrder.setText(DateUtil.myOrderPickUpTime(order.getPickupTime()));
     }
