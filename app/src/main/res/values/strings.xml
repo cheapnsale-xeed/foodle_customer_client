@@ -4,7 +4,7 @@
     <string name="map_contentDescription">Map</string>
     <string name="filter_contentDescription">Filter</string>
     <string name="show_all">전체보기</string>
-    <string name="my_order">내 주문(0)</string>
+    <string name="my_order">내 주문(%1$d)</string>
     <string name="minute">분</string>
     <string name="price_type">원</string>
     <string name="put_in">담기</string>
@@ -32,7 +32,8 @@
     <string name="cart">장바구니</string>
     <string name="list_contentDescription">Back to List</string>
     <string name="ready_to_receipt">접수\n대기</string>
-    <string name="ready_to_pickup">접수\n완료</string>
+    <string name="ready_to_pickup">준비\n완료</string>
+    <string name="now_prepare">준비\n중</string>
     <string name="order_detail_list">주문 내역</string>
     <string name="word_pickup_time">픽업시간 :</string>
     <string name="msg_agree_payment">동의하고 결제하기</string>

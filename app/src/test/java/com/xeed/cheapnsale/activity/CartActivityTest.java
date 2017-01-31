@@ -41,7 +41,7 @@ public class CartActivityTest {
 
     @Test
     public void whenOnClickBackButton_thenActivityIsFinish() throws Exception {
-        ImageView backButton = (ImageView) cartActivity.findViewById(R.id.image_back_button_order);
+        ImageView backButton = (ImageView) cartActivity.findViewById(R.id.image_back_button_cart);
         backButton.performClick();
 
         assertThat(cartActivity.isFinishing()).isTrue();

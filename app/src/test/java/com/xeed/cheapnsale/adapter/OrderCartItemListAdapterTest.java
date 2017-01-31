@@ -41,13 +41,25 @@ public class OrderCartItemListAdapterTest {
         orderCartItemListAdapter.onBindViewHolder(holder,0);
 
         assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-1");
-        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("22,000");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("66,000");
         assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("3");
 
         orderCartItemListAdapter.onBindViewHolder(holder,1);
 
         assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-2");
-        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("12,000");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("24,000");
         assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("2");
+
+        orderCartItemListAdapter.onBindViewHolder(holder,2);
+
+        assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-3");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("6,000");
+        assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("1");
+
+        orderCartItemListAdapter.onBindViewHolder(holder,3);
+
+        assertThat(holder.textItemNameOrder.getText().toString()).isEqualTo("mockItem-4");
+        assertThat(holder.textItemPriceOrder.getText().toString()).isEqualTo("44,000");
+        assertThat(holder.textItemCountOrder.getText().toString()).isEqualTo("5");
     }
 }
