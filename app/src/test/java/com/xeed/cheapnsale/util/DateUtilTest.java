@@ -35,8 +35,6 @@ public class DateUtilTest {
         String pickupTime = DateUtil.myOrderPickUpTime(sampleDateStr);
         assertEquals(pickupTime, samplePickUpTimeStr);
 
-
-
     }
 }
 
