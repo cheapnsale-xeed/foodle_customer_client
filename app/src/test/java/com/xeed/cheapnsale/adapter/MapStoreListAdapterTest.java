@@ -45,7 +45,6 @@ public class MapStoreListAdapterTest {
         assertThat(holder.textStoreNameMap.getText()).isEqualTo("mock store");
         assertThat(holder.textAvgPrepTimeMap.getText()).isEqualTo("20분");
         assertThat(holder.textDistanceMap.getText()).isEqualTo("456m");
-        assertThat(holder.textArrivalTimeMap.getText()).isEqualTo("도보 7분");
     }
 
     @Test
