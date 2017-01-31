@@ -4,6 +4,9 @@ general:
 #test:
 #  override:
 #    - ./gradlew assembleDebug
+machine:
+  java:
+    version: oraclejdk8
 deployment:
   prod:
     branch: development
