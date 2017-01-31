@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,21 +41,51 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
     }
 
     @Override
-    public void onBindViewHolder(MyOrderCurrentHolder holder, int position) {
-        Order order = myOrder.get(position);
+    public void onBindViewHolder(final MyOrderCurrentHolder holder, int position) {
+        final Order order = myOrder.get(position);
+        String menuContent;
 
         holder.picasso.load(order.getMenus().get(0).getMenuImg())
                 .transform(new CropCircleTransformation())
                 .into(holder.imageItemSrcMyOrder);
         if (order.getStatus().equals("DONE")) {
             holder.textStatusMyOrder.setText(R.string.ready_to_pickup);
-        }
-        else if (order.getStatus().equals("READY")) {
+            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu_done));
+        } else if (order.getStatus().equals("PREPARE")) {
+            holder.textStatusMyOrder.setText(R.string.now_prepare);
+            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
+        } else if (order.getStatus().equals("READY")) {
             holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
+            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
         }
-        holder.textItemNameMyOrder.setText(order.getMenus().get(0).getMenuName());
+
+        if (order.getMenus().size() > 1) {
+            menuContent = order.getMenus().get(0).getMenuName() + " 외 " + String.valueOf(order.getMenus().size() - 1) + "개";
+        } else {
+            menuContent = order.getMenus().get(0).getMenuName();
+        }
+        holder.textItemNameMyOrder.setText(menuContent);
         holder.textStoreNameMyOrder.setText(order.getStoreName());
         holder.textPickupTimeMyOrder.setText(DateUtil.myOrderPickUpTime(order.getPickupTime()));
+
+        // 데모용 클릭이벤트 (POS 프로세스가 추가되면 삭제 예정임)
+        holder.imageItemSrcMyOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (order.getStatus().equals("DONE")) {
+                    order.setStatus("READY");
+                } else if (order.getStatus().equals("PREPARE")) {
+                    order.setStatus("DONE");
+                } else if (order.getStatus().equals("READY")) {
+                    order.setStatus("PREPARE");
+                }
+
+                notifyDataSetChanged();
+            }
+        });
+
+
     }
 
     @Override
@@ -70,15 +101,15 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
     public class MyOrderCurrentHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image_item_src_my_order)
-        ImageView imageItemSrcMyOrder;
+        public ImageView imageItemSrcMyOrder;
         @BindView(R.id.text_status_my_order)
-        TextView textStatusMyOrder;
+        public TextView textStatusMyOrder;
         @BindView(R.id.text_item_name_my_order)
-        TextView textItemNameMyOrder;
+        public TextView textItemNameMyOrder;
         @BindView(R.id.text_store_name_my_order)
-        TextView textStoreNameMyOrder;
+        public TextView textStoreNameMyOrder;
         @BindView(R.id.text_pickup_time_my_order)
-        TextView textPickupTimeMyOrder;
+        public TextView textPickupTimeMyOrder;
 
         @Inject
         Picasso picasso;

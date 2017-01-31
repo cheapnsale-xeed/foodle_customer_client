@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.holder.OrderCartItemListHolder;
+import com.xeed.cheapnsale.util.NumbersUtil;
 import com.xeed.cheapnsale.service.model.Menu;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
 
 import java.util.ArrayList;
 
@@ -32,8 +32,8 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
         final OrderCartItemListHolder orderCartItemListHolder = (OrderCartItemListHolder) holder;
 
         orderCartItemListHolder.textItemNameOrder.setText(cartItemList.get(position).getMenuName());
-        orderCartItemListHolder.textItemCountOrder.setText(""+cheapnsaleUtils.format(cartItemList.get(position).getMenuItemCount()));
-        orderCartItemListHolder.textItemPriceOrder.setText(""+cheapnsaleUtils.format(cartItemList.get(position).getMenuPrice() * cartItemList.get(position).getMenuItemCount()));
+        orderCartItemListHolder.textItemCountOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getCount()));
+        orderCartItemListHolder.textItemPriceOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getPrice() * cartItemList.get(position).getCount()));
     }
 
     @Override

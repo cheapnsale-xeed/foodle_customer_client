@@ -42,7 +42,7 @@ public class MenuListFragment extends Fragment {
         menuListAdapter = new MenuListAdapter(getContext(), new ArrayList<Menu>());
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(menuListAdapter);
 
         return recyclerView;

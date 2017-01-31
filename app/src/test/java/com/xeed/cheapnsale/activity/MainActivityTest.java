@@ -3,14 +3,12 @@ package com.xeed.cheapnsale.activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.activity.MainActivity;
-import com.xeed.cheapnsale.activity.MapActivity;
+import com.xeed.cheapnsale.service.model.Order;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +19,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -45,7 +47,7 @@ public class MainActivityTest {
     @Test
     public void whenActivityIsStarted_thenShowCheapnsaleTitle() throws Exception {
         TextView cheapnsaleTitleText = (TextView) mainActivity.findViewById(R.id.text_title_main);
-        assertThat(cheapnsaleTitleText.getText()).isEqualTo("싸다싸");
+        assertThat(cheapnsaleTitleText.getText()).isEqualTo("Foodle");
     }
 
     @Test
@@ -58,7 +60,10 @@ public class MainActivityTest {
     public void whenTabChange_thenFragmentTitleChange() throws Exception {
         mainActivity.pagerMain.setCurrentItem(1);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(1);
-        assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(0)");
+        when(mainActivity.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockMyOrder());
+        mainActivity.onResume();
+        assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(2)");
+
 
         mainActivity.pagerMain.setCurrentItem(0);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(0);
@@ -75,4 +80,32 @@ public class MainActivityTest {
 
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
+
+    private ArrayList<Order> makeMockMyOrder() {
+
+        ArrayList<Order> orders = new ArrayList<>();
+
+        Order order = new Order();
+        order.setEmail("cheapnsale.xeed@gmail.com");
+        order.setStoreId("1");
+        order.setOrderId("1");
+        order.setStoreName("놀부 보쌈");
+        order.setStatus("DONE");
+        order.setOrderAt("2017.01.22_17:19:00");
+
+        orders.add(order);
+
+        order.setEmail("cheapnsale.xeed@gmail.com");
+        order.setStoreId("2");
+        order.setOrderId("2");
+        order.setStoreName("Subway");
+        order.setStatus("READY");
+        order.setOrderAt("2017.01.30_17:19:00");
+
+        orders.add(order);
+
+        return orders;
+
+    }
+
 }

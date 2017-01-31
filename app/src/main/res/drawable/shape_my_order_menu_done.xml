@@ -9,7 +9,7 @@
         android:gravity="center">
         <shape android:shape="oval">
 
-            <solid android:color="#CC7d7d7d" />
+            <solid android:color="#CC4952db" />
 
         </shape>
     </item>
@@ -24,7 +24,7 @@
 
             <stroke
                 android:width="2dp"
-                android:color="#e8e8e8" />
+                android:color="#4d58f2" />
 
         </shape>
     </item>

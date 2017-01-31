@@ -27,7 +27,7 @@ import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Store;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
+import com.xeed.cheapnsale.util.NumbersUtil;
 
 import java.util.UUID;
 
@@ -163,7 +163,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        textTotalPriceOrder.setText(""+ cheapnsaleUtils.format(((Application) getApplication()).getCart().getTotalPrice()));
+        textTotalPriceOrder.setText(""+ NumbersUtil.format(((Application) getApplication()).getCart().getTotalPrice()));
 
         // Order list Adapter
         OrderCartItemListAdapter orderCartItemListAdapter =

@@ -37,7 +37,7 @@
                 android:layout_height="81dp"
                 android:background="@drawable/shape_my_order_menu"
                 android:gravity="center"
-                android:text="@string/ready_to_receipt"
+                android:text="@string/now_prepare"
                 android:textColor="@color/colorWhite"
                 android:textSize="18dp"
                 android:textStyle="normal|bold"

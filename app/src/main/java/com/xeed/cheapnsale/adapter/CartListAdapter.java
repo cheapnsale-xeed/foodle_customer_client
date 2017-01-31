@@ -10,6 +10,7 @@ import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.util.NumbersUtil;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.cheapnsaleUtils;
@@ -44,7 +45,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
 
         holder.textItemNameCart.setText(cartItems.get(position).getMenuName());
         holder.textItemCountCart.setText(Integer.toString(cartItems.get(position).getMenuItemCount()));
-        holder.textItemPriceCart.setText(cheapnsaleUtils.format(cartItems.get(position).getMenuPrice() * cartItems.get(position).getMenuItemCount())
+        holder.textItemPriceCart.setText(NumbersUtil.format(cartItems.get(position).getMenuPrice() * cartItems.get(position).getMenuItemCount())
                 +context.getResources().getString(R.string.price_type));
         holder.picasso.load(cartItems.get(position).getMenuImg())
                 .transform(new CropCircleTransformation()).into(holder.imageItemSrcCart);

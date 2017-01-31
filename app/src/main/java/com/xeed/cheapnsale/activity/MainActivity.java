@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,14 +9,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.Order;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    public CheapnsaleService cheapnsaleService;
 
     @BindView(R.id.pager_main)
     public ViewPager pagerMain;
@@ -26,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.image_map_button_map)
     public ImageView imageMapButtonMap;
 
+    ArrayList<Order> myOrder = new ArrayList<>();
+
     private MainTabPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((Application) getApplication()).getApplicationComponent().inject(this);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -58,6 +73,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                myOrder = cheapnsaleService.getMyOrder(((Application) getApplication()).getUserEmail());
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                tabMain.getTabAt(1).setText(String.format(getResources().getString(R.string.my_order), myOrder.size()));
+            }
+        }.execute();
     }
 
     @OnClick(R.id.image_map_button_map)
