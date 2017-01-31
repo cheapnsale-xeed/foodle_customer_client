@@ -1,6 +1,5 @@
 package com.xeed.cheapnsale.adapter;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -34,8 +33,7 @@ public class MenuListAdapterTest {
     @Before
     public void setUp() throws Exception {
         application = RuntimeEnvironment.application;
-        menuListAdapter = new MenuListAdapter(application,
-                new LinearLayoutManager(application.getApplicationContext()), makeMockList());
+        menuListAdapter = new MenuListAdapter(application, makeMockList());
         headerHolder = (MenuListHeadHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(application), 0);
     }
 

@@ -15,11 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
+import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.activity.OrderActivity;
-import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
-import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.holder.MenuListChildHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
