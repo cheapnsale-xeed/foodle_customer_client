@@ -1,6 +1,9 @@
 general:
   artifacts:
     - "app/build/outputs/apk"
+machine:
+  timezone:
+    Asia/Seoul
 test:
   override:
     - ./gradlew assembleDebug
