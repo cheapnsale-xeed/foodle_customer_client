@@ -4,7 +4,7 @@ general:
 test:
   override:
     - ./gradlew assembleDebug
-    - ./gradlew assembleDebugAndroidTest
+    - ./gradlew test
 deployment:
   prod:
     branch: development
