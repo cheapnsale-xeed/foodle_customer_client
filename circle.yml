@@ -1,9 +1,9 @@
 general:
   artifacts:
     - "app/build/outputs/apk"
-test:
-  override:
-    - ./gradlew assembleDebug
+#test:
+#  override:
+#    - ./gradlew assembleDebug
 deployment:
   prod:
     branch: development
