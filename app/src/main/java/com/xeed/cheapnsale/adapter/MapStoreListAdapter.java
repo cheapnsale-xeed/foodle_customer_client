@@ -62,6 +62,12 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
     public int getItemCount() {
         return stores.size();
     }
+
+    public void updateData(ArrayList<Store> stores) {
+        this.stores.clear();
+        this.stores = stores;
+        this.notifyDataSetChanged();
+    }
 }
 
 

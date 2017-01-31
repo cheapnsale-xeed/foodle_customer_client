@@ -14,10 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.nhn.android.maps.NMapLocationManager;
-import com.nhn.android.maps.maplib.NGeoPoint;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.StoreListAdapter;
@@ -38,7 +35,8 @@ public class StoreListFragment extends Fragment {
     private StoreListAdapter storeListAdapter;
     private RecyclerView recyclerView;
 
-    private LocationManager mLocationManager;
+    public LocationManager mLocationManager;
+    private boolean isLocated;
 
     ArrayList<Store> stores;
 
@@ -46,6 +44,7 @@ public class StoreListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
+        isLocated = false;
 
     }
 
@@ -78,9 +77,13 @@ public class StoreListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
-                storeListAdapter.updateData(stores);
+                if (isLocated) {
+                    mLocationManager.removeUpdates(mLocationListener);
+                } else {
+                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
+                    mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
+                    storeListAdapter.updateData(stores);
+                }
             }
         }.execute();
 
@@ -90,10 +93,13 @@ public class StoreListFragment extends Fragment {
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Log.d("test", ""+location.getLongitude()); // 경도
-            Log.d("test", ""+location.getLatitude()); // 위도
+            Log.d("Store, longitude", ""+location.getLongitude()); // 경도
+            Log.d("Store, Latitude", ""+location.getLatitude()); // 위도
 
-            if (stores == null) return;
+            if (stores == null) {
+                isLocated = false;
+                return;
+            }
 
             for (int i = 0; i < stores.size(); i++) {
                 stores.get(i).setDistanceToStore((int)
@@ -101,6 +107,7 @@ public class StoreListFragment extends Fragment {
                                 stores.get(i).getGpsCoordinatesLat(), stores.get(i).getGpsCoordinatesLong())
                 );
             }
+            isLocated = true;
             storeListAdapter.notifyDataSetChanged();
         }
 

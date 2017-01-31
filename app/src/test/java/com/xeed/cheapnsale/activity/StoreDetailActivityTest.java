@@ -5,13 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
-import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
@@ -36,6 +34,8 @@ public class StoreDetailActivityTest {
     private TextView storeTitle;
     private TextView storePaymentType;
     private ImageView storeMainImg;
+    private TextView textArrivalTimeStoreDetail;
+    private View viewVerticalBarStoreDetail;
 
     @Before
     public void setUp() throws Exception {
@@ -51,6 +51,9 @@ public class StoreDetailActivityTest {
         storeTitle = (TextView) storeDetailActivity.findViewById(R.id.text_name_store_detail);
         storePaymentType = (TextView) storeDetailActivity.findViewById(R.id.text_payment_type_store_detail);
         storeMainImg = (ImageView) storeDetailActivity.findViewById(R.id.image_top_src_store_detail);
+
+        textArrivalTimeStoreDetail = (TextView) storeDetailActivity.findViewById(R.id.text_arrival_time_store_detail);
+        viewVerticalBarStoreDetail = storeDetailActivity.findViewById(R.id.view_vertical_bar_store_detail);
     }
 
     @Test
@@ -87,11 +90,31 @@ public class StoreDetailActivityTest {
         assertThat(storeMainImg.getDrawable()).isEqualTo(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.ico_map));
     }
 
+    @Test
+    public void whenDistanceIsLessThan1500m_thenWalkTimeIsIndicated() throws Exception {
+        assertThat(textArrivalTimeStoreDetail.getVisibility()).isEqualTo(View.VISIBLE);
+        assertThat(viewVerticalBarStoreDetail.getVisibility()).isEqualTo(View.VISIBLE);
+
+        Intent intent = new Intent(RuntimeEnvironment.application, StoreDetailActivity.class);
+        Store store = makeMockData();
+        store.setDistanceToStore(2000);
+        intent.putExtra("store", store);
+
+        storeDetailActivity = Robolectric.buildActivity(StoreDetailActivity.class).withIntent(intent).create().get();
+
+        textArrivalTimeStoreDetail = (TextView) storeDetailActivity.findViewById(R.id.text_arrival_time_store_detail);
+        viewVerticalBarStoreDetail = storeDetailActivity.findViewById(R.id.view_vertical_bar_store_detail);
+
+        assertThat(textArrivalTimeStoreDetail.getVisibility()).isEqualTo(View.GONE);
+        assertThat(viewVerticalBarStoreDetail.getVisibility()).isEqualTo(View.GONE);
+    }
+
     private Store makeMockData(){
         Store store = new Store();
         store.setName("가게이름");
         store.setPaymentType("바로결제");
         store.setMainImageUrl("http://image.jpg");
+        store.setDistanceToStore(456);
         return store;
     }
 }
