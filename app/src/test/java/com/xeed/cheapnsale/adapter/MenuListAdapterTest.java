@@ -8,7 +8,6 @@ import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.holder.MenuListChildHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
-import com.xeed.cheapnsale.vo.CartItem;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -84,10 +83,10 @@ public class MenuListAdapterTest {
     public void whenHeaderHolderClicked_thenCheckAddCartButton() throws Exception {
         MenuListChildHolder childHolder = (MenuListChildHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
 
-        CartItem cartItem = new CartItem();
+        Menu cartItem = new Menu();
         cartItem.setMenuName("만두");
-        cartItem.setPrice(5000);
-        cartItem.setCount(1);
+        cartItem.setMenuPrice(5000);
+        cartItem.setMenuItemCount(1);
 
         Application app = ((Application)childHolder.itemView.getContext().getApplicationContext());
 

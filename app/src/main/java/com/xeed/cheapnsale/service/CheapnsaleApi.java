@@ -19,6 +19,8 @@ import com.amazonaws.mobileconnectors.apigateway.annotation.Operation;
 import com.amazonaws.mobileconnectors.apigateway.annotation.Parameter;
 import com.amazonaws.mobileconnectors.apigateway.annotation.Service;
 import com.google.gson.JsonElement;
+import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.Store;
 
 
@@ -33,5 +35,8 @@ public interface CheapnsaleApi {
 
     @Operation(path = "/orders/{email}", method = "GET")
     JsonElement getMyOrder(@Parameter(name = "email", location = "path") String email);
+
+    @Operation(path = "payments/prepare", method = "PUT")
+    Payment putPreparePayments(Order order);
 }
 

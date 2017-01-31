@@ -22,6 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
@@ -51,6 +52,10 @@ public class CheapnsaleService {
     public ArrayList<Order> getMyOrder(String email) {
         JsonElement orders = cheapnsaleApi.getMyOrder(email);
         return gson.fromJson(orders, new TypeToken<ArrayList<Order>>(){}.getType());
+    }
+
+    public Payment putPreparePayment(Order order) {
+        return cheapnsaleApi.putPreparePayments(order);
     }
 }
 

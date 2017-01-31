@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.Application;
-import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.service.model.Cart;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.cheapnsaleUtils;
-import com.xeed.cheapnsale.vo.Cart;
-import com.xeed.cheapnsale.vo.CartItem;
 
 import java.util.ArrayList;
 
@@ -21,10 +21,10 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
 
     private Context context;
-    private ArrayList<CartItem> cartItems;
+    private ArrayList<Menu> cartItems;
     private Cart cart;
 
-    public CartListAdapter(Context context, ArrayList<CartItem> list) {
+    public CartListAdapter(Context context, ArrayList<Menu> list) {
         this.context = context;
         this.cartItems = list;
 
@@ -43,20 +43,20 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
     public void onBindViewHolder(final CartListHolder holder, final int position) {
 
         holder.textItemNameCart.setText(cartItems.get(position).getMenuName());
-        holder.textItemCountCart.setText(Integer.toString(cartItems.get(position).getCount()));
-        holder.textItemPriceCart.setText(cheapnsaleUtils.format(cartItems.get(position).getPrice() * cartItems.get(position).getCount())
+        holder.textItemCountCart.setText(Integer.toString(cartItems.get(position).getMenuItemCount()));
+        holder.textItemPriceCart.setText(cheapnsaleUtils.format(cartItems.get(position).getMenuPrice() * cartItems.get(position).getMenuItemCount())
                 +context.getResources().getString(R.string.price_type));
-        holder.picasso.load(cartItems.get(position).getMenuImage())
+        holder.picasso.load(cartItems.get(position).getMenuImg())
                 .transform(new CropCircleTransformation()).into(holder.imageItemSrcCart);
 
-        if (cart.getCartItems().get(position).getCount() > 1) {
+        if (cart.getMenus().get(position).getMenuItemCount() > 1) {
             holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus);
         }
 
         holder.imageDeleteButtonCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cart.deleteCartItem(cart.getCartItems().get(position).getMenuId());
+                cart.deleteCartItem(cart.getMenus().get(position).getMenuId());
                 ((CartActivity) context).updateCartFooterData();
                 notifyDataSetChanged();
             }
@@ -66,7 +66,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             @Override
             public void onClick(View view) {
                 cart.plusCartItem(cartItems.get(position).getMenuId());
-                if (cart.getCartItems().get(position).getCount() > 1) {
+                if (cart.getMenus().get(position).getMenuItemCount() > 1) {
                     holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus);
                 }
                 ((CartActivity) context).updateCartFooterData();
@@ -79,7 +79,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListHolder> {
             @Override
             public void onClick(View view) {
                 cart.minusCartItem(cartItems.get(position).getMenuId());
-                if (cart.getCartItems().get(position).getCount() < 2) {
+                if (cart.getMenus().get(position).getMenuItemCount() < 2) {
                     holder.imageMinusButtonCart.setImageResource(R.drawable.ico_minus_dim);
                 }
                 ((CartActivity) context).updateCartFooterData();

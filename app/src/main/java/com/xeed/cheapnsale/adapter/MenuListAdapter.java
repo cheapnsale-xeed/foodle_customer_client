@@ -20,10 +20,9 @@ import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.MenuListChildHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
+import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.cheapnsaleUtils;
-import com.xeed.cheapnsale.vo.Cart;
-import com.xeed.cheapnsale.vo.CartItem;
 
 import java.util.ArrayList;
 
@@ -146,12 +145,12 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     // TODO: 다름 유저스토리에서 활용 가능
                     Application app = ((Application) context.getApplicationContext());
 
-                    CartItem cartItem = new CartItem();
+                    Menu cartItem = new Menu();
                     cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                     cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
-                    cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
-                    cartItem.setMenuImage(menus.get(getChildPos()).getMenuImg());
-                    cartItem.setCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
+                    cartItem.setMenuPrice(menus.get(getChildPos()).getMenuPrice());
+                    cartItem.setMenuImg(menus.get(getChildPos()).getMenuImg());
+                    cartItem.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
 
                     app.getCart().setStoreId("store_1");
                     app.getCart().addCartItem(cartItem);
@@ -171,12 +170,12 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View view) {
                     Application app = ((Application) context.getApplicationContext());
 
-                    CartItem cartItem = new CartItem();
+                    Menu cartItem = new Menu();
                     cartItem.setMenuId(menus.get(getChildPos()).getMenuId());
                     cartItem.setMenuName(menus.get(getChildPos()).getMenuName());
-                    cartItem.setPrice(menus.get(getChildPos()).getMenuPrice());
-                    cartItem.setMenuImage(menus.get(getChildPos()).getMenuImg());
-                    cartItem.setCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
+                    cartItem.setMenuPrice(menus.get(getChildPos()).getMenuPrice());
+                    cartItem.setMenuImg(menus.get(getChildPos()).getMenuImg());
+                    cartItem.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
 
                     app.getCart().setStoreId("store_1");
                     app.getCart().addCartItem(cartItem);

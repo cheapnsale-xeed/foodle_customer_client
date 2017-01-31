@@ -5,7 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import com.xeed.cheapnsale.inject.ApplicationComponent;
 import com.xeed.cheapnsale.inject.ApplicationModule;
 import com.xeed.cheapnsale.inject.DaggerApplicationComponent;
-import com.xeed.cheapnsale.vo.Cart;
+import com.xeed.cheapnsale.service.model.Cart;
 
 public class Application extends android.app.Application {
 
