@@ -32,8 +32,8 @@ public class OrderCartItemListAdapter extends RecyclerView.Adapter<RecyclerView.
         final OrderCartItemListHolder orderCartItemListHolder = (OrderCartItemListHolder) holder;
 
         orderCartItemListHolder.textItemNameOrder.setText(cartItemList.get(position).getMenuName());
-        orderCartItemListHolder.textItemCountOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getCount()));
-        orderCartItemListHolder.textItemPriceOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getPrice() * cartItemList.get(position).getCount()));
+        orderCartItemListHolder.textItemCountOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getMenuItemCount()));
+        orderCartItemListHolder.textItemPriceOrder.setText(""+ NumbersUtil.format(cartItemList.get(position).getMenuPrice() * cartItemList.get(position).getMenuItemCount()));
     }
 
     @Override

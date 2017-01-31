@@ -13,7 +13,6 @@ import com.xeed.cheapnsale.holder.CartListHolder;
 import com.xeed.cheapnsale.util.NumbersUtil;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Menu;
-import com.xeed.cheapnsale.util.cheapnsaleUtils;
 
 import java.util.ArrayList;
 
