@@ -44,7 +44,7 @@ public class CartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Application app = (Application) getApplicationContext();
-        cartListAdapter = new CartListAdapter(this, app.getCart().getCartItems());
+        cartListAdapter = new CartListAdapter(this, app.getCart().getMenus());
 
         recyclerCart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerCart.setAdapter(cartListAdapter);

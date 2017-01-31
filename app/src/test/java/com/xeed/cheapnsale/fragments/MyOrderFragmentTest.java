@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.service.model.Order;
 
 import org.junit.Before;
@@ -68,14 +69,12 @@ public class MyOrderFragmentTest {
     private ArrayList<Order> makeMockOrders () {
         ArrayList<Order> orders = new ArrayList<>();
         Order order = new Order();
-        ArrayList<Order.OrderMenu> menus = new ArrayList<>();
+        ArrayList<Menu> menus = new ArrayList<>();
 
-        Order.OrderMenu menu = order.new OrderMenu();
+        Menu menu = new Menu();
         menu.setMenuId("1");
         menu.setMenuName("족보세트");
         menu.setMenuItemCount(1);
-        menu.setMenuCount(1);
-        menu.setMenuTotalPrice(33000);
         menu.setMenuItemTotalPrice(33000);
         menu.setMenuType(1);
         menu.setMenuPrice(33000);

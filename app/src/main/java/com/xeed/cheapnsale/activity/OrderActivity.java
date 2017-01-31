@@ -17,14 +17,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.Cart;
+import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.util.NumbersUtil;
+
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -78,6 +83,9 @@ public class OrderActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_detail_list_order)
     public RecyclerView recyclerDetailListOrder;
+
+    @BindView(R.id.layout_agree_payment)
+    public LinearLayout linearAgreePayment;
 
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
@@ -159,10 +167,40 @@ public class OrderActivity extends AppCompatActivity {
 
         // Order list Adapter
         OrderCartItemListAdapter orderCartItemListAdapter =
-                new OrderCartItemListAdapter(((Application) getApplication()).getCart().getCartItems());
+                new OrderCartItemListAdapter(((Application) getApplication()).getCart().getMenus());
 
         recyclerDetailListOrder.setLayoutManager(new LinearLayoutManager(getApplication()));
         recyclerDetailListOrder.setAdapter(orderCartItemListAdapter);
+
+        linearAgreePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+
+                        Cart cart = ((Application) getApplication()).getCart();
+                        Order order = new Order();
+                        order.setOrderId(UUID.randomUUID().toString());
+                        order.setMenus(cart.getMenus());
+                        order.setStoreId(storeId);
+                        order.setStatus("READY");
+                        order.setStoreName(store.getName());
+                        order.setPickupTime("2017.01.24_17:49:00");
+                        order.setOrderAt("2017.01.24_17:29:00");
+
+                        cheapnsaleService.putPreparePayment(order);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Success",Toast.LENGTH_LONG).show();
+                    }
+                }.execute();
+            }
+        });
     }
 
     @Override

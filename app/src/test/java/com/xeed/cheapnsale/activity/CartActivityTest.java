@@ -7,8 +7,8 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.TestApplication;
-import com.xeed.cheapnsale.vo.Cart;
-import com.xeed.cheapnsale.vo.CartItem;
+import com.xeed.cheapnsale.service.model.Cart;
+import com.xeed.cheapnsale.service.model.Menu;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,10 +31,10 @@ public class CartActivityTest {
     public void setUp() throws Exception {
         Cart mockCart = ((TestApplication) RuntimeEnvironment.application).getCart();
 
-        mockCart.addCartItem(new CartItem("mock-1", "mockItem-1", 22000, 3, "mockSrc-1"));
-        mockCart.addCartItem(new CartItem("mock-2", "mockItem-2", 12000, 2, "mockSrc-2"));
-        mockCart.addCartItem(new CartItem("mock-3", "mockItem-3", 6000, 1, "mockSrc-3"));
-        mockCart.addCartItem(new CartItem("mock-4", "mockItem-4", 8800, 5, "mockSrc-4"));
+        mockCart.addCartItem(new Menu("mock-1", "mockItem-1", 22000, 3, "mockSrc-1"));
+        mockCart.addCartItem(new Menu("mock-2", "mockItem-2", 12000, 2, "mockSrc-2"));
+        mockCart.addCartItem(new Menu("mock-3", "mockItem-3", 6000, 1, "mockSrc-3"));
+        mockCart.addCartItem(new Menu("mock-4", "mockItem-4", 8800, 5, "mockSrc-4"));
 
         cartActivity = Robolectric.buildActivity(CartActivity.class).create().get();
     }

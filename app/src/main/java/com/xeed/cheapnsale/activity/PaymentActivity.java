@@ -28,6 +28,8 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        final String paymentPage = getPaymentPage("inicis");
+
         mainWebView = (WebView) findViewById(R.id.payment_web_view);
         mainWebView.setWebViewClient(new InicisWebViewClient(this));
         WebSettings settings = mainWebView.getSettings();
@@ -37,19 +39,19 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //mainWebView.loadUrl("javascript:window.IMP.init('iamport');");
-                //mainWebView.loadUrl("javascript:request_pay();");
+                mainWebView.loadUrl("javascript:window.IMP.init('iamport');");
+                mainWebView.loadUrl("javascript:" + paymentPage + ";");
             }
         });
 
-        String paymentUrl = "https://s3.ap-northeast-2.amazonaws.com/cheapnsale-apk-download/payment_test.html"; //WebView 호출 URL
+        //String paymentUrl = "https://s3.ap-northeast-2.amazonaws.com/cheapnsale-apk-download/payment_test.html"; //WebView 호출 URL
         String paramStr = null;
         try {
             paramStr = "param1=" + URLEncoder.encode("value1", "UTF-8") + "&param2=" + URLEncoder.encode("value2", "UTF-8");
         } catch (Exception e) {
         }
 
-        String paymentPage = getPaymentPage("inicis");
+
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -63,8 +65,7 @@ public class PaymentActivity extends AppCompatActivity {
         Uri intentData = intent.getData();
 
         if ( intentData == null ) {
-            //mainWebView.loadUrl("file:///android_asset/payment.html");
-            mainWebView.loadUrl(paymentUrl);
+            mainWebView.loadUrl("file:///android_asset/payment.html");
         } else {
             //isp 인증 후 복귀했을 때 결제 후속조치
             String url = intentData.toString();
@@ -88,11 +89,6 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         StringBuffer sb = new StringBuffer();
-        //sb.append("<HTML>");
-        //sb.append("<B>TEST1</B>");
-        //sb.append(" <script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-1.12.4.min.js\" ></script>\n");
-        //sb.append(" <script type=\"text/javascript\" src=\"https://service.iamport.kr/js/iamport.payment-1.1.2.js\" ></script>\n");
-        //sb.append(" <script type=\"text/javascript\">\n");
         //sb.append(" var IMP = window.IMP;\n");
         //sb.append(" window.IMP.init('iamport');\n");
         sb.append(" window.IMP.request_pay({");
@@ -122,14 +118,8 @@ public class PaymentActivity extends AppCompatActivity {
         sb.append(" alert(msg);");
         sb.append(" });");
         //sb.append(" </script>");
-        //sb.append("<B>TEST2</B>");
-        //sb.append(" </HTML>");
 
 
         return sb.toString();
-
-
-        //return "<HTML><B>This is Test</B></HTML>";
-
     }
 }

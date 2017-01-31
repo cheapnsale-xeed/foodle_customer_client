@@ -9,7 +9,7 @@ public class Order {
     @SerializedName("EMAIL")
     private String email;
     @SerializedName("MENUS")
-    private ArrayList<OrderMenu> menus;
+    private ArrayList<Menu> menus;
     @SerializedName("ORDER_ID")
     private String orderId;
     @SerializedName("STORE_ID")
@@ -53,10 +53,10 @@ public class Order {
     public void setStatus(String sTATUS) {
         status = sTATUS;
     }
-    public ArrayList<OrderMenu> getMenus() {
+    public ArrayList<Menu> getMenus() {
         return menus;
     }
-    public void setMenus(ArrayList<OrderMenu> mENUS) {
+    public void setMenus(ArrayList<Menu> mENUS) {
         menus = mENUS;
     }
     public String getOrderId() {
@@ -70,28 +70,6 @@ public class Order {
     }
     public void setStoreId(String sTORE_ID) {
         storeId = sTORE_ID;
-    }
-
-    public class OrderMenu extends Menu {
-
-        @SerializedName("MENU_COUNT")
-        private int menuCount;
-        @SerializedName("MENU_TOTAL_PRICE")
-        private int menuTotalPrice;
-
-        public int getMenuCount() {
-            return menuCount;
-        }
-        public void setMenuCount(int mENU_COUNT) {
-            menuCount = mENU_COUNT;
-        }
-        public int getMenuTotalPrice() {
-            return menuTotalPrice;
-        }
-        public void setMenuTotalPrice(int mENU_TOTAL_PRICE) {
-            menuTotalPrice = mENU_TOTAL_PRICE;
-        }
-
     }
 
 }

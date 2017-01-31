@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Menu implements Serializable{
+public class Menu implements Serializable {
 
     private int menuType = 0;
 
+    @SerializedName("MENU_COUNT")
     private int menuItemCount = 0;
+    @SerializedName("MENU_TOTAL_PRICE")
     private int menuItemTotalPrice = 0;
     @SerializedName("MENU_ID")
     private String menuId = null;
@@ -19,8 +21,16 @@ public class Menu implements Serializable{
     @SerializedName("MENU_IMG")
     private String menuImg = null;
 
-    public Menu(){
+    public Menu() {
 
+    }
+
+    public Menu(String menuId, String menuName, int price, int count, String menuImage) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.menuPrice = price;
+        this.menuItemCount = count;
+        this.menuImg = menuImage;
     }
 
     public Menu(int menuType, String menuId, String menuName, int menuPrice, String menuImg) {
