@@ -53,12 +53,17 @@ public class StoreListFragmentTest {
         Store store = new Store();
         store.setId("mock 1");
         store.setCategory("mock category");
+        store.setRegNum("111-111-111");
         store.setName("mock store");
-        store.setRegNum("02-1234-1234");
         store.setPaymentType("바로결제");
         store.setAvgPrepTime("20");
-
+        store.setMainImageUrl("http://www.mock.com/mock.img");
+        store.setPhoneNumber("010-1234-5678");
+        store.setGpsCoordinatesLat(37.517646d);
+        store.setGpsCoordinatesLong(127.101843d);
+        store.setDistanceToStore(456);
         stores.add(store);
+
         return stores;
     }
 }

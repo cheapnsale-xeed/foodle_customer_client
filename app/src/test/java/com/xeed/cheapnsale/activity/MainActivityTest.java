@@ -45,7 +45,7 @@ public class MainActivityTest {
     @Test
     public void whenActivityIsStarted_thenShowCheapnsaleTitle() throws Exception {
         TextView cheapnsaleTitleText = (TextView) mainActivity.findViewById(R.id.text_title_main);
-        assertThat(cheapnsaleTitleText.getText()).isEqualTo("싸다싸");
+        assertThat(cheapnsaleTitleText.getText()).isEqualTo("Foodle");
     }
 
     @Test

@@ -76,6 +76,15 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     @BindView(R.id.floating_call_button_store_detail)
     public FloatingActionButton floatingCallButtonStoreDetail;
 
+    @BindView(R.id.text_arrival_time_store_detail)
+    public TextView textArrivalTimeStoreDetail;
+
+    @BindView(R.id.view_vertical_bar_store_detail)
+    public View viewVerticalBarStoreDetail;
+
+    @BindView(R.id.text_distance_store_detail)
+    public TextView textDistanceStoreDetail;
+
     Store store;
     public Target imageCallback;
 
@@ -98,6 +107,23 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         tabStoreDetail.addTab(tabStoreDetail.newTab().setText("가게정보"));
         tabStoreDetail.addTab(tabStoreDetail.newTab().setText("리뷰(21)"));
         tabStoreDetail.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        int arrivalTime = store.getDistanceToStore() / 60;
+
+        if (store.getDistanceToStore() > 1000) {
+            textDistanceStoreDetail.setText(((double)store.getDistanceToStore()/1000) + "km");
+        } else {
+            textDistanceStoreDetail.setText(store.getDistanceToStore() + "m");
+        }
+
+        if (store.getDistanceToStore() > 1500) {
+            textArrivalTimeStoreDetail.setVisibility(View.GONE);
+            viewVerticalBarStoreDetail.setVisibility(View.GONE);
+        } else {
+            textArrivalTimeStoreDetail.setVisibility(View.VISIBLE);
+            viewVerticalBarStoreDetail.setVisibility(View.VISIBLE);
+            textArrivalTimeStoreDetail.setText(arrivalTime + "분");
+        }
 
         storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(store, getSupportFragmentManager(), tabStoreDetail.getTabCount());
         pagerOrderDetail.setAdapter(storeMenuTabPagerAdapter);

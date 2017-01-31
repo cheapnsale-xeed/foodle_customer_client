@@ -29,7 +29,6 @@ public class MenuListFragment extends Fragment {
     public Store store;
     private MenuListAdapter menuListAdapter;
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,12 +39,10 @@ public class MenuListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        linearLayoutManager = new LinearLayoutManager(getContext());
-
-        menuListAdapter = new MenuListAdapter(getContext(), linearLayoutManager, new ArrayList<Menu>());
+        menuListAdapter = new MenuListAdapter(getContext(), new ArrayList<Menu>());
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(menuListAdapter);
 
         return recyclerView;
