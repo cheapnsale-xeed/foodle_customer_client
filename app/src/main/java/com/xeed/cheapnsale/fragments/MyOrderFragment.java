@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
+import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
 
@@ -22,13 +23,16 @@ import javax.inject.Inject;
 
 public class MyOrderFragment extends Fragment {
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView_current, recyclerView_past;
 
     @Inject
     public CheapnsaleService cheapnsaleService;
 
     MyOrderCurrentAdapter myOrderCurrentAdapter;
-    ArrayList<Order> myOrder = new ArrayList<>();
+    MyOrderPastAdapter myOrderPastAdapter;
+
+    ArrayList<Order> myCurrentOrder = new ArrayList<>();
+    ArrayList<Order> myPastOrder = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,11 +43,17 @@ public class MyOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_my_order_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_ready_my_order);
+        recyclerView_current = (RecyclerView) view.findViewById(R.id.recycler_ready_my_order);
 
-        myOrderCurrentAdapter = new MyOrderCurrentAdapter(getContext(), myOrder);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(myOrderCurrentAdapter);
+        myOrderCurrentAdapter = new MyOrderCurrentAdapter(getContext(), myCurrentOrder);
+        recyclerView_current.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView_current.setAdapter(myOrderCurrentAdapter);
+
+        recyclerView_past = (RecyclerView) view.findViewById(R.id.recycler_finish_my_order);
+
+        myOrderPastAdapter = new MyOrderPastAdapter(getContext(), myPastOrder);
+        recyclerView_past.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView_past.setAdapter(myOrderPastAdapter);
 
         return view;
     }
@@ -55,13 +65,23 @@ public class MyOrderFragment extends Fragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                myOrder = cheapnsaleService.getMyOrder(((Application) getActivity().getApplication()).getUserEmail());
+                myCurrentOrder = cheapnsaleService.getMyOrder(((Application) getActivity().getApplication()).getUserEmail());
+                myPastOrder.clear();
+
+                for (int i=myCurrentOrder.size() - 1; i >= 0 ; i--) {
+                    if("FINISH".equals(myCurrentOrder.get(i).getStatus())) {
+                        myPastOrder.add(myCurrentOrder.get(i));
+                        myCurrentOrder.remove(i);
+                    }
+                }
+
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                myOrderCurrentAdapter.updateData(myOrder);
+                myOrderCurrentAdapter.updateData(myCurrentOrder);
+                myOrderPastAdapter.updateData(myPastOrder);
             }
         }.execute();
     }

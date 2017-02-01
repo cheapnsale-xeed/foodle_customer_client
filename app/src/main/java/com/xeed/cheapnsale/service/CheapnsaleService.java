@@ -54,6 +54,11 @@ public class CheapnsaleService {
         return gson.fromJson(orders, new TypeToken<ArrayList<Order>>(){}.getType());
     }
 
+    public ArrayList<Order> getMyCurrentOrder(String email) {
+        JsonElement orders = cheapnsaleApi.getMyCurrentOrder(email);
+        return gson.fromJson(orders, new TypeToken<ArrayList<Order>>(){}.getType());
+    }
+
     public Payment putPreparePayment(Order order) {
         return cheapnsaleApi.putPreparePayments(order);
     }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_order_ready_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c8c8c8" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="17dp">
+
+            <ImageView
+                android:id="@+id/image_item_src_my_order"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                tools:src="@drawable/img_food_3" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_item_name_my_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:textColor="#CC000000"
+                android:textSize="16dp"
+                android:textStyle="normal|bold"
+                tools:text="놀부 왕족발 세트" />
+
+            <TextView
+                android:id="@+id/text_store_name_my_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#CC000000"
+                android:textSize="13dp"
+                android:textStyle="normal|bold"
+                tools:text="놀부보쌈" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15.2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginTop="2.2dp"
+                    android:text="@string/word_pickup_finish"
+                    android:textColor="@color/colorGrayMapStore"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/text_pickup_time_my_order"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2.2dp"
+                    android:textColor="@color/colorGrayMapStore"
+                    android:textSize="13dp"
+                    tools:hint="2017.02.01" />
+
+                <Button
+                    android:id="@+id/button_reorder"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="2.2dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="13dp"
+                    android:background="@drawable/shape_my_order_reorder_button"
+                    android:text="@string/word_reorder"
+                    android:textColor="@color/colorFocusedText"
+                    android:textSize="13dp"
+                    android:layout_width="66dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

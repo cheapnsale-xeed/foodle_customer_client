@@ -92,8 +92,9 @@ public class MainActivityTest {
         order.setStoreName("놀부 보쌈");
         order.setStatus("DONE");
         order.setOrderAt("2017.01.22_17:19:00");
-
         orders.add(order);
+
+        order = new Order();
 
         order.setEmail("cheapnsale.xeed@gmail.com");
         order.setStoreId("2");
