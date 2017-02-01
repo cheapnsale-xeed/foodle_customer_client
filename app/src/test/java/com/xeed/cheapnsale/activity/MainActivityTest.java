@@ -60,7 +60,7 @@ public class MainActivityTest {
     public void whenTabChange_thenFragmentTitleChange() throws Exception {
         mainActivity.pagerMain.setCurrentItem(1);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(1);
-        when(mainActivity.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockMyOrder());
+        when(mainActivity.cheapnsaleService.getMyCurrentOrder(anyString())).thenReturn(makeMockMyOrder());
         mainActivity.onResume();
         assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(2)");
 
