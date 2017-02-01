@@ -47,7 +47,7 @@ public class OrderActivityTest {
     @Before
     public void setUp() throws Exception {
         Cart mockCart = ((TestApplication) RuntimeEnvironment.application).getCart();
-
+        mockCart.setStoreId("1");
         mockCart.addCartItem(new Menu("mock-1", "mockItem-1", 22000, 3, "mockSrc-1"));
         mockCart.addCartItem(new Menu("mock-2", "mockItem-2", 12000, 2, "mockSrc-2"));
         mockCart.addCartItem(new Menu("mock-3", "mockItem-3", 6000, 1, "mockSrc-3"));

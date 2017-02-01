@@ -9,6 +9,7 @@ import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.holder.MenuListChildHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.service.model.Menu;
+import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class MenuListAdapterTest {
     @Before
     public void setUp() throws Exception {
         application = RuntimeEnvironment.application;
-        menuListAdapter = new MenuListAdapter(application, new LinearLayoutManager(application) ,makeMockList());
+        menuListAdapter = new MenuListAdapter(application, new LinearLayoutManager(application) ,makeMockList(), makeMockStore());
         headerHolder = (MenuListHeadHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(application), 0);
     }
 
@@ -113,5 +114,40 @@ public class MenuListAdapterTest {
 
         return list;
     }
+
+    private Store makeMockStore() {
+        Store store = new Store();
+        store.setId("mock 1");
+        store.setCategory("mock category");
+        store.setRegNum("111-111-111");
+        store.setName("mock store");
+        store.setPaymentType("바로결제");
+        store.setAvgPrepTime("20");
+        store.setMainImageUrl("http://www.mock.com/mock.img");
+        store.setPhoneNumber("010-1234-5678");
+        store.setGpsCoordinatesLat(37.517646d);
+        store.setGpsCoordinatesLong(127.101843d);
+        store.setDistanceToStore(456);
+
+        ArrayList<Menu> menus = new ArrayList<>();
+        Menu menu = new Menu();
+        menu.setMenuId("1");
+        menu.setMenuName("TEST MENU1");
+        menu.setMenuPrice(2000);
+        menu.setMenuImg("http://mock1.png");
+        menus.add(menu);
+
+        menu = new Menu();
+        menu.setMenuId("2");
+        menu.setMenuName("TEST MENU2");
+        menu.setMenuPrice(3000);
+        menu.setMenuImg("http://mock2.png");
+        menus.add(menu);
+
+        store.setMenus(menus);
+
+        return store;
+    }
+
 
 }
