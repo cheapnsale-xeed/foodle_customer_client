@@ -31,7 +31,7 @@ public class MyOrderFragment extends Fragment {
 
     MyOrderCurrentAdapter myOrderCurrentAdapter;
     ArrayList<Order> myOrder = new ArrayList<>();
-    private boolean isPayment = false;
+    public boolean isPayment = false;
     MyOrderPastAdapter myOrderPastAdapter;
 
     ArrayList<Order> myCurrentOrder = new ArrayList<>();

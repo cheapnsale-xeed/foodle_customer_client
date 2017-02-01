@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         tabMain.addTab(tabMain.newTab().setText(R.string.show_all));
-        tabMain.addTab(tabMain.newTab().setText(String.format(getResources().getString(R.string.my_order), 0)));
+        tabMain.addTab(tabMain.newTab().setText(getResources().getString(R.string.my_order_default)));
         tabMain.setTabGravity(TabLayout.GRAVITY_FILL);
 
         adapter = new MainTabPagerAdapter

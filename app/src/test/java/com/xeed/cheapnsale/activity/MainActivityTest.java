@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -79,6 +80,15 @@ public class MainActivityTest {
         Intent actualIntent = shadowOf(mainActivity).getNextStartedActivity();
 
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
+    }
+
+    @Test
+    public void whenPaymentIsSuccess_thenShowMyOrderFragment() throws Exception {
+        Intent intent = new Intent(RuntimeEnvironment.application, MainActivity.class);
+        intent.putExtra("isPayment", true);
+        mainActivity = Robolectric.buildActivity(MainActivity.class).withIntent(intent).create().get();
+        
+        assertThat(mainActivity.pagerMain.getCurrentItem()).isEqualTo(1);
     }
 
     private ArrayList<Order> makeMockMyOrder() {
