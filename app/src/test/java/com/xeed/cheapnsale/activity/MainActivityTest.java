@@ -60,7 +60,7 @@ public class MainActivityTest {
     public void whenTabChange_thenFragmentTitleChange() throws Exception {
         mainActivity.pagerMain.setCurrentItem(1);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(1);
-        when(mainActivity.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockMyOrder());
+        when(mainActivity.cheapnsaleService.getMyCurrentOrder(anyString())).thenReturn(makeMockMyOrder());
         mainActivity.onResume();
         assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(2)");
 
@@ -92,8 +92,9 @@ public class MainActivityTest {
         order.setStoreName("놀부 보쌈");
         order.setStatus("DONE");
         order.setOrderAt("2017.01.22_17:19:00");
-
         orders.add(order);
+
+        order = new Order();
 
         order.setEmail("cheapnsale.xeed@gmail.com");
         order.setStoreId("2");

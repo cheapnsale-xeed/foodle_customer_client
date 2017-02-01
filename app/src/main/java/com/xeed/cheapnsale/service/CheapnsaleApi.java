@@ -33,8 +33,11 @@ public interface CheapnsaleApi {
     @Operation(path = "/store/{storeId}", method = "GET")
     Store getStore(@Parameter(name = "storeId", location = "path") String storeId);
 
-    @Operation(path = "/orders/{email}", method = "GET")
+    @Operation(path = "/orders/{email}", method = "POST")
     JsonElement getMyOrder(@Parameter(name = "email", location = "path") String email);
+
+    @Operation(path = "/orders/{email}/current", method = "POST")
+    JsonElement getMyCurrentOrder(@Parameter(name = "email", location = "path") String email);
 
     @Operation(path = "payments/prepare", method = "PUT")
     Payment putPreparePayments(Order order);

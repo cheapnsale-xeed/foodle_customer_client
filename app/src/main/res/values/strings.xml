@@ -36,7 +36,10 @@
     <string name="now_prepare">준비\n중</string>
     <string name="order_detail_list">주문 내역</string>
     <string name="word_pickup_time">픽업시간 :</string>
+    <string name="word_pickup_finish">픽업완료 :</string>
     <string name="msg_agree_payment">동의하고 결제하기</string>
+    <string name="word_past_order_list">지난 주문 내역</string>
+    <string name="word_reorder">재주문</string>
     <string name="txt_payment_success">결제 완료!</string>
     <string name="word_delivering_by_foodle">푸들이 주문을 전달 중 입니다</string>
 </resources>

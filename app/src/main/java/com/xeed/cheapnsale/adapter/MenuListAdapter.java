@@ -42,11 +42,11 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private LinearLayoutManager linearLayoutManager;
     private Store store;
 
-    public MenuListAdapter(Context context,  ArrayList<Menu> menus, Store store) {
+    public MenuListAdapter(Context context, LinearLayoutManager linearLayoutManager, ArrayList<Menu> menus, Store store) {
         this.context = context;
         this.menus = menus;
         this.store = store;
-        linearLayoutManager = new LinearLayoutManager(context);
+        this.linearLayoutManager = linearLayoutManager;
     }
 
     @Override

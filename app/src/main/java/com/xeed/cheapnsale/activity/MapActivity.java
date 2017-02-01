@@ -21,6 +21,7 @@ import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
@@ -69,6 +70,7 @@ public class MapActivity extends NMapActivity {
     private MapStoreListAdapter mapStoreListAdapter;
 
     private ArrayList<Store> stores;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,8 @@ public class MapActivity extends NMapActivity {
 
         startMyLocation();
 
-        recyclerStoreMap.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerStoreMap.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -129,13 +132,14 @@ public class MapActivity extends NMapActivity {
                 poiData.beginPOIdata(stores.size());
                 for (int i = 0; i < stores.size(); ++i) {
                     poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
-                            stores.get(i).getName(), NMapPOIflagType.SPOT, null);
+                            stores.get(i).getName(), NMapPOIflagType.SPOT, stores.get(i));
                 }
 
                 poiData.endPOIdata();
 
                 // create POI data overlay
                 NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+                poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
 
                 poiDataOverlay.selectPOIitem(0, false);
 
@@ -172,6 +176,26 @@ public class MapActivity extends NMapActivity {
         }
     };
 
+    private final NMapPOIdataOverlay.OnStateChangeListener onStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
+
+        @Override
+        public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+            if (nMapPOIitem != null && nMapPOIitem.getTag() != null) {
+                Store tag = (Store) nMapPOIitem.getTag();
+
+                // TODO : 스무스하게 스크롤이 되도록 개선해야함.
+//                recyclerStoreMap.smoothScrollToPosition(stores.indexOf(tag));
+//                linearLayoutManager.smoothScrollToPosition(recyclerStoreMap, null, stores.indexOf(tag));
+                linearLayoutManager.scrollToPositionWithOffset(stores.indexOf(tag), 55);
+            }
+        }
+
+        @Override
+        public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+            // do nothing.
+        }
+    };
+
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
 
         @Override
@@ -182,6 +206,8 @@ public class MapActivity extends NMapActivity {
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
+
+            if (stores == null) return false;
 
             for (int i = 0; i < stores.size(); ++i) {
                 if (mMapLocationManager.getMyLocation() != null) {
