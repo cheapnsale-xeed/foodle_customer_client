@@ -2,48 +2,48 @@ package com.xeed.cheapnsale.service.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
-public class Payment {
-    @SerializedName("imp_uid")
-    String imp_uid;
+public class Payment implements Serializable {
+    @SerializedName("impUid")
+    String impUid;
 
-    @SerializedName("merchant_uid")
-    String merchant_uid;
+    @SerializedName("merchantUid")
+    String merchantUid;
 
-    @SerializedName("pay_method")
-    String pay_method;
+    @SerializedName("payMethod")
+    String payMethod;
 
-    @SerializedName("pg_provider")
-    String pg_provider;
+    @SerializedName("pgProvider")
+    String pgProvider;
 
-    @SerializedName("pg_tid")
-    String pg_tid;
+    @SerializedName("pgTid")
+    String pgTid;
 
     @SerializedName("escrow")
     boolean escrow;
 
-    @SerializedName("apply_num")
-    String apply_num;
+    @SerializedName("applyNum")
+    String applyNum;
 
-    @SerializedName("card_name")
-    String card_name;
+    @SerializedName("cardName")
+    String cardName;
 
-    @SerializedName("card_quota")
-    int card_quota;
+    @SerializedName("cardQuota")
+    int cardQuota;
 
-    @SerializedName("vbank_name")
-    String vbank_name;
+    @SerializedName("vbankName")
+    String vbankName;
 
-    @SerializedName("vbank_num")
-    String vbank_num;
+    @SerializedName("vbankNum")
+    String vbankNum;
 
-    @SerializedName("vbank_holder")
-    String vbank_holder;
+    @SerializedName("vbankHolder")
+    String vbankHolder;
 
-    @SerializedName("vbank_date")
-    long vbank_date;
+    @SerializedName("vbankDate")
+    long vbankDate;
 
     @SerializedName("name")
     String name;
@@ -51,161 +51,277 @@ public class Payment {
     @SerializedName("amount")
     BigDecimal amount;
 
-    @SerializedName("cancel_amount")
-    BigDecimal cancel_amount;
+    @SerializedName("cancelAmount")
+    BigDecimal cancelAmount;
 
-    @SerializedName("buyer_name")
-    String buyer_name;
+    @SerializedName("buyerName")
+    String buyerName;
 
-    @SerializedName("buyer_email")
-    String buyer_email;
+    @SerializedName("buyerEmail")
+    String buyerEmail;
 
-    @SerializedName("buyer_tel")
-    String buyer_tel;
+    @SerializedName("buyerTel")
+    String buyerTel;
 
-    @SerializedName("buyer_addr")
-    String buyer_addr;
+    @SerializedName("buyerAddr")
+    String buyerAddr;
 
-    @SerializedName("buyer_postcode")
-    String buyer_postcode;
+    @SerializedName("buyerPostcode")
+    String buyerPostcode;
 
-    @SerializedName("custom_data")
-    String custom_data;
+    @SerializedName("customData")
+    String customData;
 
     @SerializedName("status")
     String status;
 
-    @SerializedName("paid_at")
-    long paid_at;
+    @SerializedName("paidAt")
+    long paidAt;
 
-    @SerializedName("failed_at")
-    long failed_at;
+    @SerializedName("failedAt")
+    long failedAt;
 
-    @SerializedName("cancelled_at")
-    long cancelled_at;
+    @SerializedName("cancelledAt")
+    long cancelledAt;
 
-    @SerializedName("fail_reason")
-    String fail_reason;
+    @SerializedName("failReason")
+    String failReason;
 
-    @SerializedName("cancel_reason")
-    String cancel_reason;
+    @SerializedName("cancelReason")
+    String cancelReason;
 
-    @SerializedName("receipt_url")
-    String receipt_url;
+    @SerializedName("receiptUrl")
+    String receiptUrl;
 
     public String getImpUid() {
-        return imp_uid;
+        return impUid;
+    }
+
+    public void setImpUid(String impUid) {
+        this.impUid = impUid;
     }
 
     public String getMerchantUid() {
-        return merchant_uid;
+        return merchantUid;
+    }
+
+    public void setMerchantUid(String merchantUid) {
+        this.merchantUid = merchantUid;
     }
 
     public String getPayMethod() {
-        return pay_method;
+        return payMethod;
+    }
+
+    public void setPayMethod(String payMethod) {
+        this.payMethod = payMethod;
     }
 
     public String getPgProvider() {
-        return pg_provider;
+        return pgProvider;
+    }
+
+    public void setPgProvider(String pgProvider) {
+        this.pgProvider = pgProvider;
     }
 
     public String getPgTid() {
-        return pg_tid;
+        return pgTid;
+    }
+
+    public void setPgTid(String pgTid) {
+        this.pgTid = pgTid;
     }
 
     public boolean isEscrow() {
         return escrow;
     }
 
+    public void setEscrow(boolean escrow) {
+        this.escrow = escrow;
+    }
+
     public String getApplyNum() {
-        return apply_num;
+        return applyNum;
+    }
+
+    public void setApplyNum(String applyNum) {
+        this.applyNum = applyNum;
     }
 
     public String getCardName() {
-        return card_name;
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public int getCardQuota() {
-        return card_quota;
+        return cardQuota;
+    }
+
+    public void setCardQuota(int cardQuota) {
+        this.cardQuota = cardQuota;
     }
 
     public String getVbankName() {
-        return vbank_name;
+        return vbankName;
+    }
+
+    public void setVbankName(String vbankName) {
+        this.vbankName = vbankName;
     }
 
     public String getVbankNum() {
-        return vbank_num;
+        return vbankNum;
+    }
+
+    public void setVbankNum(String vbankNum) {
+        this.vbankNum = vbankNum;
     }
 
     public String getVbankHolder() {
-        return vbank_holder;
+        return vbankHolder;
     }
 
-    public Date getVbankDate() {
-        return new Date( vbank_date * 1000L );
+    public void setVbankHolder(String vbankHolder) {
+        this.vbankHolder = vbankHolder;
+    }
+
+    public long getVbankDate() {
+        return vbankDate;
+    }
+
+    public void setVbankDate(long vbankDate) {
+        this.vbankDate = vbankDate;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
 
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     public BigDecimal getCancelAmount() {
-        return cancel_amount;
+        return cancelAmount;
+    }
+
+    public void setCancelAmount(BigDecimal cancelAmount) {
+        this.cancelAmount = cancelAmount;
     }
 
     public String getBuyerName() {
-        return buyer_name;
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
     public String getBuyerEmail() {
-        return buyer_email;
+        return buyerEmail;
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
     }
 
     public String getBuyerTel() {
-        return buyer_tel;
+        return buyerTel;
+    }
+
+    public void setBuyerTel(String buyerTel) {
+        this.buyerTel = buyerTel;
     }
 
     public String getBuyerAddr() {
-        return buyer_addr;
+        return buyerAddr;
+    }
+
+    public void setBuyerAddr(String buyerAddr) {
+        this.buyerAddr = buyerAddr;
     }
 
     public String getBuyerPostcode() {
-        return buyer_postcode;
+        return buyerPostcode;
+    }
+
+    public void setBuyerPostcode(String buyerPostcode) {
+        this.buyerPostcode = buyerPostcode;
     }
 
     public String getCustomData() {
-        return custom_data;
+        return customData;
+    }
+
+    public void setCustomData(String customData) {
+        this.customData = customData;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public Date getPaidAt() {
-        return new Date( paid_at * 1000L );
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Date getFailedAt() {
-        return new Date( failed_at * 1000L );
+    public long getPaidAt() {
+        return paidAt;
     }
 
-    public Date getCancelledAt() {
-        return new Date( cancelled_at * 1000L );
+    public void setPaidAt(long paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public long getFailedAt() {
+        return failedAt;
+    }
+
+    public void setFailedAt(long failedAt) {
+        this.failedAt = failedAt;
+    }
+
+    public long getCancelledAt() {
+        return cancelledAt;
+    }
+
+    public void setCancelledAt(long cancelledAt) {
+        this.cancelledAt = cancelledAt;
     }
 
     public String getFailReason() {
-        return fail_reason;
+        return failReason;
+    }
+
+    public void setFailReason(String failReason) {
+        this.failReason = failReason;
     }
 
     public String getCancelReason() {
-        return cancel_reason;
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 
     public String getReceiptUrl() {
-        return receipt_url;
+        return receiptUrl;
+    }
+
+    public void setReceiptUrl(String receiptUrl) {
+        this.receiptUrl = receiptUrl;
     }
 }

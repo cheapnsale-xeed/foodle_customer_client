@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -17,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.Application;
@@ -26,6 +26,7 @@ import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.util.NumbersUtil;
 
@@ -110,9 +111,11 @@ public class OrderActivity extends AppCompatActivity {
     private TextView textAcceptButtonPicker;
 
     private Store store;
-    private String storeId = "1";
+    private String storeId;
 
     public int selectedNumberIndex = 0;
+    private Payment payment;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,9 @@ public class OrderActivity extends AppCompatActivity {
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
+
+        Cart cart = ((Application) getApplication()).getCart();
+        storeId = cart.getStoreId();
 
         radioGroupPickupTimeOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -181,8 +187,8 @@ public class OrderActivity extends AppCompatActivity {
                     protected Void doInBackground(Void... params) {
 
                         Cart cart = ((Application) getApplication()).getCart();
-                        Order order = new Order();
-                        order.setOrderId(UUID.randomUUID().toString());
+                        order = new Order();
+                        order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
                         order.setMenus(cart.getMenus());
                         order.setStoreId(storeId);
                         order.setStatus("READY");
@@ -190,13 +196,16 @@ public class OrderActivity extends AppCompatActivity {
                         order.setPickupTime("2017.01.24_17:49:00");
                         order.setOrderAt("2017.01.24_17:29:00");
 
-                        cheapnsaleService.putPreparePayment(order);
+                        payment = cheapnsaleService.putPreparePayment(order);
                         return null;
                     }
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Success",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                        intent.putExtra("payment", payment);
+                        intent.putExtra("order", order);
+                        startActivity(intent);
                     }
                 }.execute();
             }

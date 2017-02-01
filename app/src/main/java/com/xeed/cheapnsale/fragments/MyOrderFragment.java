@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
@@ -29,11 +30,16 @@ public class MyOrderFragment extends Fragment {
 
     MyOrderCurrentAdapter myOrderCurrentAdapter;
     ArrayList<Order> myOrder = new ArrayList<>();
+    private boolean isPayment = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
+
+        if(getActivity().getIntent().getExtras() != null && getActivity().getIntent().getExtras().get("isPayment") != null){
+            isPayment = (boolean) getActivity().getIntent().getExtras().get("isPayment");
+        }
     }
 
     @Override
@@ -64,5 +70,14 @@ public class MyOrderFragment extends Fragment {
                 myOrderCurrentAdapter.updateData(myOrder);
             }
         }.execute();
+
+        if(isPayment){
+            MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
+                    .customView(R.layout.dialog_payment_success_my_order, false).build();
+            materialDialog.show();
+
+            getActivity().getIntent().getExtras().clear();
+            isPayment = false;
+        }
     }
 }

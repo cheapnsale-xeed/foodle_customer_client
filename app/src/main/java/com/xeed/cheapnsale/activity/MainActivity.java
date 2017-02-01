@@ -73,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        if(getIntent().getExtras() != null && getIntent().getExtras().get("isPayment") != null){
+            boolean isPayment = (boolean) getIntent().getExtras().get("isPayment");
+            if(isPayment){
+                pagerMain.setCurrentItem(1);
+            }
+        }
+
     }
 
 

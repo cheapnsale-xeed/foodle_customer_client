@@ -30,7 +30,7 @@ public class StoreMenuTabPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 MenuListFragment menuListFragment = new MenuListFragment();
-                menuListFragment.store = store;
+                menuListFragment.setStore(store);
                 return menuListFragment;
             case 1:
                 return new MyOrderFragment();
