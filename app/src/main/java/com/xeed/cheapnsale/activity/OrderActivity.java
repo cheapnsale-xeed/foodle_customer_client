@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -95,6 +96,9 @@ public class OrderActivity extends AppCompatActivity {
     @BindView(R.id.linear_order_detail_pickup_term)
     public LinearLayout linearOrderDetailPickupTerm;
 
+    @BindView(R.id.button_reselect_time_order)
+    public Button buttonReselectTimeOrder;
+
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
                     new int[]{android.R.attr.state_enabled} //enabled
@@ -122,6 +126,7 @@ public class OrderActivity extends AppCompatActivity {
 
     public int selectedNumberIndex = 0;
     private Payment payment;
+    private boolean isReset = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,9 +163,12 @@ public class OrderActivity extends AppCompatActivity {
         textAcceptButtonPicker = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
 
         textCancelButtonPicker.setOnClickListener(new TextView.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                if(!isReset) {
+                    radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                }
                 pickerDialog.dismiss();
             }
         });
@@ -291,7 +299,14 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.button_reselect_time_order)
+    public void onClickButtonReselectTimeOrder(View view) {
+        isReset = true;
+        show();
+    }
+
     private void show() {
+
         int minTime = Integer.parseInt(store.getAvgPrepTime());
         String[] displayedValue = new String[((65 - minTime) / 5)];
 
@@ -339,6 +354,7 @@ public class OrderActivity extends AppCompatActivity {
             radioTodayButtonOrder.setTypeface(null, Typeface.BOLD);
             radioTodayButtonOrder.setButtonTintList(colorStateList_select);
             radioNowButtonOrder.setButtonTintList(colorStateList_unselect);
+            isReset = false;
             show();
         }
     }
