@@ -455,17 +455,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/word_pickup_personal_term"
+                        android:text="@string/word_pickup_personal_info_agree_term"
                         android:textColor="#99000000"
                         android:textSize="15dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="82.8dp"
                         android:layout_weight="1"
                         android:text="@string/word_pickup_personal_term_show"
                         android:textColor="#99000000"
+                        android:textAlignment="viewEnd"
                         android:textSize="15dp" />
 
                     <ImageView
@@ -476,36 +476,71 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17.2dp"
+                    android:background="#99d8d8d8" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:background="#4dd8d8d8"
-                    android:orientation="vertical"
-                    android:paddingBottom="23.5dp"
-                    android:paddingLeft="17dp"
-                    android:paddingTop="21dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/word_pickup_terms_first"
-                        android:textColor="@color/colorDarkRed"
-                        android:textSize="13dp" />
+                    android:layout_height="54dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="17dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="3dp"
-                        android:text="@string/word_pickup_terms_second"
+                        android:text="@string/word_pickup_personal_info_3rd_term"
                         android:textColor="#99000000"
-                        android:textSize="13dp" />
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/word_pickup_personal_term_show"
+                        android:textColor="#99000000"
+                        android:textAlignment="viewEnd"
+                        android:textSize="15dp"
+                        android:id="@+id/textView2" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="7dp"
+                        android:src="@drawable/ico_detail" />
 
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="#4dd8d8d8"
+                android:orientation="vertical"
+                android:paddingBottom="23.5dp"
+                android:paddingLeft="17dp"
+                android:paddingTop="21dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/word_pickup_terms_first"
+                    android:textColor="@color/colorDarkRed"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/word_pickup_terms_second"
+                    android:textColor="#99000000"
+                    android:textSize="13dp" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/layout_agree_payment"
                 android:layout_width="match_parent"

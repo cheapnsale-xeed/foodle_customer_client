@@ -2,6 +2,7 @@ package com.xeed.cheapnsale.activity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +44,7 @@ public class OrderActivityTest {
     private RadioButton orderPaymentKakaopayRadioButton;
     private EditText orderUserName;
     private EditText orderUserTel;
+    private Button resetButton;
 
     @Before
     public void setUp() throws Exception {
@@ -63,6 +65,7 @@ public class OrderActivityTest {
 
         orderUserName = (EditText) orderActivity.findViewById(R.id.edit_user_info_name_order);
         orderUserTel = (EditText) orderActivity.findViewById(R.id.edit_user_info_tel_order);
+        resetButton = (Button) orderActivity.findViewById(R.id.button_reselect_time_order);
     }
 
     @Test
@@ -204,6 +207,59 @@ public class OrderActivityTest {
 
         assertThat(barView.getVisibility()).isEqualTo(View.GONE);
         assertThat(orderDetailView.getVisibility()).isEqualTo(View.GONE);
+    }
+
+    @Test
+    public void whenPageLoad_thenIsGoneTermLayout() throws Exception {
+        LinearLayout pickupTermView = (LinearLayout) orderActivity.findViewById(R.id.linear_order_detail_pickup_term);
+        assertThat(pickupTermView.getVisibility()).isEqualTo(View.GONE);
+    }
+
+
+    @Test
+    public void whenResetButtonClick_thenChangePickupTime() throws Exception {
+        RelativeLayout todayOrderLayout = (RelativeLayout) orderActivity.findViewById(R.id.relative_today_detail_order);
+
+        when(orderActivity.cheapnsaleService.getStore(anyString())).thenReturn(makeMockData());
+        orderActivity.onResume();
+
+        resetButton.performClick();
+
+        MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        //40분선택.
+        orderActivity.selectedNumberIndex = 4;
+
+        TextView acceptButton = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
+        acceptButton.performClick();
+
+        TextView timeToPickupMin = (TextView) orderActivity.findViewById(R.id.text_dialog_picked_time_order);
+        assertThat(timeToPickupMin.getText()).isEqualTo("40");
+    }
+
+    @Test
+    public void whenClickDialogCancelButton_thenKeepPickupInfo() throws Exception {
+
+
+        when(orderActivity.cheapnsaleService.getStore(anyString())).thenReturn(makeMockData());
+        orderActivity.onResume();
+        orderTimeTodayRadioButton.setChecked(true);
+
+        int beforeIndex = orderActivity.selectedNumberIndex;
+
+        resetButton.performClick();
+
+        MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        assertThat(pickerDialog.isShowing()).isTrue();
+
+        TextView cancelTextView = (TextView) pickerDialog.getView().findViewById(R.id.text_cancel_button_picker);
+        cancelTextView.performClick();
+
+        int afterIndex = orderActivity.selectedNumberIndex;
+
+        assertThat(pickerDialog.isShowing()).isFalse();
+        assertThat(orderTimeTodayRadioButton.isChecked()).isTrue();
+        assertThat(beforeIndex).isEqualTo(afterIndex);
+        assertThat(resetButton.getVisibility()).isEqualTo(View.VISIBLE);
     }
 
     private Store makeMockData() {
