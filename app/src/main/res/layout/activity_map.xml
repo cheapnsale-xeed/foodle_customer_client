@@ -77,13 +77,18 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
         android:id="@+id/recycler_store_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#80d8d8d8" />
+        android:clipToPadding="false"
+        android:paddingEnd="27dp"
+        android:paddingStart="8dp"
+        app:rvp_singlePageFling="true"
+        app:rvp_triggerOffset="0.1"
+        app:rvp_flingFactor="0.9"/>
 
 </RelativeLayout>
