@@ -88,6 +88,12 @@ public class OrderActivity extends AppCompatActivity {
     @BindView(R.id.layout_agree_payment)
     public LinearLayout linearAgreePayment;
 
+    @BindView(R.id.image_detail_pickup_term)
+    public ImageView imageDetailPickupTerm;
+
+    @BindView(R.id.linear_order_detail_pickup_term)
+    public LinearLayout linearOrderDetailPickupTerm;
+
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
                     new int[]{android.R.attr.state_enabled} //enabled
@@ -259,6 +265,17 @@ public class OrderActivity extends AppCompatActivity {
 
             orderCartBar.setVisibility(View.GONE);
             orderCartListView.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.image_detail_pickup_term)
+    public void onClickImageDetailPickupTerm(View view) {
+        if(linearOrderDetailPickupTerm.getVisibility() == View.GONE) {
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_close);
+            linearOrderDetailPickupTerm.setVisibility(View.VISIBLE);
+        } else {
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_open);
+            linearOrderDetailPickupTerm.setVisibility(View.GONE);
         }
     }
 
