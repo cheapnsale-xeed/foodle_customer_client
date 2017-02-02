@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapController;
@@ -56,7 +57,7 @@ public class MapActivity extends NMapActivity {
     public ImageView imageListButtonMap;
 
     @BindView(R.id.recycler_store_map)
-    public RecyclerView recyclerStoreMap;
+    public RecyclerViewPager storeRecyclerViewPager;
 
     @BindView(R.id.text_title_map)
     public TextView textTitleMap;
@@ -71,6 +72,9 @@ public class MapActivity extends NMapActivity {
 
     private ArrayList<Store> stores;
     private LinearLayoutManager linearLayoutManager;
+    private NGeoPoint myLocation;
+
+    private NMapPOIdataOverlay poiDataOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class MapActivity extends NMapActivity {
         mapView.setFocusable(true);
         mapView.setFocusableInTouchMode(true);
         mapView.requestFocus();
+        mapView.getMapController().setZoomLevel(11);
 
         // use map controller to zoom in/out, pan and set map center, zoom level etc.
         mMapController = mapView.getMapController();
@@ -110,7 +115,26 @@ public class MapActivity extends NMapActivity {
         startMyLocation();
 
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerStoreMap.setLayoutManager(linearLayoutManager);
+
+        storeRecyclerViewPager.setLayoutManager(linearLayoutManager);
+        storeRecyclerViewPager.setHasFixedSize(true);
+        storeRecyclerViewPager.setLongClickable(true);
+
+        storeRecyclerViewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    poiDataOverlay.selectPOIitem(((RecyclerViewPager) recyclerView).getCurrentPosition(), false);
+                }
+            }
+        });
+
+        if (((Application) getApplication()).getMyLocation() != null) {
+            myLocation = new NGeoPoint(((Application) getApplication()).getMyLocation().getLongitude(), ((Application) getApplication()).getMyLocation().getLatitude());
+            if (mMapController != null) {
+                mMapController.animateTo(myLocation);
+            }
+        }
     }
 
     @Override
@@ -126,28 +150,30 @@ public class MapActivity extends NMapActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                if (stores == null) return ;
 
                 // set POI data
                 NMapPOIdata poiData = new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
                 poiData.beginPOIdata(stores.size());
                 for (int i = 0; i < stores.size(); ++i) {
                     poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
-                            stores.get(i).getName(), NMapPOIflagType.SPOT, stores.get(i));
+                            null, NMapPOIflagType.SPOT, stores.get(i));
+                    if (myLocation != null) {
+                        stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                    }
                 }
 
                 poiData.endPOIdata();
 
                 // create POI data overlay
-                NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+                poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
                 poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
 
-                poiDataOverlay.selectPOIitem(0, false);
+                poiDataOverlay.selectPOIitem(0, true);
 
                 mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
-                recyclerStoreMap.setAdapter(mapStoreListAdapter);
+                storeRecyclerViewPager.setAdapter(mapStoreListAdapter);
                 mapStoreListAdapter.notifyDataSetChanged();
-
-
             }
         }.execute();
     }
@@ -173,20 +199,18 @@ public class MapActivity extends NMapActivity {
             }
             textTitleMap.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
+
+            mMapLocationManager.removeOnLocationChangeListener(onMyLocationChangeListener);
         }
     };
 
     private final NMapPOIdataOverlay.OnStateChangeListener onStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
-
         @Override
         public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
             if (nMapPOIitem != null && nMapPOIitem.getTag() != null) {
                 Store tag = (Store) nMapPOIitem.getTag();
-
-                // TODO : 스무스하게 스크롤이 되도록 개선해야함.
-//                recyclerStoreMap.smoothScrollToPosition(stores.indexOf(tag));
-//                linearLayoutManager.smoothScrollToPosition(recyclerStoreMap, null, stores.indexOf(tag));
-                linearLayoutManager.scrollToPositionWithOffset(stores.indexOf(tag), 55);
+                nMapPOIdataOverlay.selectPOIitem(nMapPOIitem,true);
+                storeRecyclerViewPager.smoothScrollToPosition(stores.indexOf(tag));
             }
         }
 
@@ -200,22 +224,11 @@ public class MapActivity extends NMapActivity {
 
         @Override
         public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
-
             if (mMapController != null) {
-                mMapController.animateTo(myLocation);
+//                mMapController.animateTo(myLocation);
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
-
-            if (stores == null) return false;
-
-            for (int i = 0; i < stores.size(); ++i) {
-                if (mMapLocationManager.getMyLocation() != null) {
-                    stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
-                }
-            }
-            mapStoreListAdapter.notifyDataSetChanged();
-
             return true;
         }
 

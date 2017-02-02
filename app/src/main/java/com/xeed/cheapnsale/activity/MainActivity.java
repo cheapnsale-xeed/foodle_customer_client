@@ -1,10 +1,12 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -74,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(getIntent().getExtras() != null && getIntent().getExtras().get("isPayment") != null){
+        if (getIntent().getExtras() != null && getIntent().getExtras().get("isPayment") != null) {
             boolean isPayment = (boolean) getIntent().getExtras().get("isPayment");
-            if(isPayment){
+            if (isPayment) {
                 pagerMain.setCurrentItem(1);
             }
         }
@@ -107,4 +109,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("종료");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                MainActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

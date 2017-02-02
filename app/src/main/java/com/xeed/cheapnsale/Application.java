@@ -1,7 +1,9 @@
 package com.xeed.cheapnsale;
 
+import android.location.Location;
 import android.support.annotation.VisibleForTesting;
 
+import com.nhn.android.maps.maplib.NGeoPoint;
 import com.xeed.cheapnsale.inject.ApplicationComponent;
 import com.xeed.cheapnsale.inject.ApplicationModule;
 import com.xeed.cheapnsale.inject.DaggerApplicationComponent;
@@ -12,12 +14,20 @@ public class Application extends android.app.Application {
     private ApplicationComponent applicationComponent;
 
     private Cart cart;
+    private String userEmail = "cheapnsale.xeed@gmail.com";
+    private Location myLocation;
+
+    public Location getMyLocation() {
+        return myLocation;
+    }
+
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
+    }
 
     public Cart getCart() {
         return cart;
     }
-
-    private String userEmail = "cheapnsale.xeed@gmail.com";
 
     public String getUserEmail() {
         return userEmail;
@@ -34,6 +44,8 @@ public class Application extends android.app.Application {
             cart = new Cart();
         }
     }
+
+
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;

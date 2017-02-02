@@ -19,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.StoreMenuTabPagerAdapter;
+import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Store;
 
 import javax.inject.Inject;
@@ -89,6 +91,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     public Target imageCallback;
 
     private StoreMenuTabPagerAdapter storeMenuTabPagerAdapter;
+    private MaterialDialog orderCancelConfirmlDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,8 +199,34 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+
+        Cart cart = ((Application) getApplication()).getCart();
+
+        if(cart.getTotalCount() > 0) {
+
+            orderCancelConfirmlDialog = new MaterialDialog.Builder(this).customView(R.layout.dialog_store_detail_back_pressed, false).build();
+            orderCancelConfirmlDialog.show();
+
+            TextView noButton = (TextView) orderCancelConfirmlDialog.getView().findViewById(R.id.button_cancel_confirm_dialog_no);
+            TextView yesButton = (TextView) orderCancelConfirmlDialog.getView().findViewById(R.id.button_cancel_confirm_dialog_yes);
+
+            noButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    orderCancelConfirmlDialog.dismiss();
+                }
+            });
+
+            yesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
+        } else {
+            finish();
+        }
     }
 
     @OnClick(R.id.image_back_button_store_detail)

@@ -48,4 +48,7 @@
     <string name="word_pickup_personal_info_agree_term">개인정보 수집 및 이용동의</string>
     <string name="word_pickup_personal_term_show">약관보기</string>
     <string name="word_pickup_personal_info_3rd_term">개인정보 제 3자 정보제공 동의</string>
+    <string name="word_dialog_confirm_cancel_order">주문 완료가 되지 않은 음식이 있습니다.\n주문을 취소하시겠습니까?</string>
+    <string name="txt_no">아니오</string>
+    <string name="txt_yes">예</string>
 </resources>
