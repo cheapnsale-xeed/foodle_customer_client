@@ -28,6 +28,7 @@ import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.util.DateUtil;
 import com.xeed.cheapnsale.util.NumbersUtil;
 
 import java.util.UUID;
@@ -115,7 +116,6 @@ public class OrderActivity extends AppCompatActivity {
 
     public int selectedNumberIndex = 0;
     private Payment payment;
-    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,19 +183,31 @@ public class OrderActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
+                    Cart cart = ((Application) getApplication()).getCart();
+                    Order order = new Order();
 
-                        Cart cart = ((Application) getApplication()).getCart();
-                        order = new Order();
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+
                         order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
                         order.setMenus(cart.getMenus());
                         order.setStoreId(storeId);
                         order.setStatus("READY");
                         order.setStoreName(store.getName());
-                        order.setPickupTime("2017.01.24_17:49:00");
-                        order.setOrderAt("2017.01.24_17:29:00");
+                        order.setEmail(((Application) getApplication()).getUserEmail());
 
+                        if (radioNowButtonOrder.isChecked()) {
+                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));
+                        } else {
+                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), textDialogPickedTimeOrder.getText().toString()));
+                        }
+
+                        order.setOrderAt(DateUtil.getCurrentTime());
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
                         payment = cheapnsaleService.putPreparePayment(order);
                         return null;
                     }

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 public class DateUtilTest {
@@ -34,6 +34,13 @@ public class DateUtilTest {
 
         String pickupTime = DateUtil.myOrderPickUpTime(sampleDateStr);
         assertEquals(pickupTime, samplePickUpTimeStr);
+
+    }
+
+    @Test
+    public void calcPickupTime() throws Exception {
+        assertNotEquals(DateUtil.calcPickupTime(sampleDateStr, "20"), "2017.01.24_17:39:00");
+        assertEquals(DateUtil.calcPickupTime(sampleDateStr, "20"), "2017.01.24_17:49:00");
 
     }
 }
