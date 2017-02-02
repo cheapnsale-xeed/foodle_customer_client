@@ -8,8 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.TestApplication;
+import com.xeed.cheapnsale.service.model.Cart;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.service.model.Store;
 
 import org.junit.Before;
@@ -19,6 +23,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,6 +41,8 @@ public class StoreDetailActivityTest {
     private ImageView storeMainImg;
     private TextView textArrivalTimeStoreDetail;
     private View viewVerticalBarStoreDetail;
+    private TextView noButton;
+    private TextView yesButton;
 
     @Before
     public void setUp() throws Exception {
@@ -54,6 +61,12 @@ public class StoreDetailActivityTest {
 
         textArrivalTimeStoreDetail = (TextView) storeDetailActivity.findViewById(R.id.text_arrival_time_store_detail);
         viewVerticalBarStoreDetail = storeDetailActivity.findViewById(R.id.view_vertical_bar_store_detail);
+
+        Cart mockCart = ((TestApplication) RuntimeEnvironment.application).getCart();
+
+        mockCart.addCartItem(new Menu("mock-1", "mockItem-1", 22000, 3, "mockSrc-1"));
+        mockCart.addCartItem(new Menu("mock-2", "mockItem-2", 12000, 2, "mockSrc-2"));
+
     }
 
     @Test
@@ -107,6 +120,32 @@ public class StoreDetailActivityTest {
 
         assertThat(textArrivalTimeStoreDetail.getVisibility()).isEqualTo(View.GONE);
         assertThat(viewVerticalBarStoreDetail.getVisibility()).isEqualTo(View.GONE);
+    }
+
+    @Test
+    public void whenPressBackButton_thenShowCancelConfirmDialog() throws Exception {
+        backButton.performClick();
+        MaterialDialog orderCancelConfirmlDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        assertThat(orderCancelConfirmlDialog.isShowing()).isTrue();
+    }
+
+    @Test
+    public void whenPressNoButtonInDialog_thenDismissDialog() throws Exception {
+        backButton.performClick();
+        MaterialDialog orderCancelConfirmlDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        noButton = (TextView) orderCancelConfirmlDialog.getView().findViewById(R.id.button_cancel_confirm_dialog_no);
+        noButton.performClick();
+        assertThat(orderCancelConfirmlDialog.isShowing()).isFalse();
+    }
+
+    @Test
+    public void whenPressYesButtonInDialog_thenFinishStoreDetailActivity() throws Exception {
+        backButton.performClick();
+        MaterialDialog orderCancelConfirmlDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        yesButton = (TextView) orderCancelConfirmlDialog.getView().findViewById(R.id.button_cancel_confirm_dialog_yes);
+        yesButton.performClick();
+
+        assertThat(storeDetailActivity.isFinishing()).isTrue();
     }
 
     private Store makeMockData(){
