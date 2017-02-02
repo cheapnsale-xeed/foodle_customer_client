@@ -24,6 +24,7 @@ public class PaymentActivity extends AppCompatActivity {
     private ArrayList<Menu> menus;
     private String menuName;
 
+    public AndroidBridge androidBridge = new AndroidBridge();
     private final Handler handler = new Handler();
 
     @Override
@@ -44,7 +45,7 @@ public class PaymentActivity extends AppCompatActivity {
         mainWebView = (WebView) findViewById(R.id.payment_web_view);
         WebSettings settings = mainWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        mainWebView.addJavascriptInterface(new AndroidBridge(), "Payment");
+        mainWebView.addJavascriptInterface(androidBridge, "Payment");
 
         mainWebView.setWebViewClient(new InicisWebViewClient(PaymentActivity.this){
             @Override
@@ -58,7 +59,8 @@ public class PaymentActivity extends AppCompatActivity {
         mainWebView.loadUrl("file:///android_asset/payment.html");
     }
 
-    private class AndroidBridge {
+
+    public class AndroidBridge {
         @JavascriptInterface
         public void paymentHandler(final String status, final String paymentMessage) { // must be final
             handler.post(new Runnable() {

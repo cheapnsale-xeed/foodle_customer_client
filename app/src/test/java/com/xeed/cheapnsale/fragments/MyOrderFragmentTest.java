@@ -1,9 +1,12 @@
 package com.xeed.cheapnsale.fragments;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
@@ -17,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowDialog;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import java.util.ArrayList;
@@ -40,6 +44,7 @@ public class MyOrderFragmentTest {
     public void setUp() throws Exception {
         myOrderFragment = new MyOrderFragment();
         SupportFragmentTestUtil.startVisibleFragment(myOrderFragment);
+
         myOrderCurrentAdapter = new MyOrderCurrentAdapter(RuntimeEnvironment.application.getApplicationContext(), makeMockOrders());
         myOrderCurrentHolder = myOrderCurrentAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
 
@@ -91,6 +96,16 @@ public class MyOrderFragmentTest {
 
     }
 
+    @Test
+    public void whenPaymentIsSuccess_thenShowFoodleDialog() throws Exception {
+        myOrderFragment.getActivity().setIntent(new Intent().putExtra("isPayment", true));
+        myOrderFragment.isPayment = true;
+        myOrderFragment.onResume();
+
+        MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
+        assertThat(pickerDialog.isShowing()).isTrue();
+        assertThat(myOrderFragment.isPayment).isFalse();
+    }
 
     private ArrayList<Order> makeMockOrders () {
         ArrayList<Order> orders = new ArrayList<>();
