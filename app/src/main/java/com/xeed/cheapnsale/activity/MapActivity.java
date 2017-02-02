@@ -71,6 +71,7 @@ public class MapActivity extends NMapActivity {
 
     private ArrayList<Store> stores;
     private LinearLayoutManager linearLayoutManager;
+    private NGeoPoint myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,13 @@ public class MapActivity extends NMapActivity {
 
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerStoreMap.setLayoutManager(linearLayoutManager);
+
+        if (((Application) getApplication()).getMyLocation() != null) {
+            myLocation = new NGeoPoint(((Application) getApplication()).getMyLocation().getLongitude(), ((Application) getApplication()).getMyLocation().getLatitude());
+            if (mMapController != null) {
+                mMapController.animateTo(myLocation);
+            }
+        }
     }
 
     @Override
@@ -126,6 +134,7 @@ public class MapActivity extends NMapActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                if (stores == null) return ;
 
                 // set POI data
                 NMapPOIdata poiData = new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
@@ -133,6 +142,9 @@ public class MapActivity extends NMapActivity {
                 for (int i = 0; i < stores.size(); ++i) {
                     poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
                             stores.get(i).getName(), NMapPOIflagType.SPOT, stores.get(i));
+                    if (myLocation != null) {
+                        stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                    }
                 }
 
                 poiData.endPOIdata();
@@ -173,6 +185,8 @@ public class MapActivity extends NMapActivity {
             }
             textTitleMap.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
+
+            mMapLocationManager.removeOnLocationChangeListener(onMyLocationChangeListener);
         }
     };
 
@@ -202,19 +216,11 @@ public class MapActivity extends NMapActivity {
         public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
 
             if (mMapController != null) {
-                mMapController.animateTo(myLocation);
+//                mMapController.animateTo(myLocation);
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
-            }
 
-            if (stores == null) return false;
-
-            for (int i = 0; i < stores.size(); ++i) {
-                if (mMapLocationManager.getMyLocation() != null) {
-                    stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
-                }
             }
-            mapStoreListAdapter.notifyDataSetChanged();
 
             return true;
         }
