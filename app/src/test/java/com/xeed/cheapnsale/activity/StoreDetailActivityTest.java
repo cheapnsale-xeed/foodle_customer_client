@@ -70,20 +70,6 @@ public class StoreDetailActivityTest {
     }
 
     @Test
-    public void whenBackButtonIsClicked_thenActivityIsFinish() throws Exception {
-
-        backButton.performClick();
-
-        assertThat(storeDetailActivity.isFinishing()).isTrue();
-    }
-
-    @Test
-    public void whenHardwareBackButtonIsClicked_thenActivityIsFinish() throws Exception {
-        storeDetailActivity.onBackPressed();
-        assertThat(storeDetailActivity.isFinishing()).isTrue();
-    }
-
-    @Test
     public void whenActivityIsStart_thenShowOnlyBackButton() throws Exception {
         assertThat(backButton.getVisibility()).isEqualTo(View.VISIBLE);
 
