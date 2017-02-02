@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -17,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.Application;
@@ -26,7 +27,9 @@ import com.xeed.cheapnsale.adapter.OrderCartItemListAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.util.DateUtil;
 import com.xeed.cheapnsale.util.NumbersUtil;
 
 import java.util.UUID;
@@ -87,6 +90,15 @@ public class OrderActivity extends AppCompatActivity {
     @BindView(R.id.layout_agree_payment)
     public LinearLayout linearAgreePayment;
 
+    @BindView(R.id.image_detail_pickup_term)
+    public ImageView imageDetailPickupTerm;
+
+    @BindView(R.id.linear_order_detail_pickup_term)
+    public LinearLayout linearOrderDetailPickupTerm;
+
+    @BindView(R.id.button_reselect_time_order)
+    public Button buttonReselectTimeOrder;
+
     final ColorStateList colorStateList_select = new ColorStateList(
             new int[][]{
                     new int[]{android.R.attr.state_enabled} //enabled
@@ -110,9 +122,11 @@ public class OrderActivity extends AppCompatActivity {
     private TextView textAcceptButtonPicker;
 
     private Store store;
-    private String storeId = "1";
+    private String storeId;
 
     public int selectedNumberIndex = 0;
+    private Payment payment;
+    private boolean isReset = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +135,9 @@ public class OrderActivity extends AppCompatActivity {
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
+
+        Cart cart = ((Application) getApplication()).getCart();
+        storeId = cart.getStoreId();
 
         radioGroupPickupTimeOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -146,9 +163,12 @@ public class OrderActivity extends AppCompatActivity {
         textAcceptButtonPicker = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
 
         textCancelButtonPicker.setOnClickListener(new TextView.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                if(!isReset) {
+                    radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                }
                 pickerDialog.dismiss();
             }
         });
@@ -177,26 +197,41 @@ public class OrderActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
+                    Cart cart = ((Application) getApplication()).getCart();
+                    Order order = new Order();
 
-                        Cart cart = ((Application) getApplication()).getCart();
-                        Order order = new Order();
-                        order.setOrderId(UUID.randomUUID().toString());
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+
+                        order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
                         order.setMenus(cart.getMenus());
                         order.setStoreId(storeId);
                         order.setStatus("READY");
                         order.setStoreName(store.getName());
-                        order.setPickupTime("2017.01.24_17:49:00");
-                        order.setOrderAt("2017.01.24_17:29:00");
+                        order.setEmail(((Application) getApplication()).getUserEmail());
 
-                        cheapnsaleService.putPreparePayment(order);
+                        if (radioNowButtonOrder.isChecked()) {
+                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));
+                        } else {
+                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), textDialogPickedTimeOrder.getText().toString()));
+                        }
+
+                        order.setOrderAt(DateUtil.getCurrentTime());
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        payment = cheapnsaleService.putPreparePayment(order);
                         return null;
                     }
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Success",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                        intent.putExtra("payment", payment);
+                        intent.putExtra("order", order);
+                        startActivity(intent);
                     }
                 }.execute();
             }
@@ -253,7 +288,25 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.image_detail_pickup_term)
+    public void onClickImageDetailPickupTerm(View view) {
+        if(linearOrderDetailPickupTerm.getVisibility() == View.GONE) {
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_close);
+            linearOrderDetailPickupTerm.setVisibility(View.VISIBLE);
+        } else {
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_open);
+            linearOrderDetailPickupTerm.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.button_reselect_time_order)
+    public void onClickButtonReselectTimeOrder(View view) {
+        isReset = true;
+        show();
+    }
+
     private void show() {
+
         int minTime = Integer.parseInt(store.getAvgPrepTime());
         String[] displayedValue = new String[((65 - minTime) / 5)];
 
@@ -301,6 +354,7 @@ public class OrderActivity extends AppCompatActivity {
             radioTodayButtonOrder.setTypeface(null, Typeface.BOLD);
             radioTodayButtonOrder.setButtonTintList(colorStateList_select);
             radioNowButtonOrder.setButtonTintList(colorStateList_unselect);
+            isReset = false;
             show();
         }
     }

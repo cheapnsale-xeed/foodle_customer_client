@@ -2,9 +2,10 @@ package com.xeed.cheapnsale.service.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
 
     @SerializedName("EMAIL")
     private String email;

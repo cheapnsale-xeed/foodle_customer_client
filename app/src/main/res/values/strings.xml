@@ -4,6 +4,7 @@
     <string name="map_contentDescription">Map</string>
     <string name="filter_contentDescription">Filter</string>
     <string name="show_all">전체보기</string>
+    <string name="my_order_default">내 주문()</string>
     <string name="my_order">내 주문(%1$d)</string>
     <string name="minute">분</string>
     <string name="price_type">원</string>
@@ -36,5 +37,18 @@
     <string name="now_prepare">준비\n중</string>
     <string name="order_detail_list">주문 내역</string>
     <string name="word_pickup_time">픽업시간 :</string>
+    <string name="word_pickup_finish">픽업완료 :</string>
     <string name="msg_agree_payment">동의하고 결제하기</string>
+    <string name="word_past_order_list">지난 주문 내역</string>
+    <string name="word_reorder">재주문</string>
+    <string name="txt_payment_success">결제 완료!</string>
+    <string name="word_delivering_by_foodle">푸들이 주문을 전달 중 입니다</string>
+    <string name="word_pickup_terms_first">주문내용을 확인하고 구매진행에 동의합니다.</string>
+    <string name="word_pickup_terms_second">알림이 오면 메뉴를 바로 가져가세요\n접수완료 후 주문취소는 불가하며 가져가지 않은 메뉴는\n환불되지 않습니다</string>
+    <string name="word_pickup_personal_info_agree_term">개인정보 수집 및 이용동의</string>
+    <string name="word_pickup_personal_term_show">약관보기</string>
+    <string name="word_pickup_personal_info_3rd_term">개인정보 제 3자 정보제공 동의</string>
+    <string name="word_dialog_confirm_cancel_order">주문 완료가 되지 않은 음식이 있습니다.\n주문을 취소하시겠습니까?</string>
+    <string name="txt_no">아니오</string>
+    <string name="txt_yes">예</string>
 </resources>

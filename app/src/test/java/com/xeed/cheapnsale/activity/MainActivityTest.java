@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class MainActivityTest {
     public void whenTabChange_thenFragmentTitleChange() throws Exception {
         mainActivity.pagerMain.setCurrentItem(1);
         assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(1);
-        when(mainActivity.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockMyOrder());
+        when(mainActivity.cheapnsaleService.getMyCurrentOrder(anyString())).thenReturn(makeMockMyOrder());
         mainActivity.onResume();
         assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(2)");
 
@@ -81,6 +82,15 @@ public class MainActivityTest {
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
+    @Test
+    public void whenPaymentIsSuccess_thenShowMyOrderFragment() throws Exception {
+        Intent intent = new Intent(RuntimeEnvironment.application, MainActivity.class);
+        intent.putExtra("isPayment", true);
+        mainActivity = Robolectric.buildActivity(MainActivity.class).withIntent(intent).create().get();
+        
+        assertThat(mainActivity.pagerMain.getCurrentItem()).isEqualTo(1);
+    }
+
     private ArrayList<Order> makeMockMyOrder() {
 
         ArrayList<Order> orders = new ArrayList<>();
@@ -92,8 +102,9 @@ public class MainActivityTest {
         order.setStoreName("놀부 보쌈");
         order.setStatus("DONE");
         order.setOrderAt("2017.01.22_17:19:00");
-
         orders.add(order);
+
+        order = new Order();
 
         order.setEmail("cheapnsale.xeed@gmail.com");
         order.setStoreId("2");

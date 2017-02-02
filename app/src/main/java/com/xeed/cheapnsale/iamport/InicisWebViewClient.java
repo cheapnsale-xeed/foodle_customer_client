@@ -16,7 +16,7 @@ public class InicisWebViewClient extends WebViewClient {
 	public InicisWebViewClient(Activity activity) {
 		this.activity = activity;
 	}
-	
+
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		

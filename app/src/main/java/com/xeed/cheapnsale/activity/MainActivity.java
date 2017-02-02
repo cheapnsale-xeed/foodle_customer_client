@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         tabMain.addTab(tabMain.newTab().setText(R.string.show_all));
-        tabMain.addTab(tabMain.newTab().setText(R.string.my_order));
+        tabMain.addTab(tabMain.newTab().setText(getResources().getString(R.string.my_order_default)));
         tabMain.setTabGravity(TabLayout.GRAVITY_FILL);
 
         adapter = new MainTabPagerAdapter
@@ -73,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        if(getIntent().getExtras() != null && getIntent().getExtras().get("isPayment") != null){
+            boolean isPayment = (boolean) getIntent().getExtras().get("isPayment");
+            if(isPayment){
+                pagerMain.setCurrentItem(1);
+            }
+        }
+
     }
 
 
@@ -83,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                myOrder = cheapnsaleService.getMyOrder(((Application) getApplication()).getUserEmail());
+                myOrder = cheapnsaleService.getMyCurrentOrder(((Application) getApplication()).getUserEmail());
                 return null;
             }
 

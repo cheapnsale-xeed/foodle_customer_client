@@ -26,7 +26,7 @@ public class MenuListFragment extends Fragment {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    public Store store;
+    private Store store;
     private MenuListAdapter menuListAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -41,7 +41,7 @@ public class MenuListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         linearLayoutManager = new LinearLayoutManager(getContext());
-        menuListAdapter = new MenuListAdapter(getContext(), linearLayoutManager, new ArrayList<Menu>());
+        menuListAdapter = new MenuListAdapter(getContext(), linearLayoutManager, new ArrayList<Menu>(), store);
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_menu_list_view, container, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -70,7 +70,9 @@ public class MenuListFragment extends Fragment {
                 }
             }
         }.execute();
+    }
 
-
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

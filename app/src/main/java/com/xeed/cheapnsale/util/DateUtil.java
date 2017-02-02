@@ -2,6 +2,7 @@ package com.xeed.cheapnsale.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -46,6 +47,18 @@ public class DateUtil {
         formattedTime += min + "분";
 
         return formattedTime;
+    }
+
+    public static String calcPickupTime(String currentTime, String prepTime) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(stringToDate(currentTime));
+        calendar.add(Calendar.MINUTE, Integer.parseInt(prepTime));
+
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String getCurrentTime() {
+        return dateFormat.format(new Date(System.currentTimeMillis()));
     }
 
 }

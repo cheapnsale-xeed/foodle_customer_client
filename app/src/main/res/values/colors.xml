@@ -13,4 +13,5 @@
     <color name='colorGray'>#a7a7a7</color>
     <color name='colorGrayMapStore'>#99000000</color>
     <color name="colorGrayBar">#c7c7c7</color>
+    <color name="colorDarkRed">#bc0f24</color>
 </resources>

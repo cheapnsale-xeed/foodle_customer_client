@@ -29,7 +29,7 @@ public class MenuListFragmentTest {
     @Before
     public void setUp() throws Exception {
         menuListFragment = new MenuListFragment();
-        menuListFragment.store = makeMockStore();
+        menuListFragment.setStore(makeMockStore());
 
         SupportFragmentTestUtil.startFragment(menuListFragment);
     }
@@ -37,7 +37,7 @@ public class MenuListFragmentTest {
     @Test
     public void whenFragmentOnResume_theShowStoreMenuCountIsCorrectly() throws Exception {
         when(menuListFragment.cheapnsaleService.getStore(anyString())).thenReturn(makeMockStore());
-        menuListFragment.store = makeMockStore();
+        menuListFragment.setStore(makeMockStore());
 
         menuListFragment.onResume();
         RecyclerView recyclerView = (RecyclerView) menuListFragment.getView().findViewById(R.id.recycler_menu_list);
