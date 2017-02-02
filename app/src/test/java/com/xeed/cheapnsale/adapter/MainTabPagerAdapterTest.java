@@ -26,6 +26,7 @@ public class MainTabPagerAdapterTest {
     @Before
     public void setUp() throws Exception {
         MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+
         supportFragmentManager = mainActivity.getSupportFragmentManager();
         mainTabPagerAdapter = new MainTabPagerAdapter(supportFragmentManager, 2);
     }

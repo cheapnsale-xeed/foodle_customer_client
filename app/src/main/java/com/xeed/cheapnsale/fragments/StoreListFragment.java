@@ -49,6 +49,23 @@ public class StoreListFragment extends Fragment {
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_store_list_fragment, container, false);
+
+        storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(storeListAdapter);
+
+        return recyclerView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -66,22 +83,6 @@ public class StoreListFragment extends Fragment {
                 storeListAdapter.updateData(stores);
             }
         }.execute();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) inflater.inflate(R.layout.tab_store_list_fragment, container, false);
-
-        storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(storeListAdapter);
-
-        return recyclerView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
         ((Application) getActivity().getApplication()).getCart().clearCartItems();
     }
