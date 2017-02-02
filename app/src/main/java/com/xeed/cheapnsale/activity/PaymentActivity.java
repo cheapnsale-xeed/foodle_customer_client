@@ -1,10 +1,13 @@
 package com.xeed.cheapnsale.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,7 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
     public AndroidBridge androidBridge = new AndroidBridge();
     private final Handler handler = new Handler();
 
-    @Override
+    @SuppressLint("NewApi") @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
@@ -46,6 +49,13 @@ public class PaymentActivity extends AppCompatActivity {
         WebSettings settings = mainWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         mainWebView.addJavascriptInterface(androidBridge, "Payment");
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.setAcceptThirdPartyCookies(mainWebView, true);
+        }
 
         mainWebView.setWebViewClient(new InicisWebViewClient(PaymentActivity.this){
             @Override
