@@ -73,6 +73,7 @@ public class MapActivity extends NMapActivity {
 
     private ArrayList<Store> stores = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
+    private NGeoPoint myLocation;
 
     private NMapPOIdataOverlay poiDataOverlay;
 
@@ -129,8 +130,20 @@ public class MapActivity extends NMapActivity {
             }
         });
 
-        mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
-        storeRecyclerViewPager.setAdapter(mapStoreListAdapter);
+        if (((Application) getApplication()).getMyLocation() != null) {
+            myLocation = new NGeoPoint(((Application) getApplication()).getMyLocation().getLongitude(), ((Application) getApplication()).getMyLocation().getLatitude());
+            if (mMapController != null) {
+                mMapController.animateTo(myLocation);
+            }
+        }
+
+        // 내 위치 보여줄 수 있음.
+        // mMapLocationManager.enableMyLocation(true) 는 사용하지 않는다.
+        NMapPOIdata myLocPoiData = new NMapPOIdata(1, mMapViewerResourceProvider, true);
+        myLocPoiData.beginPOIdata(1);
+        myLocPoiData.addPOIitem(myLocation, null, NMapPOIflagType.MY_LOC, null);
+        myLocPoiData.endPOIdata();
+        poiDataOverlay = mOverlayManager.createPOIdataOverlay(myLocPoiData, null);
     }
 
     @Override
@@ -147,13 +160,16 @@ public class MapActivity extends NMapActivity {
     private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
         @Override
         public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
-        if (errInfo != null) {
-            Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
+            if (errInfo != null) {
+                Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
+                MapActivity.super.setMapDataProviderListener(null);
+                return;
+            }
+            Log.d("Map : ", "onDataProviderListener : " + placeMark.dongName);
+            textTitleMap.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
-            return;
-        }
-        textTitleMap.setText(placeMark.dongName);
-        MapActivity.super.setMapDataProviderListener(null);
+
+            mMapLocationManager.removeOnLocationChangeListener(onMyLocationChangeListener);
         }
     };
 
@@ -179,7 +195,8 @@ public class MapActivity extends NMapActivity {
         public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
 
             if (mMapController != null) {
-                mMapController.animateTo(myLocation);
+//                mMapController.animateTo(myLocation);
+                Log.d("Map : ", "onLocationChanged");
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
@@ -274,5 +291,4 @@ public class MapActivity extends NMapActivity {
             }
         }
     }
-
 }

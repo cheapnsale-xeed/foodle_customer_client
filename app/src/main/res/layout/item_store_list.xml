@@ -53,6 +53,7 @@
                 android:textSize="18dp" />
 
             <ImageView
+                android:id="@+id/image_walk_store"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ico_walking" />

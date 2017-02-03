@@ -54,7 +54,7 @@ public class StoreDetailActivityTest {
         backButton = (ImageView) storeDetailActivity.findViewById(R.id.image_back_button_store_detail);
         callLink = (TextView) storeDetailActivity.findViewById(R.id.text_call_button_store_detail);
         mapLink = (TextView) storeDetailActivity.findViewById(R.id.text_map_button_store_detail);
-        title = (TextView) storeDetailActivity.findViewById(R.id.image_title_order_detail);
+        title = (TextView) storeDetailActivity.findViewById(R.id.text_title_order_detail);
         storeTitle = (TextView) storeDetailActivity.findViewById(R.id.text_name_store_detail);
         storePaymentType = (TextView) storeDetailActivity.findViewById(R.id.text_payment_type_store_detail);
         storeMainImg = (ImageView) storeDetailActivity.findViewById(R.id.image_top_src_store_detail);

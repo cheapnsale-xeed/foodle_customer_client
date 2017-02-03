@@ -57,8 +57,8 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     @BindView(R.id.image_back_button_store_detail)
     public ImageView imageBackButtonStoreDetail;
 
-    @BindView(R.id.image_title_order_detail)
-    public TextView imageTitleOrderDetail;
+    @BindView(R.id.text_title_order_detail)
+    public TextView textTitleOrderDetail;
 
     @BindView(R.id.text_call_button_store_detail)
     public TextView textCallButtonStoreDetail;
@@ -135,6 +135,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
         //store 정보 세팅 시작
         textNameStoreDetail.setText(store.getName());
+        textTitleOrderDetail.setText(store.getName());
         textPaymentTypeStoreDetail.setText(store.getPaymentType());
 
         imageCallback = new Target() {
@@ -163,13 +164,13 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
                 if (verticalOffset > COLLAPS_LIMIT) {
-                    imageTitleOrderDetail.setVisibility(View.GONE);
+                    textTitleOrderDetail.setVisibility(View.GONE);
                     textCallButtonStoreDetail.setVisibility(View.GONE);
                     textMapButtonStoreDetail.setVisibility(View.GONE);
 
                     toolbarStoreDetail.setBackgroundColor(Color.TRANSPARENT);
                 } else {
-                    imageTitleOrderDetail.setVisibility(View.VISIBLE);
+                    textTitleOrderDetail.setVisibility(View.VISIBLE);
                     textCallButtonStoreDetail.setVisibility(View.VISIBLE);
                     textMapButtonStoreDetail.setVisibility(View.VISIBLE);
 

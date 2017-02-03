@@ -36,7 +36,6 @@ public class StoreListFragment extends Fragment {
     private RecyclerView recyclerView;
 
     public LocationManager mLocationManager;
-    private boolean isLocated;
 
     ArrayList<Store> stores;
 
@@ -44,7 +43,10 @@ public class StoreListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
-        isLocated = false;
+
+        mLocationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
 
     }
 
@@ -56,11 +58,6 @@ public class StoreListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(storeListAdapter);
 
-        final LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager = locationManager;
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
-
         return recyclerView;
     }
 
@@ -69,6 +66,7 @@ public class StoreListFragment extends Fragment {
         super.onResume();
 
         new AsyncTask<Void, Void, Void>() {
+
             @Override
             protected Void doInBackground(Void... params) {
                 stores = cheapnsaleService.getStoreList();
@@ -77,13 +75,11 @@ public class StoreListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                if (isLocated) {
-                    mLocationManager.removeUpdates(mLocationListener);
-                } else {
-                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
-                    mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
-                    storeListAdapter.updateData(stores);
+                Log.d("Store : ", "Create");
+                if (((Application) getActivity().getApplication()).getMyLocation() != null) {
+                    setStoreDistance(((Application) getActivity().getApplication()).getMyLocation());
                 }
+                storeListAdapter.updateData(stores);
             }
         }.execute();
 
@@ -96,19 +92,15 @@ public class StoreListFragment extends Fragment {
             Log.d("Store, longitude", ""+location.getLongitude()); // 경도
             Log.d("Store, Latitude", ""+location.getLatitude()); // 위도
 
-            if (stores == null) {
-                isLocated = false;
-                return;
+            if (stores != null) {
+                setStoreDistance(location);
+                storeListAdapter.notifyDataSetChanged();
             }
 
-            for (int i = 0; i < stores.size(); i++) {
-                stores.get(i).setDistanceToStore((int)
-                        CalcDistanceUtil.calDistance(location.getLatitude(), location.getLongitude(),
-                                stores.get(i).getGpsCoordinatesLat(), stores.get(i).getGpsCoordinatesLong())
-                );
+            if (getActivity().getApplication() != null) {
+                ((Application) getActivity().getApplication()).setMyLocation(location);
+                mLocationManager.removeUpdates(mLocationListener);
             }
-            isLocated = true;
-            storeListAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -126,5 +118,14 @@ public class StoreListFragment extends Fragment {
 
         }
     };
+
+    public void setStoreDistance(Location location) {
+        for (int i = 0; i < stores.size(); i++) {
+            stores.get(i).setDistanceToStore((int)
+                    CalcDistanceUtil.calDistance(location.getLatitude(), location.getLongitude(),
+                            stores.get(i).getGpsCoordinatesLat(), stores.get(i).getGpsCoordinatesLong())
+            );
+        }
+    }
 }
 
