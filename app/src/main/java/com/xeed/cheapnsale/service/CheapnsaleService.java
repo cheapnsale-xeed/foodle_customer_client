@@ -62,5 +62,9 @@ public class CheapnsaleService {
     public Payment putPreparePayment(Order order) {
         return cheapnsaleApi.putPreparePayments(order);
     }
+
+    public int putPrepareSMSAuth(String authID) {
+        return cheapnsaleApi.putPrepareSMSAuth(authID);
+    }
 }
 
