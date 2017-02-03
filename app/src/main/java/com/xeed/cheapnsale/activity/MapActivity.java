@@ -135,6 +135,14 @@ public class MapActivity extends NMapActivity {
                 mMapController.animateTo(myLocation);
             }
         }
+
+        // 내 위치 보여줄 수 있음.
+        // mMapLocationManager.enableMyLocation(true) 는 사용하지 않는다.
+        NMapPOIdata myLocPoiData = new NMapPOIdata(1, mMapViewerResourceProvider, true);
+        myLocPoiData.beginPOIdata(1);
+        myLocPoiData.addPOIitem(myLocation, null, NMapPOIflagType.MY_LOC, null);
+        myLocPoiData.endPOIdata();
+        poiDataOverlay = mOverlayManager.createPOIdataOverlay(myLocPoiData, null);
     }
 
     @Override
@@ -197,6 +205,7 @@ public class MapActivity extends NMapActivity {
                 MapActivity.super.setMapDataProviderListener(null);
                 return;
             }
+            Log.d("Map : ", "onDataProviderListener : " + placeMark.dongName);
             textTitleMap.setText(placeMark.dongName);
             MapActivity.super.setMapDataProviderListener(null);
 
@@ -226,6 +235,7 @@ public class MapActivity extends NMapActivity {
         public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
             if (mMapController != null) {
 //                mMapController.animateTo(myLocation);
+                Log.d("Map : ", "onLocationChanged");
                 MapActivity.super.setMapDataProviderListener(onDataProviderListener);
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
@@ -285,5 +295,4 @@ public class MapActivity extends NMapActivity {
             }
         }
     }
-
 }

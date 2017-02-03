@@ -44,8 +44,7 @@ public class StoreListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
 
-        final LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager = locationManager;
+        mLocationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
 
@@ -98,8 +97,10 @@ public class StoreListFragment extends Fragment {
                 storeListAdapter.notifyDataSetChanged();
             }
 
-            ((Application) getActivity().getApplication()).setMyLocation(location);
-            mLocationManager.removeUpdates(mLocationListener);
+            if (getActivity().getApplication() != null) {
+                ((Application) getActivity().getApplication()).setMyLocation(location);
+                mLocationManager.removeUpdates(mLocationListener);
+            }
         }
 
         @Override

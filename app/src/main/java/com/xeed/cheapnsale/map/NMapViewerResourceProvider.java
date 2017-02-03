@@ -180,6 +180,7 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 			// Spot, Pin icons
 			new ResourceIdsOnMap(NMapPOIflagType.PIN, R.drawable.tag_01_copy_3, R.drawable.tag_selected_copy_2),
 			new ResourceIdsOnMap(NMapPOIflagType.SPOT, R.drawable.tag_01_copy_3, R.drawable.tag_selected_copy_2),
+			new ResourceIdsOnMap(NMapPOIflagType.MY_LOC, R.drawable.ico_myloc_blue, R.drawable.ico_myloc_blue),
 
 			// Direction POI icons: From, To
 			new ResourceIdsOnMap(NMapPOIflagType.FROM, R.drawable.ic_map_start, R.drawable.ic_map_start_over),

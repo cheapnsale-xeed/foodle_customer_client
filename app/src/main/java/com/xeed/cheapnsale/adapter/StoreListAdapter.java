@@ -58,9 +58,11 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
             holder.textDistanceStore.setText(stores.get(position).getDistanceToStore() + "m");
         }
         if (distance > 1500) {
+            holder.imageWalkStore.setVisibility(View.GONE);
             holder.textArrivalTimeStore.setVisibility(View.GONE);
             holder.viewVerticalBarStore.setVisibility(View.GONE);
         } else {
+            holder.imageWalkStore.setVisibility(View.VISIBLE);
             holder.textArrivalTimeStore.setVisibility(View.VISIBLE);
             holder.viewVerticalBarStore.setVisibility(View.VISIBLE);
             holder.textArrivalTimeStore.setText(arrivalTime + "분");

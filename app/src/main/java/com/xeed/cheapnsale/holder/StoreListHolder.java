@@ -40,6 +40,9 @@ public class StoreListHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.text_distance_store)
     public TextView textDistanceStore;
 
+    @BindView(R.id.image_walk_store)
+    public ImageView imageWalkStore;
+
 
     public StoreListHolder(View itemView) {
         super(itemView);
