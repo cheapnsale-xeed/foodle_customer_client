@@ -3,6 +3,7 @@ package com.xeed.cheapnsale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -107,6 +108,9 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
 
                         linearLayoutManager.scrollToPosition(childPos);
+                        if(linearLayoutManager.findLastCompletelyVisibleItemPosition() >= childPos - 1) {
+                            ((AppBarLayout) ((StoreDetailActivity) context).findViewById(R.id.app_bar_store_detail)).setExpanded(false);
+                        }
                         notifyDataSetChanged();
                     }
                 }
