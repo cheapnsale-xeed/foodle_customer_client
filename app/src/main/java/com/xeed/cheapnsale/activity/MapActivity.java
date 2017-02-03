@@ -63,9 +63,6 @@ public class MapActivity extends NMapActivity {
     @BindView(R.id.text_title_map)
     public TextView textTitleMap;
 
-    private NMapMyLocationOverlay mMyLocationOverlay;
-    private NMapLocationManager mMapLocationManager;
-    private NMapCompassManager mMapCompassManager;
     private NMapController mMapController;
     private NMapOverlayManager mOverlayManager;
     private NMapViewerResourceProvider mMapViewerResourceProvider;
@@ -85,8 +82,9 @@ public class MapActivity extends NMapActivity {
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
 
-        mapView.setScalingFactor(4f,true);
         mapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
+
+        mapView.setScalingFactor(2f,true);
         mapView.setClickable(true);
         mapView.setEnabled(true);
         mapView.setFocusable(true);
@@ -103,18 +101,6 @@ public class MapActivity extends NMapActivity {
         // create overlay manager
         mOverlayManager = new NMapOverlayManager(this, mapView, mMapViewerResourceProvider);
 
-        // location manager
-        mMapLocationManager = new NMapLocationManager(this);
-        mMapLocationManager.setOnLocationChangeListener(onMyLocationChangeListener);
-
-        // compass manager
-        mMapCompassManager = new NMapCompassManager(this);
-
-        // create my location overlay
-        mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
-
-        startMyLocation();
-
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
         storeRecyclerViewPager.setLayoutManager(linearLayoutManager);
@@ -130,76 +116,33 @@ public class MapActivity extends NMapActivity {
             }
         });
 
+        mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
+        storeRecyclerViewPager.setAdapter(mapStoreListAdapter);
+
         if (((Application) getApplication()).getMyLocation() != null) {
             myLocation = new NGeoPoint(((Application) getApplication()).getMyLocation().getLongitude(), ((Application) getApplication()).getMyLocation().getLatitude());
+
             if (mMapController != null) {
                 mMapController.animateTo(myLocation);
             }
+
+            // 내 위치 보여줄 수 있음.
+            NMapPOIdata myLocPoiData = new NMapPOIdata(1, mMapViewerResourceProvider, true);
+            myLocPoiData.beginPOIdata(1);
+            myLocPoiData.addPOIitem(myLocation, null, NMapPOIflagType.MY_LOC, null);
+            myLocPoiData.endPOIdata();
+            poiDataOverlay = mOverlayManager.createPOIdataOverlay(myLocPoiData, null);
         }
 
-        // 내 위치 보여줄 수 있음.
-        // mMapLocationManager.enableMyLocation(true) 는 사용하지 않는다.
-        NMapPOIdata myLocPoiData = new NMapPOIdata(1, mMapViewerResourceProvider, true);
-        myLocPoiData.beginPOIdata(1);
-        myLocPoiData.addPOIitem(myLocation, null, NMapPOIflagType.MY_LOC, null);
-        myLocPoiData.endPOIdata();
-        poiDataOverlay = mOverlayManager.createPOIdataOverlay(myLocPoiData, null);
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
+    protected void onResume() {
+        super.onResume();
 
-    @OnClick(R.id.image_list_button_map)
-    public void onClickBackButton(View view) {
-        onBackPressed();
-    }
-
-    private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
-        @Override
-        public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
-            if (errInfo != null) {
-                Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
-                MapActivity.super.setMapDataProviderListener(null);
-                return;
-            }
-            Log.d("Map : ", "onDataProviderListener : " + placeMark.dongName);
-            textTitleMap.setText(placeMark.dongName);
-            MapActivity.super.setMapDataProviderListener(null);
-
-            mMapLocationManager.removeOnLocationChangeListener(onMyLocationChangeListener);
-        }
-    };
-
-    private final NMapPOIdataOverlay.OnStateChangeListener onStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
-        @Override
-        public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
-            if (nMapPOIitem != null && nMapPOIitem.getTag() != null) {
-                Store tag = (Store) nMapPOIitem.getTag();
-                nMapPOIdataOverlay.selectPOIitem(nMapPOIitem,true);
-                storeRecyclerViewPager.scrollToPosition(stores.indexOf(tag));
-            }
-        }
-
-        @Override
-        public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
-            // do nothing.
-        }
-    };
-
-    private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
-
-        @Override
-        public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
-
-            if (mMapController != null) {
-//                mMapController.animateTo(myLocation);
-                Log.d("Map : ", "onLocationChanged");
-                MapActivity.super.setMapDataProviderListener(onDataProviderListener);
-                findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
-            }
+        if(myLocation != null){
+            super.setMapDataProviderListener(onDataProviderListener);
+            findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
 
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -227,68 +170,61 @@ public class MapActivity extends NMapActivity {
                     poiDataOverlay.selectPOIitem(0, true);
 
                     for (int i = 0; i < stores.size(); ++i) {
-                        if (mMapLocationManager.getMyLocation() != null) {
-                            stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
-                        }
+                        stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
                     }
 
                     mapStoreListAdapter.updateData(stores);
                 }
             }.execute();
-            return true;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mapView.setScalingFactor(1f);
+        super.onDestroy();
+    }
+
+    @OnClick(R.id.image_list_button_map)
+    public void onClickBackButton(View view) {
+        onBackPressed();
+    }
+
+    private final OnDataProviderListener onDataProviderListener = new OnDataProviderListener() {
         @Override
-        public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
-            Toast.makeText(MapActivity.this, "Your current location is temporarily unavailable.", Toast.LENGTH_LONG).show();
+        public void onReverseGeocoderResponse(NMapPlacemark placeMark, NMapError errInfo) {
+            if (errInfo != null) {
+                Log.e(LOG_TAG, "Failed to findPlacemarkAtLocation: error=" + errInfo.toString());
+                MapActivity.super.setMapDataProviderListener(null);
+                return;
+            }
+            Log.d("Map : ", "onDataProviderListener : " + placeMark.dongName);
+            textTitleMap.setText(placeMark.dongName);
+            MapActivity.super.setMapDataProviderListener(null);
         }
-
-        @Override
-        public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
-            Toast.makeText(MapActivity.this, "Your current location is unavailable area.", Toast.LENGTH_LONG).show();
-            stopMyLocation();
-        }
-
     };
 
-    private void startMyLocation() {
-
-        if (mMyLocationOverlay != null) {
-            if (!mOverlayManager.hasOverlay(mMyLocationOverlay)) {
-                mOverlayManager.addOverlay(mMyLocationOverlay);
-            }
-
-            if (mMapLocationManager.isMyLocationEnabled()) {
-                if (!mapView.isAutoRotateEnabled()) {
-                    mMyLocationOverlay.setCompassHeadingVisible(true);
-                    mMapCompassManager.enableCompass();
-                    mapView.setAutoRotateEnabled(true, false);
-                } else {
-                    stopMyLocation();
-                }
-                mapView.postInvalidate();
-            } else {
-                boolean isMyLocationEnabled = mMapLocationManager.enableMyLocation(true);
-                if (!isMyLocationEnabled) {
-                    Toast.makeText(MapActivity.this, "Please enable a My Location source in system settings",
-                            Toast.LENGTH_LONG).show();
-
-                    Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(goToSettings);
-                }
+    private final NMapPOIdataOverlay.OnStateChangeListener onStateChangeListener = new NMapPOIdataOverlay.OnStateChangeListener() {
+        @Override
+        public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+            if (nMapPOIitem != null && nMapPOIitem.getTag() != null) {
+                Store tag = (Store) nMapPOIitem.getTag();
+                nMapPOIdataOverlay.selectPOIitem(nMapPOIitem,true);
+                storeRecyclerViewPager.scrollToPosition(stores.indexOf(tag));
             }
         }
-    }
 
-    private void stopMyLocation() {
-        if (mMyLocationOverlay != null) {
-            mMapLocationManager.disableMyLocation();
-
-            if (mapView.isAutoRotateEnabled()) {
-                mMyLocationOverlay.setCompassHeadingVisible(false);
-                mMapCompassManager.disableCompass();
-                mapView.setAutoRotateEnabled(false, false);
-            }
+        @Override
+        public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+            // do nothing.
         }
-    }
+    };
+
 }
