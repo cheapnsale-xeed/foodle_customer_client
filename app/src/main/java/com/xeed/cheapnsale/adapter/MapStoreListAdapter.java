@@ -35,8 +35,7 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
     public void onBindViewHolder(final MapStoreListHolder holder, final int position) {
 
         holder.textStoreNameMap.setText(stores.get(position).getName());
-        holder.picasso.load(stores.get(position).getMainImageUrl())
-                .transform(new CropCircleTransformation()).into(holder.imageStoreSrcMap);
+        holder.picasso.load(stores.get(position).getMainImageUrl()).transform(new CropCircleTransformation()).into(holder.imageStoreSrcMap);
         holder.textAvgPrepTimeMap.setText(stores.get(position).getAvgPrepTime() + context.getResources().getString(R.string.minute));
 
         int distance = stores.get(position).getDistanceToStore();
@@ -65,7 +64,7 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
 
     public void updateData(ArrayList<Store> stores) {
         this.stores.clear();
-        this.stores = stores;
+        this.stores.addAll(stores);
         this.notifyDataSetChanged();
     }
 }

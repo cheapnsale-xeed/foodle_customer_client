@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class MapActivity extends NMapActivity {
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private MapStoreListAdapter mapStoreListAdapter;
 
-    private ArrayList<Store> stores;
+    private ArrayList<Store> stores = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
 
     private NMapPOIdataOverlay poiDataOverlay;
@@ -127,43 +128,9 @@ public class MapActivity extends NMapActivity {
                 }
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                stores = cheapnsaleService.getStoreList();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-
-                // set POI data
-                NMapPOIdata poiData =  new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
-                poiData.beginPOIdata(stores.size());
-                for (int i = 0; i < stores.size(); ++i) {
-                    poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
-                            null, NMapPOIflagType.SPOT, stores.get(i));
-                }
-
-                poiData.endPOIdata();
-
-                // create POI data overlay
-                poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-                poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
-
-                poiDataOverlay.selectPOIitem(0, true);
-
-                mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
-                storeRecyclerViewPager.setAdapter(mapStoreListAdapter);
-                mapStoreListAdapter.notifyDataSetChanged();
-            }
-        }.execute();
+        mapStoreListAdapter = new MapStoreListAdapter(getApplicationContext(), stores);
+        storeRecyclerViewPager.setAdapter(mapStoreListAdapter);
     }
 
     @Override
@@ -196,7 +163,7 @@ public class MapActivity extends NMapActivity {
             if (nMapPOIitem != null && nMapPOIitem.getTag() != null) {
                 Store tag = (Store) nMapPOIitem.getTag();
                 nMapPOIdataOverlay.selectPOIitem(nMapPOIitem,true);
-                storeRecyclerViewPager.smoothScrollToPosition(stores.indexOf(tag));
+                storeRecyclerViewPager.scrollToPosition(stores.indexOf(tag));
             }
         }
 
@@ -217,15 +184,40 @@ public class MapActivity extends NMapActivity {
                 findPlacemarkAtLocation(myLocation.longitude, myLocation.latitude);
             }
 
-            if (stores == null) return false;
-
-            for (int i = 0; i < stores.size(); ++i) {
-                if (mMapLocationManager.getMyLocation() != null) {
-                    stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    stores = cheapnsaleService.getStoreList();
+                    return null;
                 }
-            }
-            mapStoreListAdapter.notifyDataSetChanged();
 
+                @Override
+                protected void onPostExecute(Void aVoid) {
+
+                    // set POI data
+                    NMapPOIdata poiData =  new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
+                    poiData.beginPOIdata(stores.size());
+                    for (int i = 0; i < stores.size(); ++i) {
+                        poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
+                                null, NMapPOIflagType.SPOT, stores.get(i));
+                    }
+
+                    poiData.endPOIdata();
+
+                    // create POI data overlay
+                    poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+                    poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
+                    poiDataOverlay.selectPOIitem(0, true);
+
+                    for (int i = 0; i < stores.size(); ++i) {
+                        if (mMapLocationManager.getMyLocation() != null) {
+                            stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(mMapLocationManager.getMyLocation(), new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                        }
+                    }
+
+                    mapStoreListAdapter.updateData(stores);
+                }
+            }.execute();
             return true;
         }
 
