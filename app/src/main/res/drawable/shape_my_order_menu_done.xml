@@ -24,7 +24,7 @@
 
             <stroke
                 android:width="2dp"
-                android:color="#4d58f2" />
+                android:color="@color/colorFooter" />
 
         </shape>
     </item>

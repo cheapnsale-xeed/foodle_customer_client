@@ -1,12 +1,14 @@
 package com.xeed.cheapnsale.activity;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
@@ -27,11 +29,11 @@ public class SMSAuthActivity extends AppCompatActivity {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    @BindView(R.id.button_sms_send_smsauth)
-    public Button buttonSmsSendSmsauth;
+    @BindView(R.id.text_sms_send_smsauth)
+    public TextView textSmsSendSmsauth;
 
-    @BindView(R.id.button_auth_send_smsauth)
-    public Button buttonAuthSendSmsauth;
+    @BindView(R.id.text_auth_send_smsauth)
+    public TextView textAuthSendSmsauth;
 
     @BindView(R.id.edit_phone_number_smsauth)
     public EditText editPhoneNumberSmsauth;
@@ -51,9 +53,30 @@ public class SMSAuthActivity extends AppCompatActivity {
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
+
+        editPhoneNumberSmsauth.addTextChangedListener(phoneChangedListener);
     }
 
-    @OnClick(R.id.button_sms_send_smsauth)
+    private TextWatcher phoneChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.length() >= 10) {
+                Log.d("AUTH : ", ""+s.length());
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    @OnClick(R.id.text_sms_send_smsauth)
     public void onClickSmsSendButton(View view) {
         authID = UUID.randomUUID().toString().replaceAll("-","");
 
@@ -74,8 +97,9 @@ public class SMSAuthActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.button_auth_send_smsauth)
+    @OnClick(R.id.text_auth_send_smsauth)
     public void onClickAuthSendButton(View view) {
+
         final SMSAuth smsAuth = new SMSAuth();
         smsAuth.setAUTH_ID("1234");
         smsAuth.setAUTH_NUMBER(7150);

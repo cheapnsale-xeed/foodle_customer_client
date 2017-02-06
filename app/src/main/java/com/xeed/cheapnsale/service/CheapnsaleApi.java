@@ -43,7 +43,7 @@ public interface CheapnsaleApi {
     @Operation(path = "payments/prepare", method = "PUT")
     Payment putPreparePayments(Order order);
 
-    @Operation(path = "/sms/prepare", method = "POST")
+    @Operation(path = "/sms/prepare", method = "PUT")
     int putPrepareSMSAuth(String authID);
 
     @Operation(path = "/sms/confirm", method = "POST")
