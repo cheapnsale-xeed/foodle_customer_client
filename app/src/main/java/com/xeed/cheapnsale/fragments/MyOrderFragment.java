@@ -2,6 +2,7 @@ package com.xeed.cheapnsale.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,12 +94,20 @@ public class MyOrderFragment extends Fragment {
         }.execute();
 
         if(isPayment){
-            MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
+            final MaterialDialog materialDialog = new MaterialDialog.Builder(getActivity())
                     .customView(R.layout.dialog_payment_success_my_order, false).build();
+
             materialDialog.show();
 
             getActivity().getIntent().getExtras().clear();
             isPayment = false;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    materialDialog.cancel();
+                }
+            }, 2000);
         }
     }
 }
