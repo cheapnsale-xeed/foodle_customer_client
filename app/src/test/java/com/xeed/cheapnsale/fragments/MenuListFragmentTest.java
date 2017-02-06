@@ -44,6 +44,7 @@ public class MenuListFragmentTest {
         assertThat(recyclerView.getAdapter().getItemCount()).isEqualTo(2);
     }
 
+
     private Store makeMockStore() {
         Store store = new Store();
         store.setId("mock 1");
