@@ -83,7 +83,7 @@ public class MapActivity extends NMapActivity {
         mapView.setFocusable(true);
         mapView.setFocusableInTouchMode(true);
         mapView.requestFocus();
-        mapView.getMapController().setZoomLevel(11);
+        mapView.getMapController().setZoomLevel(12);
 
         // use map controller to zoom in/out, pan and set map center, zoom level etc.
         mMapController = mapView.getMapController();
