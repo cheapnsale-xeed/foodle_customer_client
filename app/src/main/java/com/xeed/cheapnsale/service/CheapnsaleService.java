@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Payment;
+import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
@@ -65,6 +66,10 @@ public class CheapnsaleService {
 
     public int putPrepareSMSAuth(String authID) {
         return cheapnsaleApi.putPrepareSMSAuth(authID);
+    }
+
+    public String getConfirmSMSAuth(SMSAuth smsAuth) {
+        return cheapnsaleApi.getConfirmSMSAuth(smsAuth);
     }
 }
 

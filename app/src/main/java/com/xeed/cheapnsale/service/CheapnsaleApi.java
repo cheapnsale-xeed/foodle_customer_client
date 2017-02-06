@@ -21,6 +21,7 @@ import com.amazonaws.mobileconnectors.apigateway.annotation.Service;
 import com.google.gson.JsonElement;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Payment;
+import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.service.model.Store;
 
 
@@ -42,7 +43,10 @@ public interface CheapnsaleApi {
     @Operation(path = "payments/prepare", method = "PUT")
     Payment putPreparePayments(Order order);
 
-    @Operation(path = "/sms/prepare", method = "PUT")
+    @Operation(path = "/sms/prepare", method = "POST")
     int putPrepareSMSAuth(String authID);
+
+    @Operation(path = "/sms/confirm", method = "POST")
+    String getConfirmSMSAuth(SMSAuth smsAuth);
 }
 
