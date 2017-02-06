@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.image_map_button_map)
     public ImageView imageMapButtonMap;
 
+    @BindView(R.id.image_search_button_main)
+    public ImageView imageSearchButtonMain;
+
     ArrayList<Order> myOrder = new ArrayList<>();
 
     private MainTabPagerAdapter adapter;
@@ -83,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @OnClick(R.id.image_search_button_main)
+    public void onClickImageSearchButton(View view) {
+        Intent intent = new Intent(MainActivity.this, SMSAuthActivity.class);
+        startActivity(intent);
     }
 
 

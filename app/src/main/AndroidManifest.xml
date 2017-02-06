@@ -7,10 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 위치정보활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--WIFI 상태활용시 추가-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!--WIFI 상태활용시 추가-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- WIFI 상태활용시 추가 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- WIFI 상태활용시 추가 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -45,6 +45,7 @@
         <activity
             android:name=".activity.PaymentActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.SMSAuthActivity"></activity>
     </application>
 
 </manifest>

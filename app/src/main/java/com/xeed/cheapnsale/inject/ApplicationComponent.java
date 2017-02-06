@@ -3,6 +3,7 @@ package com.xeed.cheapnsale.inject;
 import com.xeed.cheapnsale.activity.MainActivity;
 import com.xeed.cheapnsale.activity.MapActivity;
 import com.xeed.cheapnsale.activity.OrderActivity;
+import com.xeed.cheapnsale.activity.SMSAuthActivity;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
@@ -36,4 +37,6 @@ public interface ApplicationComponent {
     void inject(MapActivity mapActivity);
     void inject(MapStoreListHolder mapStoreListHolder);
     void inject(MainActivity mainActivity);
+    void inject(SMSAuthActivity smsAuthActivity);
+
 }
