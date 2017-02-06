@@ -2,11 +2,15 @@ package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.TestApplication;
+import com.xeed.cheapnsale.adapter.CartListAdapter;
+import com.xeed.cheapnsale.holder.CartListChildHolder;
+import com.xeed.cheapnsale.holder.CartListHeadHolder;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Menu;
 
@@ -26,6 +30,9 @@ import static org.robolectric.Shadows.shadowOf;
 public class CartActivityTest {
 
     private CartActivity cartActivity;
+    private CartListAdapter cartListAdapter;
+    private CartListHeadHolder headHolder;
+    private CartListChildHolder childHolder;
 
     @Before
     public void setUp() throws Exception {
@@ -37,6 +44,10 @@ public class CartActivityTest {
         mockCart.addCartItem(new Menu("mock-4", "mockItem-4", 8800, 5, "mockSrc-4"));
 
         cartActivity = Robolectric.buildActivity(CartActivity.class).create().get();
+        cartListAdapter = (CartListAdapter) cartActivity.recyclerCart.getAdapter();
+
+        headHolder = (CartListHeadHolder) cartListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+        childHolder = (CartListChildHolder) cartListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
     }
 
     @Test
@@ -61,5 +72,40 @@ public class CartActivityTest {
     public void whenActivityIsStart_thenCartTotalPriceAndTotalCountIsCorrect() throws Exception {
         assertThat(((TextView)cartActivity.findViewById(R.id.text_item_count_footer)).getText()).isEqualTo("(11)");
         assertThat(((TextView)cartActivity.findViewById(R.id.text_total_price_footer)).getText()).isEqualTo("140,000원");
+    }
+
+    @Test
+    public void whenItemPlusMinusButtonClick_thenItemCountChange() throws Exception {
+        cartListAdapter.onBindViewHolder(headHolder, 0);
+
+        assertThat(headHolder.textItemCountCart.getText()).isEqualTo("3");
+
+        headHolder.imagePlusButtonCart.performClick();
+        cartListAdapter.onBindViewHolder(headHolder, 0);
+        assertThat(headHolder.textItemCountCart.getText()).isEqualTo("4");
+
+        headHolder.imageMinusButtonCart.performClick();
+        cartListAdapter.onBindViewHolder(headHolder, 0);
+        assertThat(headHolder.textItemCountCart.getText()).isEqualTo("3");
+    }
+
+    @Test
+    public void whenItemDeleteButtonClick_thenCartItemDelete() throws Exception {
+        assertThat(cartListAdapter.getItemCount()).isEqualTo(5);
+        cartListAdapter.onBindViewHolder(headHolder, 1);
+        assertThat(headHolder.textItemNameCart.getText()).isEqualTo("mockItem-2");
+
+        headHolder.imageDeleteButtonCart.performClick();
+        assertThat(cartListAdapter.getItemCount()).isEqualTo(4);
+        cartListAdapter.onBindViewHolder(headHolder, 1);
+
+        assertThat(headHolder.textItemNameCart.getText()).isEqualTo("mockItem-3");
+    }
+
+    @Test
+    public void whenAddMenuLayoutClick_thenFinishCartActivity() throws Exception {
+        cartListAdapter.onBindViewHolder(childHolder, 4);
+        childHolder.linearAddMenuCart.performClick();
+        assertThat(cartActivity.isFinishing()).isTrue();
     }
 }

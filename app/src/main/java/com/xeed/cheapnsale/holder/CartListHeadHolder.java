@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CartListHolder extends RecyclerView.ViewHolder{
+public class CartListHeadHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.image_delete_button_cart)
     public ImageView imageDeleteButtonCart;
@@ -40,7 +40,7 @@ public class CartListHolder extends RecyclerView.ViewHolder{
     @Inject
     public Picasso picasso;
 
-    public CartListHolder(View view) {
+    public CartListHeadHolder(View view) {
         super(view);
 
         ((Application) view.getContext().getApplicationContext()).getApplicationComponent().inject(this);

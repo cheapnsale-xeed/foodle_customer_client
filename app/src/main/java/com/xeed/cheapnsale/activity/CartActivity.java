@@ -43,8 +43,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         ButterKnife.bind(this);
 
-        Application app = (Application) getApplicationContext();
-        cartListAdapter = new CartListAdapter(this, app.getCart().getMenus());
+        cartListAdapter = new CartListAdapter(this);
 
         recyclerCart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerCart.setAdapter(cartListAdapter);
@@ -56,6 +55,19 @@ public class CartActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cartListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
+        cartListAdapter.cartItems.remove(cartListAdapter.cartItems.size()-1);
     }
 
     @OnClick(R.id.image_back_button_cart)
@@ -74,11 +86,5 @@ public class CartActivity extends AppCompatActivity {
 
         textItemCountFooter.setText("(" + app.getCart().getTotalCount() + ")");
         textTotalPriceFooter.setText(NumbersUtil.format(app.getCart().getTotalPrice()) + getResources().getString(R.string.price_type));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cartListAdapter.notifyDataSetChanged();
     }
 }

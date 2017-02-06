@@ -160,6 +160,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     menu.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
 
                     app.getCart().setStoreId(store.getId());
+                    app.getCart().setStoreName(store.getName());
                     app.getCart().addCartItem(menu);
 
                     initCartFooterLayout();
@@ -185,6 +186,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     menu.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
 
                     app.getCart().setStoreId(store.getId());
+                    app.getCart().setStoreName(store.getName());
                     app.getCart().addCartItem(menu);
 
                     Intent intent = new Intent(context, OrderActivity.class);
