@@ -51,4 +51,5 @@
     <string name="word_dialog_confirm_cancel_order">주문 완료가 되지 않은 음식이 있습니다.\n주문을 취소하시겠습니까?</string>
     <string name="txt_no">아니오</string>
     <string name="txt_yes">예</string>
+    <string name="txt_cart_add_menu">의 메뉴 추가하기</string>
 </resources>

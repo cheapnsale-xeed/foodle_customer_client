@@ -8,6 +8,8 @@ public class Cart {
 
     private ArrayList<Menu> menus;
 
+    private String storeName;
+
     public Cart() {
         if (menus == null) {
             menus = new ArrayList<>();
@@ -24,6 +26,14 @@ public class Cart {
 
     public void setStoreId(String storeId) {
         this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public int getTotalCount() {
@@ -76,13 +86,13 @@ public class Cart {
             }
         }
 
-        if (added == false) {
+        if (!added) {
             menus.add(cartItem);
         }
     }
 
     public void deleteCartItem(String menuId) {
-        for (int i = 0; i < menus.size(); ++i) {
+        for (int i = 0; i < menus.size()-1; ++i) {
             if (menus.get(i).getMenuId().equals(menuId)) {
                 menus.remove(i);
             }
