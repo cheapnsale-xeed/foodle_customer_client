@@ -3,6 +3,7 @@ package com.xeed.cheapnsale.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -84,27 +85,32 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View view) {
                     if (menuListHeadHolder.textItemNameMenu != null) {
                         int childPos = getChildPos();
+                        int parentPos = position;
 
                         if (childPos != -1) {
                             menus.remove(childPos);
                         }
 
-                        if (position != childPos - 1) {
-                            if (position < childPos || childPos == -1) {
-                                childPos = position + 1;
+                        if (parentPos != childPos - 1) {
+                            if (parentPos < childPos || childPos == -1) {
+                                childPos = parentPos + 1;
                             } else {
-                                childPos = position;
+                                childPos = parentPos;
+                                --parentPos;
                             }
 
 
-                            Menu childItem = new Menu(CHILD, menus.get(position).getMenuId(), menus.get(position).getMenuName(),
-                                    menus.get(position).getMenuPrice(), menus.get(position).getMenuImg());
+                            Menu childItem = new Menu(CHILD, menus.get(parentPos).getMenuId(), menus.get(parentPos).getMenuName(),
+                                    menus.get(parentPos).getMenuPrice(), menus.get(parentPos).getMenuImg());
                             childItem.setMenuItemCount(1);
                             childItem.setMenuItemTotalPrice(childItem.getMenuPrice());
                             menus.add(childPos, childItem);
                         }
 
                         linearLayoutManager.scrollToPosition(childPos);
+                        if(linearLayoutManager.findLastCompletelyVisibleItemPosition() >= childPos - 1) {
+                            ((AppBarLayout) ((StoreDetailActivity) context).findViewById(R.id.app_bar_store_detail)).setExpanded(false);
+                        }
                         notifyDataSetChanged();
                     }
                 }
@@ -188,6 +194,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     app.getCart().setStoreId(store.getId());
                     app.getCart().setStoreName(store.getName());
                     app.getCart().addCartItem(menu);
+
+                    menus.remove(getChildPos());
 
                     Intent intent = new Intent(context, OrderActivity.class);
                     context.startActivity(intent);

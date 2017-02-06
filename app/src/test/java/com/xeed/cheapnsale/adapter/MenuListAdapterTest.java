@@ -105,6 +105,33 @@ public class MenuListAdapterTest {
         assertThat(childHolder.buttonOrderNowMenu.getVisibility()).isEqualTo(View.GONE);
     }
 
+    @Test
+    public void whenDirectOrderButtonClick_thenRemoveChildRecylerview() throws Exception {
+        MenuListChildHolder childHolder = (MenuListChildHolder) menuListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 1);
+
+        Menu cartItem = new Menu();
+        cartItem.setMenuId("menu_1");
+        cartItem.setMenuName("만두");
+        cartItem.setMenuPrice(5000);
+        cartItem.setMenuItemCount(1);
+
+        Application app = ((Application)childHolder.itemView.getContext().getApplicationContext());
+
+        app.getCart().setStoreId("store_1");
+        app.getCart().addCartItem(cartItem);
+
+        menuListAdapter.onBindViewHolder(headerHolder, 0);
+        headerHolder.itemView.performClick();
+        menuListAdapter.onBindViewHolder(childHolder, 1);
+
+        childHolder.buttonOrderNowMenu.performClick();
+
+        for (int i=0; i< menuListAdapter.getItemCount(); i++){
+            assertThat(menuListAdapter.getItemViewType(i)).isEqualTo(0);
+        }
+    }
+
+
     private ArrayList<Menu> makeMockList() {
         ArrayList<Menu> list = new ArrayList<>();
         for (int i = 0; i < 3; i ++) {

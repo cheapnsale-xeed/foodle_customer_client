@@ -45,26 +45,30 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         final Order order = myOrder.get(position);
         String menuContent;
 
-        holder.picasso.load(order.getMenus().get(0).getMenuImg())
-                .transform(new CropCircleTransformation())
-                .into(holder.imageItemSrcMyOrder);
-        if (order.getStatus().equals("DONE")) {
-            holder.textStatusMyOrder.setText(R.string.ready_to_pickup);
-            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu_done));
-        } else if (order.getStatus().equals("PREPARE")) {
-            holder.textStatusMyOrder.setText(R.string.now_prepare);
-            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
-        } else if (order.getStatus().equals("READY")) {
-            holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
-            holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
-        }
+        if (order.getMenus().size() !=0 ) {
+            holder.picasso.load(order.getMenus().get(0).getMenuImg())
+                    .transform(new CropCircleTransformation())
+                    .into(holder.imageItemSrcMyOrder);
 
-        if (order.getMenus().size() > 1) {
-            menuContent = order.getMenus().get(0).getMenuName() + " 외 " + String.valueOf(order.getMenus().size() - 1) + "개";
-        } else {
-            menuContent = order.getMenus().get(0).getMenuName();
+            if (order.getStatus().equals("DONE")) {
+                holder.textStatusMyOrder.setText(R.string.ready_to_pickup);
+                holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu_done));
+            } else if (order.getStatus().equals("PREPARE")) {
+                holder.textStatusMyOrder.setText(R.string.now_prepare);
+                holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
+            } else if (order.getStatus().equals("READY")) {
+                holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
+                holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
+            }
+
+            if (order.getMenus().size() > 1) {
+                menuContent = order.getMenus().get(0).getMenuName() + " 외 " + String.valueOf(order.getMenus().size() - 1) + "개";
+            } else {
+                menuContent = order.getMenus().get(0).getMenuName();
+            }
+
+            holder.textItemNameMyOrder.setText(menuContent);
         }
-        holder.textItemNameMyOrder.setText(menuContent);
         holder.textStoreNameMyOrder.setText(order.getStoreName());
         holder.textPickupTimeMyOrder.setText(DateUtil.myOrderPickUpTime(order.getPickupTime()));
 
