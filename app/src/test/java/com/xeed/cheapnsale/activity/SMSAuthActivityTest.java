@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -7,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.service.model.SMSAuth;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +17,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
+import org.robolectric.shadows.ShadowDialog;
+import org.robolectric.shadows.ShadowToast;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -91,5 +96,38 @@ public class SMSAuthActivityTest {
         editAuthNumber.setText("12345");
         assertThat(buttonAuthSend.isEnabled()).isFalse();
 
+    }
+
+    @Test
+    public void whenAuthAllow_thenShowDialogAndFinish() throws Exception {
+        EditText editAuthNumber = (EditText) smsAuthActivity.findViewById(R.id.edit_auth_number_smsauth);
+        Button buttonAuthSend = (Button) smsAuthActivity.findViewById(R.id.button_auth_send_smsauth);
+
+        when(smsAuthActivity.cheapnsaleService.getConfirmSMSAuth(any(SMSAuth.class))).thenReturn("ALLOW");
+
+        editAuthNumber.setText("123456");
+        buttonAuthSend.performClick();
+
+        AlertDialog authDialog = (AlertDialog) ShadowDialog.getLatestDialog();
+        assertThat(authDialog.isShowing()).isTrue();
+
+        Button confirmButton = (Button) authDialog.findViewById(android.R.id.button1);
+
+        confirmButton.performClick();
+        assertThat(smsAuthActivity.isFinishing()).isTrue();
+    }
+
+    @Test
+    public void whenAuthDeny_thenShowToastAndClearAuthEdit() throws Exception {
+        EditText editAuthNumber = (EditText) smsAuthActivity.findViewById(R.id.edit_auth_number_smsauth);
+        Button buttonAuthSend = (Button) smsAuthActivity.findViewById(R.id.button_auth_send_smsauth);
+
+        when(smsAuthActivity.cheapnsaleService.getConfirmSMSAuth(any(SMSAuth.class))).thenReturn("DENY");
+
+        editAuthNumber.setText("123456");
+        buttonAuthSend.performClick();
+
+        assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("잘못된 인증번호");
+        assertThat(editAuthNumber.getText().toString()).isEqualTo("");
     }
 }

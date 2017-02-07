@@ -61,4 +61,6 @@
     <string name="txt_auth">인증</string>
     <string name="txt_remain_time">남은시간 :</string>
     <string name="txt_sms_resend">인증번호 재전송</string>
+    <string name="word_auth_confirm">인증되었습니다. \'확인\'을 누르면 서비스가 시작됩니다.</string>
+    <string name="txt_wrong_auth_number">잘못된 인증번호</string>
 </resources>

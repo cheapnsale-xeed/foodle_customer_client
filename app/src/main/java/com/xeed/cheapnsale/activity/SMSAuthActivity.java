@@ -2,11 +2,13 @@ package com.xeed.cheapnsale.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsMessage;
@@ -81,6 +83,7 @@ public class SMSAuthActivity extends AppCompatActivity {
         }
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this,R.drawable.ico_back));
 
+        smsAuth = new SMSAuth();
         editPhoneNumberSmsauth.addTextChangedListener(phoneChangedListener);
         editAuthNumberSmsauth.addTextChangedListener(authChangedListener);
 
@@ -133,7 +136,6 @@ public class SMSAuthActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
 
-                smsAuth = new SMSAuth();
                 smsAuth.setAUTH_ID(authId);
                 smsAuth.setPHONE_NUMBER(phoneNumber);
 
@@ -145,7 +147,6 @@ public class SMSAuthActivity extends AppCompatActivity {
 
             }
         }.execute();
-
     }
 
     @OnClick(R.id.button_auth_send_smsauth)
@@ -168,13 +169,29 @@ public class SMSAuthActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
 
                 if ("ALLOW".equals(authResult)) {
-                    Toast.makeText(getApplicationContext(), "ALLOW", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                    Intent intent = new Intent(SMSAuthActivity.this, MainActivity.class);
-//                    startActivity(intent);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SMSAuthActivity.this);
+                    builder.setMessage(R.string.word_auth_confirm);
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+                    dialog.show();
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "DENY", Toast.LENGTH_SHORT).show();
-                    Log.d("auth : ", authResult);
+                    editAuthNumberSmsauth.setText("");
+                    Toast.makeText(getApplicationContext(), R.string.txt_wrong_auth_number, Toast.LENGTH_SHORT).show();
                 }
 
             }
