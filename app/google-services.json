@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1082795272886",
+    "firebase_url": "https://cheapnsale-e5b3b.firebaseio.com",
+    "project_id": "cheapnsale-e5b3b",
+    "storage_bucket": "cheapnsale-e5b3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082795272886:android:3e1281ca06f892be",
+        "android_client_info": {
+          "package_name": "com.xeed.cheapnsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082795272886-9208jg6frfcq7ocib3aaf5r7skjfrou3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxA8mCs59xtCV2vc-3Km_ip6jVoaO_Mgc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

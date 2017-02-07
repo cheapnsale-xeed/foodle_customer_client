@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
+import com.xeed.cheapnsale.backgroundservice.PushFirebaseInstanceIdService;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
 
@@ -82,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 pagerMain.setCurrentItem(1);
             }
         }
+
+        Intent intent = new Intent(this, PushFirebaseInstanceIdService.class);
+        startService(intent);
 
     }
 
