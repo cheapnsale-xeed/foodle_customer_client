@@ -2,10 +2,13 @@ package com.xeed.cheapnsale.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +48,7 @@ public class SMSAuthActivity extends AppCompatActivity {
     private int authNumber;
 
     String result;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,28 @@ public class SMSAuthActivity extends AppCompatActivity {
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
 
+        setTitle(getResources().getString(R.string.txt_sms_auth));
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar_smsauth);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this,R.drawable.ico_back));
         editPhoneNumberSmsauth.addTextChangedListener(phoneChangedListener);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private TextWatcher phoneChangedListener = new TextWatcher() {
