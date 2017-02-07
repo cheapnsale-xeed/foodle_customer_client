@@ -2,8 +2,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -12,7 +13,8 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:background="@color/colorWhite"
-        card_view:cardCornerRadius="5dp">
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,9 +47,9 @@
                     android:layout_marginStart="26.2dp"
                     android:layout_marginTop="28dp"
                     android:layout_toEndOf="@+id/image_item_src_cart"
-                    android:text="놀부 왕족발 세트"
                     android:textColor="@color/colorBlack"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    tools:text="놀부 왕족발 세트" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -71,10 +73,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/image_minus_button_cart"
-                        android:text="1"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        tools:text="1" />
 
                     <ImageView
                         android:id="@+id/image_plus_button_cart"
@@ -90,9 +92,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="22,000원"
                         android:textColor="@color/colorPointRed"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        tools:text="22,000원" />
                 </RelativeLayout>
 
             </RelativeLayout>

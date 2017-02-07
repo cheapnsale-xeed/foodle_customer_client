@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xeed.cheapnsale.activity.SignUpActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/image_bg"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_area"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+    <Button
+        android:layout_width="294dp"
+        android:layout_height="50dp"
+        android:text="구글계정으로 이용하기"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/shape_signup_rounded_button"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140.2dp"
+        />
+
+    <Button
+        android:layout_width="294dp"
+        android:layout_height="50dp"
+        android:text="페이스북으로 이용하기"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/shape_signup_rounded_button"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="78.2dp"
+        />
+
+    <TextView
+        android:id="@+id/text_preview_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="우선 둘러볼게요"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28.2dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="33dp"
+        android:textSize="15dp"
+        android:textColor="@color/colorWhite"
+
+        />
+
+
+
+</RelativeLayout>

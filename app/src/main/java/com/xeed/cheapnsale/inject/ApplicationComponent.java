@@ -3,13 +3,14 @@ package com.xeed.cheapnsale.inject;
 import com.xeed.cheapnsale.activity.MainActivity;
 import com.xeed.cheapnsale.activity.MapActivity;
 import com.xeed.cheapnsale.activity.OrderActivity;
+import com.xeed.cheapnsale.activity.SMSAuthActivity;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
 import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.fragments.MyOrderFragment;
 import com.xeed.cheapnsale.fragments.StoreListFragment;
-import com.xeed.cheapnsale.holder.CartListHolder;
+import com.xeed.cheapnsale.holder.CartListHeadHolder;
 import com.xeed.cheapnsale.holder.MapStoreListHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
 import com.xeed.cheapnsale.holder.StoreListHolder;
@@ -28,7 +29,7 @@ public interface ApplicationComponent {
     void inject(MyOrderFragment myOrderFragment);
     void inject(MyOrderCurrentAdapter.MyOrderCurrentHolder myOrderCurrentHolder);
     void inject(MyOrderPastAdapter.MyOrderPastHolder myOrderPastHolder);
-    void inject(CartListHolder cartListHolder);
+    void inject(CartListHeadHolder cartListHeadHolder);
     void inject(StoreDetailActivity storeDetailActivity);
     void inject(OrderActivity orderActivity);
     void inject(MenuListFragment menuListFragment);
@@ -36,5 +37,6 @@ public interface ApplicationComponent {
     void inject(MapActivity mapActivity);
     void inject(MapStoreListHolder mapStoreListHolder);
     void inject(MainActivity mainActivity);
+    void inject(SMSAuthActivity smsAuthActivity);
 
 }
