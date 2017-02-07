@@ -1,16 +1,23 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
@@ -23,8 +30,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.iwgang.countdownview.CountdownView;
 
 public class SMSAuthActivity extends AppCompatActivity {
+
+    private final long COUNTDOWN_START_TIME = 180000;
+    private final long COUNTDOWN_INTERVAL = 450;
 
     @Inject
     public CheapnsaleService cheapnsaleService;
@@ -41,11 +52,17 @@ public class SMSAuthActivity extends AppCompatActivity {
     @BindView(R.id.edit_auth_number_smsauth)
     public EditText editAuthNumberSmsauth;
 
-    private String authID;
-    private int authNumber;
+    @BindView(R.id.layout_remain_time_smsauth)
+    public LinearLayout layoutRemainTimeSmsauth;
 
-    String result;
+    @BindView(R.id.text_remain_time_smsauth)
+    public CountdownView textRemainTimeSmsauth;
+
+    public String authId;
+    private String smsMessage;
     private Toolbar toolbar;
+    private SMSAuth smsAuth;
+    private String authResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +79,15 @@ public class SMSAuthActivity extends AppCompatActivity {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this,R.drawable.ico_back));
 
-
         editPhoneNumberSmsauth.addTextChangedListener(phoneChangedListener);
+        editAuthNumberSmsauth.addTextChangedListener(authChangedListener);
 
-        buttonSmsSendSmsauth.setEnabled(false);
+        textRemainTimeSmsauth.setOnCountdownEndListener(countdownEndListener);
 
+        IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(smsReceiver, intentFilter);
     }
 
     @Override
@@ -84,48 +102,64 @@ public class SMSAuthActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(smsReceiver);
+    }
+
     @OnClick(R.id.button_sms_send_smsauth)
     public void onClickSmsSendButton(View view) {
 
         if (!buttonSmsSendSmsauth.isEnabled()) return;
 
-
-        /*
-        authID = UUID.randomUUID().toString().replaceAll("-","");
+        final String phoneNumber = editPhoneNumberSmsauth.getText().toString();
 
         new AsyncTask<Void, Void, Void>() {
 
             @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                buttonSmsSendSmsauth.setText(R.string.txt_sms_resend);
+            }
+
+            @Override
             protected Void doInBackground(Void... voids) {
-                authNumber = cheapnsaleService.putPrepareSMSAuth(authID);
+                authId = cheapnsaleService.putPrepareSMSAuth(phoneNumber);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+
+                smsAuth = new SMSAuth();
+                smsAuth.setAUTH_ID(authId);
+                smsAuth.setPHONE_NUMBER(phoneNumber);
+
+                buttonSmsSendSmsauth.setEnabled(false);
+                editAuthNumberSmsauth.setEnabled(true);
+                textRemainTimeSmsauth.start(COUNTDOWN_START_TIME);
+                layoutRemainTimeSmsauth.setVisibility(View.VISIBLE);
+                textRemainTimeSmsauth.setOnCountdownIntervalListener(COUNTDOWN_INTERVAL, countdownIntervalListener);
+
             }
         }.execute();
-        */
-
 
     }
 
     @OnClick(R.id.button_auth_send_smsauth)
     public void onClickAuthSendButton(View view) {
 
-        final SMSAuth smsAuth = new SMSAuth();
-        smsAuth.setAUTH_ID("1234");
-        smsAuth.setAUTH_NUMBER(7150);
-        smsAuth.setPHONE_NUMBER("01050985674");
+        if (!buttonAuthSendSmsauth.isEnabled()) return;
+
+        smsAuth.setAUTH_NUMBER(Integer.parseInt(editAuthNumberSmsauth.getText().toString()));
 
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                // parameter : authID, authNumber
-//                result = cheapnsaleService.putPrepareSMSAuth(authID);
-                result = cheapnsaleService.getConfirmSMSAuth(smsAuth);
+                authResult = cheapnsaleService.getConfirmSMSAuth(smsAuth);
                 return null;
             }
 
@@ -133,10 +167,14 @@ public class SMSAuthActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
 
-                if ("ALLOW".equals(result)) {
+                if ("ALLOW".equals(authResult)) {
                     Toast.makeText(getApplicationContext(), "ALLOW", Toast.LENGTH_SHORT).show();
+//                    finish();
 //                    Intent intent = new Intent(SMSAuthActivity.this, MainActivity.class);
 //                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "DENY", Toast.LENGTH_SHORT).show();
+                    Log.d("auth : ", authResult);
                 }
 
             }
@@ -153,7 +191,7 @@ public class SMSAuthActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (s.length() >= 10) {
                 buttonSmsSendSmsauth.setEnabled(true);
-            }else{
+            } else {
                 buttonSmsSendSmsauth.setEnabled(false);
             }
         }
@@ -163,4 +201,77 @@ public class SMSAuthActivity extends AppCompatActivity {
 
         }
     };
+
+    private TextWatcher authChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.length() == 6) {
+                buttonAuthSendSmsauth.setEnabled(true);
+            } else {
+                buttonAuthSendSmsauth.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    private BroadcastReceiver smsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("android.provider.Telephony.SMS_RECEIVED".equals(intent.getAction())) {
+                Bundle bundle = intent.getExtras();
+
+                if (bundle != null) {
+                    Object[] pdus = (Object[]) bundle.get("pdus");
+
+                    SmsMessage[] msgs = new SmsMessage[pdus.length];
+
+                    for (int i = 0; i < msgs.length; i ++) {
+                        msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                    }
+
+                    smsMessage = msgs[0].getMessageBody().toString();
+                    if (smsMessage != null) {
+                        setAuthEditFill(smsMessage);
+                    }
+                }
+            }
+        }
+    };
+
+    private CountdownView.OnCountdownIntervalListener countdownIntervalListener = new CountdownView.OnCountdownIntervalListener() {
+        @Override
+        public void onInterval(CountdownView cv, long remainTime) {
+            if (remainTime <= 171000) {
+                buttonSmsSendSmsauth.setEnabled(true);
+                textRemainTimeSmsauth.setOnCountdownIntervalListener(0, null);
+            }
+            Log.d("auth count interval: ", "" + remainTime);
+        }
+    };
+
+    private CountdownView.OnCountdownEndListener countdownEndListener = new CountdownView.OnCountdownEndListener() {
+        @Override
+        public void onEnd(CountdownView cv) {
+            layoutRemainTimeSmsauth.setVisibility(View.GONE);
+            editAuthNumberSmsauth.setText("");
+            editAuthNumberSmsauth.setEnabled(false);
+        }
+    };
+
+    private void setAuthEditFill(String smsMessage) {
+        if (smsMessage.contains("푸들")){
+            int endPos = smsMessage.indexOf("을");
+            int startPos = endPos - 6;
+            editAuthNumberSmsauth.setText(smsMessage.substring(startPos, endPos));
+        }
+    }
 }

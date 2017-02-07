@@ -44,7 +44,7 @@ public interface CheapnsaleApi {
     Payment putPreparePayments(Order order);
 
     @Operation(path = "/sms/prepare", method = "PUT")
-    int putPrepareSMSAuth(String authID);
+    String putPrepareSMSAuth(String authID);
 
     @Operation(path = "/sms/confirm", method = "POST")
     String getConfirmSMSAuth(SMSAuth smsAuth);
