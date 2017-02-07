@@ -7,19 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.SMSAuth;
-
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -32,11 +29,11 @@ public class SMSAuthActivity extends AppCompatActivity {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
-    @BindView(R.id.text_sms_send_smsauth)
-    public TextView textSmsSendSmsauth;
+    @BindView(R.id.button_sms_send_smsauth)
+    public Button buttonSmsSendSmsauth;
 
-    @BindView(R.id.text_auth_send_smsauth)
-    public TextView textAuthSendSmsauth;
+    @BindView(R.id.button_auth_send_smsauth)
+    public Button buttonAuthSendSmsauth;
 
     @BindView(R.id.edit_phone_number_smsauth)
     public EditText editPhoneNumberSmsauth;
@@ -67,7 +64,12 @@ public class SMSAuthActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this,R.drawable.ico_back));
+
+
         editPhoneNumberSmsauth.addTextChangedListener(phoneChangedListener);
+
+        buttonSmsSendSmsauth.setEnabled(false);
+
     }
 
     @Override
@@ -82,27 +84,13 @@ public class SMSAuthActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private TextWatcher phoneChangedListener = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (s.length() >= 10) {
-                Log.d("AUTH : ", ""+s.length());
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
-    @OnClick(R.id.text_sms_send_smsauth)
+    @OnClick(R.id.button_sms_send_smsauth)
     public void onClickSmsSendButton(View view) {
+
+        if (!buttonSmsSendSmsauth.isEnabled()) return;
+
+
+        /*
         authID = UUID.randomUUID().toString().replaceAll("-","");
 
         new AsyncTask<Void, Void, Void>() {
@@ -118,11 +106,12 @@ public class SMSAuthActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
             }
         }.execute();
+        */
 
 
     }
 
-    @OnClick(R.id.text_auth_send_smsauth)
+    @OnClick(R.id.button_auth_send_smsauth)
     public void onClickAuthSendButton(View view) {
 
         final SMSAuth smsAuth = new SMSAuth();
@@ -153,4 +142,25 @@ public class SMSAuthActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
+    private TextWatcher phoneChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.length() >= 10) {
+                buttonSmsSendSmsauth.setEnabled(true);
+            }else{
+                buttonSmsSendSmsauth.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 }
