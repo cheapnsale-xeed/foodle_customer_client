@@ -130,7 +130,11 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                MainActivity.super.onBackPressed();
+
+                Intent launchIntent = new Intent(Intent.ACTION_MAIN);
+                launchIntent.addCategory(Intent.CATEGORY_HOME);
+                launchIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(launchIntent);
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
