@@ -85,7 +85,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="#305ae2"
         app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="#111cc4"
+        app:tabSelectedTextColor="@color/colorFocusedText"
         app:tabTextAppearance="@style/MainTabTextAppearance"
         app:tabTextColor="@android:color/black" />
 

@@ -3,7 +3,6 @@ package com.xeed.cheapnsale;
 import android.location.Location;
 import android.support.annotation.VisibleForTesting;
 
-import com.nhn.android.maps.maplib.NGeoPoint;
 import com.xeed.cheapnsale.inject.ApplicationComponent;
 import com.xeed.cheapnsale.inject.ApplicationModule;
 import com.xeed.cheapnsale.inject.DaggerApplicationComponent;

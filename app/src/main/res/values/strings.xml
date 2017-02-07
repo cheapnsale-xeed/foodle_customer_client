@@ -52,4 +52,5 @@
     <string name="txt_no">아니오</string>
     <string name="txt_yes">예</string>
     <string name="txt_cart_add_menu">의 메뉴 추가하기</string>
+    <string name="txt_sms_auth">휴대폰 번호 인증</string>
 </resources>

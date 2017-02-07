@@ -95,12 +95,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="길찾기"
-                                android:textColor="#99000000" />
+                                android:textColor="@color/colorGrayMapStore" />
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="#99000000" />
+                                android:background="@color/colorGrayMapStore" />
 
                         </LinearLayout>
 

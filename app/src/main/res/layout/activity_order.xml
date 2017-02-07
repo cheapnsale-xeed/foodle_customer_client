@@ -155,7 +155,7 @@
                             android:layout_width="1dp"
                             android:layout_height="13dp"
                             android:layout_centerVertical="true"
-                            android:background="#c7c7c7" />
+                            android:background="@color/colorGrayBar" />
 
                         <TextView
                             android:id="@+id/text_dialog_picked_time_order"
@@ -188,7 +188,7 @@
                             android:layout_marginEnd="17dp"
                             android:background="@drawable/shape_direct_order_button"
                             android:text="@string/pick_time_reset"
-                            android:textColor="#111cc4"
+                            android:textColor="@color/colorFocusedText"
                             android:textSize="13dp" />
 
                     </RelativeLayout>
@@ -288,7 +288,7 @@
                         android:layout_marginStart="3dp"
                         android:gravity="center_vertical"
                         android:text="@string/order_user_info_change"
-                        android:textColor="#111cc4"
+                        android:textColor="@color/colorFocusedText"
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
@@ -456,7 +456,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/word_pickup_personal_info_agree_term"
-                        android:textColor="#99000000"
+                        android:textColor="@color/colorGrayMapStore"
                         android:textSize="15dp" />
 
                     <TextView
@@ -464,7 +464,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/word_pickup_personal_term_show"
-                        android:textColor="#99000000"
+                        android:textColor="@color/colorGrayMapStore"
                         android:textAlignment="viewEnd"
                         android:textSize="15dp" />
 
@@ -494,7 +494,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/word_pickup_personal_info_3rd_term"
-                        android:textColor="#99000000"
+                        android:textColor="@color/colorGrayMapStore"
                         android:textSize="15dp" />
 
                     <TextView
@@ -502,7 +502,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/word_pickup_personal_term_show"
-                        android:textColor="#99000000"
+                        android:textColor="@color/colorGrayMapStore"
                         android:textAlignment="viewEnd"
                         android:textSize="15dp"
                         android:id="@+id/textView2" />
@@ -537,7 +537,7 @@
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="3dp"
                     android:text="@string/word_pickup_terms_second"
-                    android:textColor="#99000000"
+                    android:textColor="@color/colorGrayMapStore"
                     android:textSize="13dp" />
 
             </LinearLayout>

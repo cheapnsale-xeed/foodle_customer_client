@@ -21,7 +21,7 @@
         android:layout_height="25dp"
         android:layout_alignBottom="@+id/image_src_store"
         android:layout_alignEnd="@+id/image_src_store"
-        android:background="#4d58f2"
+        android:background="@color/colorFooter"
         android:gravity="center_vertical"
         android:hint="즉시픽업!"
         android:textAlignment="center"
@@ -74,7 +74,7 @@
                 android:layout_marginEnd="6.5dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
-                android:background="#c7c7c7" />
+                android:background="@color/colorGrayBar" />
 
             <TextView
                 android:id="@+id/text_distance_store"

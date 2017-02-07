@@ -4,68 +4,142 @@
     android:id="@+id/activity_smsauth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.xeed.cheapnsale.activity.SMSAuthActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_smsauth"
+        android:layout_width="match_parent"
+        android:paddingStart="10dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
+
+    <View
+        android:id="@+id/view_horizon_bar_smsauth"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tool_bar_smsauth"
+        android:background="#d3d3d3" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/view_horizon_bar_smsauth"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginBottom="19dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="19dp"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edit_phone_number_smsauth"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:background="@drawable/shape_order_edittext"
-                android:text="01012345678"
-                android:inputType="phone"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원활한 사용을 위해 휴대폰 인증을 해주세요."
+                android:textColor="#cc000000"
+                android:textSize="13dp" />
 
-            <Button
-                android:id="@+id/button_sms_send_smsauth"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:text="인증번호 전송"
-                android:textSize="14dp"
-                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인증된 번호는 결제 시 연락처에 자동으로 입력됩니다."
+                android:textColor="#cc000000"
+                android:textSize="13dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_phone_number_smsauth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_order_edittext"
+                android:hint="휴대폰 번호"
+                android:inputType="number"
+                android:maxLength="11"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:textColorHint="#66000000" />
+
+            <TextView
+                android:id="@+id/text_sms_send_smsauth"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_smsauth_edittext"
+                android:gravity="center"
+                android:text="인증번호 전송"
+                android:textColor="#66000000"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/edit_auth_number_smsauth"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/shape_order_edittext"
-                android:inputType="phone"
-                android:paddingStart="10dp"
+                android:hint="인증번호 입력"
+                android:inputType="number"
+                android:maxLength="6"
                 android:paddingEnd="10dp"
-                />
+                android:paddingStart="10dp"
+                android:textColorHint="#66000000" />
 
-            <Button
-                android:id="@+id/button_auth_send_smsauth"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
+            <TextView
+                android:id="@+id/text_auth_send_smsauth"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_smsauth_edittext"
+                android:gravity="center"
                 android:text="인증"
-                android:textSize="14dp"
-                />
+                android:textColor="#66000000"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_remain_time_smsauth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="남은시간 : "
+                android:textColor="@color/colorPointRed"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/text_remain_time_smsauth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPointRed"
+                android:textSize="13dp"
+                tools:text="2:38" />
 
         </LinearLayout>
 
