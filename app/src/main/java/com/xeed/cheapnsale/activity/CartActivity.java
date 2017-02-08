@@ -77,6 +77,8 @@ public class CartActivity extends AppCompatActivity {
 
     @OnClick(R.id.text_order_button_footer)
     public void onClickFooterOrderButton(View view) {
+        // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
+        cartListAdapter.cartItems.remove(cartListAdapter.cartItems.size()-1);
         Intent intent = new Intent(CartActivity.this, OrderActivity.class);
         startActivity(intent);
     }
