@@ -164,6 +164,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     menu.setMenuPrice(menus.get(getChildPos()).getMenuPrice());
                     menu.setMenuImg(menus.get(getChildPos()).getMenuImg());
                     menu.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
+                    menu.setMenuItemTotalPrice(menu.getMenuItemCount() * menu.getMenuPrice());
 
                     app.getCart().setStoreId(store.getId());
                     app.getCart().setStoreName(store.getName());
@@ -190,6 +191,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     menu.setMenuPrice(menus.get(getChildPos()).getMenuPrice());
                     menu.setMenuImg(menus.get(getChildPos()).getMenuImg());
                     menu.setMenuItemCount(Integer.parseInt(childHolder.textItemCountMenu.getText().toString()));
+                    menu.setMenuItemTotalPrice(menu.getMenuItemCount() * menu.getMenuPrice());
 
                     app.getCart().setStoreId(store.getId());
                     app.getCart().setStoreName(store.getName());

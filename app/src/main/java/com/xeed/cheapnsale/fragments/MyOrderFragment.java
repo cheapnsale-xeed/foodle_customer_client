@@ -73,13 +73,15 @@ public class MyOrderFragment extends Fragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                myCurrentOrder = cheapnsaleService.getMyOrder(((Application) getActivity().getApplication()).getUserEmail());
-                myPastOrder.clear();
+                if (getActivity().getApplication() != null) {
+                    myCurrentOrder = cheapnsaleService.getMyOrder(((Application) getActivity().getApplication()).getUserEmail());
+                    myPastOrder.clear();
 
-                for (int i=myCurrentOrder.size() - 1; i >= 0 ; i--) {
-                    if("FINISH".equals(myCurrentOrder.get(i).getStatus())) {
-                        myPastOrder.add(myCurrentOrder.get(i));
-                        myCurrentOrder.remove(i);
+                    for (int i=myCurrentOrder.size() - 1; i >= 0 ; i--) {
+                        if(Order.STATUS.FINISH.name().equals(myCurrentOrder.get(i).getStatus())) {
+                            myPastOrder.add(myCurrentOrder.get(i));
+                            myCurrentOrder.remove(i);
+                        }
                     }
                 }
 

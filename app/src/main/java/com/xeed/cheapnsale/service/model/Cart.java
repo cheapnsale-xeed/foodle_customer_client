@@ -59,6 +59,7 @@ public class Cart {
         for (int i = 0; i < menus.size(); ++i) {
             if (menus.get(i).getMenuId().equals(menuId)) {
                 menus.get(i).setMenuItemCount(menus.get(i).getMenuItemCount() + 1);
+                menus.get(i).setMenuItemTotalPrice(menus.get(i).getMenuItemCount() * menus.get(i).getMenuPrice());
                 break;
             }
         }
@@ -70,6 +71,7 @@ public class Cart {
             if (menus.get(i).getMenuId().equals(menuId)) {
                 if (menus.get(i).getMenuItemCount() < 2) break;
                 menus.get(i).setMenuItemCount(menus.get(i).getMenuItemCount() - 1);
+                menus.get(i).setMenuItemTotalPrice(menus.get(i).getMenuItemCount() * menus.get(i).getMenuPrice());
                 break;
             }
         }

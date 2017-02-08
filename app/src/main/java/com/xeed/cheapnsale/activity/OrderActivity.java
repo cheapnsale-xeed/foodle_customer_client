@@ -207,9 +207,10 @@ public class OrderActivity extends AppCompatActivity {
                         order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
                         order.setMenus(cart.getMenus());
                         order.setStoreId(storeId);
-                        order.setStatus("READY");
+                        order.setStatus(Order.STATUS.READY.name());
                         order.setStoreName(store.getName());
                         order.setEmail(((Application) getApplication()).getUserEmail());
+                        order.setFcmToken(((Application) getApplication()).getFcmToken());
 
                         if (radioNowButtonOrder.isChecked()) {
                             order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));

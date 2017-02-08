@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 (getSupportFragmentManager(), tabMain.getTabCount());
         pagerMain.setAdapter(adapter);
         pagerMain.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabMain));
-        tabMain.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabMain.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pagerMain.setCurrentItem(tab.getPosition());
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
             if (isPayment) {
                 pagerMain.setCurrentItem(1);
             }
+        }
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().get(getResources().getString(R.string.notification)) != null) {
+            pagerMain.setCurrentItem(1);
         }
 
         Intent intent = new Intent(this, PushFirebaseInstanceIdService.class);

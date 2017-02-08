@@ -15,6 +15,15 @@ public class Application extends android.app.Application {
     private Cart cart;
     private String userEmail = "cheapnsale.xeed@gmail.com";
     private Location myLocation;
+    private String fcmToken = null;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 
     public Location getMyLocation() {
         return myLocation;
