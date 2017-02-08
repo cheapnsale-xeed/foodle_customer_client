@@ -54,4 +54,14 @@
     <string name="txt_cart_add_menu">의 메뉴 추가하기</string>
     <string name="txt_sms_auth">휴대폰 번호 인증</string>
     <string name="notification">NOTIFICATION</string>
+    <string name="word_auth_info_1">원활한 사용을 위해 휴대폰 인증을 해주세요.</string>
+    <string name="word_auth_info_2">인증된 번호는 결제 시 연락처에 자동으로 입력됩니다.</string>
+    <string name="txt_phone_number">휴대폰 번호</string>
+    <string name="txt_send_auth_number">인증번호 전송</string>
+    <string name="txt_input_auth_number">인증번호 입력</string>
+    <string name="txt_auth">인증</string>
+    <string name="txt_remain_time">남은시간 :</string>
+    <string name="txt_sms_resend">인증번호 재전송</string>
+    <string name="word_auth_confirm">인증되었습니다. \'확인\'을 누르면 서비스가 시작됩니다.</string>
+    <string name="txt_wrong_auth_number">잘못된 인증번호</string>
 </resources>
