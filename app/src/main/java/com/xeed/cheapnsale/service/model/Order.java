@@ -23,6 +23,8 @@ public class Order implements Serializable {
     private String status;
     @SerializedName("PICKUP_TIME")
     private String pickupTime;
+    @SerializedName("FCM_TOKEN")
+    private String fcmToken;
 
     public String getEmail() {
         return email;
@@ -72,5 +74,19 @@ public class Order implements Serializable {
     public void setStoreId(String sTORE_ID) {
         storeId = sTORE_ID;
     }
+    public String getFcmToken() {
+        return fcmToken;
+    }
 
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    public enum STATUS {
+        READY,
+        FINISH,
+        PREPARE,
+        CANCEL,
+        DONE,
+    };
 }

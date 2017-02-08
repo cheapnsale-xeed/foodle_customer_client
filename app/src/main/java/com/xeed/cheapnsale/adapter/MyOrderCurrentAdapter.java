@@ -50,13 +50,13 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
                     .transform(new CropCircleTransformation())
                     .into(holder.imageItemSrcMyOrder);
 
-            if (order.getStatus().equals("DONE")) {
+            if (order.getStatus().equals(Order.STATUS.DONE.name())) {
                 holder.textStatusMyOrder.setText(R.string.ready_to_pickup);
                 holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu_done));
-            } else if (order.getStatus().equals("PREPARE")) {
+            } else if (order.getStatus().equals(Order.STATUS.PREPARE.name())) {
                 holder.textStatusMyOrder.setText(R.string.now_prepare);
                 holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
-            } else if (order.getStatus().equals("READY")) {
+            } else if (order.getStatus().equals(Order.STATUS.READY.name())) {
                 holder.textStatusMyOrder.setText(R.string.ready_to_receipt);
                 holder.textStatusMyOrder.setBackground(ContextCompat.getDrawable(context, R.drawable.shape_my_order_menu));
             }
@@ -71,25 +71,6 @@ public class MyOrderCurrentAdapter extends RecyclerView.Adapter<MyOrderCurrentAd
         }
         holder.textStoreNameMyOrder.setText(order.getStoreName());
         holder.textPickupTimeMyOrder.setText(DateUtil.myOrderPickUpTime(order.getPickupTime()));
-
-        // 데모용 클릭이벤트 (POS 프로세스가 추가되면 삭제 예정임)
-        holder.imageItemSrcMyOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (order.getStatus().equals("DONE")) {
-                    order.setStatus("READY");
-                } else if (order.getStatus().equals("PREPARE")) {
-                    order.setStatus("DONE");
-                } else if (order.getStatus().equals("READY")) {
-                    order.setStatus("PREPARE");
-                }
-
-                notifyDataSetChanged();
-            }
-        });
-
-
     }
 
     @Override
