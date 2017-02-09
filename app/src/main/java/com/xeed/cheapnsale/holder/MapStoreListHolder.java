@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.holder;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +34,9 @@ public class MapStoreListHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.view_vertical_bar_map)
     public View viewVerticalBarMap;
+
+    @BindView(R.id.card_view_map_store)
+    public CardView cardViewMapStore;
 
     @Inject
     public Picasso picasso;

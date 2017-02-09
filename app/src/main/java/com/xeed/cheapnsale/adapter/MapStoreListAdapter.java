@@ -1,12 +1,14 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.activity.StoreDetailActivity;
 import com.xeed.cheapnsale.holder.MapStoreListHolder;
 import com.xeed.cheapnsale.service.model.Store;
 
@@ -55,6 +57,15 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
             holder.textArrivalTimeMap.setText("도보 " + arrivalTime + "분");
 
         }
+
+        holder.cardViewMapStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), StoreDetailActivity.class);
+                intent.putExtra("store", stores.get(position));
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
