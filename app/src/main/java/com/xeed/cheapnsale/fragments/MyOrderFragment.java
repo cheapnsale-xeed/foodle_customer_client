@@ -18,6 +18,7 @@ import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.util.DateUtil;
 
 import java.util.ArrayList;
 
@@ -78,7 +79,12 @@ public class MyOrderFragment extends Fragment {
                     myPastOrder.clear();
 
                     for (int i=myCurrentOrder.size() - 1; i >= 0 ; i--) {
+                        // 주문의 상태가 픽업완료 일 때 과거주문내역으로
                         if(Order.STATUS.FINISH.name().equals(myCurrentOrder.get(i).getStatus())) {
+                            myPastOrder.add(myCurrentOrder.get(i));
+                            myCurrentOrder.remove(i);
+                        // 주문의 픽업 시간이 현재보다 과거일 때 과거주문내역으로
+                        } else if (DateUtil.stringToDate(myCurrentOrder.get(i).getPickupTime()).getTime() < System.currentTimeMillis()) {
                             myPastOrder.add(myCurrentOrder.get(i));
                             myCurrentOrder.remove(i);
                         }

@@ -18,6 +18,7 @@ import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 import com.xeed.cheapnsale.backgroundservice.PushFirebaseInstanceIdService;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.util.DateUtil;
 
 import java.util.ArrayList;
 
@@ -112,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 myOrder = cheapnsaleService.getMyCurrentOrder(((Application) getApplication()).getUserEmail());
+                for (int i=myOrder.size() - 1; i >= 0 ; i--) {
+                    if (DateUtil.stringToDate(myOrder.get(i).getPickupTime()).getTime() < System.currentTimeMillis()) {
+                        myOrder.remove(i);
+                    }
+                }
                 return null;
             }
 
