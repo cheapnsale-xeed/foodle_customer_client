@@ -125,6 +125,8 @@ public class MapActivity extends NMapActivity {
             myLocPoiData.addPOIitem(myLocation, null, NMapPOIflagType.MY_LOC, null);
             myLocPoiData.endPOIdata();
             poiDataOverlay = mOverlayManager.createPOIdataOverlay(myLocPoiData, null);
+
+            poiDataOverlay.selectPOIitem(myLocPoiData.getPOIitem(0), true);
         }
 
     }
@@ -160,7 +162,7 @@ public class MapActivity extends NMapActivity {
                     // create POI data overlay
                     poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
                     poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
-                    poiDataOverlay.selectPOIitem(0, true);
+//                    poiDataOverlay.selectPOIitem(0, true);
 
                     for (int i = 0; i < stores.size(); ++i) {
                         stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
