@@ -60,16 +60,16 @@ public class MyOrderFragmentTest {
 
         when(myOrderFragment.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockOrders());
         myOrderFragment.onResume();
-        assertThat(myNowOrderList.getAdapter().getItemCount()).isEqualTo(3);
+        assertThat(myNowOrderList.getAdapter().getItemCount()).isEqualTo(2);
 
         myNowOrderList.getAdapter().onBindViewHolder(myOrderCurrentHolder, 0);
         assertThat(myOrderCurrentHolder.textStatusMyOrder.getText()).isEqualTo("접수\n대기");
 
         myNowOrderList.getAdapter().onBindViewHolder(myOrderCurrentHolder, 1);
         assertThat(myOrderCurrentHolder.textStatusMyOrder.getText()).isEqualTo("준비\n중");
-
-        myNowOrderList.getAdapter().onBindViewHolder(myOrderCurrentHolder, 2);
-        assertThat(myOrderCurrentHolder.textStatusMyOrder.getText()).isEqualTo("준비\n완료");
+//
+//        myNowOrderList.getAdapter().onBindViewHolder(myOrderCurrentHolder, 2);
+//        assertThat(myOrderCurrentHolder.textStatusMyOrder.getText()).isEqualTo("준비\n완료");
 
     }
 
@@ -82,7 +82,7 @@ public class MyOrderFragmentTest {
 
         when(myOrderFragment.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockOrders());
         myOrderFragment.onResume();
-        assertThat(myPastOrderList.getAdapter().getItemCount()).isEqualTo(2);
+        assertThat(myPastOrderList.getAdapter().getItemCount()).isEqualTo(3);
 
         myPastOrderList.getAdapter().onBindViewHolder(myOrderPastHolder, 0);
         assertThat(myOrderPastHolder.textItemNameMyOrder.getText()).isEqualTo("족보세트 외 1개");
@@ -124,10 +124,10 @@ public class MyOrderFragmentTest {
 
         order.setEmail("cheapnsale.xeed@gmail.com");
         order.setOrderId("2");
-        order.setOrderAt("2017.01.31_16:49:00");
+        order.setOrderAt("2020.01.31_16:49:00");
         order.setStatus("READY");
         order.setStoreName("Subway");
-        order.setPickupTime("2017.01.31_16:59:00");
+        order.setPickupTime("2020.01.31_16:59:00");
         order.setStoreId("");
         order.setMenus(menus);
         orders.add(order);
@@ -135,10 +135,10 @@ public class MyOrderFragmentTest {
         order = new Order();
         order.setEmail("cheapnsale.xeed@gmail.com");
         order.setOrderId("3");
-        order.setOrderAt("2017.01.31_14:49:00");
+        order.setOrderAt("2020.01.31_14:49:00");
         order.setStatus("PREPARE");
         order.setStoreName("본죽");
-        order.setPickupTime("2017.01.31_14:59:00");
+        order.setPickupTime("2020.01.31_14:59:00");
         order.setStoreId("");
         order.setMenus(menus);
         orders.add(order);

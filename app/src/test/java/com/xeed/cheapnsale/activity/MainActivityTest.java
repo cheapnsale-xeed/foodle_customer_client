@@ -101,7 +101,8 @@ public class MainActivityTest {
         order.setOrderId("1");
         order.setStoreName("놀부 보쌈");
         order.setStatus("DONE");
-        order.setOrderAt("2017.01.22_17:19:00");
+        order.setOrderAt("2020.01.22_17:19:00");
+        order.setPickupTime("2020.01.22_17:19:00");
         orders.add(order);
 
         order = new Order();
@@ -111,7 +112,8 @@ public class MainActivityTest {
         order.setOrderId("2");
         order.setStoreName("Subway");
         order.setStatus("READY");
-        order.setOrderAt("2017.01.30_17:19:00");
+        order.setOrderAt("2020.01.30_17:19:00");
+        order.setPickupTime("2020.01.22_17:19:00");
 
         orders.add(order);
 

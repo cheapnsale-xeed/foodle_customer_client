@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -114,7 +116,12 @@ public class SMSAuthActivityTest {
         Button confirmButton = (Button) authDialog.findViewById(android.R.id.button1);
 
         confirmButton.performClick();
-        assertThat(smsAuthActivity.isFinishing()).isTrue();
+
+        Intent expectedIntent = new Intent(smsAuthActivity, MainActivity.class);
+        Intent actualIntent = shadowOf(smsAuthActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
+
     }
 
     @Test
