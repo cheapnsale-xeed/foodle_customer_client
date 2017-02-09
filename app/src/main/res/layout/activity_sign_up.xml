@@ -19,6 +19,7 @@
         android:layout_marginTop="70dp"/>
 
     <Button
+        android:id="@+id/button_google_signup"
         android:layout_width="294dp"
         android:layout_height="50dp"
         android:text="구글계정으로 이용하기"

@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_search_button_main)
     public void onClickImageSearchButton(View view) {
-        Intent intent = new Intent(MainActivity.this, SMSAuthActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(MainActivity.this, SMSAuthActivity.class);
+//        startActivity(intent);
     }
 
 
