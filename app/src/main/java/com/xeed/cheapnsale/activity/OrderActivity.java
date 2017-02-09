@@ -204,35 +204,51 @@ public class OrderActivity extends AppCompatActivity {
                     protected void onPreExecute() {
                         super.onPreExecute();
 
-                        order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
-                        order.setMenus(cart.getMenus());
-                        order.setStoreId(storeId);
-                        order.setStatus(Order.STATUS.READY.name());
-                        order.setStoreName(store.getName());
-                        order.setEmail(((Application) getApplication()).getUserEmail());
-                        order.setFcmToken(((Application) getApplication()).getFcmToken());
+                        if(radioCreditButtonOrder.isChecked()){
+                            order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
+                            order.setMenus(cart.getMenus());
+                            order.setStoreId(storeId);
+                            order.setStatus(Order.STATUS.READY.name());
+                            order.setStoreName(store.getName());
+                            order.setEmail(((Application) getApplication()).getUserEmail());
+                            order.setFcmToken(((Application) getApplication()).getFcmToken());
 
-                        if (radioNowButtonOrder.isChecked()) {
-                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));
+                            if (radioNowButtonOrder.isChecked()) {
+                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));
+                            } else {
+                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), textDialogPickedTimeOrder.getText().toString()));
+                            }
+
+                            order.setOrderAt(DateUtil.getCurrentTime());
                         } else {
-                            order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), textDialogPickedTimeOrder.getText().toString()));
+                            cancel(true);
                         }
+                    }
 
-                        order.setOrderAt(DateUtil.getCurrentTime());
+                    @Override
+                    protected void onCancelled() {
+                        super.onCancelled();
+                        Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+                        intent.putExtra("isPayment", true);
+                        startActivity(intent);
                     }
 
                     @Override
                     protected Void doInBackground(Void... params) {
-                        payment = cheapnsaleService.putPreparePayment(order);
+                        if (!isCancelled()) {
+                            payment = cheapnsaleService.putPreparePayment(order);
+                        }
                         return null;
                     }
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
-                        Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
-                        intent.putExtra("payment", payment);
-                        intent.putExtra("order", order);
-                        startActivity(intent);
+                        if (!isCancelled()) {
+                            Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                            intent.putExtra("payment", payment);
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        }
                     }
                 }.execute();
             }
