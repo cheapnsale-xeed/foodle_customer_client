@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Store implements Serializable {
 
@@ -143,4 +144,15 @@ public class Store implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public static Comparator<Store> DistanceToStoreAsc = new Comparator<Store>() {
+
+        public int compare(Store s1, Store s2) {
+
+            int distanceToStore1 = s1.getDistanceToStore();
+            int distanceToStore2 = s2.getDistanceToStore();
+
+	   /*For ascending order*/
+            return distanceToStore1-distanceToStore2;
+        }};
 }

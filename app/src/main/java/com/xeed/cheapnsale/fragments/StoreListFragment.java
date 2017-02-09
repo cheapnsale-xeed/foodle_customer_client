@@ -23,6 +23,7 @@ import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.util.CalcDistanceUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -79,6 +80,7 @@ public class StoreListFragment extends Fragment {
                 if (((Application) getActivity().getApplication()).getMyLocation() != null) {
                     setStoreDistance(((Application) getActivity().getApplication()).getMyLocation());
                 }
+                Collections.sort(stores, Store.DistanceToStoreAsc);
                 storeListAdapter.updateData(stores);
             }
         }.execute();
