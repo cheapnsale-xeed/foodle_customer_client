@@ -44,7 +44,7 @@
     <string name="txt_payment_success">결제 완료!</string>
     <string name="word_delivering_by_foodle">푸들이 주문을 전달 중 입니다</string>
     <string name="word_pickup_terms_first">주문내용을 확인하고 구매진행에 동의합니다.</string>
-    <string name="word_pickup_terms_second">알림이 오면 메뉴를 바로 가져가세요\n접수완료 후 주문취소는 불가하며 가져가지 않은 메뉴는\n환불되지 않습니다</string>
+    <string name="word_pickup_terms_second">알림이 오면 메뉴를 바로 가져가세요\n<u>접수완료 후 주문취소는 불가</u>하며 가져가지 않은 메뉴는\n환불되지 않습니다</string>
     <string name="word_pickup_personal_info_agree_term">개인정보 수집 및 이용동의</string>
     <string name="word_pickup_personal_term_show">약관보기</string>
     <string name="word_pickup_personal_info_3rd_term">개인정보 제 3자 정보제공 동의</string>
