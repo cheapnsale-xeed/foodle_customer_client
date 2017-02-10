@@ -73,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="143dp"
+                android:layout_height="178dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/expect_cooking_time"
+                        android:text="@string/minimum_prepare_time"
                         android:textColor="@color/colorBlack"
                         android:textSize="13dp" />
 
@@ -133,6 +133,15 @@
                             android:layout_height="30dp"
                             android:text="@string/order_now"
                             android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="#CC000000"
+                            android:layout_marginEnd="42dp"
+                            android:text="@string/word_now_order_guide"
+                            android:layout_marginStart="34.8dp" />
 
                         <RadioButton
                             android:id="@+id/radio_today_button_order"
@@ -240,14 +249,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_weight="1"
-                        android:text="@string/payment_kakaopay"
+                        android:text="@string/payment_mobile_phone"
                         android:textSize="16dp" />
 
                     <RadioButton
                         android:id="@+id/radio_mobile_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="@string/payment_mobile_phone"
+                        android:text="@string/payment_toss"
                         android:textSize="16dp" />
 
                 </RadioGroup>
@@ -279,17 +288,6 @@
                         android:text="@string/order_user_info"
                         android:textColor="@color/colorBlack"
                         android:textSize="17dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_user_info_change_button_order"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="3dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/order_user_info_change"
-                        android:textColor="@color/colorFocusedText"
-                        android:textSize="15dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
