@@ -77,15 +77,33 @@ public class StoreListFragment extends Fragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 Log.d("Store : ", "Create");
-                if (((Application) getActivity().getApplication()).getMyLocation() != null) {
-                    setStoreDistance(((Application) getActivity().getApplication()).getMyLocation());
-                }
-                Collections.sort(stores, Store.DistanceToStoreAsc);
-                storeListAdapter.updateData(stores);
+                sortStoreAndUpdateList().execute();
             }
+
         }.execute();
 
         ((Application) getActivity().getApplication()).getCart().clearCartItems();
+    }
+
+
+    private AsyncTask<Void, Void, Void> sortStoreAndUpdateList () {
+
+        AsyncTask<Void, Void, Void> sortStoreAndUpdateTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                if (((Application) getActivity().getApplication()).getMyLocation() != null) {
+                    setStoreDistance(((Application) getActivity().getApplication()).getMyLocation());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                Collections.sort(stores, Store.DistanceToStoreAsc);
+                storeListAdapter.updateData(stores);
+            }
+        };
+        return sortStoreAndUpdateTask;
     }
 
     private final LocationListener mLocationListener = new LocationListener() {
