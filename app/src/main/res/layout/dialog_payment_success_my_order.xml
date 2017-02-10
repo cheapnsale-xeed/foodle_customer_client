@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/ico_poodle" />
+        android:src="@drawable/img_foodle_character" />
 
     <TextView
         android:layout_width="wrap_content"

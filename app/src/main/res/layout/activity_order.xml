@@ -368,7 +368,7 @@
                     android:layout_height="39dp"
                     android:layout_gravity="center_vertical"
                     android:background="@color/colorWhite"
-                    android:src="@drawable/ico_open" />
+                    android:src="@drawable/ico_expand" />
 
             </LinearLayout>
 
@@ -422,7 +422,7 @@
                         android:layout_height="39dp"
                         android:layout_gravity="center_vertical"
                         android:background="@color/colorWhite"
-                        android:src="@drawable/ico_open" />
+                        android:src="@drawable/ico_expand" />
 
                 </LinearLayout>
 

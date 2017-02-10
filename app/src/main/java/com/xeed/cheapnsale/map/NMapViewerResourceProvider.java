@@ -178,9 +178,9 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 	// Resource Ids for single icons
 	private final ResourceIdsOnMap mResourceIdsForMarkerOnMap[] = {
 			// Spot, Pin icons
-			new ResourceIdsOnMap(NMapPOIflagType.PIN, R.drawable.tag_01_copy_3, R.drawable.tag_selected_copy_2),
-			new ResourceIdsOnMap(NMapPOIflagType.SPOT, R.drawable.tag_01_copy_3, R.drawable.tag_selected_copy_2),
-			new ResourceIdsOnMap(NMapPOIflagType.MY_LOC, R.drawable.ico_myloc_blue, R.drawable.ico_myloc_blue),
+			new ResourceIdsOnMap(NMapPOIflagType.PIN, R.drawable.ico_map_pin, R.drawable.ico_map_pin_selected),
+			new ResourceIdsOnMap(NMapPOIflagType.SPOT, R.drawable.ico_map_pin, R.drawable.ico_map_pin_selected),
+			new ResourceIdsOnMap(NMapPOIflagType.MY_LOC, R.drawable.ico_init_my_location, R.drawable.ico_init_my_location),
 
 			// Direction POI icons: From, To
 			new ResourceIdsOnMap(NMapPOIflagType.FROM, R.drawable.ic_map_start, R.drawable.ic_map_start_over),
@@ -252,8 +252,8 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 	@Override
 	public Drawable[] getLocationDot() {
 		Drawable[] drawable = new Drawable[2];
-		drawable[0] = ContextCompat.getDrawable(mContext, R.drawable.ico_myloc);
-		drawable[1] = ContextCompat.getDrawable(mContext, R.drawable.ico_myloc_2);
+		drawable[0] = ContextCompat.getDrawable(mContext, R.drawable.ico_real_my_location);
+		drawable[1] = ContextCompat.getDrawable(mContext, R.drawable.ico_real_my_location_bg);
 
 		for (int i = 0; i < drawable.length; i++) {
 			int w = drawable[i].getIntrinsicWidth() / 2;

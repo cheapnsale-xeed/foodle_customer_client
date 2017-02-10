@@ -292,13 +292,13 @@ public class OrderActivity extends AppCompatActivity {
         ImageView orderListFoldingButton = (ImageView) findViewById(R.id.image_detail_status_order);
 
         if (orderCartBar.getVisibility() == View.GONE) {
-            orderListFoldingButton.setImageResource(R.drawable.ico_close);
+            orderListFoldingButton.setImageResource(R.drawable.ico_collapse);
 
             orderCartBar.setVisibility(View.VISIBLE);
             orderCartListView.setVisibility(View.VISIBLE);
 
         } else {
-            orderListFoldingButton.setImageResource(R.drawable.ico_open);
+            orderListFoldingButton.setImageResource(R.drawable.ico_expand);
 
             orderCartBar.setVisibility(View.GONE);
             orderCartListView.setVisibility(View.GONE);
@@ -308,10 +308,10 @@ public class OrderActivity extends AppCompatActivity {
     @OnClick(R.id.image_detail_pickup_term)
     public void onClickImageDetailPickupTerm(View view) {
         if(linearOrderDetailPickupTerm.getVisibility() == View.GONE) {
-            imageDetailPickupTerm.setImageResource(R.drawable.ico_close);
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_collapse);
             linearOrderDetailPickupTerm.setVisibility(View.VISIBLE);
         } else {
-            imageDetailPickupTerm.setImageResource(R.drawable.ico_open);
+            imageDetailPickupTerm.setImageResource(R.drawable.ico_expand);
             linearOrderDetailPickupTerm.setVisibility(View.GONE);
         }
     }
