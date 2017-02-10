@@ -85,7 +85,9 @@
                             android:layout_weight="1"
                             android:textColor="@color/colorBlack"
                             android:textSize="16dp"
-                            tools:text="놀부 왕족발 세트" />
+                            tools:text="놀부 왕족발 세트"
+                            android:ellipsize="marquee"
+                            android:maxLines="1"/>
 
 
                     </LinearLayout>
