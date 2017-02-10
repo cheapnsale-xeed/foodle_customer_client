@@ -29,6 +29,7 @@ import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -149,6 +150,11 @@ public class MapActivity extends NMapActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
 
+                    for (int i = 0; i < stores.size(); ++i) {
+                        stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
+                    }
+                    Collections.sort(stores, Store.DistanceToStoreAsc);
+
                     // set POI data
                     NMapPOIdata poiData =  new NMapPOIdata(stores.size(), mMapViewerResourceProvider, true);
                     poiData.beginPOIdata(stores.size());
@@ -156,17 +162,11 @@ public class MapActivity extends NMapActivity {
                         poiData.addPOIitem(new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat()),
                                 null, NMapPOIflagType.SPOT, stores.get(i));
                     }
-
                     poiData.endPOIdata();
 
                     // create POI data overlay
                     poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
                     poiDataOverlay.setOnStateChangeListener(onStateChangeListener);
-//                    poiDataOverlay.selectPOIitem(0, true);
-
-                    for (int i = 0; i < stores.size(); ++i) {
-                        stores.get(i).setDistanceToStore((int) NGeoPoint.getDistance(myLocation, new NGeoPoint(stores.get(i).getGpsCoordinatesLong(), stores.get(i).getGpsCoordinatesLat())));
-                    }
 
                     mapStoreListAdapter.updateData(stores);
                 }
