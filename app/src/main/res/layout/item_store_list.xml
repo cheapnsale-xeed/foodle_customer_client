@@ -99,7 +99,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:scaleType="fitStart"
-                android:src="@drawable/star" />
+                android:src="@drawable/tmp_star" />
 
             <TextView
                 android:id="@+id/text_payment_type_store"
