@@ -1,3 +1,8 @@
+machine:
+  environment:
+    # Java options
+    JAVA_OPTS: "-Xms512m -Xmx3G"
+
 general:
   artifacts:
     - "app/build/outputs/apk"
@@ -18,8 +23,8 @@ machine:
     Asia/Seoul
 test:
   override:
-#    - ./gradlew testDebugUnitTest
-    - ./gradlew assembleDebug
+    - ./gradlew testDebugUnitTest -PdisablePreDex
+    - ./gradlew assembleDebug -PdisablePreDex
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
