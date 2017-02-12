@@ -73,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="143dp"
+                android:layout_height="185dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -133,6 +133,17 @@
                             android:layout_height="30dp"
                             android:text="@string/order_now"
                             android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/text_now_order_comment"
+                            android:layout_width="301dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginRight="42dp"
+                            android:width="271.5dp"
+                            android:text="@string/word_order_now_comment"
+                            android:textColor="#CC000000"
+                            android:textSize="13dp" />
 
                         <RadioButton
                             android:id="@+id/radio_today_button_order"
@@ -247,7 +258,7 @@
                         android:id="@+id/radio_mobile_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="@string/payment_mobile_phone"
+                        android:text="@string/payment_toss"
                         android:textSize="16dp" />
 
                 </RadioGroup>
@@ -279,17 +290,6 @@
                         android:text="@string/order_user_info"
                         android:textColor="@color/colorBlack"
                         android:textSize="17dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_user_info_change_button_order"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="3dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/order_user_info_change"
-                        android:textColor="@color/colorFocusedText"
-                        android:textSize="15dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -398,8 +398,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
                 android:layout_marginEnd="7dp"
+                android:layout_marginStart="17dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -441,8 +441,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginStart="17dp"
                     android:layout_marginEnd="17.2dp"
+                    android:layout_marginStart="17dp"
                     android:background="#99d8d8d8" />
 
                 <LinearLayout
@@ -464,8 +464,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/word_pickup_personal_term_show"
-                        android:textColor="@color/colorGrayMapStore"
                         android:textAlignment="viewEnd"
+                        android:textColor="@color/colorGrayMapStore"
                         android:textSize="15dp" />
 
                     <ImageView
@@ -479,8 +479,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginStart="17dp"
                     android:layout_marginEnd="17.2dp"
+                    android:layout_marginStart="17dp"
                     android:background="#99d8d8d8" />
 
                 <LinearLayout
@@ -498,14 +498,14 @@
                         android:textSize="15dp" />
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/word_pickup_personal_term_show"
-                        android:textColor="@color/colorGrayMapStore"
                         android:textAlignment="viewEnd"
-                        android:textSize="15dp"
-                        android:id="@+id/textView2" />
+                        android:textColor="@color/colorGrayMapStore"
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -515,6 +515,7 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
@@ -541,6 +542,7 @@
                     android:textSize="13dp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout_agree_payment"
                 android:layout_width="match_parent"

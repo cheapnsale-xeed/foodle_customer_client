@@ -16,7 +16,7 @@
     <string name="str_done">완료</string>
     <string name="pickup_time">픽업시간</string>
     <string name="pickup_time_colon">픽업시간 :</string>
-    <string name="expect_cooking_time">예상 조리 시간 :</string>
+    <string name="expect_cooking_time">최소 소요 시간 :</string>
     <string name="order_now">지금 주문</string>
     <string name="expect_today_order">당일 예약 주문</string>
     <string name="cancel">취소</string>
@@ -27,7 +27,7 @@
     <string name="payment_type">결제방법</string>
     <string name="payment_credit">신용카드</string>
     <string name="payment_kakaopay">카카오페이</string>
-    <string name="payment_mobile_phone">휴대폰</string>
+    <string name="payment_toss">Toss</string>
     <string name="order_user_info">주문자 정보</string>
     <string name="order_user_info_change">변경하기</string>
     <string name="cart">장바구니</string>
@@ -44,7 +44,7 @@
     <string name="txt_payment_success">결제 완료!</string>
     <string name="word_delivering_by_foodle">푸들이 주문을 전달 중 입니다</string>
     <string name="word_pickup_terms_first">주문내용을 확인하고 구매진행에 동의합니다.</string>
-    <string name="word_pickup_terms_second">알림이 오면 메뉴를 바로 가져가세요\n접수완료 후 주문취소는 불가하며 가져가지 않은 메뉴는\n환불되지 않습니다</string>
+    <string name="word_pickup_terms_second">알림이 오면 메뉴를 바로 가져가세요\n<u>접수완료 후 주문취소는 불가</u>하며 가져가지 않은 메뉴는\n환불되지 않습니다</string>
     <string name="word_pickup_personal_info_agree_term">개인정보 수집 및 이용동의</string>
     <string name="word_pickup_personal_term_show">약관보기</string>
     <string name="word_pickup_personal_info_3rd_term">개인정보 제 3자 정보제공 동의</string>
@@ -64,4 +64,6 @@
     <string name="txt_sms_resend">인증번호 재전송</string>
     <string name="word_auth_confirm">인증되었습니다. \'확인\'을 누르면 서비스가 시작됩니다.</string>
     <string name="txt_wrong_auth_number">잘못된 인증번호</string>
+    <string name="word_order_now_comment">접수가 완료 되면 바로 조리를 시작해요. 매장 상황에
+따라 최소 소요 시간보다 조금 더 늦어질 수 있어요.</string>
 </resources>
