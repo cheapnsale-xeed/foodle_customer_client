@@ -73,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="185dp"
+                android:layout_height="178dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/expect_cooking_time"
+                        android:text="@string/minimum_prepare_time"
                         android:textColor="@color/colorBlack"
                         android:textSize="13dp" />
 
@@ -135,15 +135,13 @@
                             android:textSize="16dp" />
 
                         <TextView
-                            android:id="@+id/text_now_order_comment"
-                            android:layout_width="301dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="32dp"
-                            android:layout_marginRight="42dp"
-                            android:width="271.5dp"
-                            android:text="@string/word_order_now_comment"
+                            android:textSize="13dp"
                             android:textColor="#CC000000"
-                            android:textSize="13dp" />
+                            android:layout_marginEnd="42dp"
+                            android:text="@string/word_now_order_guide"
+                            android:layout_marginStart="34.8dp" />
 
                         <RadioButton
                             android:id="@+id/radio_today_button_order"
@@ -251,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_weight="1"
-                        android:text="@string/payment_kakaopay"
+                        android:text="@string/payment_mobile_phone"
                         android:textSize="16dp" />
 
                     <RadioButton
