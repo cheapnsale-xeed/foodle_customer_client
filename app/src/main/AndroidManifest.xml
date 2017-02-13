@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xeed.cheapnsale">
 
@@ -50,17 +49,14 @@
             android:name=".activity.PaymentActivity"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name=".backgroundservice.PushFirebaseMessagingService">
+        <service android:name=".backgroundservice.PushFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service
-            android:name=".backgroundservice.PushFirebaseInstanceIdService">
+        <service android:name=".backgroundservice.PushFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
@@ -74,9 +70,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SMSAuthActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SMSAuthActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.TermsConditionsActivity"></activity>
     </application>
-
 
 </manifest>

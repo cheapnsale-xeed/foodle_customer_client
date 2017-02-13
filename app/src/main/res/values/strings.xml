@@ -65,4 +65,17 @@
     <string name="word_auth_confirm">인증되었습니다. \'확인\'을 누르면 서비스가 시작됩니다.</string>
     <string name="txt_wrong_auth_number">잘못된 인증번호</string>
     <string name="word_now_order_guide">접수가 완료 되면 바로 조리를 시작해요. 매장 상황에 따라 최소 소요 시간보다 조금 더 늦어질 수 있어요.</string>
+    <string name="txt_agreement_terms_and_conditions">이용동의</string>
+    <string name="txt_agreement_terms_1"><u>이용약관 동의</u></string>
+    <string name="txt_agreement_terms_2"><u>개인정보 수집이용 동의</u></string>
+    <string name="txt_agreement_terms_3"><u>전자금융거래 이용약관 동의</u></string>
+    <string name="txt_agreement_terms_4"><u>위치 기반 서비스 이용 약관 동의</u></string>
+    <string name="txt_google">구글</string>
+    <string name="txt_facebook">페이스북</string>
+    <string name="word_preview"><u>우선 둘러볼게요</u></string>
+    <string name="word_sign_up_with_account">계정으로 이용하기</string>
+    <string name="word_sign_up_with_facebook">페이스북으로 이용하기</string>
+    <string name="word_sign_up_with_google_account">구글계정으로 이용하기</string>
+    <string name="word_all_agreement_under_terms">아래의 이용약관에 모두 동의</string>
+    <string name="word_detail_all_agreement_under_terms">이용약관, 개인정보 보호정책, 전자금융거래 이용\n약관은 필수 동의 사항으로 원활한 서비스 이용을\n위해서는 약관에 대한 동의가 필요합니다.</string>
 </resources>

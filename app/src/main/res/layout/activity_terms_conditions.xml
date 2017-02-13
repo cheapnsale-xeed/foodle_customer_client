@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_terms_conditions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context="com.xeed.cheapnsale.activity.TermsConditionsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar_terms_conditions"
+        android:orientation="vertical"
+        android:paddingEnd="17dp"
+        android:paddingStart="17dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_all_agree_terms_conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:text="@string/word_all_agreement_under_terms"
+                android:textColor="@color/colorBlack"
+                android:textSize="17dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_all_agreement_terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="24dp"
+                android:button="@drawable/selector_checkbox_terms_conditions" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_all_agree_terms_conditions"
+                android:layout_marginTop="8.5dp"
+                android:lineSpacingExtra="2.5dp"
+                android:text="@string/word_detail_all_agreement_under_terms"
+                android:textColor="#99000000"
+                android:textSize="13dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#d8d8d8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_agreement_terms_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/txt_agreement_terms_1"
+                android:textColor="#99000000"
+                android:textSize="15dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agreement_terms_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_checkbox_terms_conditions" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_agreement_terms_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/txt_agreement_terms_2"
+                android:textColor="#99000000"
+                android:textSize="15dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agreement_terms_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_checkbox_terms_conditions" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_agreement_terms_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/txt_agreement_terms_3"
+                android:textColor="#99000000"
+                android:textSize="15dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agreement_terms_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_checkbox_terms_conditions" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_agreement_terms_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/txt_agreement_terms_4"
+                android:textColor="#99000000"
+                android:textSize="15dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_agreement_terms_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_checkbox_terms_conditions" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_sign_up_with_account"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_sign_up_with_account_background"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/word_sign_up_with_account"
+        android:textColor="@drawable/selector_sign_up_with_account_text_color"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar_terms_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        android:padding="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_back_button_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:background="@android:color/white"
+                    android:contentDescription="@string/search_contentDescription"
+                    android:src="@drawable/ico_back" />
+
+                <TextView
+                    android:id="@+id/text_title_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="7dp"
+                    android:text="@string/txt_agreement_terms_and_conditions"
+                    android:textColor="@android:color/black"
+                    android:textSize="17dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#d3d3d3" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>
