@@ -84,7 +84,7 @@ public class StoreDetailActivityTest {
 
         storeDetailActivity.imageCallback.onBitmapLoaded(mockBitmap, null);
 
-        assertThat(storeTitle.getText()).isEqualTo("가게이름");
+        assertThat(storeTitle.getText().toString()).isEqualTo("가게이름");
         assertThat(storePaymentType.getText()).isEqualTo("바로결제");
         assertThat(storeMainImg.getDrawable()).isEqualTo(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.ico_map));
     }

@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
+import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.NumbersUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +70,11 @@ public class CartActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
-        cartListAdapter.cartItems.remove(cartListAdapter.cartItems.size()-1);
+        ArrayList<Menu> cartMenus = cartListAdapter.cartItems;
+        if (cartMenus.size() > 0) {
+            cartMenus.remove(cartMenus.size()-1);
+        }
+
     }
 
     @OnClick(R.id.image_back_button_cart)
@@ -78,7 +85,10 @@ public class CartActivity extends AppCompatActivity {
     @OnClick(R.id.text_order_button_footer)
     public void onClickFooterOrderButton(View view) {
         // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
-        cartListAdapter.cartItems.remove(cartListAdapter.cartItems.size()-1);
+        ArrayList<Menu> cartMenus = cartListAdapter.cartItems;
+        if (cartMenus.size() > 0) {
+            cartMenus.remove(cartMenus.size()-1);
+        }
         Intent intent = new Intent(CartActivity.this, OrderActivity.class);
         startActivity(intent);
     }

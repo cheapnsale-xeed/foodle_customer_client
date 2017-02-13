@@ -1,16 +1,19 @@
 package com.xeed.cheapnsale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.service.model.Order;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class MyOrderPastAdapter extends RecyclerView.Adapter<MyOrderPastAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final MyOrderPastHolder holder, int position) {
+    public void onBindViewHolder(final MyOrderPastHolder holder, final int position) {
         final Order order = myOrder.get(position);
         String menuContent;
 
@@ -52,6 +55,24 @@ public class MyOrderPastAdapter extends RecyclerView.Adapter<MyOrderPastAdapter.
         holder.textItemNameMyOrder.setText(menuContent);
         holder.textStoreNameMyOrder.setText(order.getStoreName());
         holder.textPickupTimeMyOrder.setText(order.getPickupTime().substring(0,10));
+        holder.buttonReorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Application app = ((Application) context.getApplicationContext());
+                Order order = myOrder.get(position);
+
+                app.getCart().setStoreId(order.getStoreId());
+                app.getCart().setStoreName(order.getStoreName());
+
+                for ( int i = 0 ; i < order.getMenus().size() ; i++ ) {
+                    app.getCart().addCartItem(order.getMenus().get(i));
+                }
+
+                Intent reorderIntent = new Intent(context, CartActivity.class);
+                context.startActivity(reorderIntent);
+            }
+        });
 
     }
 
@@ -75,6 +96,8 @@ public class MyOrderPastAdapter extends RecyclerView.Adapter<MyOrderPastAdapter.
         public TextView textStoreNameMyOrder;
         @BindView(R.id.text_pickup_time_my_order)
         public TextView textPickupTimeMyOrder;
+        @BindView(R.id.button_reorder)
+        public Button buttonReorder;
 
         @Inject
         Picasso picasso;
