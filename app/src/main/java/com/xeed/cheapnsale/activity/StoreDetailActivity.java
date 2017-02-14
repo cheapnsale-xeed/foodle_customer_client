@@ -220,6 +220,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    orderCancelConfirmlDialog.dismiss();
                     finish();
                 }
             });
