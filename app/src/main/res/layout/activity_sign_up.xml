@@ -23,7 +23,7 @@
         android:id="@+id/button_google_signup"
         android:layout_width="294dp"
         android:layout_height="50dp"
-        android:text="구글계정으로 이용하기"
+        android:text="@string/word_sign_up_with_google_account"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorWhite"
         android:background="@drawable/shape_signup_rounded_button"
@@ -34,9 +34,10 @@
         />
 
     <Button
+        android:id="@+id/button_facebook_signup"
         android:layout_width="294dp"
         android:layout_height="50dp"
-        android:text="페이스북으로 이용하기"
+        android:text="@string/word_sign_up_with_facebook"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorWhite"
         android:background="@drawable/shape_signup_rounded_button"
@@ -50,10 +51,10 @@
         android:id="@+id/text_preview_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="우선 둘러볼게요"
+        android:text="@string/word_preview"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="28.2dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="33dp"
         android:textSize="15dp"
         android:textColor="@color/colorWhite"

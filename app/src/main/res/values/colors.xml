@@ -14,4 +14,6 @@
     <color name='colorGrayMapStore'>#99000000</color>
     <color name="colorGrayBar">#c7c7c7</color>
     <color name="colorDarkRed">#bc0f24</color>
+    <color name="colorDisable">#ececec</color>
+    <color name='colorDiableBack'>#a3a3a3</color>
 </resources>
