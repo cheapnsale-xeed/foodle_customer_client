@@ -14,6 +14,8 @@ public class Application extends android.app.Application {
 
     private Cart cart;
     private String userEmail = "cheapnsale.xeed@gmail.com";
+    private String userName = "이혜수";
+    private String userPhone = "010-1234-5678";
     private Location myLocation;
     private String fcmToken = null;
 
@@ -39,6 +41,14 @@ public class Application extends android.app.Application {
 
     public String getUserEmail() {
         return userEmail;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
     }
 
     @Override
