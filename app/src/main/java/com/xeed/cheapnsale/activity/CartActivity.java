@@ -12,10 +12,7 @@ import android.widget.TextView;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
-import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.util.NumbersUtil;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,20 +35,40 @@ public class CartActivity extends AppCompatActivity {
     @BindView(R.id.text_total_price_footer)
     public TextView textTotalPriceFooter;
 
+    @BindView(R.id.text_title_cart)
+    public TextView textTitleCart;
+
     private CartListAdapter cartListAdapter;
+    private Application app;
+
+    private static final String isReorder = "IS_REORDER";
+    private boolean isReorderFlag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
-        ButterKnife.bind(this);
 
+        app = (Application) getApplicationContext();
+
+        setContentView(R.layout.activity_cart);
+
+        ButterKnife.bind(this);
         cartListAdapter = new CartListAdapter(this);
 
         recyclerCart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerCart.setAdapter(cartListAdapter);
 
+        if(getIntent() != null && getIntent().getExtras() != null) {
+            isReorderFlag = getIntent().getExtras().getBoolean(isReorder);
+        }
+
+        if(isReorderFlag) {
+            textTitleCart.setText(R.string.word_reorder);
+        }
+
         updateCartFooterData();
+
     }
 
     @Override
@@ -63,6 +80,9 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        cartListAdapter.controlLastItem(false);
+
         cartListAdapter.notifyDataSetChanged();
     }
 
@@ -70,10 +90,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
-        ArrayList<Menu> cartMenus = cartListAdapter.cartItems;
-        if (cartMenus.size() > 0) {
-            cartMenus.remove(cartMenus.size()-1);
-        }
+        cartListAdapter.controlLastItem(true);
 
     }
 
@@ -85,18 +102,20 @@ public class CartActivity extends AppCompatActivity {
     @OnClick(R.id.text_order_button_footer)
     public void onClickFooterOrderButton(View view) {
         // 카트에서 메뉴 추가 레이아웃 위치를 액티비티 소멸시 제거.
-        ArrayList<Menu> cartMenus = cartListAdapter.cartItems;
-        if (cartMenus.size() > 0) {
-            cartMenus.remove(cartMenus.size()-1);
-        }
+        cartListAdapter.controlLastItem(true);
+
         Intent intent = new Intent(CartActivity.this, OrderActivity.class);
         startActivity(intent);
     }
 
     public void updateCartFooterData(){
-        Application app = (Application) getApplicationContext();
 
         textItemCountFooter.setText("(" + app.getCart().getTotalCount() + ")");
         textTotalPriceFooter.setText(NumbersUtil.format(app.getCart().getTotalPrice()) + getResources().getString(R.string.price_type));
     }
+
+    public boolean getIsReorderFlag() {
+        return isReorderFlag;
+    }
+
 }

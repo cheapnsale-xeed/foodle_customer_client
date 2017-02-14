@@ -27,6 +27,7 @@ public class MyOrderPastAdapter extends RecyclerView.Adapter<MyOrderPastAdapter.
 
     private Context context;
     private ArrayList<Order> myOrder;
+    private final static String isReorder = "IS_REORDER";
 
     public MyOrderPastAdapter(Context context, ArrayList<Order> myOrder) {
         this.context = context;
@@ -70,6 +71,7 @@ public class MyOrderPastAdapter extends RecyclerView.Adapter<MyOrderPastAdapter.
                 }
 
                 Intent reorderIntent = new Intent(context, CartActivity.class);
+                reorderIntent.putExtra(isReorder, true);
                 context.startActivity(reorderIntent);
             }
         });
