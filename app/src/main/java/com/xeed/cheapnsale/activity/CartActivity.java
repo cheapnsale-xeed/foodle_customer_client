@@ -42,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
     private Application app;
 
     private static final String isReorder = "IS_REORDER";
+
     private boolean isReorderFlag = false;
 
 
@@ -116,6 +117,10 @@ public class CartActivity extends AppCompatActivity {
 
     public boolean getIsReorderFlag() {
         return isReorderFlag;
+    }
+
+    public void setReorderFlag(boolean reorderFlag) {
+        isReorderFlag = reorderFlag;
     }
 
 }

@@ -35,7 +35,8 @@ public class CartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int HEADER = 0;
     private static final int CHILD = 1;
     private static final String isReorder = "IS_REORDER";
-    boolean isReorderFlag = false;
+
+    private boolean isReorderFlag = false;
 
     public ArrayList<Menu> cartItems;
     private Context context;
@@ -195,4 +196,9 @@ public class CartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     }
+
+    public void setReorderFlag(boolean reorderFlag) {
+        isReorderFlag = reorderFlag;
+    }
+
 }

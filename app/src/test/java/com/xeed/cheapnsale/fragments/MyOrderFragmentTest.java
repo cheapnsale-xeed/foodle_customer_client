@@ -1,14 +1,15 @@
 package com.xeed.cheapnsale.fragments;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.activity.CartActivity;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
 import com.xeed.cheapnsale.service.model.Menu;
@@ -17,6 +18,7 @@ import com.xeed.cheapnsale.service.model.Order;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -40,6 +42,8 @@ public class MyOrderFragmentTest {
     private MyOrderPastAdapter myOrderPastAdapter;
     private MyOrderPastAdapter.MyOrderPastHolder myOrderPastHolder;
 
+    private CartActivity cartActivity;
+
     @Before
     public void setUp() throws Exception {
         myOrderFragment = new MyOrderFragment();
@@ -50,6 +54,8 @@ public class MyOrderFragmentTest {
 
         myOrderPastAdapter = new MyOrderPastAdapter(RuntimeEnvironment.application.getApplicationContext(), makeMockOrders());
         myOrderPastHolder = myOrderPastAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
+
+
     }
 
     @Test
@@ -105,6 +111,27 @@ public class MyOrderFragmentTest {
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
         assertThat(pickerDialog.isShowing()).isTrue();
         assertThat(myOrderFragment.isPayment).isFalse();
+    }
+
+    @Test
+    public void whenReorderClick_thenShowReorderCartList() throws Exception {
+        RecyclerView myPastOrderList = (RecyclerView) myOrderFragment.getView().findViewById(R.id.recycler_finish_my_order);
+
+        when(myOrderFragment.cheapnsaleService.getMyOrder(anyString())).thenReturn(makeMockOrders());
+        myOrderFragment.onResume();
+
+        myPastOrderList.getAdapter().onBindViewHolder(myOrderPastHolder, 1);
+
+        myOrderPastHolder.buttonReorder.performClick();
+        Intent intent = new Intent(RuntimeEnvironment.application, CartActivity.class);
+        intent.putExtra("IS_REORDER", true);
+        cartActivity = Robolectric.buildActivity(CartActivity.class).withIntent(intent).create().get();
+
+        TextView textView = (TextView)cartActivity.findViewById(R.id.text_title_cart);
+
+        assertThat(textView.getText()).isEqualTo("재주문");
+
+
     }
 
     private ArrayList<Order> makeMockOrders () {

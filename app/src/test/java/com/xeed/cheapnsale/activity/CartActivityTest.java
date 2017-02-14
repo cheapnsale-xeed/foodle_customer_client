@@ -44,6 +44,7 @@ public class CartActivityTest {
         mockCart.addCartItem(new Menu("mock-4", "mockItem-4", 8800, 5, "mockSrc-4"));
 
         cartActivity = Robolectric.buildActivity(CartActivity.class).create().get();
+        cartActivity.onResume();
         cartListAdapter = (CartListAdapter) cartActivity.recyclerCart.getAdapter();
 
         headHolder = (CartListHeadHolder) cartListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
