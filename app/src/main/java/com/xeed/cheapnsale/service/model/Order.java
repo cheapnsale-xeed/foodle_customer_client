@@ -83,6 +83,7 @@ public class Order implements Serializable {
     }
 
     public enum STATUS {
+        NOT_PAIDED,
         READY,
         FINISH,
         PREPARE,

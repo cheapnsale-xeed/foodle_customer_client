@@ -208,7 +208,7 @@ public class OrderActivity extends AppCompatActivity {
                             order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
                             order.setMenus(cart.getMenus());
                             order.setStoreId(storeId);
-                            order.setStatus(Order.STATUS.READY.name());
+                            order.setStatus(Order.STATUS.NOT_PAIDED.name());
                             order.setStoreName(store.getName());
                             order.setEmail(((Application) getApplication()).getUserEmail());
                             order.setFcmToken(((Application) getApplication()).getFcmToken());
