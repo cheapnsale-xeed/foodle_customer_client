@@ -23,7 +23,7 @@
     <string name="done">완료</string>
     <string name="after_minute">%1$d 분 후</string>
     <string name="pick_time_reset">재설정</string>
-    <string name="pickup_after_time">분 후 픽업!</string>
+    <string name="pickup_after_time"> 픽업!</string>
     <string name="payment_type">결제방법</string>
     <string name="payment_credit">신용카드</string>
     <string name="payment_mobile_phone">휴대폰</string>

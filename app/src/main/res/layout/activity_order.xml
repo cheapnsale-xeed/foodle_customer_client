@@ -113,11 +113,9 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <RadioGroup
                         android:id="@+id/radio_group_pickup_time_order"
@@ -157,12 +155,15 @@
                         android:id="@+id/relative_today_detail_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginStart="7dp">
+                        android:layout_marginStart="7dp"
+                        android:layout_alignBottom="@+id/radio_group_pickup_time_order"
+                        android:layout_alignEnd="@+id/radio_group_pickup_time_order">
 
                         <View
                             android:id="@+id/view_vertical_bar_order"
                             android:layout_width="1dp"
                             android:layout_height="13dp"
+                            android:layout_marginLeft="147.5dp"
                             android:layout_centerVertical="true"
                             android:background="@color/colorGrayBar" />
 
@@ -172,20 +173,25 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginStart="7dp"
-                            android:layout_toEndOf="@id/view_vertical_bar_order"
-                            android:text="5"
-                            android:textSize="16.5dp"
+                            android:layout_toRightOf="@+id/view_vertical_bar_order"
+                            android:text="18:00"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="#111cc4"
                             tools:hint="5" />
 
                         <TextView
+                            android:id="@+id/text_dialog_picked_time_message_order"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:layout_marginStart="1dp"
-                            android:layout_toEndOf="@id/text_dialog_picked_time_order"
+                            android:layout_marginStart="4dp"
+                            android:layout_toRightOf="@+id/text_dialog_picked_time_order"
                             android:text="@string/pickup_after_time"
-                            android:textSize="16.5dp"
-                            tools:hint="분 후 픽업!" />
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="#111cc4"
+                            tools:hint=" 픽업!" />
 
                         <Button
                             android:id="@+id/button_reselect_time_order"
@@ -198,11 +204,12 @@
                             android:background="@drawable/shape_direct_order_button"
                             android:text="@string/pick_time_reset"
                             android:textColor="@color/colorFocusedText"
+                            android:textStyle="bold"
                             android:textSize="13dp" />
 
                     </RelativeLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
 
 
             </LinearLayout>

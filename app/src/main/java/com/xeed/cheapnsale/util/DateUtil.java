@@ -1,5 +1,7 @@
 package com.xeed.cheapnsale.util;
 
+import org.joda.time.DateTimeUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,6 +11,7 @@ import java.util.Locale;
 public class DateUtil {
 
     private static SimpleDateFormat dateFormat =  new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss", Locale.getDefault());
+    private static SimpleDateFormat timeFormat =  new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     public static Date stringToDate(String dateStr) {
 
@@ -57,8 +60,32 @@ public class DateUtil {
         return dateFormat.format(calendar.getTime());
     }
 
-    public static String getCurrentTime() {
-        return dateFormat.format(new Date(System.currentTimeMillis()));
+    public static String getCurrentDateTime() {
+        return dateFormat.format(new Date(DateTimeUtils.currentTimeMillis()));
     }
 
+    public static String getCurrentTime() {
+        return timeFormat.format(new Date(DateTimeUtils.currentTimeMillis()));
+    }
+
+    public static int calcTimeGap(String endTime, String startTime) {
+
+        String convertStartTime, convertEndTime;
+        long gapTime = 0;
+
+        if(Integer.parseInt(startTime.substring(0,2)) < 6) {
+            convertStartTime = "2017.01.03_" + startTime + ":00";
+        } else {
+            convertStartTime = "2017.01.02_" + startTime + ":00";
+        }
+        if(Integer.parseInt(endTime.substring(0,2)) < 6) {
+            convertEndTime = "2017.01.03_" + endTime + ":00";
+        } else {
+            convertEndTime = "2017.01.02_" + endTime + ":00";
+        }
+
+        gapTime = stringToDate(convertEndTime).getTime() - stringToDate(convertStartTime).getTime();
+
+        return (int) (gapTime/1000/60) ;
+    }
 }

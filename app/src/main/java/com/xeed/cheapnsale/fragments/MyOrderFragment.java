@@ -20,6 +20,8 @@ import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.util.DateUtil;
 
+import org.joda.time.DateTimeUtils;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -84,7 +86,7 @@ public class MyOrderFragment extends Fragment {
                             myPastOrder.add(myCurrentOrder.get(i));
                             myCurrentOrder.remove(i);
                         // 주문의 픽업 시간이 현재보다 과거일 때 과거주문내역으로
-                        } else if (DateUtil.stringToDate(myCurrentOrder.get(i).getPickupTime()).getTime() < System.currentTimeMillis()) {
+                        } else if (DateUtil.stringToDate(myCurrentOrder.get(i).getPickupTime()).getTime() < DateTimeUtils.currentTimeMillis()) {
                             myPastOrder.add(myCurrentOrder.get(i));
                             myCurrentOrder.remove(i);
                         }
