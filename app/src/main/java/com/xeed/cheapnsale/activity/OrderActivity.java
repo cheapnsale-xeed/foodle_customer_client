@@ -127,6 +127,7 @@ public class OrderActivity extends AppCompatActivity {
     public int selectedNumberIndex = 0;
     private Payment payment;
     private boolean isReset = false;
+    private String[] displayedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,8 +177,10 @@ public class OrderActivity extends AppCompatActivity {
         textAcceptButtonPicker.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pickTime = Integer.parseInt(textPickupTimeOrder.getText().toString().replaceAll("분","")) + 5*selectedNumberIndex;
-                textDialogPickedTimeOrder.setText(String.valueOf(pickTime));
+
+                String pickTime = displayedValue[selectedNumberIndex];
+
+                textDialogPickedTimeOrder.setText(pickTime);
                 relativeTodayDetailOrder.setVisibility(RelativeLayout.VISIBLE);
                 pickerDialog.dismiss();
             }
@@ -216,12 +219,16 @@ public class OrderActivity extends AppCompatActivity {
                             order.setUserPhone(((Application) getApplication()).getUserPhone());
 
                             if (radioNowButtonOrder.isChecked()) {
-                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), store.getAvgPrepTime()));
+                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(), store.getAvgPrepTime()));
                             } else {
-                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentTime(), textDialogPickedTimeOrder.getText().toString()));
+                                // pickupTime은 DateFormat 형태로 DB에 저장하게 됨
+                                // 이에 현재 시각(TimeFormat)과 출력된 시각(TimeFormat)의 Gap을 계산하고
+                                // 그 값을 다시 현재 시각 (DateFormat)에 Gap을 더하여 pickupTime(Date Format)으로 만들어 줌
+                                order.setPickupTime(DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(),
+                                        String.valueOf(DateUtil.calcTimeGap(displayedValue[selectedNumberIndex], DateUtil.getCurrentTime()))));
                             }
 
-                            order.setOrderAt(DateUtil.getCurrentTime());
+                            order.setOrderAt(DateUtil.getCurrentDateTime());
                         } else {
                             cancel(true);
                         }
@@ -326,12 +333,31 @@ public class OrderActivity extends AppCompatActivity {
 
     private void show() {
 
+        String currentTime = DateUtil.getCurrentTime();
         int minTime = Integer.parseInt(store.getAvgPrepTime());
-        String[] displayedValue = new String[((65 - minTime) / 5)];
 
-        for (int i = minTime, k = 0; i <= 60; k++) {
-            displayedValue[k] = String.format(getResources().getString(R.string.after_minute), i);
-            i = i + 5;
+        int currentMinute = Integer.parseInt(currentTime.split(":")[1]);
+        int offset = minTime;
+
+        // offset 주문 최소 소요 시간 + 5분 단위 계산 시간
+        if (currentMinute % 5 != 0) {
+             offset = minTime + (5 - (currentMinute % 5));
+        }
+
+        // startDisplayTime은 Spinner에 추가되는 시간의 시작 시간 즉 현재 시각 + Offset 계산 시간
+        String startDisplayTime = DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(), String.valueOf(offset));
+        // gapTime = 영업 종료 시간 - Spinner의 출력되는 첫번째 시간 값과의 차이
+        // gapTime 값을 통해 displayedValue의 배열 크기를 결정한다
+        // 중요! DateUtil.calcTimeGap 함수 내에 새벽 5시를 기준으로 영업일을 넘기는 로직이 있음
+        //      즉, 영업종료 시간이 새벽 4시이고 주문 시간이 23시인 경우 주문 가능하게 하였음
+        int gapTime = DateUtil.calcTimeGap(store.getCloseTime(), startDisplayTime.substring(11,16));
+
+        displayedValue = new String[(gapTime/5)+1];
+
+        for (int i = 0; i < (gapTime/5)+1; i++) {
+            // 첫번째 출력 시간부터 5분 단위로 추가하면서 계산하여 출력 배열 계산
+            displayedValue[i] = (DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(), String.valueOf(offset))).substring(11,16);
+            offset = offset + 5;
         }
 
         numberPickerOrder.setMaxValue(displayedValue.length - 1);

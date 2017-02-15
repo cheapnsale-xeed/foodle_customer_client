@@ -19,6 +19,8 @@ import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Menu;
 import com.xeed.cheapnsale.service.model.Store;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,6 +68,9 @@ public class OrderActivityTest {
         orderUserName = (EditText) orderActivity.findViewById(R.id.edit_user_info_name_order);
         orderUserTel = (EditText) orderActivity.findViewById(R.id.edit_user_info_tel_order);
         resetButton = (Button) orderActivity.findViewById(R.id.button_reselect_time_order);
+
+        DateTime dt = new DateTime(2017, 2, 15, 14, 33);
+        DateTimeUtils.setCurrentMillisFixed(dt.getMillis());
     }
 
     @Test
@@ -138,7 +143,8 @@ public class OrderActivityTest {
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
 
         NumberPicker numberPicker = (NumberPicker) pickerDialog.getView().findViewById(R.id.number_picker_order);
-        assertThat(numberPicker.getDisplayedValues()[0]).isEqualTo("20 분 후");
+        // 33분 + 20분 (준비시간) + 2분 (반올림)
+        assertThat(numberPicker.getDisplayedValues()[0]).isEqualTo("14:55");
     }
 
     @Test
@@ -152,14 +158,14 @@ public class OrderActivityTest {
         assertThat(todayOrderLayout.getVisibility()).isEqualTo(View.INVISIBLE);
 
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
-        //30분선택.
+        // 33분 + 20분 (준비시간) + 2분 (반올림) + (5분 * 2개 = 10분)
         orderActivity.selectedNumberIndex = 2;
 
         TextView acceptButton = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
         acceptButton.performClick();
 
         TextView timeToPickupMin = (TextView) orderActivity.findViewById(R.id.text_dialog_picked_time_order);
-        assertThat(timeToPickupMin.getText()).isEqualTo("30");
+        assertThat(timeToPickupMin.getText()).isEqualTo("15:05");
 
         assertThat(todayOrderLayout.getVisibility()).isEqualTo(View.VISIBLE);
     }
@@ -226,14 +232,14 @@ public class OrderActivityTest {
         resetButton.performClick();
 
         MaterialDialog pickerDialog = (MaterialDialog) ShadowDialog.getLatestDialog();
-        //40분선택.
+        // 33분 + 20분 (준비시간) + 2분 (반올림) + (5분 * 4개 = 20분)
         orderActivity.selectedNumberIndex = 4;
 
         TextView acceptButton = (TextView) pickerDialog.getView().findViewById(R.id.text_accept_button_picker);
         acceptButton.performClick();
 
         TextView timeToPickupMin = (TextView) orderActivity.findViewById(R.id.text_dialog_picked_time_order);
-        assertThat(timeToPickupMin.getText()).isEqualTo("40");
+        assertThat(timeToPickupMin.getText()).isEqualTo("15:15");
     }
 
     @Test
@@ -270,6 +276,7 @@ public class OrderActivityTest {
         store.setRegNum("02-1234-1234");
         store.setPaymentType("바로결제");
         store.setAvgPrepTime("20");
+        store.setCloseTime("22:00");
         return store;
     }
 }

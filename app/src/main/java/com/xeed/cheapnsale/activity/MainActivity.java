@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,6 +18,8 @@ import com.xeed.cheapnsale.backgroundservice.PushFirebaseInstanceIdService;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.util.DateUtil;
+
+import org.joda.time.DateTimeUtils;
 
 import java.util.ArrayList;
 
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 myOrder = cheapnsaleService.getMyCurrentOrder(((Application) getApplication()).getUserEmail());
                 for (int i=myOrder.size() - 1; i >= 0 ; i--) {
-                    if (DateUtil.stringToDate(myOrder.get(i).getPickupTime()).getTime() < System.currentTimeMillis()) {
+                    if (DateUtil.stringToDate(myOrder.get(i).getPickupTime()).getTime() < DateTimeUtils.currentTimeMillis()) {
                         myOrder.remove(i);
                     }
                 }

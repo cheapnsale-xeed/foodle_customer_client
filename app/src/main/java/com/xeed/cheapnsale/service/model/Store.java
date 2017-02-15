@@ -46,6 +46,10 @@ public class Store implements Serializable {
     private Double gpsCoordinatesLat = 0d;
     @SerializedName("GPS_COORDINATES_LONG")
     private Double gpsCoordinatesLong = 0d;
+    @SerializedName("OPEN_TIME")
+    private String openTime = null;
+    @SerializedName("CLOSE_TIME")
+    private String closeTime = null;
 
     private int distanceToStore = 0;
 
@@ -143,6 +147,22 @@ public class Store implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
     public static Comparator<Store> DistanceToStoreAsc = new Comparator<Store>() {
