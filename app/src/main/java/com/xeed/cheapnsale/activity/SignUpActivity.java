@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.user.IdentityManager;
 import com.xeed.cheapnsale.user.IdentityProvider;
 import com.xeed.cheapnsale.user.signin.FacebookSignInProvider;
 import com.xeed.cheapnsale.user.signin.GoogleSignInProvider;
 import com.xeed.cheapnsale.user.signin.SignInManager;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,19 +33,23 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.button_facebook_signup)
     public Button buttonFacebookSignup;
 
+    @Inject
     public SignInManager signInManager;
+
+    public SignUpResultsHandler signUpResultsHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((Application) getApplication()).getApplicationComponent().inject(this);
 
         setContentView(R.layout.activity_sign_up);
 
         ButterKnife.bind(this);
 
-        signInManager = SignInManager.getInstance(this);
+        signUpResultsHandler = new SignUpResultsHandler();
 
-        signInManager.setResultsHandler(this, new SignUpResultsHandler());
+        signInManager.setResultsHandler(this, signUpResultsHandler);
 
         // Initialize facebook sign-in buttons.
         signInManager.initializeSignInButton(FacebookSignInProvider.class,
@@ -60,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private class SignUpResultsHandler implements IdentityManager.SignInResultsHandler {
+    public class SignUpResultsHandler implements IdentityManager.SignInResultsHandler {
 
         @Override
         public void onSuccess(final IdentityProvider provider) {
