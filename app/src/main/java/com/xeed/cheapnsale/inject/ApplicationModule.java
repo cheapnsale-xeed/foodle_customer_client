@@ -5,6 +5,7 @@ import com.squareup.picasso.Picasso;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.CheapnsaleApi;
 import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.user.AWSMobileClient;
 import com.xeed.cheapnsale.user.signin.SignInManager;
 
 import javax.inject.Singleton;
@@ -45,6 +46,10 @@ public class ApplicationModule {
         return SignInManager.getInstance(application);
     }
 
-
+    @Provides
+    @Singleton
+    AWSMobileClient providesAWSMobileClient(){
+        return AWSMobileClient.defaultMobileClient();
+    }
 
 }

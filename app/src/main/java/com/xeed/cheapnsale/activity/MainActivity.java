@@ -17,6 +17,8 @@ import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 import com.xeed.cheapnsale.backgroundservice.PushFirebaseInstanceIdService;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
+import com.xeed.cheapnsale.user.AWSMobileClient;
+import com.xeed.cheapnsale.user.IdentityManager;
 import com.xeed.cheapnsale.util.DateUtil;
 
 import org.joda.time.DateTimeUtils;
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     public CheapnsaleService cheapnsaleService;
 
+    @Inject
+    public AWSMobileClient awsMobileClient;
+
     @BindView(R.id.pager_main)
     public ViewPager pagerMain;
 
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Order> myOrder = new ArrayList<>();
 
     private MainTabPagerAdapter adapter;
+    private IdentityManager identityManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
             pagerMain.setCurrentItem(1);
         }
 
+        identityManager = awsMobileClient.getIdentityManager();
+
         Intent intent = new Intent(this, PushFirebaseInstanceIdService.class);
         startService(intent);
 
@@ -103,8 +112,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickImageSearchButton(View view) {
 //        Intent intent = new Intent(MainActivity.this, SMSAuthActivity.class);
 //        startActivity(intent);
-    }
+        identityManager.signOut();
 
+        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onResume() {
