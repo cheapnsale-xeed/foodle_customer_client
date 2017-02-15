@@ -6,6 +6,8 @@ import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Transformation;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.user.AWSMobileClient;
+import com.xeed.cheapnsale.user.signin.SignInManager;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -30,5 +32,15 @@ public class TestApplicationModule extends ApplicationModule{
         when(mockPicasso.load(anyString())).thenReturn(mockRequestCreator);
         when(mockRequestCreator.transform(any(Transformation.class))).thenReturn(mockRequestCreator);
         return mockPicasso;
+    }
+
+    @Override
+    SignInManager providesSignInManager() {
+        return mock(SignInManager.class);
+    }
+
+    @Override
+    AWSMobileClient providesAWSMobileClient() {
+        return mock(AWSMobileClient.class);
     }
 }

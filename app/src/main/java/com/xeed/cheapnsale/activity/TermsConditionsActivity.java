@@ -1,8 +1,8 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -33,6 +33,18 @@ public class TermsConditionsActivity extends AppCompatActivity {
 
     @BindView(R.id.checkbox_agreement_terms_4)
     CheckBox checkboxAgreementTerms4;
+
+    @BindView(R.id.text_agreement_terms_1)
+    TextView textAgreementTerms1;
+
+    @BindView(R.id.text_agreement_terms_2)
+    TextView textAgreementTerms2;
+
+    @BindView(R.id.text_agreement_terms_3)
+    TextView textAgreementTerms3;
+
+    @BindView(R.id.text_agreement_terms_4)
+    TextView textAgreementTerms4;
 
     @BindView(R.id.text_sign_up_with_account)
     TextView textSignUpWithAccount;
@@ -113,12 +125,18 @@ public class TermsConditionsActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick( {R.id.text_agreement_terms_1, R.id.text_agreement_terms_2, R.id.text_agreement_terms_3, R.id.text_agreement_terms_4})
+    public void onClickTextAgreements(TextView view) {
+
+        Intent intent = new Intent(this, TermsConditionsDetailActivity.class);
+        intent.putExtra("termsId", view.getId());
+        startActivity(intent);
+    }
+
     @OnClick(R.id.text_sign_up_with_account)
     public void onClickSignUpWithAccount(TextView view){
-        if ( view.isEnabled() )
-            Log.d("Terms : ", "enabled");
-        else
-            Log.d("Terms : ", "disabled");
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }

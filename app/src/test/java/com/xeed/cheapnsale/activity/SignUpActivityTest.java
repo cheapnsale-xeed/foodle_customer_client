@@ -1,11 +1,11 @@
 package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.user.IdentityProvider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,24 +29,116 @@ public class SignUpActivityTest {
     }
 
     @Test
-    public void whenClickGoogleSignupButtons_thenTermsActivityIsStarted() throws Exception {
-        Button googleSignupButton = (Button) signUpActivity.findViewById(R.id.button_google_signup);
-        googleSignupButton.performClick();
+    public void whenFacebookSignInSuccess_thenTermsActivityIsStarted() throws Exception {
+
+        signUpActivity.signUpResultsHandler.onSuccess(new IdentityProvider() {
+            @Override
+            public String getDisplayName() {
+                return "Facebook";
+            }
+
+            @Override
+            public String getCognitoLoginKey() {
+                return null;
+            }
+
+            @Override
+            public boolean isUserSignedIn() {
+                return false;
+            }
+
+            @Override
+            public String getToken() {
+                return null;
+            }
+
+            @Override
+            public String refreshToken() {
+                return null;
+            }
+
+            @Override
+            public void signOut() {
+
+            }
+
+            @Override
+            public String getUserName() {
+                return null;
+            }
+
+            @Override
+            public String getUserImageUrl() {
+                return null;
+            }
+
+            @Override
+            public void reloadUserInfo() {
+
+            }
+        });
 
         Intent expectedIntent = new Intent(signUpActivity, TermsConditionsActivity.class);
         Intent actualIntent = shadowOf(signUpActivity).getNextStartedActivity();
 
+        assertThat(actualIntent.getStringExtra("account")).isEqualTo("페이스북으로 이용하기");
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
     @Test
-    public void whenClickFacebookSignupButtons_thenTermsActivityIsStarted() throws Exception {
-        Button facebookSignupButton = (Button) signUpActivity.findViewById(R.id.button_facebook_signup);
-        facebookSignupButton.performClick();
+    public void whenGoogleSignInSuccess_thenTermsActivityIsStarted() throws Exception {
+
+        signUpActivity.signUpResultsHandler.onSuccess(new IdentityProvider() {
+            @Override
+            public String getDisplayName() {
+                return "Google";
+            }
+
+            @Override
+            public String getCognitoLoginKey() {
+                return null;
+            }
+
+            @Override
+            public boolean isUserSignedIn() {
+                return false;
+            }
+
+            @Override
+            public String getToken() {
+                return null;
+            }
+
+            @Override
+            public String refreshToken() {
+                return null;
+            }
+
+            @Override
+            public void signOut() {
+
+            }
+
+            @Override
+            public String getUserName() {
+                return null;
+            }
+
+            @Override
+            public String getUserImageUrl() {
+                return null;
+            }
+
+            @Override
+            public void reloadUserInfo() {
+
+            }
+        });
 
         Intent expectedIntent = new Intent(signUpActivity, TermsConditionsActivity.class);
         Intent actualIntent = shadowOf(signUpActivity).getNextStartedActivity();
 
+        assertThat(actualIntent.getStringExtra("account")).isEqualTo("구글계정으로 이용하기");
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
@@ -60,4 +152,5 @@ public class SignUpActivityTest {
 
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
+
 }
