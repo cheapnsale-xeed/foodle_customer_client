@@ -17,6 +17,10 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -24,6 +28,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
@@ -73,7 +82,22 @@
         <activity
             android:name=".activity.SMSAuthActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.TermsConditionsActivity"></activity>
+        <activity
+            android:name=".activity.TermsConditionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TermsConditionsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
     </application>
 
 </manifest>
