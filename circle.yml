@@ -24,8 +24,8 @@ machine:
     Asia/Seoul
 test:
   override:
-#    - ./gradlew testDebugUnitTest -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
-    - ./gradlew assembleDebugUnitTest -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
+    - ./gradlew testDebugUnitTest -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=2 -Dorg.gradle.parallel=true -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
+    - ./gradlew assembleDebug -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
