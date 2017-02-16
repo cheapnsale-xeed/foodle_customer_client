@@ -2,6 +2,7 @@ machine:
   environment:
     # Java options
     JAVA_OPTS: "-Xms1G -Xmx4G"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx3G -XX:HeapDumpOnOutOfMemoryError"'
 
 general:
   artifacts:
