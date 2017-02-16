@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -129,6 +130,8 @@ public class OrderActivity extends AppCompatActivity {
     private boolean isReset = false;
     private String[] displayedValue;
 
+    private boolean isClickAccept = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +160,19 @@ public class OrderActivity extends AppCompatActivity {
         radioCreditButtonOrder.setChecked(true);
 
         pickerDialog = new MaterialDialog.Builder(this)
-                .customView(R.layout.dialog_order_time_picker, false).build();
+                .customView(R.layout.dialog_order_time_picker, false)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if(!isReset && !isClickAccept) {
+                            radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                        }
+                        dialog.dismiss();
+                        isClickAccept = false;
+                    }
+                })
+                .build();
+
 
         numberPickerOrder = (NumberPicker) pickerDialog.getView().findViewById(R.id.number_picker_order);
         textCancelButtonPicker = (TextView) pickerDialog.getView().findViewById(R.id.text_cancel_button_picker);
@@ -167,9 +182,6 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(!isReset) {
-                    radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
-                }
                 pickerDialog.dismiss();
             }
         });
@@ -177,11 +189,12 @@ public class OrderActivity extends AppCompatActivity {
         textAcceptButtonPicker.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String pickTime = displayedValue[selectedNumberIndex];
 
                 textDialogPickedTimeOrder.setText(pickTime);
                 relativeTodayDetailOrder.setVisibility(RelativeLayout.VISIBLE);
+
+                isClickAccept = true;
                 pickerDialog.dismiss();
             }
         });
