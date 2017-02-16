@@ -27,6 +27,7 @@ import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.adapter.StoreMenuTabPagerAdapter;
 import com.xeed.cheapnsale.service.model.Cart;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.util.CommonUtil;
 
 import javax.inject.Inject;
 
@@ -132,7 +133,7 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(store, getSupportFragmentManager(), tabStoreDetail.getTabCount());
         pagerOrderDetail.setAdapter(storeMenuTabPagerAdapter);
         pagerOrderDetail.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabStoreDetail));
-        tabStoreDetail.setOnTabSelectedListener(this);
+        tabStoreDetail.addOnTabSelectedListener(this);
 
         //store 정보 세팅 시작
         textNameStoreDetail.setText(store.getName());
@@ -238,21 +239,19 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
     @OnClick(R.id.floating_call_button_store_detail)
     public void onClickFloatingCallButton(View view) {
-        makePhoneCall();
+        CommonUtil.makePhoneCall(StoreDetailActivity.this, store.getPhoneNumber());
     }
 
     @OnClick(R.id.text_call_button_store_detail)
     public void onClickToolbarTextCallButton(View view) {
-        makePhoneCall();
+        CommonUtil.makePhoneCall(StoreDetailActivity.this, store.getPhoneNumber());
     }
 
-    private void makePhoneCall() {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + store.getPhoneNumber()));
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-        }
+    @OnClick(R.id.text_map_button_store_detail)
+    public void onClickStoreDetailMapButton(View view) {
+        Intent nextIntent = new Intent(StoreDetailActivity.this, StoreDetailMapActivity.class);
+        nextIntent.putExtra("store", store);
+        startActivity(nextIntent);
     }
 
     private void setTabTextStyle(int position, int typeface) {
