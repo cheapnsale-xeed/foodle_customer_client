@@ -43,7 +43,7 @@ public class OrderActivityTest {
     private RadioButton orderTimeTodayRadioButton;
     private TextView orderPickUpTime;
     private RadioButton orderPaymentCreditRadioButton;
-    private RadioButton orderPaymentKakaopayRadioButton;
+    private RadioButton orderPaymentTossRadioButton;
     private EditText orderUserName;
     private EditText orderUserTel;
     private Button resetButton;
@@ -62,7 +62,7 @@ public class OrderActivityTest {
         orderTimeNowRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_now_button_order);
         orderTimeTodayRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_today_button_order);
         orderPaymentCreditRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_credit_button_order);
-        orderPaymentKakaopayRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_kakaopay_button_order);
+        orderPaymentTossRadioButton = (RadioButton) orderActivity.findViewById(R.id.radio_toss_button_order);
         orderPickUpTime = (TextView) orderActivity.findViewById(R.id.text_pickup_time_order);
 
         orderUserName = (EditText) orderActivity.findViewById(R.id.edit_user_info_name_order);
@@ -174,10 +174,10 @@ public class OrderActivityTest {
     public void whenPaymentTypeShow_thenCreditChecked() throws Exception {
         assertThat(orderPaymentCreditRadioButton.isChecked()).isTrue();
 
-        orderPaymentKakaopayRadioButton.performClick();
+        orderPaymentTossRadioButton.performClick();
 
         assertThat(orderPaymentCreditRadioButton.isChecked()).isFalse();
-        assertThat(orderPaymentKakaopayRadioButton.isChecked()).isTrue();
+        assertThat(orderPaymentTossRadioButton.isChecked()).isTrue();
     }
 
     @Test
