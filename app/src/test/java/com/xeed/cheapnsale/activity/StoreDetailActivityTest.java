@@ -26,6 +26,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -132,6 +133,16 @@ public class StoreDetailActivityTest {
         yesButton.performClick();
 
         assertThat(storeDetailActivity.isFinishing()).isTrue();
+    }
+
+    @Test
+    public void whenClickMapLinkButton_thenStartStoreDetailMapActivity() throws Exception {
+        mapLink.performClick();
+
+        Intent expectedIntent = new Intent(storeDetailActivity, StoreDetailMapActivity.class);
+        Intent actualIntent = shadowOf(storeDetailActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
     private Store makeMockData(){
