@@ -53,7 +53,8 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
         int arrivalTime = distance / 60;
 
         if (distance > 1000) {
-            holder.textDistanceStore.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
+            double distance_km = (double)((int)((stores.get(position).getDistanceToStore() + 50) / 100))/10;
+            holder.textDistanceStore.setText((distance_km) + "km");
         } else {
             holder.textDistanceStore.setText(stores.get(position).getDistanceToStore() + "m");
         }

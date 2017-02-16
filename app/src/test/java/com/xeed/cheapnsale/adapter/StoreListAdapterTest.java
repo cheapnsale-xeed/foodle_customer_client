@@ -47,6 +47,14 @@ public class StoreListAdapterTest {
         assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("456m");
         assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("7분");
+
+        storeListAdapter.onBindViewHolder(holder,1);
+
+        assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
+        assertThat(holder.textPaymentTypeStore.getText()).isEqualTo("바로결제");
+        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분");
+        assertThat(holder.textDistanceStore.getText()).isEqualTo("1.5km");
+        assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("24분");
     }
 
     @Test
@@ -100,6 +108,20 @@ public class StoreListAdapterTest {
         store.setGpsCoordinatesLat(37.517646d);
         store.setGpsCoordinatesLong(127.101843d);
         store.setDistanceToStore(456);
+        stores.add(store);
+
+        store = new Store();
+        store.setId("mock 1");
+        store.setCategory("mock category");
+        store.setRegNum("111-111-111");
+        store.setName("mock store");
+        store.setPaymentType("바로결제");
+        store.setAvgPrepTime("20");
+        store.setMainImageUrl("http://www.mock.com/mock.img");
+        store.setPhoneNumber("010-1234-5678");
+        store.setGpsCoordinatesLat(37.517646d);
+        store.setGpsCoordinatesLong(127.101843d);
+        store.setDistanceToStore(1456);
         stores.add(store);
 
         return stores;
