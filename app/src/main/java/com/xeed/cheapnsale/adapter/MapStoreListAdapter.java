@@ -44,7 +44,8 @@ public class MapStoreListAdapter extends RecyclerView.Adapter<MapStoreListHolder
         int arrivalTime = distance / 60;
 
         if (distance > 1000) {
-            holder.textDistanceMap.setText(((double)stores.get(position).getDistanceToStore()/1000) + "km");
+            double distance_km = (double)((int)((stores.get(position).getDistanceToStore() + 50) / 100))/10;
+            holder.textDistanceMap.setText(distance_km + "km");
         } else {
             holder.textDistanceMap.setText(stores.get(position).getDistanceToStore() + "m");
         }

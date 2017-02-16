@@ -114,7 +114,8 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         int arrivalTime = store.getDistanceToStore() / 60;
 
         if (store.getDistanceToStore() > 1000) {
-            textDistanceStoreDetail.setText(((double)store.getDistanceToStore()/1000) + "km");
+            double distance_km = (double)((int)((store.getDistanceToStore() + 50) / 100))/10;
+            textDistanceStoreDetail.setText(distance_km + "km");
         } else {
             textDistanceStoreDetail.setText(store.getDistanceToStore() + "m");
         }
