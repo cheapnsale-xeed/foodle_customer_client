@@ -46,6 +46,7 @@ public class StoreListAdapterTest {
         assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("456m");
         assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("7분");
+        assertThat(holder.textRecommendStore.getText()).isEqualTo("추천 250");
 
         storeListAdapter.onBindViewHolder(holder,1);
 
@@ -53,6 +54,7 @@ public class StoreListAdapterTest {
         assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("1.5km");
         assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("24분");
+        assertThat(holder.textRecommendStore.getText()).isEqualTo("추천 -");
     }
 
     @Test
@@ -104,6 +106,8 @@ public class StoreListAdapterTest {
         store.setGpsCoordinatesLat(37.517646d);
         store.setGpsCoordinatesLong(127.101843d);
         store.setDistanceToStore(456);
+        store.setRecommendCount(250);
+
         stores.add(store);
 
         store = new Store();
@@ -118,6 +122,7 @@ public class StoreListAdapterTest {
         store.setGpsCoordinatesLat(37.517646d);
         store.setGpsCoordinatesLong(127.101843d);
         store.setDistanceToStore(1456);
+        store.setRecommendCount(0);
         stores.add(store);
 
         return stores;
