@@ -85,6 +85,12 @@ public class TermsConditionsActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(TermsConditionsActivity.this, SignUpActivity.class));
+        super.onBackPressed();
+    }
+
     @OnClick({ R.id.checkbox_all_agreement_terms,
                R.id.checkbox_agreement_terms_1,
                R.id.checkbox_agreement_terms_2,
