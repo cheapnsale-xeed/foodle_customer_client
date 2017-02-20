@@ -60,11 +60,7 @@ public class GoogleSignInProvider implements SignInProvider {
       * call. */
     private volatile String authToken = null;
 
-    /** User's name. */
-    private String userName;
-
-    /** User's image Url. */
-    private String userImageUrl;
+    private String userId;
 
     public GoogleSignInProvider(Context context) {
         this.context = context;
@@ -79,6 +75,11 @@ public class GoogleSignInProvider implements SignInProvider {
                 .addScope(new Scope(Scopes.PROFILE))
                 .build();
         mGoogleApiClient.connect();
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
     }
 
     @Override
@@ -140,6 +141,9 @@ public class GoogleSignInProvider implements SignInProvider {
 
                 try {
                     authToken = getGoogleAuthToken();
+
+                    userId = Plus.AccountApi.getAccountName(mGoogleApiClient);
+
                     Log.d(LOG_TAG, "Google provider sign-in succeeded!");
 
                     ThreadUtils.runOnUiThread(new Runnable() {
@@ -272,29 +276,16 @@ public class GoogleSignInProvider implements SignInProvider {
     }
 
     private void clearUserInfo() {
-        userName = null;
-        userImageUrl = null;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getUserName() {
-        return userName;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getUserImageUrl() {
-        return userImageUrl;
+        userId = null;
     }
 
     /** {@inheritDoc} */
     public void reloadUserInfo() {
         mGoogleApiClient.blockingConnect();
         Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+        Log.d("Google Provider : ", person.toString());
         if (person != null) {
-            userName = person.getDisplayName();
-            userImageUrl = person.getImage().getUrl();
+            userId = Plus.AccountApi.getAccountName(mGoogleApiClient);
         }
     }
 }

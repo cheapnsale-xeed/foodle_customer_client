@@ -25,6 +25,7 @@ import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.service.model.User;
 
 import java.util.ArrayList;
 
@@ -70,6 +71,10 @@ public class CheapnsaleService {
 
     public String getConfirmSMSAuth(SMSAuth smsAuth) {
         return cheapnsaleApi.getConfirmSMSAuth(smsAuth);
+    }
+
+    public User putUserLoginInfo(User user){
+        return cheapnsaleApi.putUserLoginInfo(user);
     }
 }
 

@@ -9,8 +9,6 @@ package com.xeed.cheapnsale.user;
 //
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.amazonaws.ClientConfiguration;
@@ -24,9 +22,6 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.xeed.cheapnsale.util.ThreadUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -498,26 +493,6 @@ public class IdentityManager {
         return currentIdentityProvider;
     }
 
-    // local cache of the user image of currentIdentityProvider.getUserImageUrl();
-    private Bitmap userImage = null;
-
-    private void loadUserImage(final String userImageUrl) {
-        if (userImageUrl == null) {
-            userImage = null;
-            return;
-        }
-
-        try {
-            final InputStream is = new URL(userImageUrl).openStream();
-            userImage = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch (IOException e) {
-            Log.w(LOG_TAG, "Failed to prefetch user image: " + userImageUrl, e);
-            // clear user image
-            userImage = null;
-        }
-    }
-
     /**
      * Reload the user info and image in the background.
      *
@@ -530,26 +505,9 @@ public class IdentityManager {
             @Override
             public void run() {
                 provider.reloadUserInfo();
-                // preload user image
-                loadUserImage(provider.getUserImageUrl());
                 ThreadUtils.runOnUiThread(onReloadComplete);
             }
         });
     }
 
-    /**
-     * Convenient method to get the user image of the current identity provider.
-     * @return user image of the current identity provider, or null if not signed in or unavailable
-     */
-    public Bitmap getUserImage() {
-        return userImage;
-    }
-
-    /**
-     * Convenient method to get the user name from the current identity provider.
-     * @return user name from the current identity provider, or null if not signed in
-     */
-    public String getUserName() {
-        return currentIdentityProvider == null ? null : currentIdentityProvider.getUserName();
-    }
 }
