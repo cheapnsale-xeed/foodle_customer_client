@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -60,11 +61,11 @@ public class OrderActivity extends AppCompatActivity {
     @BindView(R.id.radio_credit_button_order)
     public RadioButton radioCreditButtonOrder;
 
-    @BindView(R.id.radio_kakaopay_button_order)
-    public RadioButton radioKakaopayButtonOrder;
-
     @BindView(R.id.radio_mobile_button_order)
     public RadioButton radioMobileButtonOrder;
+
+    @BindView(R.id.radio_toss_button_order)
+    public RadioButton radioTossButtonOrder;
 
     @BindView(R.id.text_pickup_time_order)
     public TextView textPickupTimeOrder;
@@ -129,6 +130,8 @@ public class OrderActivity extends AppCompatActivity {
     private boolean isReset = false;
     private String[] displayedValue;
 
+    private boolean isClickAccept = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +160,19 @@ public class OrderActivity extends AppCompatActivity {
         radioCreditButtonOrder.setChecked(true);
 
         pickerDialog = new MaterialDialog.Builder(this)
-                .customView(R.layout.dialog_order_time_picker, false).build();
+                .customView(R.layout.dialog_order_time_picker, false)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (!isReset && !isClickAccept) {
+                            radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
+                        }
+                        dialog.dismiss();
+                        isClickAccept = false;
+                    }
+                })
+                .build();
+
 
         numberPickerOrder = (NumberPicker) pickerDialog.getView().findViewById(R.id.number_picker_order);
         textCancelButtonPicker = (TextView) pickerDialog.getView().findViewById(R.id.text_cancel_button_picker);
@@ -167,9 +182,6 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if(!isReset) {
-                    radioGroupPickupTimeOrder.check(radioNowButtonOrder.getId());
-                }
                 pickerDialog.dismiss();
             }
         });
@@ -177,16 +189,17 @@ public class OrderActivity extends AppCompatActivity {
         textAcceptButtonPicker.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String pickTime = displayedValue[selectedNumberIndex];
 
                 textDialogPickedTimeOrder.setText(pickTime);
                 relativeTodayDetailOrder.setVisibility(RelativeLayout.VISIBLE);
+
+                isClickAccept = true;
                 pickerDialog.dismiss();
             }
         });
 
-        textTotalPriceOrder.setText(""+ NumbersUtil.format(((Application) getApplication()).getCart().getTotalPrice()));
+        textTotalPriceOrder.setText("" + NumbersUtil.format(((Application) getApplication()).getCart().getTotalPrice()));
 
         // Order list Adapter
         OrderCartItemListAdapter orderCartItemListAdapter =
@@ -207,8 +220,8 @@ public class OrderActivity extends AppCompatActivity {
                     protected void onPreExecute() {
                         super.onPreExecute();
 
-                        if(radioCreditButtonOrder.isChecked()){
-                            order.setOrderId(UUID.randomUUID().toString().replaceAll("-",""));
+                        if (radioCreditButtonOrder.isChecked() || radioTossButtonOrder.isChecked()) {
+                            order.setOrderId(UUID.randomUUID().toString().replaceAll("-", ""));
                             order.setMenus(cart.getMenus());
                             order.setStoreId(storeId);
                             order.setStatus(Order.STATUS.NOT_PAIDED.name());
@@ -277,7 +290,7 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                textPickupTimeOrder.setText(store.getAvgPrepTime()+getString(R.string.minute));
+                textPickupTimeOrder.setText(store.getAvgPrepTime() + getString(R.string.minute));
             }
         }.execute();
 
@@ -316,7 +329,7 @@ public class OrderActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_detail_pickup_term)
     public void onClickImageDetailPickupTerm(View view) {
-        if(linearOrderDetailPickupTerm.getVisibility() == View.GONE) {
+        if (linearOrderDetailPickupTerm.getVisibility() == View.GONE) {
             imageDetailPickupTerm.setImageResource(R.drawable.ico_collapse);
             linearOrderDetailPickupTerm.setVisibility(View.VISIBLE);
         } else {
@@ -341,7 +354,7 @@ public class OrderActivity extends AppCompatActivity {
 
         // offset 주문 최소 소요 시간 + 5분 단위 계산 시간
         if (currentMinute % 5 != 0) {
-             offset = minTime + (5 - (currentMinute % 5));
+            offset = minTime + (5 - (currentMinute % 5));
         }
 
         // startDisplayTime은 Spinner에 추가되는 시간의 시작 시간 즉 현재 시각 + Offset 계산 시간
@@ -350,13 +363,13 @@ public class OrderActivity extends AppCompatActivity {
         // gapTime 값을 통해 displayedValue의 배열 크기를 결정한다
         // 중요! DateUtil.calcTimeGap 함수 내에 새벽 5시를 기준으로 영업일을 넘기는 로직이 있음
         //      즉, 영업종료 시간이 새벽 4시이고 주문 시간이 23시인 경우 주문 가능하게 하였음
-        int gapTime = DateUtil.calcTimeGap(store.getCloseTime(), startDisplayTime.substring(11,16));
+        int gapTime = DateUtil.calcTimeGap(store.getCloseTime(), startDisplayTime.substring(11, 16));
 
-        displayedValue = new String[(gapTime/5)+1];
+        displayedValue = new String[(gapTime / 5) + 1];
 
-        for (int i = 0; i < (gapTime/5)+1; i++) {
+        for (int i = 0; i < (gapTime / 5) + 1; i++) {
             // 첫번째 출력 시간부터 5분 단위로 추가하면서 계산하여 출력 배열 계산
-            displayedValue[i] = (DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(), String.valueOf(offset))).substring(11,16);
+            displayedValue[i] = (DateUtil.calcPickupTime(DateUtil.getCurrentDateTime(), String.valueOf(offset))).substring(11, 16);
             offset = offset + 5;
         }
 
@@ -386,7 +399,7 @@ public class OrderActivity extends AppCompatActivity {
             radioNowButtonOrder.setButtonTintList(colorStateList_select);
             radioTodayButtonOrder.setButtonTintList(colorStateList_unselect);
             relativeTodayDetailOrder.setVisibility(RelativeLayout.INVISIBLE);
-            if(numberPickerOrder != null){
+            if (numberPickerOrder != null) {
                 numberPickerOrder.setValue(0);
             }
             selectedNumberIndex = 0;
@@ -408,43 +421,43 @@ public class OrderActivity extends AppCompatActivity {
 
         if (checkedId == radioCreditButtonOrder.getId()) {
             radioCreditButtonOrder.setTextColor(Color.parseColor("#111cc4"));
-            radioKakaopayButtonOrder.setTextColor(Color.parseColor("#C8000000"));
+            radioTossButtonOrder.setTextColor(Color.parseColor("#C8000000"));
             radioMobileButtonOrder.setTextColor(Color.parseColor("#C8000000"));
 
             radioCreditButtonOrder.setTypeface(null, Typeface.BOLD);
-            radioKakaopayButtonOrder.setTypeface(null, Typeface.NORMAL);
+            radioTossButtonOrder.setTypeface(null, Typeface.NORMAL);
             radioMobileButtonOrder.setTypeface(null, Typeface.NORMAL);
 
             radioCreditButtonOrder.setButtonTintList(colorStateList_select);
-            radioKakaopayButtonOrder.setButtonTintList(colorStateList_unselect);
+            radioTossButtonOrder.setButtonTintList(colorStateList_unselect);
             radioMobileButtonOrder.setButtonTintList(colorStateList_unselect);
         }
 
-        if (checkedId == radioKakaopayButtonOrder.getId()) {
-            radioKakaopayButtonOrder.setTextColor(Color.parseColor("#111cc4"));
+        if (checkedId == radioTossButtonOrder.getId()) {
+            radioTossButtonOrder.setTextColor(Color.parseColor("#111cc4"));
             radioCreditButtonOrder.setTextColor(Color.parseColor("#C8000000"));
             radioMobileButtonOrder.setTextColor(Color.parseColor("#C8000000"));
 
-            radioKakaopayButtonOrder.setTypeface(null, Typeface.BOLD);
+            radioTossButtonOrder.setTypeface(null, Typeface.BOLD);
             radioCreditButtonOrder.setTypeface(null, Typeface.NORMAL);
             radioMobileButtonOrder.setTypeface(null, Typeface.NORMAL);
 
-            radioKakaopayButtonOrder.setButtonTintList(colorStateList_select);
+            radioTossButtonOrder.setButtonTintList(colorStateList_select);
             radioCreditButtonOrder.setButtonTintList(colorStateList_unselect);
             radioMobileButtonOrder.setButtonTintList(colorStateList_unselect);
         }
 
         if (checkedId == radioMobileButtonOrder.getId()) {
             radioMobileButtonOrder.setTextColor(Color.parseColor("#111cc4"));
-            radioKakaopayButtonOrder.setTextColor(Color.parseColor("#C8000000"));
+            radioTossButtonOrder.setTextColor(Color.parseColor("#C8000000"));
             radioCreditButtonOrder.setTextColor(Color.parseColor("#C8000000"));
 
             radioMobileButtonOrder.setTypeface(null, Typeface.BOLD);
-            radioKakaopayButtonOrder.setTypeface(null, Typeface.NORMAL);
+            radioTossButtonOrder.setTypeface(null, Typeface.NORMAL);
             radioCreditButtonOrder.setTypeface(null, Typeface.NORMAL);
 
             radioMobileButtonOrder.setButtonTintList(colorStateList_select);
-            radioKakaopayButtonOrder.setButtonTintList(colorStateList_unselect);
+            radioTossButtonOrder.setButtonTintList(colorStateList_unselect);
             radioCreditButtonOrder.setButtonTintList(colorStateList_unselect);
         }
     }

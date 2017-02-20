@@ -1,7 +1,8 @@
 machine:
   environment:
     # Java options
-    JAVA_OPTS: "-Xms512m -Xmx4G"
+    JAVA_OPTS: "-Xms1G -Xmx4G"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx3G -XX:HeapDumpOnOutOfMemoryError"'
 
 general:
   artifacts:
@@ -23,8 +24,8 @@ machine:
     Asia/Seoul
 test:
   override:
-    - ./gradlew testDebugUnitTest -PdisablePreDex
-    - ./gradlew assembleDebug -PdisablePreDex
+    - ./gradlew testDebugUnitTest -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=2 -Dorg.gradle.parallel=true -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
+    - ./gradlew assembleDebug -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx3G" -Dorg.gradle.daemon=false
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

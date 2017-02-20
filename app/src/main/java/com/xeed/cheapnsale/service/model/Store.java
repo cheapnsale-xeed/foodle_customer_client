@@ -25,31 +25,35 @@ import java.util.Comparator;
 public class Store implements Serializable {
 
     @SerializedName("ID")
-    private String id = null;
+    private String id;
     @SerializedName("CATEGORY")
-    private String category = null;
+    private String category;
     @SerializedName("REG_NUM")
-    private String regNum = null;
+    private String regNum;
     @SerializedName("NAME")
-    private String name = null;
+    private String name;
     @SerializedName("PAYMENT_TYPE")
     private String paymentType;
     @SerializedName("AVG_PREP_TIME")
     private String avgPrepTime;
     @SerializedName("MAIN_IMG")
-    private String mainImageUrl = null;
+    private String mainImageUrl;
     @SerializedName("MENUS")
     private ArrayList<Menu> menus = new ArrayList<>();
     @SerializedName("PHONE")
-    private String phoneNumber = null;
+    private String phoneNumber;
     @SerializedName("GPS_COORDINATES_LAT")
     private Double gpsCoordinatesLat = 0d;
     @SerializedName("GPS_COORDINATES_LONG")
     private Double gpsCoordinatesLong = 0d;
     @SerializedName("OPEN_TIME")
-    private String openTime = null;
+    private String openTime;
     @SerializedName("CLOSE_TIME")
-    private String closeTime = null;
+    private String closeTime;
+    @SerializedName("ADDRESS")
+    private String address;
+    @SerializedName("END_TIME")
+    private String endTime;
 
     private int distanceToStore = 0;
 
@@ -165,6 +169,22 @@ public class Store implements Serializable {
         this.openTime = openTime;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     public static Comparator<Store> DistanceToStoreAsc = new Comparator<Store>() {
 
         public int compare(Store s1, Store s2) {
@@ -173,6 +193,7 @@ public class Store implements Serializable {
             int distanceToStore2 = s2.getDistanceToStore();
 
 	   /*For ascending order*/
-            return distanceToStore1-distanceToStore2;
-        }};
+            return distanceToStore1 - distanceToStore2;
+        }
+    };
 }

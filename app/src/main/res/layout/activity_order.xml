@@ -252,7 +252,7 @@
                         android:textSize="16dp" />
 
                     <RadioButton
-                        android:id="@+id/radio_kakaopay_button_order"
+                        android:id="@+id/radio_mobile_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_weight="1"
@@ -260,7 +260,7 @@
                         android:textSize="16dp" />
 
                     <RadioButton
-                        android:id="@+id/radio_mobile_button_order"
+                        android:id="@+id/radio_toss_button_order"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="@string/payment_toss"

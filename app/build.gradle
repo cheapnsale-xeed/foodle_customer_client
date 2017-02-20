@@ -95,6 +95,9 @@ dependencies {
 
     // for DateTime Util
     compile 'joda-time:joda-time:2.9.7'
+
+    //Firebase report
+    compile 'com.google.firebase:firebase-crash:10.0.1'
 }
 
 // It must be place bottom of all of them

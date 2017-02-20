@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "680597328201",
-    "project_id": "foodle-bd043"
+    "firebase_url": "https://foodle-bd043.firebaseio.com",
+    "project_id": "foodle-bd043",
+    "storage_bucket": "foodle-bd043.appspot.com"
   },
   "client": [
     {
@@ -21,6 +23,10 @@
           }
         },
         {
+          "client_id": "680597328201-t7atesgimk0s624ee2898fd7ebjd75iq.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "680597328201-q4i4pbt9lu62m1lu17054gig987hlmre.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680597328201-t7atesgimk0s624ee2898fd7ebjd75iq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
