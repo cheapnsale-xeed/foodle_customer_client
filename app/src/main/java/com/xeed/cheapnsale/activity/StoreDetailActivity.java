@@ -70,23 +70,17 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
     @BindView(R.id.text_name_store_detail)
     public TextView textNameStoreDetail;
 
-    @BindView(R.id.text_payment_type_store_detail)
-    public TextView textPaymentTypeStoreDetail;
-
     @BindView(R.id.image_top_src_store_detail)
     public ImageView imageTopSrcStoreDetail;
 
     @BindView(R.id.floating_call_button_store_detail)
     public FloatingActionButton floatingCallButtonStoreDetail;
 
-    @BindView(R.id.text_arrival_time_store_detail)
-    public TextView textArrivalTimeStoreDetail;
+    @BindView(R.id.text_address_store_detail)
+    public TextView textAddressStoreDetail;
 
-    @BindView(R.id.view_vertical_bar_store_detail)
-    public View viewVerticalBarStoreDetail;
-
-    @BindView(R.id.text_distance_store_detail)
-    public TextView textDistanceStoreDetail;
+    @BindView(R.id.text_running_time_store_detail)
+    public TextView textRunningTimeStoreDetail;
 
     Store store;
     public Target imageCallback;
@@ -114,22 +108,6 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
         int arrivalTime = store.getDistanceToStore() / 60;
 
-        if (store.getDistanceToStore() > 1000) {
-            double distance_km = (double)((int)((store.getDistanceToStore() + 50) / 100))/10;
-            textDistanceStoreDetail.setText(distance_km + "km");
-        } else {
-            textDistanceStoreDetail.setText(store.getDistanceToStore() + "m");
-        }
-
-        if (store.getDistanceToStore() > 1500) {
-            textArrivalTimeStoreDetail.setVisibility(View.GONE);
-            viewVerticalBarStoreDetail.setVisibility(View.GONE);
-        } else {
-            textArrivalTimeStoreDetail.setVisibility(View.VISIBLE);
-            viewVerticalBarStoreDetail.setVisibility(View.VISIBLE);
-            textArrivalTimeStoreDetail.setText(arrivalTime + "분");
-        }
-
         storeMenuTabPagerAdapter = new StoreMenuTabPagerAdapter(store, getSupportFragmentManager(), tabStoreDetail.getTabCount());
         pagerOrderDetail.setAdapter(storeMenuTabPagerAdapter);
         pagerOrderDetail.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabStoreDetail));
@@ -138,7 +116,8 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         //store 정보 세팅 시작
         textNameStoreDetail.setText(store.getName());
         textTitleOrderDetail.setText(store.getName());
-        textPaymentTypeStoreDetail.setText(store.getPaymentType());
+        textAddressStoreDetail.setText(store.getAddress());
+        textRunningTimeStoreDetail.setText(store.getOpenTime() + " - " + store.getCloseTime() + " (" + getResources().getString(R.string.txt_order_end_time) + " " + store.getEndTime() + ")");
 
         imageCallback = new Target() {
             @Override

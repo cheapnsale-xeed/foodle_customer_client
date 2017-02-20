@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -44,6 +45,8 @@ public class StoreDetailActivityTest {
     private View viewVerticalBarStoreDetail;
     private TextView noButton;
     private TextView yesButton;
+    private TextView address;
+    private TextView runningTime;
 
     @Before
     public void setUp() throws Exception {
@@ -57,11 +60,9 @@ public class StoreDetailActivityTest {
         mapLink = (TextView) storeDetailActivity.findViewById(R.id.text_map_button_store_detail);
         title = (TextView) storeDetailActivity.findViewById(R.id.text_title_order_detail);
         storeTitle = (TextView) storeDetailActivity.findViewById(R.id.text_name_store_detail);
-        storePaymentType = (TextView) storeDetailActivity.findViewById(R.id.text_payment_type_store_detail);
         storeMainImg = (ImageView) storeDetailActivity.findViewById(R.id.image_top_src_store_detail);
-
-        textArrivalTimeStoreDetail = (TextView) storeDetailActivity.findViewById(R.id.text_arrival_time_store_detail);
-        viewVerticalBarStoreDetail = storeDetailActivity.findViewById(R.id.view_vertical_bar_store_detail);
+        address = (TextView) storeDetailActivity.findViewById(R.id.text_address_store_detail);
+        runningTime = (TextView) storeDetailActivity.findViewById(R.id.text_running_time_store_detail);
 
         Cart mockCart = ((TestApplication) RuntimeEnvironment.application).getCart();
 
@@ -80,33 +81,15 @@ public class StoreDetailActivityTest {
     }
 
     @Test
-    public void whenActivityIsStart_thenStoreTitleIsVisible() throws Exception {
-        Bitmap mockBitmap = BitmapFactory.decodeResource(RuntimeEnvironment.application.getResources(), R.drawable.ico_map);
-
-        storeDetailActivity.imageCallback.onBitmapLoaded(mockBitmap, null);
-
-        assertThat(storeTitle.getText().toString()).isEqualTo("가게이름");
-        assertThat(storePaymentType.getText()).isEqualTo("바로결제");
-        assertThat(storeMainImg.getDrawable()).isEqualTo(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.ico_map));
+    public void whenActivityIsStart_thenStoreAddressIsVisible() throws Exception {
+        Store store = makeMockData();
+       assertThat(address.getText().toString()).isEqualTo(store.getAddress());
     }
 
     @Test
-    public void whenDistanceIsLessThan1500m_thenWalkTimeIsIndicated() throws Exception {
-        assertThat(textArrivalTimeStoreDetail.getVisibility()).isEqualTo(View.VISIBLE);
-        assertThat(viewVerticalBarStoreDetail.getVisibility()).isEqualTo(View.VISIBLE);
-
-        Intent intent = new Intent(RuntimeEnvironment.application, StoreDetailActivity.class);
+    public void whenActivityIsStart_thenStoreRunningTimeIsVisible() throws Exception {
         Store store = makeMockData();
-        store.setDistanceToStore(2000);
-        intent.putExtra("store", store);
-
-        storeDetailActivity = Robolectric.buildActivity(StoreDetailActivity.class).withIntent(intent).create().get();
-
-        textArrivalTimeStoreDetail = (TextView) storeDetailActivity.findViewById(R.id.text_arrival_time_store_detail);
-        viewVerticalBarStoreDetail = storeDetailActivity.findViewById(R.id.view_vertical_bar_store_detail);
-
-        assertThat(textArrivalTimeStoreDetail.getVisibility()).isEqualTo(View.GONE);
-        assertThat(viewVerticalBarStoreDetail.getVisibility()).isEqualTo(View.GONE);
+        assertThat(runningTime.getText().toString()).isEqualTo(store.getOpenTime() + " - " + store.getCloseTime() + " (" + storeDetailActivity.getResources().getString(R.string.txt_order_end_time) + " " + store.getEndTime() + ")");
     }
 
     @Test
@@ -151,6 +134,10 @@ public class StoreDetailActivityTest {
         store.setPaymentType("바로결제");
         store.setMainImageUrl("http://image.jpg");
         store.setDistanceToStore(456);
+        store.setAddress("서울시 송파구 방이동 25번지");
+        store.setOpenTime("08:00");
+        store.setCloseTime("22:00");
+        store.setEndTime("21:00");
         return store;
     }
 }
