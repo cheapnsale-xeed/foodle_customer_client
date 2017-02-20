@@ -54,6 +54,8 @@ public class Store implements Serializable {
     private String address;
     @SerializedName("END_TIME")
     private String endTime;
+    @SerializedName("RECOMMEND_COUNT")
+    private int recommendCount;
 
     private int distanceToStore = 0;
 
@@ -184,6 +186,15 @@ public class Store implements Serializable {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public int getRecommendCount() {
+        return recommendCount;
+    }
+
+    public void setRecommendCount(int recommendCount) {
+        this.recommendCount = recommendCount;
+    }
+
 
     public static Comparator<Store> DistanceToStoreAsc = new Comparator<Store>() {
 

@@ -63,7 +63,12 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
             holder.textArrivalTimeStore.setVisibility(View.VISIBLE);
             holder.textArrivalTimeStore.setText(arrivalTime + "분");
         }
-        holder.textRecommendStore.setText("추천 460");
+
+        if(stores.get(position).getRecommendCount() == 0) {
+            holder.textRecommendStore.setText(context.getResources().getString(R.string.txt_recommend) + " -");
+        } else {
+            holder.textRecommendStore.setText(context.getResources().getString(R.string.txt_recommend) + " " + stores.get(position).getRecommendCount());
+        }
 
     }
 
