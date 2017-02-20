@@ -26,7 +26,9 @@ public class AppCompatWrapperActivity extends AppCompatActivity{
     }
 
     public void progressDialogDismiss(){
-        mProgressDialog.dismiss();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 
 }
