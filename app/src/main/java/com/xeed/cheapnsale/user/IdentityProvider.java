@@ -13,6 +13,8 @@ package com.xeed.cheapnsale.user;
  */
 public interface IdentityProvider {
 
+    String getUserId();
+
     /**
      * @return the display name for this provider.
      */
@@ -50,20 +52,9 @@ public interface IdentityProvider {
     void signOut();
 
     /**
-     * Gets the user's name, assuming user is signed in.
-     * @return user name or null if not signed-in.
-     */
-    String getUserName();
-
-    /**
-     * Gets the user's image url, assuming user is signed in.
-     * @return image or null if not signed-in or has no image.
-     */
-    String getUserImageUrl();
-
-    /**
      * Force the provider to reload user name and image.
      * Note: this is a blocking call.
      */
     void reloadUserInfo();
+
 }

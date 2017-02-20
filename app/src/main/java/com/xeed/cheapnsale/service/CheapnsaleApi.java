@@ -23,6 +23,7 @@ import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.service.model.Payment;
 import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.service.model.Store;
+import com.xeed.cheapnsale.service.model.User;
 
 
 @Service(endpoint = "https://cv47nyx5yl.execute-api.ap-northeast-1.amazonaws.com/prod")
@@ -48,5 +49,8 @@ public interface CheapnsaleApi {
 
     @Operation(path = "/sms/confirm", method = "POST")
     String getConfirmSMSAuth(SMSAuth smsAuth);
+
+    @Operation(path = "/user/signup", method = "PUT")
+    User putUserLoginInfo(User user);
 }
 

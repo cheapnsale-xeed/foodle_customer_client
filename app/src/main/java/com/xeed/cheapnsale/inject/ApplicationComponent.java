@@ -7,6 +7,7 @@ import com.xeed.cheapnsale.activity.SMSAuthActivity;
 import com.xeed.cheapnsale.activity.SignUpActivity;
 import com.xeed.cheapnsale.activity.SplashActivity;
 import com.xeed.cheapnsale.activity.StoreDetailActivity;
+import com.xeed.cheapnsale.activity.TermsConditionsActivity;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
@@ -44,5 +45,6 @@ public interface ApplicationComponent {
     void inject(CartListAdapter cartListAdapter);
     void inject(SignUpActivity signUpActivity);
     void inject(SplashActivity splashActivity);
+    void inject(TermsConditionsActivity termsConditionsActivity);
 
 }

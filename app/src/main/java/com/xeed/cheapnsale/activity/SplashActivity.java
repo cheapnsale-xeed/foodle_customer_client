@@ -1,28 +1,35 @@
 package com.xeed.cheapnsale.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.User;
+import com.xeed.cheapnsale.user.AWSMobileClient;
 import com.xeed.cheapnsale.user.IdentityManager;
 import com.xeed.cheapnsale.user.IdentityProvider;
 import com.xeed.cheapnsale.user.signin.SignInManager;
 import com.xeed.cheapnsale.user.signin.SignInProvider;
+import com.xeed.cheapnsale.wrapper.AppCompatWrapperActivity;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatWrapperActivity {
 
     private static final String LOG_TAG = SplashActivity.class.getSimpleName();
 
     @Inject
     public SignInManager signInManager;
 
-    private ProgressDialog mProgressDialog;
+    @Inject
+    public AWSMobileClient awsMobileClient;
+
+    @Inject
+    public CheapnsaleService cheapnsaleService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
         thread.start();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mProgressDialog.dismiss();
+        progressDialogDismiss();
     }
 
     private class SignInResultsHandler implements IdentityManager.SignInResultsHandler {
@@ -64,12 +72,53 @@ public class SplashActivity extends AppCompatActivity {
             Log.d(LOG_TAG, String.format("User sign-in with previous %s provider succeeded",
                     provider.getDisplayName()));
 
+            awsMobileClient
+                    .getIdentityManager()
+                    .loadUserInfoAndImage(provider, new Runnable() {
+                        @Override
+                        public void run() {
+                            // lambda call
+                            Log.d("Splash userId : ", "" + provider.getUserId());
+
+                            final User signUpUser = new User();
+                            signUpUser.setUserId(provider.getUserId());
+                            signUpUser.setProvider(provider.getDisplayName());
+
+                            new AsyncTask<Void, Void, Void>() {
+
+                                User user = new User();
+
+                                @Override
+                                protected Void doInBackground(Void... params) {
+                                    user = cheapnsaleService.putUserLoginInfo(signUpUser);
+                                    return null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void aVoid) {
+                                    Log.d("User : ", user.toString());
+                                    if("Y".equals(user.getPhoneConfirm())){
+                                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                        finish();
+                                    }else if("Y".equals(user.getTacAgree())){
+                                        //TODO 이용동의 후 휴대폰인증으로 가야하나 아직 유저스토리가 나오지 않아 메인으로 이동
+                                        //startActivity(new Intent(SplashActivity.this, SMSAuthActivity.class));
+                                        //finish();
+                                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                        finish();
+                                    }else{
+                                        Intent intent = new Intent(SplashActivity.this, TermsConditionsActivity.class);
+                                        intent.putExtra("account", provider.getDisplayName());
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            }.execute();
+                        }
+                    });
+
             // The sign-in manager is no longer needed once signed in.
             SignInManager.dispose();
-
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
         }
 
         @Override
@@ -88,19 +137,4 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("loading");
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +9,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.service.CheapnsaleService;
+import com.xeed.cheapnsale.service.model.User;
+import com.xeed.cheapnsale.user.AWSMobileClient;
+import com.xeed.cheapnsale.user.IdentityProvider;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,15 +57,26 @@ public class TermsConditionsActivity extends AppCompatActivity {
     @BindView(R.id.text_sign_up_with_account)
     TextView textSignUpWithAccount;
 
+    @Inject
+    public AWSMobileClient awsMobileClient;
+
+    @Inject
+    public CheapnsaleService cheapnsaleService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((Application) getApplication()).getApplicationComponent().inject(this);
         setContentView(R.layout.activity_terms_conditions);
 
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null && getIntent().getExtras().get("account") != null) {
-            textSignUpWithAccount.setText(getIntent().getExtras().get("account").toString());
+            if ("Facebook".equals(getIntent().getExtras().get("account").toString())) {
+                textSignUpWithAccount.setText(getString(R.string.word_sign_up_with_facebook));
+            }else{
+                textSignUpWithAccount.setText(getString(R.string.word_sign_up_with_google_account));
+            }
         }
     }
 
@@ -135,8 +154,29 @@ public class TermsConditionsActivity extends AppCompatActivity {
 
     @OnClick(R.id.text_sign_up_with_account)
     public void onClickSignUpWithAccount(TextView view){
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+
+        IdentityProvider currentIdentityProvider = awsMobileClient.getIdentityManager().getCurrentIdentityProvider();
+
+        final User user = new User();
+        user.setUserId(currentIdentityProvider.getUserId());
+        user.setProvider(currentIdentityProvider.getDisplayName());
+        user.setTacAgree("Y");
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                cheapnsaleService.putUserLoginInfo(user);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                //TODO 휴대폰인증으로 넘어가는 유저스토리가 없어서 메인으로 넘기고 있음. 나중에 휴대폰인증으로 넘어가야함
+                startActivity(new Intent(TermsConditionsActivity.this, MainActivity.class));
+                finish();
+            }
+        }.execute();
+
     }
 
 }

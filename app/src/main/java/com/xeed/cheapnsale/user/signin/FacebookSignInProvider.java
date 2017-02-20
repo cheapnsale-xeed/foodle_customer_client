@@ -40,17 +40,12 @@ public class FacebookSignInProvider implements SignInProvider {
     /** Facebook's callback manager. */
     private CallbackManager facebookCallbackManager;
 
-    /** User's name. */
-    private String userName;
-
-    /** User's image Url. */
-    private String userImageUrl;
-
     /** Timeout for refreshing the Facebook Token. */
     private final long REFRESH_TOKEN_TIMEOUT_SECONDS = 15;
-
     /** Latch to ensure Facebook SDK is initialized before attempting to read the authorization token. */
     private final CountDownLatch initializedLatch = new CountDownLatch(1);
+
+    private String userId;
 
     /**
      * Constuctor. Intitializes the SDK and debug logs the app KeyHash that must be set up with
@@ -59,7 +54,6 @@ public class FacebookSignInProvider implements SignInProvider {
      * @param context the context.
      */
     public FacebookSignInProvider(final Context context) {
-
         if (!FacebookSdk.isInitialized()) {
             Log.d(LOG_TAG, "Initializing Facebook SDK...");
             FacebookSdk.sdkInitialize(context, new FacebookSdk.InitializeCallback() {
@@ -111,7 +105,6 @@ public class FacebookSignInProvider implements SignInProvider {
     public View.OnClickListener initializeSignInButton(final Activity signInActivity,
                                                        final View buttonView,
                                                        final IdentityManager.SignInResultsHandler resultsHandler) {
-
         FacebookSdk.sdkInitialize(signInActivity);
 
         if (buttonView == null) {
@@ -124,6 +117,7 @@ public class FacebookSignInProvider implements SignInProvider {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(LOG_TAG, "Facebook provider sign-in succeeded.");
+                userId = loginResult.getAccessToken().getUserId();
                 resultsHandler.onSuccess(FacebookSignInProvider.this);
             }
 
@@ -144,12 +138,17 @@ public class FacebookSignInProvider implements SignInProvider {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logInWithReadPermissions(signInActivity,
-                    Arrays.asList("public_profile"));
+                    Arrays.asList("public_profile", "email"));
             }
         };
 
         buttonView.setOnClickListener(listener);
         return listener;
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
     }
 
     /** {@inheritDoc} */
@@ -254,25 +253,11 @@ public class FacebookSignInProvider implements SignInProvider {
     }
 
     private void clearUserInfo() {
-        userName = null;
-        userImageUrl = null;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getUserName() {
-        return userName;
-    }
-
-    /** {@inheritDoc} */
-     @Override
-    public String getUserImageUrl() {
-        return userImageUrl;
+        userId = null;
     }
 
     /** {@inheritDoc} */
     public void reloadUserInfo() {
-
         clearUserInfo();
 
         if (!isUserSignedIn()) {
@@ -280,23 +265,17 @@ public class FacebookSignInProvider implements SignInProvider {
         }
 
         final Bundle parameters = new Bundle();
-        parameters.putString("fields", "name,picture.type(large)");
+        parameters.putString("fields", "name,id");
         final GraphRequest graphRequest = new GraphRequest(AccessToken.getCurrentAccessToken(), "me");
         graphRequest.setParameters(parameters);
         GraphResponse response = graphRequest.executeAndWait();
 
         JSONObject json = response.getJSONObject();
+        Log.d("Facebook Provider : ", json.toString());
         try {
-            userName = json.getString("name");
-            userImageUrl = json.getJSONObject("picture")
-                    .getJSONObject("data")
-                    .getString("url");
-
+            userId = json.getString("id");
         } catch (final JSONException jsonException) {
-            Log.e(LOG_TAG,
-                    "Unable to get Facebook user info. " + jsonException.getMessage() + "\n" + response,
-                    jsonException);
-            // Nothing much we can do here.
+            Log.e(LOG_TAG, "Unable to get Facebook user info. " + jsonException.getMessage() + "\n" + response, jsonException);
         }
     }
 }
