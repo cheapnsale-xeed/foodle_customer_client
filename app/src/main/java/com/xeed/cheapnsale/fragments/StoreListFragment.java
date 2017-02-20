@@ -58,6 +58,7 @@ public class StoreListFragment extends Fragment {
         storeListAdapter = new StoreListAdapter(getContext(), new ArrayList<Store>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(storeListAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
 
         return recyclerView;
     }

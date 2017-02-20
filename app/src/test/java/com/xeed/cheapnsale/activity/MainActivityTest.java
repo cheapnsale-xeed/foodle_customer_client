@@ -46,32 +46,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void whenActivityIsStarted_thenShowCheapnsaleTitle() throws Exception {
-        TextView cheapnsaleTitleText = (TextView) mainActivity.findViewById(R.id.text_title_main);
-        assertThat(cheapnsaleTitleText.getText()).isEqualTo("Foodle");
-    }
-
-    @Test
-    public void whenActivityIsStarted_thenShowFirstFragmentTitle() throws Exception {
-        assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(0);
-        assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("전체보기");
-    }
-
-    @Test
-    public void whenTabChange_thenFragmentTitleChange() throws Exception {
-        mainActivity.pagerMain.setCurrentItem(1);
-        assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(1);
-        when(mainActivity.cheapnsaleService.getMyCurrentOrder(anyString())).thenReturn(makeMockMyOrder());
-        mainActivity.onResume();
-        assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("내 주문(2)");
-
-
-        mainActivity.pagerMain.setCurrentItem(0);
-        assertThat(tabLayout.getSelectedTabPosition()).isEqualTo(0);
-        assertThat(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getText()).isEqualTo("전체보기");
-    }
-
-    @Test
     public void whenMapButtonTab_thenGoMapActivity() throws Exception {
         ImageView mapButton = (ImageView) mainActivity.findViewById(R.id.image_map_button_map);
         mapButton.performClick();
@@ -80,15 +54,6 @@ public class MainActivityTest {
         Intent actualIntent = shadowOf(mainActivity).getNextStartedActivity();
 
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
-    }
-
-    @Test
-    public void whenPaymentIsSuccess_thenShowMyOrderFragment() throws Exception {
-        Intent intent = new Intent(RuntimeEnvironment.application, MainActivity.class);
-        intent.putExtra("isPayment", true);
-        mainActivity = Robolectric.buildActivity(MainActivity.class).withIntent(intent).create().get();
-        
-        assertThat(mainActivity.pagerMain.getCurrentItem()).isEqualTo(1);
     }
 
     private ArrayList<Order> makeMockMyOrder() {

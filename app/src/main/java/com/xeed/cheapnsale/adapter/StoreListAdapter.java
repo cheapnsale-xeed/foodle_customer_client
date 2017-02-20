@@ -35,8 +35,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
     public void onBindViewHolder(StoreListHolder holder, int position) {
         holder.picasso.load(stores.get(position).getMainImageUrl()).into(holder.imageSrcStore);
         holder.textNameStore.setText(stores.get(position).getName());
-        holder.textPaymentTypeStore.setText(stores.get(position).getPaymentType());
-        holder.textPrepTimeStore.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute));
+        holder.textPrepTimeStore.setText(stores.get(position).getAvgPrepTime()+context.getResources().getString(R.string.minute)+" "+context.getResources().getString(R.string.txt_take_time));
 
         final int storePosition = position;
         final StoreListHolder storeListHolder = holder;
@@ -59,16 +58,13 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
             holder.textDistanceStore.setText(stores.get(position).getDistanceToStore() + "m");
         }
         if (distance > 1500) {
-            holder.imageWalkStore.setVisibility(View.GONE);
             holder.textArrivalTimeStore.setVisibility(View.GONE);
-            holder.viewVerticalBarStore.setVisibility(View.GONE);
         } else {
-            holder.imageWalkStore.setVisibility(View.VISIBLE);
             holder.textArrivalTimeStore.setVisibility(View.VISIBLE);
-            holder.viewVerticalBarStore.setVisibility(View.VISIBLE);
             holder.textArrivalTimeStore.setText(arrivalTime + "분");
-
         }
+        holder.textRecommendStore.setText("추천 460");
+
     }
 
     @Override
