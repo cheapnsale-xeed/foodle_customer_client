@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.CheapnsaleService;
@@ -142,6 +143,8 @@ public class SignUpActivity extends AppCompatWrapperActivity {
         public void onError(final IdentityProvider provider, final Exception ex) {
             Log.e(LOG_TAG, String.format("User Sign-in failed for %s : %s",
                     provider.getDisplayName(), ex.getMessage()), ex);
+
+            FirebaseCrash.report(ex);
 
             final AlertDialog.Builder errorDialogBuilder = new AlertDialog.Builder(SignUpActivity.this);
             errorDialogBuilder.setTitle("Sign-In Error");

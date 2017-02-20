@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.CheapnsaleService;
@@ -134,6 +135,8 @@ public class SplashActivity extends AppCompatWrapperActivity {
             Log.e(LOG_TAG,
                     String.format("Cognito credentials refresh with %s provider failed. Error: %s",
                             provider.getDisplayName(), ex.getMessage()), ex);
+
+            FirebaseCrash.report(ex);
         }
     }
 
