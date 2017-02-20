@@ -25,24 +25,17 @@ public class StoreListHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.image_src_store)
     public ImageView imageSrcStore;
 
-    @BindView(R.id.text_payment_type_store)
-    public TextView textPaymentTypeStore;
-
     @BindView(R.id.text_prep_time_store)
     public TextView textPrepTimeStore;
 
     @BindView(R.id.text_arrival_time_store)
     public TextView textArrivalTimeStore;
 
-    @BindView(R.id.view_vertical_bar_store)
-    public View viewVerticalBarStore;
-
     @BindView(R.id.text_distance_store)
     public TextView textDistanceStore;
 
-    @BindView(R.id.image_walk_store)
-    public ImageView imageWalkStore;
-
+    @BindView(R.id.text_recommend_store)
+    public TextView textRecommendStore;
 
     public StoreListHolder(View itemView) {
         super(itemView);

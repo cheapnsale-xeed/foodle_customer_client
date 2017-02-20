@@ -80,4 +80,7 @@
     <string name="word_detail_all_agreement_under_terms">이용약관, 개인정보 보호정책, 전자금융거래 이용\n약관은 필수 동의 사항으로 원활한 서비스 이용을\n위해서는 약관에 대한 동의가 필요합니다.</string>
     <string name="facebook_app_id">1345115008865612</string>
     <string name="txt_order_end_time">주문 마감</string>
+    <string name="txt_walk_time">도보</string>
+    <string name="txt_recommend">추천</string>
+    <string name="txt_take_time">걸려요</string>
 </resources>

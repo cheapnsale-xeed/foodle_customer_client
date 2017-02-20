@@ -43,16 +43,14 @@ public class StoreListAdapterTest {
         storeListAdapter.onBindViewHolder(holder,0);
 
         assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
-        assertThat(holder.textPaymentTypeStore.getText()).isEqualTo("바로결제");
-        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분");
+        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("456m");
         assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("7분");
 
         storeListAdapter.onBindViewHolder(holder,1);
 
         assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
-        assertThat(holder.textPaymentTypeStore.getText()).isEqualTo("바로결제");
-        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분");
+        assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("1.5km");
         assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("24분");
     }
@@ -81,7 +79,6 @@ public class StoreListAdapterTest {
         storeListAdapter.onBindViewHolder(holder,0);
 
         assertThat(holder.textArrivalTimeStore.getVisibility()).isEqualTo(View.VISIBLE);
-        assertThat(holder.viewVerticalBarStore.getVisibility()).isEqualTo(View.VISIBLE);
 
         ArrayList<Store> stores = makeMockList();
         stores.get(0).setDistanceToStore(2000);
@@ -90,7 +87,6 @@ public class StoreListAdapterTest {
         storeListAdapter.onBindViewHolder(holder,0);
 
         assertThat(holder.textArrivalTimeStore.getVisibility()).isEqualTo(View.GONE);
-        assertThat(holder.viewVerticalBarStore.getVisibility()).isEqualTo(View.GONE);
     }
 
     private ArrayList<Store> makeMockList(){
