@@ -57,11 +57,10 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListHolder> {
         } else {
             holder.textDistanceStore.setText(stores.get(position).getDistanceToStore() + "m");
         }
-        if (distance > 1500) {
-            holder.textArrivalTimeStore.setVisibility(View.GONE);
+        if (distance > 2000) {
+            holder.textArrivalTimeStore.setText(context.getResources().getString(R.string.txt_cannot_walk));
         } else {
-            holder.textArrivalTimeStore.setVisibility(View.VISIBLE);
-            holder.textArrivalTimeStore.setText(arrivalTime + "분");
+            holder.textArrivalTimeStore.setText(context.getResources().getString(R.string.txt_by_walk) + " " + arrivalTime + context.getResources().getString(R.string.minute));
         }
 
         if(stores.get(position).getRecommendCount() == 0) {

@@ -45,15 +45,15 @@ public class StoreListAdapterTest {
         assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
         assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
         assertThat(holder.textDistanceStore.getText()).isEqualTo("456m");
-        assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("7분");
+        assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("도보 7분");
         assertThat(holder.textRecommendStore.getText()).isEqualTo("추천 250");
 
         storeListAdapter.onBindViewHolder(holder,1);
 
         assertThat(holder.textNameStore.getText()).isEqualTo("mock store");
         assertThat(holder.textPrepTimeStore.getText()).isEqualTo("20분 걸려요");
-        assertThat(holder.textDistanceStore.getText()).isEqualTo("1.5km");
-        assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("24분");
+        assertThat(holder.textDistanceStore.getText()).isEqualTo("2.5km");
+        assertThat(holder.textArrivalTimeStore.getText()).isEqualTo("도보 무리");
         assertThat(holder.textRecommendStore.getText()).isEqualTo("추천 -");
     }
 
@@ -71,24 +71,6 @@ public class StoreListAdapterTest {
 
         assertThat(actualStore.getName()).isEqualTo("mock store");
         assertThat(actualStore.getPaymentType()).isEqualTo("바로결제");
-    }
-
-    @Test
-    public void whenDistanceIsLessThan1500m_thenWalkTimeIsIndicated() throws Exception {
-        StoreListHolder holder = storeListAdapter.onCreateViewHolder(new LinearLayout(RuntimeEnvironment.application), 0);
-        when(holder.picasso.load(anyString())).thenReturn(mock(RequestCreator.class));
-
-        storeListAdapter.onBindViewHolder(holder,0);
-
-        assertThat(holder.textArrivalTimeStore.getVisibility()).isEqualTo(View.VISIBLE);
-
-        ArrayList<Store> stores = makeMockList();
-        stores.get(0).setDistanceToStore(2000);
-
-        storeListAdapter.updateData(stores);
-        storeListAdapter.onBindViewHolder(holder,0);
-
-        assertThat(holder.textArrivalTimeStore.getVisibility()).isEqualTo(View.GONE);
     }
 
     private ArrayList<Store> makeMockList(){
@@ -121,7 +103,7 @@ public class StoreListAdapterTest {
         store.setPhoneNumber("010-1234-5678");
         store.setGpsCoordinatesLat(37.517646d);
         store.setGpsCoordinatesLong(127.101843d);
-        store.setDistanceToStore(1456);
+        store.setDistanceToStore(2456);
         store.setRecommendCount(0);
         stores.add(store);
 
