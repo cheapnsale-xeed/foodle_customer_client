@@ -120,10 +120,7 @@ public class SignUpActivity extends AppCompatWrapperActivity {
                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         finish();
                     }else if("Y".equals(user.getTacAgree())){
-                        //TODO 이용동의 후 휴대폰인증으로 가야하나 아직 유저스토리가 나오지 않아 메인으로 이동
-                        //startActivity(new Intent(SignUpActivity.this, SMSAuthActivity.class));
-                        //finish();
-                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                        startActivity(new Intent(SignUpActivity.this, SMSAuthActivity.class));
                         finish();
                     }else{
                         startActivity(intent);

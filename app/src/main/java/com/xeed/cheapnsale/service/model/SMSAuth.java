@@ -15,6 +15,9 @@ public class SMSAuth implements Serializable {
     @SerializedName("PHONE_NUMBER")
     private String PHONE_NUMBER;
 
+    @SerializedName("USER_ID")
+    private String USER_ID;
+
     public String getAUTH_ID() {
         return AUTH_ID;
     }
@@ -38,4 +41,13 @@ public class SMSAuth implements Serializable {
     public void setPHONE_NUMBER(String PHONE_NUMBER) {
         this.PHONE_NUMBER = PHONE_NUMBER;
     }
+
+    public String getUSER_ID() {
+        return USER_ID;
+    }
+
+    public void setUSER_ID(String USER_ID) {
+        this.USER_ID = USER_ID;
+    }
+
 }

@@ -5,6 +5,8 @@ import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.user.IdentityManager;
+import com.xeed.cheapnsale.user.IdentityProvider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
 
@@ -44,6 +48,21 @@ public class TermsConditionsActivityTest {
         termsConditionsActivity.findViewById(R.id.image_back_button_terms).performClick();
 
         Intent expectedIntent = new Intent(termsConditionsActivity, SignUpActivity.class);
+        Intent actualIntent = shadowOf(termsConditionsActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
+    }
+
+    @Test
+    public void whenClickSignUpButton_thenSMSActivityIsStart() throws Exception {
+        IdentityManager mockIdentityManager = mock(IdentityManager.class);
+        when(termsConditionsActivity.awsMobileClient.getIdentityManager()).thenReturn(mockIdentityManager);
+        when(mockIdentityManager.getCurrentIdentityProvider()).thenReturn(mock(IdentityProvider.class));
+
+        termsConditionsActivity.findViewById(R.id.checkbox_all_agreement_terms).performClick();
+        termsConditionsActivity.findViewById(R.id.text_sign_up_with_account).performClick();
+
+        Intent expectedIntent = new Intent(termsConditionsActivity, SMSAuthActivity.class);
         Intent actualIntent = shadowOf(termsConditionsActivity).getNextStartedActivity();
 
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();

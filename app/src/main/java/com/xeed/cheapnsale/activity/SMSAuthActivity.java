@@ -26,6 +26,8 @@ import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.SMSAuth;
+import com.xeed.cheapnsale.user.AWSMobileClient;
+import com.xeed.cheapnsale.user.IdentityProvider;
 
 import javax.inject.Inject;
 
@@ -41,6 +43,9 @@ public class SMSAuthActivity extends AppCompatActivity {
 
     @Inject
     public CheapnsaleService cheapnsaleService;
+
+    @Inject
+    public AWSMobileClient awsMobileClient;
 
     @BindView(R.id.button_sms_send_smsauth)
     public Button buttonSmsSendSmsauth;
@@ -65,6 +70,7 @@ public class SMSAuthActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private SMSAuth smsAuth;
     private String authResult;
+    private IdentityProvider identityProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +97,8 @@ public class SMSAuthActivity extends AppCompatActivity {
 
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(smsReceiver, intentFilter);
+
+        identityProvider = awsMobileClient.getIdentityManager().getCurrentIdentityProvider();
     }
 
     @Override
@@ -103,6 +111,12 @@ public class SMSAuthActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(SMSAuthActivity.this, SignUpActivity.class));
+        super.onBackPressed();
     }
 
     @Override
@@ -138,6 +152,7 @@ public class SMSAuthActivity extends AppCompatActivity {
 
                 smsAuth.setAUTH_ID(authId);
                 smsAuth.setPHONE_NUMBER(phoneNumber);
+                smsAuth.setUSER_ID(identityProvider.getUserId());
 
                 buttonSmsSendSmsauth.setEnabled(false);
                 editAuthNumberSmsauth.setEnabled(true);

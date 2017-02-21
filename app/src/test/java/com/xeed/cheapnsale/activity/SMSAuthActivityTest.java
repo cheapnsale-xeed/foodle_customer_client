@@ -39,10 +39,13 @@ public class SMSAuthActivityTest {
     }
 
     @Test
-    public void whenClickBackArrowButton_thenFinishActivity() throws Exception {
+    public void whenClickBackArrowButton_thenSignUpActivityIsStart() throws Exception {
         smsAuthActivity.onOptionsItemSelected(new RoboMenuItem(android.R.id.home));
-        assertThat(smsAuthActivity.isFinishing()).isTrue();
 
+        Intent expectedIntent = new Intent(smsAuthActivity, SignUpActivity.class);
+        Intent actualIntent = shadowOf(smsAuthActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
     @Test

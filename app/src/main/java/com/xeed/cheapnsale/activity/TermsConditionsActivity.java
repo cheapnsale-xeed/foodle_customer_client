@@ -177,8 +177,7 @@ public class TermsConditionsActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                //TODO 휴대폰인증으로 넘어가는 유저스토리가 없어서 메인으로 넘기고 있음. 나중에 휴대폰인증으로 넘어가야함
-                startActivity(new Intent(TermsConditionsActivity.this, MainActivity.class));
+                startActivity(new Intent(TermsConditionsActivity.this, SMSAuthActivity.class));
                 finish();
             }
         }.execute();

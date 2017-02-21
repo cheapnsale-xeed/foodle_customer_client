@@ -152,6 +152,62 @@ public class SignUpActivityTest {
     public void whenClickGoogleSignUpButton_withTACAgreeIsTrue_thenMainActivityIsStart() throws Exception {
         User user = new User();
         user.setTacAgree("Y");
+        user.setPhoneConfirm("N");
+
+        when(signUpActivity.cheapnsaleService.putUserLoginInfo(any(User.class))).thenReturn(user);
+
+        signUpActivity.signUpResultsHandler.onSuccess(new IdentityProvider() {
+            @Override
+            public String getUserId() {
+                return "test@test.com";
+            }
+
+            @Override
+            public String getDisplayName() {
+                return "Google";
+            }
+
+            @Override
+            public String getCognitoLoginKey() {
+                return null;
+            }
+
+            @Override
+            public boolean isUserSignedIn() {
+                return false;
+            }
+
+            @Override
+            public String getToken() {
+                return null;
+            }
+
+            @Override
+            public String refreshToken() {
+                return null;
+            }
+
+            @Override
+            public void signOut() {
+
+            }
+
+            @Override
+            public void reloadUserInfo() {
+
+            }
+        });
+
+        Intent expectedIntent = new Intent(signUpActivity, SMSAuthActivity.class);
+        Intent actualIntent = shadowOf(signUpActivity).getNextStartedActivity();
+
+        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
+    }
+
+    @Test
+    public void whenClickGoogleSignUpButton_withPhoneConfirmIsTrue_thenMainActivityIsStart() throws Exception {
+        User user = new User();
+        user.setTacAgree("Y");
         user.setPhoneConfirm("Y");
 
         when(signUpActivity.cheapnsaleService.putUserLoginInfo(any(User.class))).thenReturn(user);
