@@ -42,5 +42,9 @@ public class StoreListHolder extends RecyclerView.ViewHolder {
 
         ((Application) itemView.getContext().getApplicationContext()).getApplicationComponent().inject(this);
         ButterKnife.bind(this, itemView);
+
+        // 외부 폰트 적용 방법
+        //Typeface face = Typeface.createFromAsset(itemView.getContext().getApplicationContext().getAssets(), "fonts/TmonMonsori.otf.otf");
+        //textNameStore.setTypeface(face);
     }
 }

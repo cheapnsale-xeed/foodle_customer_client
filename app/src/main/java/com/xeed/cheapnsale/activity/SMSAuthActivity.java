@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsMessage;
 import android.text.Editable;
@@ -28,6 +27,7 @@ import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.user.AWSMobileClient;
 import com.xeed.cheapnsale.user.IdentityProvider;
+import com.xeed.cheapnsale.wrapper.AppCompatWrapperActivity;
 
 import javax.inject.Inject;
 
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
 
-public class SMSAuthActivity extends AppCompatActivity {
+public class SMSAuthActivity extends AppCompatWrapperActivity {
 
     private final long COUNTDOWN_START_TIME = 180000;
     private final long COUNTDOWN_INTERVAL = 450;
@@ -66,7 +66,6 @@ public class SMSAuthActivity extends AppCompatActivity {
     public CountdownView textRemainTimeSmsauth;
 
     public String authId;
-    private String smsMessage;
     private Toolbar toolbar;
     private SMSAuth smsAuth;
     private String authResult;
@@ -123,6 +122,7 @@ public class SMSAuthActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(smsReceiver);
+        progressDialogDismiss();
     }
 
     @OnClick(R.id.button_sms_send_smsauth)
@@ -136,8 +136,8 @@ public class SMSAuthActivity extends AppCompatActivity {
 
             @Override
             protected void onPreExecute() {
-                super.onPreExecute();
                 buttonSmsSendSmsauth.setText(R.string.txt_sms_resend);
+                buttonSmsSendSmsauth.setEnabled(false);
             }
 
             @Override
@@ -148,13 +148,10 @@ public class SMSAuthActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-
                 smsAuth.setAUTH_ID(authId);
                 smsAuth.setPHONE_NUMBER(phoneNumber);
                 smsAuth.setUSER_ID(identityProvider.getUserId());
 
-                buttonSmsSendSmsauth.setEnabled(false);
                 editAuthNumberSmsauth.setEnabled(true);
                 textRemainTimeSmsauth.start(COUNTDOWN_START_TIME);
                 layoutRemainTimeSmsauth.setVisibility(View.VISIBLE);
@@ -166,6 +163,8 @@ public class SMSAuthActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_auth_send_smsauth)
     public void onClickAuthSendButton(View view) {
+
+        showProgressDialog();
 
         if (!buttonAuthSendSmsauth.isEnabled()) return;
 
@@ -183,6 +182,8 @@ public class SMSAuthActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
 
+                progressDialogDismiss();
+
                 if ("ALLOW".equals(authResult)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SMSAuthActivity.this);
                     builder.setMessage(R.string.word_auth_confirm);
@@ -192,6 +193,7 @@ public class SMSAuthActivity extends AppCompatActivity {
                             dialog.dismiss();
                             Intent intent = new Intent(SMSAuthActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     });
 
@@ -200,6 +202,8 @@ public class SMSAuthActivity extends AppCompatActivity {
                         @Override
                         public void onCancel(DialogInterface dialog) {
                             dialog.dismiss();
+                            Intent intent = new Intent(SMSAuthActivity.this, MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }
                     });
@@ -271,10 +275,10 @@ public class SMSAuthActivity extends AppCompatActivity {
                         msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                     }
 
-                    smsMessage = msgs[0].getMessageBody().toString();
-                    if (smsMessage != null) {
-                        setAuthEditFill(smsMessage);
+                    if(msgs[0].getMessageBody() != null){
+                        setAuthEditFill(msgs[0].getMessageBody().toString());
                     }
+
                 }
             }
         }

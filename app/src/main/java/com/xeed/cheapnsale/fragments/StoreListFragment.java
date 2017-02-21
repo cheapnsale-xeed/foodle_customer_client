@@ -100,7 +100,8 @@ public class StoreListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Collections.sort(stores, Store.DistanceToStoreAsc);
+                Collections.sort(stores, Store.StoreIdAsc);
+                Collections.sort(stores, Store.RecommendDesc);
                 storeListAdapter.updateData(stores);
             }
         };

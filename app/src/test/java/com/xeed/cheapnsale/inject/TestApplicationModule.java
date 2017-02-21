@@ -7,6 +7,8 @@ import com.squareup.picasso.Transformation;
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.user.AWSMobileClient;
+import com.xeed.cheapnsale.user.IdentityManager;
+import com.xeed.cheapnsale.user.IdentityProvider;
 import com.xeed.cheapnsale.user.signin.SignInManager;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -41,6 +43,16 @@ public class TestApplicationModule extends ApplicationModule{
 
     @Override
     AWSMobileClient providesAWSMobileClient() {
-        return mock(AWSMobileClient.class);
+        AWSMobileClient mockAWSMobileClient = mock(AWSMobileClient.class);
+
+        IdentityManager identityManager = mock(IdentityManager.class);
+        when(mockAWSMobileClient.getIdentityManager()).thenReturn(identityManager);
+
+        IdentityProvider identityProvider = mock(IdentityProvider.class);
+        when(identityManager.getCurrentIdentityProvider()).thenReturn(identityProvider);
+
+        when(identityProvider.getUserId()).thenReturn("testUser");
+
+        return mockAWSMobileClient;
     }
 }

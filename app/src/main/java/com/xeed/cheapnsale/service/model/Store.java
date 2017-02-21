@@ -207,4 +207,28 @@ public class Store implements Serializable {
             return distanceToStore1 - distanceToStore2;
         }
     };
+
+    //Store ID 기준 정렬은 향후 Lambda index로 대체 가능
+    public static Comparator<Store> StoreIdAsc = new Comparator<Store>() {
+
+        public int compare(Store s1, Store s2) {
+
+            String storeId1 = s1.getId();
+            String storeId2 = s2.getId();
+
+	   /*For ascending order*/
+            return storeId1.compareTo(storeId2);
+        }
+    };
+
+    public static Comparator<Store> RecommendDesc = new Comparator<Store>() {
+
+        public int compare(Store s1, Store s2) {
+
+            int recommendStore1 = s1.getRecommendCount();
+            int recommendStore2 = s2.getRecommendCount();
+
+            return recommendStore2 - recommendStore1;
+        }
+    };
 }
