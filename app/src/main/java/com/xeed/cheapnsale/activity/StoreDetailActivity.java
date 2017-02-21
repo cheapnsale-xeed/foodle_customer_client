@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -72,9 +70,6 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
 
     @BindView(R.id.image_top_src_store_detail)
     public ImageView imageTopSrcStoreDetail;
-
-    @BindView(R.id.floating_call_button_store_detail)
-    public FloatingActionButton floatingCallButtonStoreDetail;
 
     @BindView(R.id.text_address_store_detail)
     public TextView textAddressStoreDetail;
@@ -216,18 +211,14 @@ public class StoreDetailActivity extends AppCompatActivity implements TabLayout.
         onBackPressed();
     }
 
-    @OnClick(R.id.floating_call_button_store_detail)
-    public void onClickFloatingCallButton(View view) {
+
+    @OnClick( { R.id.image_call_button_store_detail, R.id.text_call_button_store_detail })
+    public void onClickImageCallButton(View view) {
         CommonUtil.makePhoneCall(StoreDetailActivity.this, store.getPhoneNumber());
     }
 
-    @OnClick(R.id.text_call_button_store_detail)
-    public void onClickToolbarTextCallButton(View view) {
-        CommonUtil.makePhoneCall(StoreDetailActivity.this, store.getPhoneNumber());
-    }
-
-    @OnClick(R.id.text_map_button_store_detail)
-    public void onClickStoreDetailMapButton(View view) {
+    @OnClick( { R.id.image_map_button_store_detail, R.id.text_map_button_store_detail } )
+    public void onClickImageMapButton(View view) {
         Intent nextIntent = new Intent(StoreDetailActivity.this, StoreDetailMapActivity.class);
         nextIntent.putExtra("store", store);
         startActivity(nextIntent);
