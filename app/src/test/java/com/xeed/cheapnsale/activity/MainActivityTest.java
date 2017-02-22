@@ -11,7 +11,6 @@ import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
 import com.xeed.cheapnsale.TestApplication;
-import com.xeed.cheapnsale.service.model.Order;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +21,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-
-import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.robolectric.Shadows.shadowOf;
@@ -38,6 +35,7 @@ public class MainActivityTest {
     private ViewPager mockViewPager;
     private TabLayout tabLayout;
     private Application application;
+    private ImageView menuButton;
 
     @Before
     public void setUp() throws Exception {
@@ -50,9 +48,9 @@ public class MainActivityTest {
         application.setMyLocation(testLocation);
 
         MockitoAnnotations.initMocks(this);
-        mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
 
-        tabLayout = (TabLayout) mainActivity.findViewById(R.id.tab_main);
+        mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
+        menuButton = (ImageView) mainActivity.findViewById(R.id.image_menu_button_main);
     }
 
     @Test
@@ -66,34 +64,21 @@ public class MainActivityTest {
         assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
     }
 
-    private ArrayList<Order> makeMockMyOrder() {
+    @Test
+    public void whenMenuButtonClick_thenShowLeftMenu() throws Exception {
+        assertThat(mainActivity.getSlidingMenu().isMenuShowing()).isEqualTo(false);
+        menuButton.performClick();
+        assertThat(mainActivity.getSlidingMenu().isMenuShowing()).isEqualTo(true);
+    }
 
-        ArrayList<Order> orders = new ArrayList<>();
+    @Test
+    public void whenCloseMenuButtonOnClick_thenLeftMenuClose() throws Exception {
+        menuButton.performClick();
+        assertThat(mainActivity.getSlidingMenu().isMenuShowing()).isEqualTo(true);
 
-        Order order = new Order();
-        order.setEmail("cheapnsale.xeed@gmail.com");
-        order.setStoreId("1");
-        order.setOrderId("1");
-        order.setStoreName("놀부 보쌈");
-        order.setStatus("DONE");
-        order.setOrderAt("2020.01.22_17:19:00");
-        order.setPickupTime("2020.01.22_17:19:00");
-        orders.add(order);
-
-        order = new Order();
-
-        order.setEmail("cheapnsale.xeed@gmail.com");
-        order.setStoreId("2");
-        order.setOrderId("2");
-        order.setStoreName("Subway");
-        order.setStatus("READY");
-        order.setOrderAt("2020.01.30_17:19:00");
-        order.setPickupTime("2020.01.22_17:19:00");
-
-        orders.add(order);
-
-        return orders;
-
+        ImageView closeButton = (ImageView) mainActivity.findViewById(R.id.image_x_button_menu_navi);
+        closeButton.performClick();
+        assertThat(mainActivity.getSlidingMenu().isMenuShowing()).isEqualTo(false);
     }
 
 }
