@@ -77,7 +77,7 @@ public class MainActivity extends SlidingWrapperActivity {
         // configure the SlidingMenu
         SlidingMenu slidingMenu = getSlidingMenu();
         slidingMenu.setMode(SlidingMenu.LEFT);
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         slidingMenu.setShadowWidth(0);
         slidingMenu.setFadeEnabled(false);
         slidingMenu.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
