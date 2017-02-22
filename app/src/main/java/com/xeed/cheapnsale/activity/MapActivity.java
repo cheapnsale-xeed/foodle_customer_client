@@ -1,5 +1,6 @@
 package com.xeed.cheapnsale.activity;
 
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import com.xeed.cheapnsale.service.model.Store;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -68,6 +70,9 @@ public class MapActivity extends NMapActivity {
 
     private NMapPOIdataOverlay poiDataOverlay;
 
+    private Location appMyLocation;
+    private HashMap<String, Double> myLocationMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +80,11 @@ public class MapActivity extends NMapActivity {
 
         ((Application) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
+
+        appMyLocation = ((Application) getApplication()).getMyLocation();
+        myLocationMap = new HashMap<String, Double>();
+        myLocationMap.put("GPS_COORDINATES_LAT", Double.valueOf(appMyLocation.getLatitude()));
+        myLocationMap.put("GPS_COORDINATES_LONG", Double.valueOf(appMyLocation.getLongitude()));
 
         mapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
 
@@ -143,7 +153,7 @@ public class MapActivity extends NMapActivity {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    stores = cheapnsaleService.getStoreList();
+                    stores = cheapnsaleService.getStoreListByLocation(myLocationMap);
                     return null;
                 }
 
