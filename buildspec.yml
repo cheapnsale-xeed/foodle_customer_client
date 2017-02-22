@@ -9,7 +9,7 @@ phases:
       - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - ./gradlew assembleDebug -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx4G" -Dorg.gradle.daemon=false
+      - gradlew assembleDebug -PdisablePreDex -PpreDexEnable=false -Pcom.android.build.threadPoolSize=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xms512m -Xmx4G" -Dorg.gradle.daemon=false
   post_build:
     commands:
       - echo Build completed on `date`
