@@ -11,10 +11,8 @@ import com.xeed.cheapnsale.activity.TermsConditionsActivity;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
-import com.xeed.cheapnsale.fragments.MainFragment;
 import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.fragments.MyOrderFragment;
-import com.xeed.cheapnsale.fragments.StoreListFragment;
 import com.xeed.cheapnsale.holder.CartListHeadHolder;
 import com.xeed.cheapnsale.holder.MapStoreListHolder;
 import com.xeed.cheapnsale.holder.MenuListHeadHolder;
@@ -29,7 +27,6 @@ import dagger.Component;
 @Component(modules={ApplicationModule.class})
 public interface ApplicationComponent {
     void inject(CheapnsaleService cheapnsaleService);
-    void inject(StoreListFragment storeListFragment);
     void inject(StoreListHolder storeListHolder);
     void inject(MyOrderFragment myOrderFragment);
     void inject(MyOrderCurrentAdapter.MyOrderCurrentHolder myOrderCurrentHolder);
@@ -47,6 +44,4 @@ public interface ApplicationComponent {
     void inject(SignUpActivity signUpActivity);
     void inject(SplashActivity splashActivity);
     void inject(TermsConditionsActivity termsConditionsActivity);
-    void inject(MainFragment mainFragment);
-
 }
