@@ -1,6 +1,5 @@
 package com.xeed.cheapnsale.activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -31,6 +30,7 @@ import com.xeed.cheapnsale.wrapper.SlidingWrapperActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -50,6 +50,8 @@ public class MainActivity extends SlidingWrapperActivity {
     private RecyclerView recyclerView;
 
     public LocationManager mLocationManager;
+    private Location myLocation;
+    private HashMap<String, Double> myLocationMap;
 
     ArrayList<Store> stores;
 
@@ -58,9 +60,10 @@ public class MainActivity extends SlidingWrapperActivity {
         super.onCreate(savedInstanceState);
         ((Application) getApplication()).getApplicationComponent().inject(this);
 
-        mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
+        myLocation = ((Application) getApplication()).getMyLocation();
+        myLocationMap = new HashMap<String, Double>();
+        myLocationMap.put("GPS_COORDINATES_LAT", Double.valueOf(myLocation.getLatitude()));
+        myLocationMap.put("GPS_COORDINATES_LONG", Double.valueOf(myLocation.getLongitude()));
 
         setContentView(R.layout.activity_main);
         setBehindContentView(R.layout.sliding_menu);
@@ -114,7 +117,7 @@ public class MainActivity extends SlidingWrapperActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                stores = cheapnsaleService.getStoreList();
+                stores = cheapnsaleService.getStoreListByLocation(myLocationMap);
                 return null;
             }
 
@@ -192,8 +195,7 @@ public class MainActivity extends SlidingWrapperActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Collections.sort(stores, Store.StoreIdAsc);
-                Collections.sort(stores, Store.RecommendDesc);
+                Collections.sort(stores, Store.DistanceToStoreAsc);
                 storeListAdapter.updateData(stores);
             }
         };
