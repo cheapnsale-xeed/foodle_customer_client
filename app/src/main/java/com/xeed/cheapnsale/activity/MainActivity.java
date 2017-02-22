@@ -2,19 +2,25 @@ package com.xeed.cheapnsale.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.adapter.MainPagerAdapter;
 import com.xeed.cheapnsale.adapter.MainTabPagerAdapter;
 import com.xeed.cheapnsale.backgroundservice.PushFirebaseInstanceIdService;
+import com.xeed.cheapnsale.fragments.MainFragment;
 import com.xeed.cheapnsale.service.CheapnsaleService;
 import com.xeed.cheapnsale.service.model.Order;
 import com.xeed.cheapnsale.user.AWSMobileClient;
@@ -33,20 +39,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Inject
-    public CheapnsaleService cheapnsaleService;
-
-    @Inject
-    public AWSMobileClient awsMobileClient;
-
-    @BindView(R.id.image_map_button_map)
-    public ImageView imageMapButtonMap;
-
-    @BindView(R.id.image_search_button_main)
-    public ImageView imageSearchButtonMain;
-
-    private IdentityManager identityManager;
-
+    private MainPagerAdapter mainPagerAdapter;
+    public ViewPager mainViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,21 +50,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        identityManager = awsMobileClient.getIdentityManager();
-
         Intent intent = new Intent(this, PushFirebaseInstanceIdService.class);
         startService(intent);
 
-    }
+        mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        mainViewPager = (ViewPager) findViewById(R.id.pager_main);
+        mainViewPager.setAdapter(mainPagerAdapter);
 
-    @OnClick(R.id.image_search_button_main)
-    public void onClickImageSearchButton(View view) {
-//        Intent intent = new Intent(MainActivity.this, SMSAuthActivity.class);
-//        startActivity(intent);
-        identityManager.signOut();
+        mainViewPager.setCurrentItem(1);
 
-        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -79,10 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.image_map_button_map)
-    public void onClickMapLinkButton(View view) {
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
-        startActivity(intent);
+    public void selectCurrentFragment(int index) {
+        mainViewPager.setCurrentItem(index);
     }
 
     @Override
@@ -108,5 +94,4 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }

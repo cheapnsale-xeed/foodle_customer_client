@@ -11,6 +11,7 @@ import com.xeed.cheapnsale.activity.TermsConditionsActivity;
 import com.xeed.cheapnsale.adapter.CartListAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderCurrentAdapter;
 import com.xeed.cheapnsale.adapter.MyOrderPastAdapter;
+import com.xeed.cheapnsale.fragments.MainFragment;
 import com.xeed.cheapnsale.fragments.MenuListFragment;
 import com.xeed.cheapnsale.fragments.MyOrderFragment;
 import com.xeed.cheapnsale.fragments.StoreListFragment;
@@ -46,5 +47,6 @@ public interface ApplicationComponent {
     void inject(SignUpActivity signUpActivity);
     void inject(SplashActivity splashActivity);
     void inject(TermsConditionsActivity termsConditionsActivity);
+    void inject(MainFragment mainFragment);
 
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_menu_navi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:paddingBottom="4dp"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp">
+
+        <ImageButton
+            android:id="@+id/image_x_button_menu_navi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorWhite"
+            android:src="@drawable/ico_x" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="2.5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.2"
+                android:text="프로푸들러"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_nick_menu_navi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="짜장면시키신분"
+                android:textColor="@color/colorBlack"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주문내역"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이벤트/공지사항"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나의정보"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설정"
+                android:layout_marginBottom="40dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="고객센터"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:textSize="18dp"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

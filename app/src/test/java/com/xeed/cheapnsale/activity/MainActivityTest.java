@@ -3,11 +3,13 @@ package com.xeed.cheapnsale.activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.fragments.MainFragment;
 import com.xeed.cheapnsale.service.model.Order;
 
 import org.junit.Before;
@@ -32,28 +34,17 @@ import static org.robolectric.Shadows.shadowOf;
 public class MainActivityTest {
 
     private MainActivity mainActivity;
-
-    @Mock
-    private ViewPager mockViewPager;
-    private TabLayout tabLayout;
+    private MainFragment mainFragment;
+    private ImageView imageView;
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
         mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
-
-        tabLayout = (TabLayout) mainActivity.findViewById(R.id.tab_main);
     }
 
     @Test
-    public void whenMapButtonTab_thenGoMapActivity() throws Exception {
-        ImageView mapButton = (ImageView) mainActivity.findViewById(R.id.image_map_button_map);
-        mapButton.performClick();
-
-        Intent expectedIntent = new Intent(mainActivity, MapActivity.class);
-        Intent actualIntent = shadowOf(mainActivity).getNextStartedActivity();
-
-        assertThat(actualIntent.filterEquals(expectedIntent)).isTrue();
+    public void whenMainActivityIsCreated_thenShowMainFragment() throws Exception {
+        assertThat(mainActivity.mainViewPager.getCurrentItem()).isEqualTo(1);
     }
 
     private ArrayList<Order> makeMockMyOrder() {
@@ -83,7 +74,5 @@ public class MainActivityTest {
         orders.add(order);
 
         return orders;
-
     }
-
 }
