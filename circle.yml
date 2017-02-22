@@ -4,7 +4,7 @@ machine:
     JAVA_OPTS: "-Xms1G -Xmx4G"
     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx4G -XX:HeapDumpOnOutOfMemoryError"'
   java:
-    version: openjdk8
+     version: 'oraclejdk8'
 
 general:
   artifacts:
