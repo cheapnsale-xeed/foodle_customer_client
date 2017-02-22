@@ -7,13 +7,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'android-apt'
 
-//robolectric bug - Can't load assets after updating to gradle 2.2.0
-android.applicationVariants.all { variant ->
-    def productFlavor = variant.productFlavors[0] != null ? "${variant.productFlavors[0].name.capitalize()}" : ""
-    def buildType = "${variant.buildType.name.capitalize()}"
-    tasks["compile${productFlavor}${buildType}UnitTestSources"].dependsOn(tasks["merge${productFlavor}${buildType}Assets"])
-}
-
 android {
     signingConfigs {
         foodle {
