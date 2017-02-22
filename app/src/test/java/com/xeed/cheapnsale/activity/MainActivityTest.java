@@ -6,6 +6,7 @@ import android.location.LocationManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
@@ -81,4 +82,12 @@ public class MainActivityTest {
         assertThat(mainActivity.getSlidingMenu().isMenuShowing()).isEqualTo(false);
     }
 
+    @Test
+    public void whenMyOrderMenuOnClick_thenMyOrderActivityStart() throws Exception {
+        menuButton.performClick();
+
+        TextView myOrderButton = (TextView) mainActivity.findViewById(R.id.text_my_order);
+        
+
+    }
 }

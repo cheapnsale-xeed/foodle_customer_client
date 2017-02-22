@@ -105,6 +105,14 @@ public class MainActivity extends SlidingWrapperActivity {
                 getSlidingMenu().toggle();
             }
         });
+
+        findViewById(R.id.text_my_order).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent nextIntent = new Intent(MainActivity.this, MyOrderActivity.class);
+                startActivity(nextIntent);
+            }
+        });
     }
 
     @Override

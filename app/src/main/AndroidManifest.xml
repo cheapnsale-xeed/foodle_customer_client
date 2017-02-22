@@ -95,10 +95,12 @@
             android:theme="@style/FoodleNoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.StoreDetailMapActivity"></activity>
+        <activity android:name=".activity.StoreDetailMapActivity" />
+        <activity android:name=".activity.MyOrderActivity"></activity>
     </application>
 
 </manifest>
