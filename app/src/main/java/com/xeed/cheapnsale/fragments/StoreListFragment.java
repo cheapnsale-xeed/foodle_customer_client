@@ -1,6 +1,5 @@
 package com.xeed.cheapnsale.fragments;
 
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,6 +23,7 @@ import com.xeed.cheapnsale.util.CalcDistanceUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -38,16 +38,20 @@ public class StoreListFragment extends Fragment {
 
     public LocationManager mLocationManager;
 
-    ArrayList<Store> stores;
+    public ArrayList<Store> stores;
+    private Location myLocation;
+    private HashMap<String, Double> myLocationMap;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((Application) getActivity().getApplication()).getApplicationComponent().inject(this);
 
-        mLocationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, mLocationListener);
+        myLocation = ((Application) getActivity().getApplication()).getMyLocation();
+
+        myLocationMap = new HashMap<String, Double>();
+        myLocationMap.put("GPS_COORDINATES_LAT", Double.valueOf(myLocation.getLatitude()));
+        myLocationMap.put("GPS_COORDINATES_LONG", Double.valueOf(myLocation.getLongitude()));
 
     }
 
@@ -71,7 +75,8 @@ public class StoreListFragment extends Fragment {
 
             @Override
             protected Void doInBackground(Void... params) {
-                stores = cheapnsaleService.getStoreList();
+
+                stores = cheapnsaleService.getStoreListByLocation(myLocationMap);
                 return null;
             }
 
@@ -100,8 +105,7 @@ public class StoreListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Collections.sort(stores, Store.StoreIdAsc);
-                Collections.sort(stores, Store.RecommendDesc);
+                Collections.sort(stores, Store.DistanceToStoreAsc);
                 storeListAdapter.updateData(stores);
             }
         };

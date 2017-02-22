@@ -28,8 +28,11 @@ import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.service.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
+
+// 각 메소드의 파라미터는 한개만 허용이됨, 왜냐하면 lambda의 handleRequest에서 input이 한개이기 때문임
 
 public class CheapnsaleService {
 
@@ -75,6 +78,11 @@ public class CheapnsaleService {
 
     public User putUserLoginInfo(User user){
         return cheapnsaleApi.putUserLoginInfo(user);
+    }
+
+    public ArrayList<Store> getStoreListByLocation(HashMap<String, Double> myLocation) {
+        JsonElement stores = cheapnsaleApi.getStoresByLocation(myLocation);
+        return gson.fromJson(stores, new TypeToken<ArrayList<Store>>() {}.getType());
     }
 }
 

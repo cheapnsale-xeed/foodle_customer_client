@@ -25,6 +25,8 @@ import com.xeed.cheapnsale.service.model.SMSAuth;
 import com.xeed.cheapnsale.service.model.Store;
 import com.xeed.cheapnsale.service.model.User;
 
+import java.util.HashMap;
+
 
 @Service(endpoint = "https://cv47nyx5yl.execute-api.ap-northeast-1.amazonaws.com/prod")
 public interface CheapnsaleApi {
@@ -52,5 +54,10 @@ public interface CheapnsaleApi {
 
     @Operation(path = "/user/signup", method = "PUT")
     User putUserLoginInfo(User user);
+
+    @Operation(path = "/stores/location", method = "POST")
+    JsonElement getStoresByLocation(HashMap<String, Double> mylocation);
+
+
 }
 

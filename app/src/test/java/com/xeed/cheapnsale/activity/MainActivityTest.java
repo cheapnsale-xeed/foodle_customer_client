@@ -1,13 +1,16 @@
 package com.xeed.cheapnsale.activity;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.xeed.cheapnsale.Application;
 import com.xeed.cheapnsale.BuildConfig;
 import com.xeed.cheapnsale.R;
+import com.xeed.cheapnsale.TestApplication;
 import com.xeed.cheapnsale.service.model.Order;
 
 import org.junit.Before;
@@ -23,8 +26,6 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -36,9 +37,18 @@ public class MainActivityTest {
     @Mock
     private ViewPager mockViewPager;
     private TabLayout tabLayout;
+    private Application application;
 
     @Before
     public void setUp() throws Exception {
+        application = (TestApplication) RuntimeEnvironment.application;
+
+        Location testLocation = new Location(LocationManager.GPS_PROVIDER);
+        testLocation.setLatitude(37.517646d);
+        testLocation.setLongitude(127.101843d);
+
+        application.setMyLocation(testLocation);
+
         MockitoAnnotations.initMocks(this);
         mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
 
