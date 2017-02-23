@@ -4,17 +4,12 @@ phases:
   install:
     commands:
       - echo Nothing to do in the install phase...
-      - sudo apt-get -y install wget
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
+      - android update sdk --no-ui --all --filter build-tools-24.0.3,android-24,extra-android-m2repository
   build:
     commands:
-      - wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
-      - tar zxvf android-sdk_r24.4.1-linux.tgz
-      - mkdir -p android-sdk-linux/licenses
-      - cp android-sdk-license ./android-sdk-linux/licenses/
-      - echo sdk.dir=`pwd`/android-sdk-linux > local.properties
       - ./gradlew assemble
   post_build:
     commands:
