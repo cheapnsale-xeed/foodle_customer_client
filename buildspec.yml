@@ -1,18 +1,25 @@
 version: 0.1
-
+ 
 phases:
   install:
     commands:
       - echo Nothing to do in the install phase...
+      - sudo apt-get -y install wget
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
   build:
     commands:
+      - wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+      - tar zxvf android-sdk_r24.4.1-linux.tgz
+      - mkdir -p android-sdk-linux/licenses
+      - cp android-sdk-license ./android-sdk-linux/licenses/
+      - echo sdk.dir=`pwd`/android-sdk-linux > local.properties
       - ./gradlew assemble
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
+  type: zip
   files:
-    - target/messageUtil-1.0.jar
+    - app/build/outputs/apk/app-debug.apk
